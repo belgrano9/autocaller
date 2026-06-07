@@ -3,7 +3,7 @@
   "website": "https://domainedelabeauvoisiere.com",
   "contact_url": "https://domainedelabeauvoisiere.com/nous-contacter/",
   "extracted_email": "info@domainedelabeauvoisiere.com",
-  "extracted_phone": "+33 (0)1 78 83 80 34",
+  "extracted_phone": "01 78 83 80 34",
   "form_details": {
     "action": "https://domainedelabeauvoisiere.com/nous-contacter/",
     "method": "post",

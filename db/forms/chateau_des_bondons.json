@@ -3,7 +3,7 @@
   "website": "https://chateaudesbondons.com",
   "contact_url": "https://www.chateaudesbondons.com/fr/contact.html",
   "extracted_email": "castel@chateaudesbondons.com",
-  "extracted_phone": "+33 1 60 22 00 98",
+  "extracted_phone": "01 60 22 00 98",
   "form_details": {
     "action": "valid_form.php",
     "method": "post",

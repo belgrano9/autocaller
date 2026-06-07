@@ -3,7 +3,7 @@
   "website": "https://aujardindessaules.com",
   "contact_url": "https://www.aujardindessaules.com/contact",
   "extracted_email": "aujardindessaules@gmail.com",
-  "extracted_phone": null,
+  "extracted_phone": "",
   "form_details": {
     "action": null,
     "method": null,

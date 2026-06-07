@@ -89,6 +89,41 @@ def slugify(value: str) -> str:
     return value
 
 
+def format_french_phone(phone: str) -> str:
+    """Standardizes French phone numbers to the local format '0X XX XX XX XX' or returns clean digits/input if not French."""
+    if not phone or phone.strip() in ("", "-", "None"):
+        return ""
+    
+    parts = re.split(r'[/,]', phone)
+    formatted_parts = []
+    
+    for part in parts:
+        part = part.strip()
+        if not part:
+            continue
+            
+        digits = "".join(c for c in part if c.isdigit())
+        
+        if digits.startswith("0033"):
+            digits = "33" + digits[4:]
+            
+        if digits.startswith("33"):
+            if len(digits) > 2 and digits[2] == "0":
+                digits = "33" + digits[3:]
+            digits = "0" + digits[2:]
+            
+        if len(digits) == 9 and not digits.startswith("0"):
+            digits = "0" + digits
+            
+        if len(digits) == 10 and digits.startswith("0"):
+            formatted = f"{digits[0:2]} {digits[2:4]} {digits[4:6]} {digits[6:8]} {digits[8:10]}"
+            formatted_parts.append(formatted)
+        else:
+            formatted_parts.append(part)
+            
+    return " / ".join(formatted_parts)
+
+
 def clean_html(html_content: str) -> str:
     """Removes scripts, styles, heads, and comments to minimize DOM token usage."""
     soup = BeautifulSoup(html_content, "html.parser")
@@ -305,9 +340,6 @@ def main():
             viewport={"width": 1280, "height": 800},
             ignore_https_errors=True
         )
-        page = context.new_page()
-        page.set_default_timeout(25000)
-
         with Progress(
             SpinnerColumn(),
             TextColumn("[progress.description]{task.description}"),
@@ -332,100 +364,107 @@ def main():
                     progress.advance(task)
                     continue
 
-                success = find_contact_page(page, website)
-                if not success:
-                    progress.console.print(f"[red]❌ [{original_idx}] {name:30s} -> Could not load website[/red]")
-                    logger.warning(f"Could not load website: {website}")
-                    processed_results.append((name, None, None, False, "Load Failed"))
-                    progress.advance(task)
-                    continue
-
-                # Capture screenshot with scrolling/lazy-loading triggers
-                screenshot_path = SCREENSHOTS_DIR / f"{slug}.png"
+                page = context.new_page()
+                page.set_default_timeout(25000)
                 try:
-                    logger.debug(f"Scrolling page for {name} to trigger lazy loaded items...")
-                    # Trigger lazy loaded elements by scrolling to bottom and back up
-                    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                    page.wait_for_timeout(1000)
-                    page.evaluate("window.scrollTo(0, 0)")
-                    page.wait_for_timeout(500)
+                    success = find_contact_page(page, website)
+                    if not success:
+                        progress.console.print(f"[red]❌ [{original_idx}] {name:30s} -> Could not load website[/red]")
+                        logger.warning(f"Could not load website: {website}")
+                        processed_results.append((name, None, None, False, "Load Failed"))
+                        progress.advance(task)
+                        continue
 
-                    # Capture the full height of the page
-                    page.screenshot(path=str(screenshot_path), full_page=True)
-                    logger.info(f"Saved full-page screenshot to: {screenshot_path}")
-                except Exception as e:
-                    progress.console.print(f"[red]❌ [{original_idx}] {name:30s} -> Failed to take screenshot ({e})[/red]")
-                    logger.error(f"Failed to take screenshot for {name}: {e}")
-                    processed_results.append((name, None, None, False, "Screenshot Failed"))
+                    # Capture screenshot with scrolling/lazy-loading triggers
+                    screenshot_path = SCREENSHOTS_DIR / f"{slug}.png"
+                    try:
+                        logger.debug(f"Scrolling page for {name} to trigger lazy loaded items...")
+                        # Trigger lazy loaded elements by scrolling to bottom and back up
+                        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                        page.wait_for_timeout(1000)
+                        page.evaluate("window.scrollTo(0, 0)")
+                        page.wait_for_timeout(500)
+
+                        # Capture the full height of the page
+                        page.screenshot(path=str(screenshot_path), full_page=True)
+                        logger.info(f"Saved full-page screenshot to: {screenshot_path}")
+                    except Exception as e:
+                        progress.console.print(f"[red]❌ [{original_idx}] {name:30s} -> Failed to take screenshot ({e})[/red]")
+                        logger.error(f"Failed to take screenshot for {name}: {e}")
+                        processed_results.append((name, None, None, False, "Screenshot Failed"))
+                        progress.advance(task)
+                        continue
+
+                    # Get DOM HTML content
+                    html_content = page.content()
+
+                    # Analyze page with Gemini
+                    analysis = analyze_contact_page(html_content, screenshot_path, client)
+
+                    if analysis:
+                        logger.info(f"Gemini output for {name}: email={analysis.email}, phone={analysis.phone}, form={analysis.has_form}")
+                        
+                        # Update CSV row
+                        if analysis.email:
+                            # If the email is new or changed, set verification status to unchecked
+                            if row.get("email") != analysis.email:
+                                row["email"] = analysis.email
+                                row["email_verified"] = "unchecked"
+                        if analysis.phone:
+                            formatted_phone = format_french_phone(analysis.phone)
+                            row["phone"] = formatted_phone
+                            analysis.phone = formatted_phone  # update back for subsequent writes
+                        row["last_verified"] = datetime.now().isoformat()
+
+                        # Adjust contact_type
+                        if row.get("email") and row.get("phone"):
+                            row["contact_type"] = "email+phone"
+                        elif row.get("email"):
+                            row["contact_type"] = "email"
+                        elif row.get("phone"):
+                            row["contact_type"] = "phone"
+                        elif analysis.has_form:
+                            row["contact_type"] = "form"
+
+                        # If has form, write JSON schema
+                        if analysis.has_form and analysis.form_details:
+                            form_file = FORMS_DIR / f"{slug}.json"
+                            form_data = {
+                                "venue_name": name,
+                                "website": website,
+                                "contact_url": page.url,
+                                "extracted_email": analysis.email,
+                                "extracted_phone": analysis.phone,
+                                "form_details": analysis.form_details.model_dump(),
+                                "last_verified": row["last_verified"]
+                            }
+                            import json
+                            with open(form_file, "w", encoding="utf-8") as jf:
+                                json.dump(form_data, jf, indent=2, ensure_ascii=False)
+                            logger.info(f"Saved form structure to: {form_file}")
+
+                        form_status = "Yes" if analysis.has_form else "No"
+                        progress.console.print(
+                            f"[green]✅ [{original_idx}] {name:30s} -> "
+                            f"Email: {analysis.email or '-':24s} | "
+                            f"Phone: {analysis.phone or '-':14s} | "
+                            f"Form: {form_status}[/green]"
+                        )
+                        processed_results.append((name, analysis.email, analysis.phone, analysis.has_form, "Scraped"))
+                    else:
+                        progress.console.print(f"[yellow]⚠️  [{original_idx}] {name:30s} -> Gemini analysis failed[/yellow]")
+                        logger.warning(f"Gemini analysis failed for {name}")
+                        processed_results.append((name, None, None, False, "AI Failed"))
+
+                    # Save CSV progressively after each success/attempt to preserve progress
+                    with open(CSV_PATH, "w", newline="", encoding="utf-8") as f:
+                        writer = csv.DictWriter(f, fieldnames=fieldnames)
+                        writer.writeheader()
+                        writer.writerows(rows)
+                    logger.debug("Progressively updated CSV.")
                     progress.advance(task)
-                    continue
-
-                # Get DOM HTML content
-                html_content = page.content()
-
-                # Analyze page with Gemini
-                analysis = analyze_contact_page(html_content, screenshot_path, client)
-
-                if analysis:
-                    logger.info(f"Gemini output for {name}: email={analysis.email}, phone={analysis.phone}, form={analysis.has_form}")
-                    
-                    # Update CSV row
-                    if analysis.email:
-                        # If the email is new or changed, set verification status to unchecked
-                        if row.get("email") != analysis.email:
-                            row["email"] = analysis.email
-                            row["email_verified"] = "unchecked"
-                    if analysis.phone:
-                        row["phone"] = analysis.phone
-                    row["last_verified"] = datetime.now().isoformat()
-
-                    # Adjust contact_type
-                    if row.get("email") and row.get("phone"):
-                        row["contact_type"] = "email+phone"
-                    elif row.get("email"):
-                        row["contact_type"] = "email"
-                    elif row.get("phone"):
-                        row["contact_type"] = "phone"
-                    elif analysis.has_form:
-                        row["contact_type"] = "form"
-
-                    # If has form, write JSON schema
-                    if analysis.has_form and analysis.form_details:
-                        form_file = FORMS_DIR / f"{slug}.json"
-                        form_data = {
-                            "venue_name": name,
-                            "website": website,
-                            "contact_url": page.url,
-                            "extracted_email": analysis.email,
-                            "extracted_phone": analysis.phone,
-                            "form_details": analysis.form_details.model_dump(),
-                            "last_verified": row["last_verified"]
-                        }
-                        import json
-                        with open(form_file, "w", encoding="utf-8") as jf:
-                            json.dump(form_data, jf, indent=2, ensure_ascii=False)
-                        logger.info(f"Saved form structure to: {form_file}")
-
-                    form_status = "Yes" if analysis.has_form else "No"
-                    progress.console.print(
-                        f"[green]✅ [{original_idx}] {name:30s} -> "
-                        f"Email: {analysis.email or '-':24s} | "
-                        f"Phone: {analysis.phone or '-':14s} | "
-                        f"Form: {form_status}[/green]"
-                    )
-                    processed_results.append((name, analysis.email, analysis.phone, analysis.has_form, "Scraped"))
-                else:
-                    progress.console.print(f"[yellow]⚠️  [{original_idx}] {name:30s} -> Gemini analysis failed[/yellow]")
-                    logger.warning(f"Gemini analysis failed for {name}")
-                    processed_results.append((name, None, None, False, "AI Failed"))
-
-                # Save CSV progressively after each success/attempt to preserve progress
-                with open(CSV_PATH, "w", newline="", encoding="utf-8") as f:
-                    writer = csv.DictWriter(f, fieldnames=fieldnames)
-                    writer.writeheader()
-                    writer.writerows(rows)
-                logger.debug("Progressively updated CSV.")
-                progress.advance(task)
+                finally:
+                    page.close()
 
         browser.close()
 

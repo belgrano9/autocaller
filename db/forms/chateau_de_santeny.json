@@ -3,7 +3,7 @@
   "website": "https://chateaudesanteny.fr",
   "contact_url": "https://www.chateaudesanteny.fr/contact",
   "extracted_email": "contact@chateaudesanteny.fr",
-  "extracted_phone": "+33 (0)1 43 86 60 56",
+  "extracted_phone": "01 43 86 60 56",
   "form_details": {
     "action": null,
     "method": null,

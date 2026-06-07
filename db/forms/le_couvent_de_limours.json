@@ -3,7 +3,7 @@
   "website": "https://domaineducouvent.fr",
   "contact_url": "https://domaineducouvent.fr/",
   "extracted_email": "barrobar@free.fr",
-  "extracted_phone": "06.11.01.80.96",
+  "extracted_phone": "06 11 01 80 96",
   "form_details": {
     "action": "email.php",
     "method": "post",

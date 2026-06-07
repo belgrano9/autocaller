@@ -3,7 +3,7 @@
   "website": "https://lemoulindesnoues.com",
   "contact_url": "https://lemoulindesnoues.com/contact/",
   "extracted_email": "contact@lmdn.fr",
-  "extracted_phone": "+33 (0)6 64 90 64 24",
+  "extracted_phone": "06 64 90 64 24",
   "form_details": {
     "action": "/contact/#wpcf7-f11596-p11545-o1",
     "method": "post",
