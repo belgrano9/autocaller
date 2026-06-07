@@ -21,6 +21,7 @@ import sys
 import json
 import argparse
 import unicodedata
+import phonenumbers
 import time
 from datetime import datetime
 from pathlib import Path
@@ -88,8 +89,12 @@ def slugify(value: str) -> str:
     return value
 
 
-def format_french_phone(phone: str) -> str:
-    """Standardizes French phone numbers to the local format '0X XX XX XX XX' or returns clean digits/input if not French."""
+def format_phone(phone: str, default_country: str = "FR") -> str:
+    """
+    General phone formatter for any country using Google's libphonenumber.
+    If the number belongs to the default country, formats as NATIONAL.
+    Otherwise formats as INTERNATIONAL.
+    """
     if not phone or phone.strip() in ("", "-", "None"):
         return ""
     
@@ -100,24 +105,20 @@ def format_french_phone(phone: str) -> str:
         part = part.strip()
         if not part:
             continue
-            
-        digits = "".join(c for c in part if c.isdigit())
-        
-        if digits.startswith("0033"):
-            digits = "33" + digits[4:]
-            
-        if digits.startswith("33"):
-            if len(digits) > 2 and digits[2] == "0":
-                digits = "33" + digits[3:]
-            digits = "0" + digits[2:]
-            
-        if len(digits) == 9 and not digits.startswith("0"):
-            digits = "0" + digits
-            
-        if len(digits) == 10 and digits.startswith("0"):
-            formatted = f"{digits[0:2]} {digits[2:4]} {digits[4:6]} {digits[6:8]} {digits[8:10]}"
-            formatted_parts.append(formatted)
-        else:
+        try:
+            # Parse using the default country code
+            parsed = phonenumbers.parse(part, default_country.upper())
+            if phonenumbers.is_valid_number(parsed):
+                region = phonenumbers.region_code_for_number(parsed)
+                # If matches default country, use national spacing. Otherwise use international.
+                if region == default_country.upper():
+                    fmt = phonenumbers.PhoneNumberFormat.NATIONAL
+                else:
+                    fmt = phonenumbers.PhoneNumberFormat.INTERNATIONAL
+                formatted_parts.append(phonenumbers.format_number(parsed, fmt))
+            else:
+                formatted_parts.append(part)
+        except Exception:
             formatted_parts.append(part)
             
     return " / ".join(formatted_parts)
@@ -325,7 +326,7 @@ def main():
                 if is_useful and verification.verified_form_details:
                     # Update email and phone in CSV row if Gemini found/corrected them
                     new_email = verification.extracted_email or (draft_schema.get("extracted_email") if draft_schema else None) or row.get("email")
-                    new_phone = format_french_phone(verification.extracted_phone or (draft_schema.get("extracted_phone") if draft_schema else None) or row.get("phone"))
+                    new_phone = format_phone(verification.extracted_phone or (draft_schema.get("extracted_phone") if draft_schema else None) or row.get("phone"))
                     if new_email:
                         row["email"] = new_email
                     if new_phone:
