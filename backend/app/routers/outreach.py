@@ -22,17 +22,19 @@ class OutreachPayload(BaseModel):
     notes: str | None = None
     venue_name: str
     venue_email: str | None = None
+    lang: str = "fr"
 
 
 def render_outreach_html(payload: OutreachPayload) -> str:
     try:
-        template = jinja_env.get_template("outreach.html")
+        template_name = "outreach_en.html" if payload.lang == "en" else "outreach.html"
+        template = jinja_env.get_template(template_name)
         return template.render(
             couple_name=payload.couple_name,
             venue_name=payload.venue_name,
             event_date=payload.event_date,
             guest_count=payload.guest_count,
-            style="",  # Left blank/optional in outreach.html
+            style="",  # Left blank/optional
             budget=payload.budget,
             notes=payload.notes,
         )
@@ -47,11 +49,20 @@ def preview_email(payload: OutreachPayload):
     import app.services.email_provider as provider
     mode = provider.current_mode
 
-    subject = f"Demande de devis mariage — {payload.couple_name}"
+    if payload.lang == "en":
+        subject = f"Wedding quote request — {payload.couple_name}"
+        dev_label = "none" if not payload.venue_email else payload.venue_email
+        dev_prefix = f"[DEV-TEST to: {dev_label}]"
+        none_label = "Manual (No email)"
+    else:
+        subject = f"Demande de devis mariage — {payload.couple_name}"
+        dev_label = "aucun" if not payload.venue_email else payload.venue_email
+        dev_prefix = f"[DEV-TEST pour : {dev_label}]"
+        none_label = "Manuel (Aucun email)"
 
     if mode == "dev":
         recipient = settings.test_email or settings.gmail_user
-        subject_preview = f"[DEV-TEST pour : {payload.venue_email or 'aucun'}] {subject}"
+        subject_preview = f"{dev_prefix} {subject}"
     else:
         recipient = payload.venue_email
         subject_preview = subject
@@ -59,7 +70,7 @@ def preview_email(payload: OutreachPayload):
     return {
         "html": html_content,
         "from": f"{settings.from_name} <{settings.from_email}>",
-        "to": recipient or "Manuel (Aucun email)",
+        "to": recipient or none_label,
         "subject": subject_preview,
         "mode": mode,
     }
@@ -71,10 +82,25 @@ async def send_outreach_email(payload: OutreachPayload):
     mode = provider.current_mode
 
     if not payload.venue_email and mode == "int":
-        raise HTTPException(status_code=400, detail="L'adresse email du lieu est manquante.")
+        err_msg = (
+            "Wedding venue email address is missing."
+            if payload.lang == "en"
+            else "L'adresse email du lieu est manquante."
+        )
+        raise HTTPException(status_code=400, detail=err_msg)
 
     html_content = render_outreach_html(payload)
-    subject = f"Demande de devis mariage — {payload.couple_name}"
+    
+    if payload.lang == "en":
+        subject = f"Wedding quote request — {payload.couple_name}"
+        dev_label = "none" if not payload.venue_email else payload.venue_email
+        dev_prefix = f"[DEV-TEST to: {dev_label}]"
+        dev_err = "TEST_EMAIL not configured in DEV mode."
+    else:
+        subject = f"Demande de devis mariage — {payload.couple_name}"
+        dev_label = "aucun" if not payload.venue_email else payload.venue_email
+        dev_prefix = f"[DEV-TEST pour : {dev_label}]"
+        dev_err = "TEST_EMAIL non configuré en mode DEV."
 
     # Generate a simple reply_to alias based on the couple name
     # e.g., devis+alicebob@domain.com
@@ -84,8 +110,8 @@ async def send_outreach_email(payload: OutreachPayload):
     if mode == "dev":
         recipient = settings.test_email or settings.gmail_user
         if not recipient:
-            raise HTTPException(status_code=400, detail="TEST_EMAIL non configuré en mode DEV.")
-        subject = f"[DEV-TEST pour : {payload.venue_email or 'aucun'}] {subject}"
+            raise HTTPException(status_code=400, detail=dev_err)
+        subject = f"{dev_prefix} {subject}"
     else:
         recipient = payload.venue_email
 

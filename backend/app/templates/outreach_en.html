@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"></head>
+<body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+  <p>Hello,</p>
+
+  <p>
+    I am contacting you on behalf of <strong>{{ couple_name }}</strong>,
+    a couple planning their wedding who would like to receive a quote for your venue,
+    <strong>{{ venue_name }}</strong>.
+  </p>
+
+  <p><strong>Event Details:</strong></p>
+  <ul>
+    <li><strong>Target Date:</strong> {{ event_date }}</li>
+    <li><strong>Number of Guests:</strong> {{ guest_count }} guests</li>
+    <li><strong>Style:</strong> {{ style }}</li>
+    <li><strong>Estimated Budget:</strong> {{ budget }}</li>
+    {% if notes %}<li><strong>Additional Information:</strong> {{ notes }}</li>{% endif %}
+  </ul>
+
+  <p>
+    Could you please send us your detailed pricing brochure and availability for this date?
+    Please feel free to include your packages, services included, and any optional add-ons.
+  </p>
+
+  <p>
+    You can reply directly to this email — your response will be automatically forwarded to the couple.
+  </p>
+
+  <p>Best regards,</p>
+  <p><strong>The Devis Mariages Team</strong><br>
+  <small>This message was sent on behalf of the couple via the Devis Mariages platform.<br>
+  To unsubscribe from future requests: <a href="#">unsubscribe</a>.</small></p>
+</body>
+</html>

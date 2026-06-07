@@ -482,6 +482,12 @@
       color: #155724;
       font-weight: 600;
     }
+    
+    .mode-toggle span.active-lang {
+      background: #fff;
+      color: #2c5e43;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
   </style>
 </head>
 <body>
@@ -491,53 +497,53 @@
     <div class="onboarding-card">
       <!-- Slide 1: Welcome & Profile -->
       <div id="onboarding-slide-1" class="onboarding-slide">
-        <h2>Bienvenue sur Devis Mariages ✨</h2>
-        <p class="onboarding-desc">Créez votre profil pour commencer à planifier et contacter des lieux de réception en quelques clics.</p>
+        <h2 data-i18n="ob_welcome_title">Bienvenue sur Devis Mariages ✨</h2>
+        <p class="onboarding-desc" data-i18n="ob_welcome_desc">Créez votre profil pour commencer à planifier et contacter des lieux de réception en quelques clics.</p>
         <div class="form-group">
-          <label for="ob-user-name">Votre Nom Complet</label>
-          <input type="text" id="ob-user-name" placeholder="ex: Alice Martin" />
+          <label for="ob-user-name" data-i18n="ob_label_fullname">Votre Nom Complet</label>
+          <input type="text" id="ob-user-name" data-i18n-placeholder="ob_placeholder_fullname" placeholder="ex: Alice Martin" />
         </div>
         <div class="form-group">
-          <label for="ob-user-email">Votre Adresse Email</label>
-          <input type="email" id="ob-user-email" placeholder="ex: alice.martin@gmail.com" />
+          <label for="ob-user-email" data-i18n="ob_label_email">Votre Adresse Email</label>
+          <input type="email" id="ob-user-email" data-i18n-placeholder="ob_placeholder_email" placeholder="ex: alice.martin@gmail.com" />
         </div>
         <div class="onboarding-actions">
-          <button class="btn-skip" onclick="skipOnboarding()">Passer l'introduction</button>
-          <button class="btn-primary" onclick="nextOnboardingSlide()">Continuer</button>
+          <button class="btn-skip" onclick="skipOnboarding()" data-i18n="ob_btn_skip">Passer l'introduction</button>
+          <button class="btn-primary" onclick="nextOnboardingSlide()" data-i18n="ob_btn_next">Continuer</button>
         </div>
       </div>
 
       <!-- Slide 2: Wedding Details -->
       <div id="onboarding-slide-2" class="onboarding-slide hidden">
-        <h2>Votre Projet de Mariage 🤵👰</h2>
-        <p class="onboarding-desc">Ces informations seront utilisées pour personnaliser automatiquement vos demandes de devis.</p>
+        <h2 data-i18n="ob_project_title">Votre Projet de Mariage 🤵👰</h2>
+        <p class="onboarding-desc" data-i18n="ob_project_desc">Ces informations seront utilisées pour personnaliser automatiquement vos demandes de devis.</p>
         <div class="form-row">
           <div class="form-group">
-            <label for="ob-partner-name">Prénom du conjoint</label>
-            <input type="text" id="ob-partner-name" placeholder="ex: Bob" />
+            <label for="ob-partner-name" data-i18n="ob_label_partner">Prénom du conjoint</label>
+            <input type="text" id="ob-partner-name" data-i18n-placeholder="ob_placeholder_partner" placeholder="ex: Bob" />
           </div>
           <div class="form-group">
-            <label for="ob-event-date">Date souhaitée</label>
-            <input type="text" id="ob-event-date" placeholder="ex: 15 Septembre 2026" />
+            <label for="ob-event-date" data-i18n="ob_label_date">Date souhaitée</label>
+            <input type="text" id="ob-event-date" data-i18n-placeholder="ob_placeholder_date" placeholder="ex: 15 Septembre 2026" />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="ob-guest-count">Nombre d'invités</label>
-            <input type="number" id="ob-guest-count" placeholder="ex: 120" />
+            <label for="ob-guest-count" data-i18n="ob_label_guests">Nombre d'invités</label>
+            <input type="number" id="ob-guest-count" data-i18n-placeholder="ob_placeholder_guests" placeholder="ex: 120" />
           </div>
           <div class="form-group">
-            <label for="ob-budget">Budget indicatif</label>
-            <input type="text" id="ob-budget" placeholder="ex: 15 000 €" />
+            <label for="ob-budget" data-i18n="ob_label_budget">Budget indicatif</label>
+            <input type="text" id="ob-budget" data-i18n-placeholder="ob_placeholder_budget" placeholder="ex: 15 000 €" />
           </div>
         </div>
         <div class="form-group">
-          <label for="ob-notes">Message personnalisé (optionnel)</label>
-          <textarea id="ob-notes" rows="2" placeholder="Bonjour, nous aimerions obtenir vos tarifs..."></textarea>
+          <label for="ob-notes" data-i18n="ob_label_notes">Message personnalisé (optionnel)</label>
+          <textarea id="ob-notes" rows="2" data-i18n-placeholder="ob_placeholder_notes" placeholder="Bonjour, nous aimerions obtenir vos tarifs..."></textarea>
         </div>
         <div class="onboarding-actions">
-          <button class="btn-back" onclick="prevOnboardingSlide()">Retour</button>
-          <button class="btn-primary" onclick="finishOnboarding()">Terminer</button>
+          <button class="btn-back" onclick="prevOnboardingSlide()" data-i18n="ob_btn_back">Retour</button>
+          <button class="btn-primary" onclick="finishOnboarding()" data-i18n="ob_btn_finish">Terminer</button>
         </div>
       </div>
     </div>
@@ -546,11 +552,15 @@
   <nav>
     <a class="nav-logo" href="/">Devis Mariages</a>
     <div class="nav-links">
-      <a href="#">Nos lieux</a>
-      <a href="#">Comment ça marche</a>
+      <a href="#" data-i18n="nav_venues">Nos lieux</a>
+      <a href="#" data-i18n="nav_how">Comment ça marche</a>
       <div class="mode-toggle">
         <span id="mode-dev" onclick="setMode('dev')">DEV</span>
         <span id="mode-int" onclick="setMode('int')">INT</span>
+      </div>
+      <div class="mode-toggle" style="background: #e9e5e0">
+        <span id="lang-fr" onclick="setLanguage('fr')">FR</span>
+        <span id="lang-en" onclick="setLanguage('en')">EN</span>
       </div>
       <a href="#" class="btn-login" id="user-display" onclick="resetProfile()">Mode Invité</a>
     </div>
@@ -561,10 +571,10 @@
     <div id="project-card" class="project-card hidden">
       <div class="project-header">
         <div>
-          <h3>🤵👰 Mon Projet de Mariage</h3>
+          <h3 data-i18n="project_card_title">Mon Projet de Mariage</h3>
           <p class="project-sub" id="project-summary-text">Aucun projet configuré</p>
         </div>
-        <button class="btn-edit-project" id="btn-toggle-project" onclick="toggleProjectForm()">Modifier le projet</button>
+        <button class="btn-edit-project" id="btn-toggle-project" onclick="toggleProjectForm()" data-i18n="project_card_btn_edit">Modifier le projet</button>
       </div>
       
       <!-- Edit form (collapsible) -->
@@ -572,62 +582,62 @@
         <hr class="project-divider" />
         <div class="form-row">
           <div class="form-group">
-            <label for="form-couple-name">Noms des mariés</label>
+            <label for="form-couple-name" data-i18n="project_label_couple">Noms des mariés</label>
             <input type="text" id="form-couple-name" oninput="saveProjectData()" placeholder="ex: Alice & Bob" />
           </div>
           <div class="form-group">
-            <label for="form-event-date">Date prévue</label>
+            <label for="form-event-date" data-i18n="project_label_date">Date prévue</label>
             <input type="text" id="form-event-date" oninput="saveProjectData()" placeholder="ex: 15 Septembre 2026" />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="form-guest-count">Invités</label>
+            <label for="form-guest-count" data-i18n="project_label_guests">Invités</label>
             <input type="number" id="form-guest-count" oninput="saveProjectData()" placeholder="ex: 120" />
           </div>
           <div class="form-group">
-            <label for="form-budget">Budget</label>
+            <label for="form-budget" data-i18n="project_label_budget">Budget</label>
             <input type="text" id="form-budget" oninput="saveProjectData()" placeholder="ex: 15 000 €" />
           </div>
         </div>
         <div class="form-group">
-          <label for="form-notes">Informations complémentaires</label>
+          <label for="form-notes" data-i18n="project_label_notes">Informations complémentaires</label>
           <textarea id="form-notes" rows="2" oninput="saveProjectData()" placeholder="ex: Hébergement requis pour 20 personnes..."></textarea>
         </div>
         <div class="project-footer">
-          <span class="save-indicator" id="save-status">Sauvegarde auto ✓</span>
-          <button class="btn-reset-profile" onclick="resetProfile()">Réinitialiser le profil</button>
+          <span class="save-indicator" id="save-status" data-i18n="project_footer_save">Sauvegarde auto ✓</span>
+          <button class="btn-reset-profile" onclick="resetProfile()" data-i18n="project_footer_reset">Réinitialiser le profil</button>
         </div>
       </div>
     </div>
 
-    <h1>Lieux disponibles</h1>
-    <p class="sub">Contactez plusieurs lieux en un clic et comparez leurs devis.</p>
+    <h1 data-i18n="main_title">Lieux disponibles</h1>
+    <p class="sub" id="main-desc-paragraph">Contactez plusieurs lieux en un clic et comparez leurs devis.</p>
 
     <div class="filters">
       <div class="filters-group">
-        <span class="filters-label">Type</span>
-        <span class="chip active" data-filter="type" data-value="">Tous</span>
-        <span class="chip" data-filter="type" data-value="château">Château</span>
-        <span class="chip" data-filter="type" data-value="domaine">Domaine</span>
-        <span class="chip" data-filter="type" data-value="salle">Salle</span>
-        <span class="chip" data-filter="type" data-value="ferme">Ferme</span>
-        <span class="chip" data-filter="type" data-value="atypique">Atypique</span>
+        <span class="filters-label" data-i18n="filter_type">Type</span>
+        <span class="chip active" data-filter="type" data-value="" data-i18n="chip_all">Tous</span>
+        <span class="chip" data-filter="type" data-value="château" data-i18n="chip_château">Château</span>
+        <span class="chip" data-filter="type" data-value="domaine" data-i18n="chip_domaine">Domaine</span>
+        <span class="chip" data-filter="type" data-value="salle" data-i18n="chip_salle">Salle</span>
+        <span class="chip" data-filter="type" data-value="ferme" data-i18n="chip_ferme">Ferme</span>
+        <span class="chip" data-filter="type" data-value="atypique" data-i18n="chip_atypique">Atypique</span>
       </div>
       <div class="divider"></div>
       <div class="filters-group">
-        <span class="filters-label">Contact</span>
-        <span class="chip active" data-filter="contact" data-value="">Tous</span>
-        <span class="chip" data-filter="contact" data-value="email">Email ✓</span>
-        <span class="chip" data-filter="contact" data-value="other">Autres</span>
+        <span class="filters-label" data-i18n="filter_contact">Contact</span>
+        <span class="chip active" data-filter="contact" data-value="" data-i18n="chip_all">Tous</span>
+        <span class="chip" data-filter="contact" data-value="email" data-i18n="chip_email_verified">Email ✓</span>
+        <span class="chip" data-filter="contact" data-value="other" data-i18n="chip_other">Autres</span>
       </div>
       <div class="divider"></div>
       <div class="filters-group">
-        <span class="filters-label">Trier</span>
+        <span class="filters-label" data-i18n="filter_sort">Trier</span>
         <select class="sort-select" id="sort">
-          <option value="default">Par défaut</option>
-          <option value="name">Nom A–Z</option>
-          <option value="dept">Département</option>
+          <option value="default" data-i18n="sort_default">Par défaut</option>
+          <option value="name" data-i18n="sort_name">Nom A–Z</option>
+          <option value="dept" data-i18n="sort_dept">Département</option>
         </select>
       </div>
     </div>
@@ -640,20 +650,20 @@
   <div id="preview-modal" class="modal-overlay hidden">
     <div class="modal-card">
       <div class="modal-header">
-        <h3>Aperçu de la demande de devis</h3>
+        <h3 data-i18n="modal_title">Aperçu de la demande de devis</h3>
         <button class="modal-close" onclick="closePreviewModal()">&times;</button>
       </div>
       <div class="email-envelope">
         <div class="envelope-row">
-          <span class="envelope-label">De :</span>
+          <span class="envelope-label" data-i18n="modal_from">De :</span>
           <span class="envelope-val" id="preview-from"></span>
         </div>
         <div class="envelope-row">
-          <span class="envelope-label">À :</span>
+          <span class="envelope-label" data-i18n="modal_to">À :</span>
           <span class="envelope-val" id="preview-to"></span>
         </div>
         <div class="envelope-row">
-          <span class="envelope-label">Sujet :</span>
+          <span class="envelope-label" data-i18n="modal_subject">Sujet :</span>
           <span class="envelope-val" id="preview-subject"></span>
         </div>
       </div>
@@ -661,16 +671,186 @@
         <iframe id="preview-iframe" class="preview-iframe"></iframe>
       </div>
       <div class="modal-warning hidden" id="dev-warning">
-        ⚠️ <strong>Mode DEV actif :</strong> L'email de test sera redirigé vers l'adresse de test et non au lieu réel.
+        ⚠️ <span id="dev-warning-text">Mode DEV actif : L'email de test sera redirigé vers l'adresse de test et non au lieu réel.</span>
       </div>
       <div class="modal-actions">
-        <button class="btn-modal-cancel" onclick="closePreviewModal()">Annuler</button>
-        <button class="btn-modal-send" id="btn-confirm-send" onclick="sendOutreachEmail()">Confirmer l'envoi</button>
+        <button class="btn-modal-cancel" onclick="closePreviewModal()" data-i18n="modal_btn_cancel">Annuler</button>
+        <button class="btn-modal-send" id="btn-confirm-send" onclick="sendOutreachEmail()" data-i18n="modal_btn_confirm">Confirmer l'envoi</button>
       </div>
     </div>
   </div>
 
   <script>
+    // ── Translation Dictionary ───────────────────────────────────────────────
+    const TRANSLATIONS = {
+      fr: {
+        page_title: "Devis Mariages",
+        nav_venues: "Nos lieux",
+        nav_how: "Comment ça marche",
+        nav_guest: "Mode Invité",
+        nav_hello: "Bonjour",
+        ob_welcome_title: "Bienvenue sur Devis Mariages ✨",
+        ob_welcome_desc: "Créez votre profil pour commencer à planifier et contacter des lieux de réception en quelques clics.",
+        ob_label_fullname: "Votre Nom Complet",
+        ob_placeholder_fullname: "ex: Alice Martin",
+        ob_label_email: "Votre Adresse Email",
+        ob_placeholder_email: "ex: alice.martin@gmail.com",
+        ob_btn_skip: "Passer l'introduction",
+        ob_btn_next: "Continuer",
+        ob_project_title: "Votre Projet de Mariage 🤵👰",
+        ob_project_desc: "Ces informations seront utilisées pour personnaliser automatiquement vos demandes de devis.",
+        ob_label_partner: "Prénom du conjoint",
+        ob_placeholder_partner: "ex: Bob",
+        ob_label_date: "Date souhaitée",
+        ob_placeholder_date: "ex: 15 Septembre 2026",
+        ob_label_guests: "Nombre d'invités",
+        ob_placeholder_guests: "ex: 120",
+        ob_label_budget: "Budget indicatif",
+        ob_placeholder_budget: "ex: 15 000 €",
+        ob_label_notes: "Message personnalisé (optionnel)",
+        ob_placeholder_notes: "Bonjour, nous aimerions obtenir vos tarifs...",
+        ob_btn_back: "Retour",
+        ob_btn_finish: "Terminer",
+        project_card_title: "Mon Projet de Mariage",
+        project_card_no_config: "Aucun projet configuré",
+        project_card_btn_edit: "Modifier le projet",
+        project_card_btn_close: "Fermer",
+        project_label_couple: "Noms des mariés",
+        project_label_date: "Date prévue",
+        project_label_guests: "Invités",
+        project_label_budget: "Budget",
+        project_label_notes: "Informations complémentaires",
+        project_footer_save: "Sauvegarde auto ✓",
+        project_footer_reset: "Réinitialiser le profil",
+        main_title: "Lieux disponibles",
+        main_desc: "Contactez plusieurs lieux en un clic et comparez leurs devis.",
+        main_desc_contacted: "Contactez plusieurs lieux en un clic. Vous avez déjà contacté {count} lieu{s} !",
+        filter_type: "Type",
+        filter_contact: "Contact",
+        filter_sort: "Trier",
+        sort_default: "Par défaut",
+        sort_name: "Nom A–Z",
+        sort_dept: "Département",
+        chip_all: "Tous",
+        chip_other: "Autres",
+        chip_email_verified: "Email ✓",
+        chip_château: "Château",
+        chip_domaine: "Domaine",
+        chip_salle: "Salle",
+        chip_ferme: "Ferme",
+        chip_atypique: "Atypique",
+        count_found: "{count} lieu{s} trouvé{s}",
+        venue_website: "Site web ↗",
+        venue_contacted: "Contacté ✓",
+        venue_btn_resend: "Renvoyer",
+        venue_btn_contact: "Contacter",
+        venue_btn_manual: "Manuel",
+        modal_title: "Aperçu de la demande de devis",
+        modal_from: "De :",
+        modal_to: "À :",
+        modal_subject: "Sujet :",
+        modal_warning_dev: "⚠️ Mode DEV actif : L'email de test sera redirigé vers l'adresse de test et non au lieu réel.",
+        modal_btn_cancel: "Annuler",
+        modal_btn_confirm: "Confirmer l'envoi",
+        modal_btn_sending: "Envoi en cours…",
+        alert_ob_missing: "Veuillez saisir votre nom et votre adresse email.",
+        alert_reset_confirm: "Voulez-vous réinitialiser votre profil et vos données de contact ?",
+        alert_preview_err: "Erreur de chargement de l'aperçu",
+        alert_send_err: "Erreur lors de l'envoi de l'email",
+        alert_network_err: "Erreur réseau",
+        contact_labels: {
+          "email": "Email",
+          "email+phone": "Email",
+          "form_only": "Formulaire",
+          "phone_only": "Téléphone",
+          "platform_only": "Plateforme"
+        }
+      },
+      en: {
+        page_title: "Wedding Quotes",
+        nav_venues: "Venues",
+        nav_how: "How it works",
+        nav_guest: "Guest Mode",
+        nav_hello: "Hello",
+        ob_welcome_title: "Welcome to Devis Mariages ✨",
+        ob_welcome_desc: "Create your profile to start planning and contacting wedding venues in just a few clicks.",
+        ob_label_fullname: "Your Full Name",
+        ob_placeholder_fullname: "e.g., Alice Martin",
+        ob_label_email: "Your Email Address",
+        ob_placeholder_email: "e.g., alice.martin@gmail.com",
+        ob_btn_skip: "Skip Introduction",
+        ob_btn_next: "Continue",
+        ob_project_title: "Your Wedding Project 🤵👰",
+        ob_project_desc: "This information will be used to automatically customize your quote requests.",
+        ob_label_partner: "Partner's Name",
+        ob_placeholder_partner: "e.g., Bob",
+        ob_label_date: "Target Date",
+        ob_placeholder_date: "e.g., September 15, 2026",
+        ob_label_guests: "Number of Guests",
+        ob_placeholder_guests: "e.g., 120",
+        ob_label_budget: "Estimated Budget",
+        ob_placeholder_budget: "e.g., 15,000 €",
+        ob_label_notes: "Personalized Message (optional)",
+        ob_placeholder_notes: "Hello, we would like to inquire about your rates...",
+        ob_btn_back: "Back",
+        ob_btn_finish: "Finish",
+        project_card_title: "My Wedding Project",
+        project_card_no_config: "No project configured",
+        project_card_btn_edit: "Edit Project",
+        project_card_btn_close: "Close",
+        project_label_couple: "Couple's Names",
+        project_label_date: "Planned Date",
+        project_label_guests: "Guests",
+        project_label_budget: "Budget",
+        project_label_notes: "Additional Info",
+        project_footer_save: "Auto-saved ✓",
+        project_footer_reset: "Reset Profile",
+        main_title: "Available Venues",
+        main_desc: "Contact multiple venues in one click and compare their quotes.",
+        main_desc_contacted: "Contact multiple venues in one click. You have already contacted {count} venue{s}!",
+        filter_type: "Type",
+        filter_contact: "Contact",
+        filter_sort: "Sort by",
+        sort_default: "Default",
+        sort_name: "Name A–Z",
+        sort_dept: "Department",
+        chip_all: "All",
+        chip_other: "Others",
+        chip_email_verified: "Email ✓",
+        chip_château: "Castle",
+        chip_domaine: "Estate",
+        chip_salle: "Hall",
+        chip_ferme: "Barn",
+        chip_atypique: "Atypical",
+        count_found: "{count} venue{s} found",
+        venue_website: "Website ↗",
+        venue_contacted: "Contacted ✓",
+        venue_btn_resend: "Resend",
+        venue_btn_contact: "Contact",
+        venue_btn_manual: "Manual",
+        modal_title: "Quote Request Preview",
+        modal_from: "From:",
+        modal_to: "To:",
+        modal_subject: "Subject:",
+        modal_warning_dev: "⚠️ DEV Mode Active: The test email will be redirected to your test address, not the actual venue.",
+        modal_btn_cancel: "Cancel",
+        modal_btn_confirm: "Confirm Send",
+        modal_btn_sending: "Sending…",
+        alert_ob_missing: "Please enter your name and email address.",
+        alert_reset_confirm: "Do you want to reset your profile and contact data?",
+        alert_preview_err: "Error loading email preview",
+        alert_send_err: "Error sending email",
+        alert_network_err: "Network error",
+        contact_labels: {
+          "email": "Email",
+          "email+phone": "Email",
+          "form_only": "Form",
+          "phone_only": "Phone",
+          "platform_only": "Platform"
+        }
+      }
+    };
+
     // ── State ─────────────────────────────────────────────────────────────────
     let allVenues = [];
     const activeFilters = { type: "", contact: "" };
@@ -680,20 +860,83 @@
     let weddingProject = null;
     let contactedVenues = {};
     let activeVenue = null;  // Venue currently open in preview modal
+    let currentLang = "fr";
+
+    // ── Translation Engine ───────────────────────────────────────────────────
+    function setLanguage(lang) {
+      if (!TRANSLATIONS[lang]) return;
+      currentLang = lang;
+      
+      // Update toggle UI
+      document.getElementById("lang-fr").className = lang === "fr" ? "active-lang" : "";
+      document.getElementById("lang-en").className = lang === "en" ? "active-lang" : "";
+
+      // Translate text content
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (TRANSLATIONS[lang][key]) {
+          el.textContent = TRANSLATIONS[lang][key];
+        }
+      });
+
+      // Translate inputs placeholder
+      document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+        const key = el.getAttribute("data-i18n-placeholder");
+        if (TRANSLATIONS[lang][key]) {
+          el.placeholder = TRANSLATIONS[lang][key];
+        }
+      });
+
+      // HTML Document configurations
+      document.documentElement.lang = lang;
+      document.title = TRANSLATIONS[lang].page_title;
+
+      // Update URL path dynamically using history.pushState without page reloads
+      const cleanPath = `/${lang}`;
+      if (window.location.pathname !== cleanPath) {
+        window.history.pushState(null, "", cleanPath);
+      }
+
+      // Save user language preference
+      localStorage.setItem("preferred_language", lang);
+
+      // Refresh text variables that display dynamically
+      loadProjectIntoUI();
+      applyFilters();
+    }
+
+    function loadLanguage() {
+      // 1. Check URL path
+      const path = window.location.pathname;
+      if (path === "/en") {
+        currentLang = "en";
+      } else if (path === "/fr") {
+        currentLang = "fr";
+      } else {
+        // 2. Check LocalStorage
+        const savedLang = localStorage.getItem("preferred_language");
+        if (savedLang) {
+          currentLang = savedLang;
+        } else {
+          // 3. Check Browser
+          const browserLang = (navigator.language || "fr").substring(0, 2);
+          currentLang = TRANSLATIONS[browserLang] ? browserLang : "fr";
+        }
+      }
+      setLanguage(currentLang);
+    }
 
     // ── Helpers ───────────────────────────────────────────────────────────────
-    const CONTACT_LABELS = {
-      "email":        "Email",
-      "email+phone":  "Email",
-      "form_only":    "Formulaire",
-      "phone_only":   "Téléphone",
-      "platform_only":"Plateforme",
-    };
-
     function formatPrice(cents, tier) {
       if (cents != null) return { label: `~${Math.round(cents/100).toLocaleString("fr-FR")} €`, unknown: false };
-      if (tier) return { label: { budget:"Économique", mid:"Milieu de gamme", premium:"Premium", luxury:"Luxe" }[tier] ?? tier, unknown: false };
-      return { label: "Prix sur devis", unknown: true };
+      if (tier) {
+        const tiers = {
+          fr: { budget: "Économique", mid: "Milieu de gamme", premium: "Premium", luxury: "Luxe" },
+          en: { budget: "Budget-friendly", mid: "Mid-range", premium: "Premium", luxury: "Luxury" }
+        };
+        return { label: tiers[currentLang][tier] ?? tier, unknown: false };
+      }
+      return { label: currentLang === "fr" ? "Prix sur devis" : "Pricing on request", unknown: true };
     }
 
     // ── Filter + sort ─────────────────────────────────────────────────────────
@@ -715,7 +958,11 @@
       // Update total contacted count in title area if onboarded
       updateContactStats();
 
-      document.getElementById("count").textContent = `${list.length} lieu${list.length !== 1 ? "x" : ""} trouvé${list.length !== 1 ? "s" : ""}`;
+      const totalFoundText = TRANSLATIONS[currentLang].count_found
+        .replace("{count}", list.length)
+        .replace("{s}", list.length !== 1 ? "s" : "");
+        
+      document.getElementById("count").textContent = totalFoundText;
       renderVenues(list);
     }
 
@@ -723,8 +970,12 @@
     function createVenueCard(venue) {
       const { id, name, city, department, contact_method, accepts_email, base_price_cents, price_tier, style_tags, website_url } = venue;
       const { label: priceLabel, unknown } = formatPrice(base_price_cents, price_tier);
-      const contactLabel = CONTACT_LABELS[contact_method] ?? contact_method;
-      const typeLabel    = style_tags?.[0] ?? "";
+      
+      const labelKey = TRANSLATIONS[currentLang].contact_labels[contact_method] ?? contact_method;
+      
+      // Look up styles translated tag (e.g. Castle, Estate)
+      const typeKey = style_tags?.[0] ? `chip_${style_tags[0]}` : "";
+      const typeLabel = TRANSLATIONS[currentLang][typeKey] ?? style_tags?.[0] ?? "";
       
       const isContacted = contactedVenues[id] != null;
 
@@ -732,22 +983,27 @@
       card.className = "venue";
       
       let badgeContactClass = accepts_email ? "badge-contact" : "badge-contact no";
-      let badgeContactText = contactLabel;
+      let badgeContactText = labelKey;
       if (isContacted) {
         badgeContactClass = "badge-contacted";
-        badgeContactText = "Contacté ✓";
+        badgeContactText = TRANSLATIONS[currentLang].venue_contacted;
       }
+
+      const websiteBtnLabel = TRANSLATIONS[currentLang].venue_website;
+      const buttonLabel = isContacted 
+        ? TRANSLATIONS[currentLang].venue_btn_resend 
+        : (accepts_email ? TRANSLATIONS[currentLang].venue_btn_contact : TRANSLATIONS[currentLang].venue_btn_manual);
 
       card.innerHTML = `
         <div class="venue-info">
           <strong title="${name}">${name}</strong>
-          <div class="meta">${city}${department ? ` (${department})` : ""}${website_url ? ` · <a href="${website_url}" target="_blank" rel="noopener noreferrer" class="venue-link">Site web ↗</a>` : ""}</div>
+          <div class="meta">${city}${department ? ` (${department})` : ""}${website_url ? ` · <a href="${website_url}" target="_blank" rel="noopener noreferrer" class="venue-link">${websiteBtnLabel}</a>` : ""}</div>
         </div>
         ${typeLabel ? `<span class="badge badge-type">${typeLabel}</span>` : ""}
         <span class="badge ${badgeContactClass}" id="badge-contact-${id}">${badgeContactText}</span>
         <div class="venue-price ${unknown ? "unknown" : ""}">${priceLabel}</div>
         <button class="contact-btn ${accepts_email ? "" : "disabled-venue"} ${isContacted ? "ok" : ""}" id="btn-${id}" ${accepts_email ? "" : 'disabled title="Contact manuel requis"'}>
-          ${isContacted ? "Renvoyer" : (accepts_email ? "Contacter" : "Manuel")}
+          ${buttonLabel}
         </button>
       `;
       
@@ -761,7 +1017,7 @@
       const list = document.getElementById("venue-list");
       list.innerHTML = "";
       if (!venues.length) {
-        list.innerHTML = '<p class="state-msg">Aucun lieu pour ces filtres.</p>';
+        list.innerHTML = `<p class="state-msg">${currentLang === "fr" ? "Aucun lieu pour ces filtres." : "No venues match these filters."}</p>`;
         return;
       }
       venues.forEach(v => list.appendChild(createVenueCard(v)));
@@ -795,7 +1051,7 @@
       const email = document.getElementById("ob-user-email").value.trim();
       
       if (!name || !email) {
-        alert("Veuillez saisir votre nom et votre adresse email.");
+        alert(TRANSLATIONS[currentLang].alert_ob_missing);
         return;
       }
       
@@ -837,7 +1093,7 @@
     function skipOnboarding() {
       userProfile = null;
       weddingProject = {
-        couple_name: "Couple Invité",
+        couple_name: currentLang === "en" ? "Guest Couple" : "Couple Invité",
         event_date: "Non définie",
         guest_count: "0",
         budget: "Non défini",
@@ -850,7 +1106,7 @@
     }
 
     function resetProfile() {
-      if (confirm("Voulez-vous réinitialiser votre profil et vos données de contact ?")) {
+      if (confirm(TRANSLATIONS[currentLang].alert_reset_confirm)) {
         localStorage.clear();
         window.location.reload();
       }
@@ -858,10 +1114,12 @@
 
     // ── Wedding Project Panel ─────────────────────────────────────────────────
     function loadProjectIntoUI() {
+      const guestText = TRANSLATIONS[currentLang].nav_guest;
+      const helloText = TRANSLATIONS[currentLang].nav_hello;
       if (userProfile) {
-        document.getElementById("user-display").textContent = `Bonjour, ${userProfile.name.split(" ")[0]} ⚙️`;
+        document.getElementById("user-display").textContent = `${helloText}, ${userProfile.name.split(" ")[0]} ⚙️`;
       } else {
-        document.getElementById("user-display").textContent = "Créer un profil 👤";
+        document.getElementById("user-display").textContent = `${guestText} 👤`;
       }
       
       if (weddingProject) {
@@ -879,10 +1137,13 @@
       if (weddingProject) {
         const parts = [];
         if (weddingProject.event_date && weddingProject.event_date !== "Non définie") parts.push(`Date: ${weddingProject.event_date}`);
-        if (weddingProject.guest_count && weddingProject.guest_count !== "0") parts.push(`${weddingProject.guest_count} invités`);
+        if (weddingProject.guest_count && weddingProject.guest_count !== "0") {
+          const guestSuffix = currentLang === "en" ? "guests" : "invités";
+          parts.push(`${weddingProject.guest_count} ${guestSuffix}`);
+        }
         if (weddingProject.budget && weddingProject.budget !== "Non défini") parts.push(`Budget: ${weddingProject.budget}`);
         
-        const summary = parts.length > 0 ? parts.join(" · ") : "Aucun détail de projet défini";
+        const summary = parts.length > 0 ? parts.join(" · ") : (currentLang === "en" ? "No project details set" : "Aucun détail de projet défini");
         document.getElementById("project-summary-text").textContent = `${weddingProject.couple_name} — ${summary}`;
       }
     }
@@ -892,10 +1153,10 @@
       const btn = document.getElementById("btn-toggle-project");
       if (form.classList.contains("hidden")) {
         form.classList.remove("hidden");
-        btn.textContent = "Fermer";
+        btn.textContent = TRANSLATIONS[currentLang].project_card_btn_close;
       } else {
         form.classList.add("hidden");
-        btn.textContent = "Modifier le projet";
+        btn.textContent = TRANSLATIONS[currentLang].project_card_btn_edit;
       }
     }
 
@@ -907,8 +1168,12 @@
       const budget = document.getElementById("form-budget").value.trim();
       const notes = document.getElementById("form-notes").value.trim();
       
+      const defaultName = userProfile 
+        ? userProfile.name.split(" ")[0] 
+        : (currentLang === "en" ? "Guest Couple" : "Couple Invité");
+        
       weddingProject = {
-        couple_name: couple || (userProfile ? userProfile.name.split(" ")[0] : "Couple Invité"),
+        couple_name: couple || defaultName,
         event_date: date || "Non définie",
         guest_count: guests || "0",
         budget: budget || "Non défini",
@@ -931,12 +1196,16 @@
     function updateContactStats() {
       const contactedKeys = Object.keys(contactedVenues);
       const totalContacted = contactedKeys.length;
+      
+      const descEl = document.getElementById("main-desc-paragraph");
+      
       if (totalContacted > 0) {
-        document.querySelector("p.sub").textContent = 
-          `Contactez plusieurs lieux en un clic. Vous avez déjà contacté ${totalContacted} lieu${totalContacted !== 1 ? 's' : ''} !`;
+        const text = TRANSLATIONS[currentLang].main_desc_contacted
+          .replace("{count}", totalContacted)
+          .replace("{s}", totalContacted !== 1 ? "s" : "");
+        descEl.textContent = text;
       } else {
-        document.querySelector("p.sub").textContent = 
-          "Contactez plusieurs lieux en un clic et comparez leurs devis.";
+        descEl.textContent = TRANSLATIONS[currentLang].main_desc;
       }
     }
 
@@ -947,7 +1216,7 @@
       const originalText = btn.textContent;
       
       btn.disabled = true;
-      btn.textContent = "Chargement…";
+      btn.textContent = currentLang === "en" ? "Loading…" : "Chargement…";
       
       const payload = {
         couple_name: weddingProject ? weddingProject.couple_name : "Couple Invité",
@@ -956,7 +1225,8 @@
         budget: weddingProject ? weddingProject.budget : "Non défini",
         notes: weddingProject ? weddingProject.notes : "",
         venue_name: venue.name,
-        venue_email: venue.email
+        venue_email: venue.email,
+        lang: currentLang
       };
 
       try {
@@ -971,10 +1241,10 @@
           openPreviewModal(data.from, data.to, data.subject, data.html, data.mode);
         } else {
           const err = await res.json().catch(() => ({}));
-          alert("Erreur de chargement de l'aperçu: " + (err.detail ?? "Inconnue"));
+          alert(TRANSLATIONS[currentLang].alert_preview_err + ": " + (err.detail ?? "Inconnue"));
         }
       } catch (err) {
-        alert("Erreur réseau lors du chargement de l'aperçu.");
+        alert(TRANSLATIONS[currentLang].alert_network_err);
       } finally {
         btn.disabled = false;
         btn.textContent = originalText;
@@ -990,7 +1260,9 @@
       iframe.srcdoc = html;
       
       const warning = document.getElementById("dev-warning");
+      const warningText = document.getElementById("dev-warning-text");
       if (mode === "dev") {
+        warningText.textContent = TRANSLATIONS[currentLang].modal_warning_dev;
         warning.classList.remove("hidden");
       } else {
         warning.classList.add("hidden");
@@ -998,7 +1270,7 @@
       
       const sendBtn = document.getElementById("btn-confirm-send");
       sendBtn.disabled = false;
-      sendBtn.textContent = "Confirmer l'envoi";
+      sendBtn.textContent = TRANSLATIONS[currentLang].modal_btn_confirm;
       
       document.getElementById("preview-modal").classList.remove("hidden");
     }
@@ -1013,7 +1285,7 @@
       
       const sendBtn = document.getElementById("btn-confirm-send");
       sendBtn.disabled = true;
-      sendBtn.textContent = "Envoi en cours…";
+      sendBtn.textContent = TRANSLATIONS[currentLang].modal_btn_sending;
       
       const payload = {
         couple_name: weddingProject ? weddingProject.couple_name : "Couple Invité",
@@ -1022,7 +1294,8 @@
         budget: weddingProject ? weddingProject.budget : "Non défini",
         notes: weddingProject ? weddingProject.notes : "",
         venue_name: activeVenue.name,
-        venue_email: activeVenue.email
+        venue_email: activeVenue.email,
+        lang: currentLang
       };
 
       try {
@@ -1040,28 +1313,28 @@
           // Update card button & badge directly
           const btn = document.getElementById(`btn-${activeVenue.id}`);
           if (btn) {
-            btn.textContent = "Renvoyer";
+            btn.textContent = TRANSLATIONS[currentLang].venue_btn_resend;
             btn.classList.add("ok");
           }
           
           const badge = document.getElementById(`badge-contact-${activeVenue.id}`);
           if (badge) {
             badge.className = "badge badge-contacted";
-            badge.textContent = "Contacté ✓";
+            badge.textContent = TRANSLATIONS[currentLang].venue_contacted;
           }
           
           closePreviewModal();
           updateContactStats();
         } else {
           const err = await res.json().catch(() => ({}));
-          alert("Erreur lors de l'envoi de l'email : " + (err.detail ?? "Inconnue"));
+          alert(TRANSLATIONS[currentLang].alert_send_err + " : " + (err.detail ?? "Inconnue"));
           sendBtn.disabled = false;
-          sendBtn.textContent = "Confirmer l'envoi";
+          sendBtn.textContent = TRANSLATIONS[currentLang].modal_btn_confirm;
         }
       } catch (err) {
-        alert("Erreur réseau lors de l'envoi de l'email.");
+        alert(TRANSLATIONS[currentLang].alert_network_err);
         sendBtn.disabled = false;
-        sendBtn.textContent = "Confirmer l'envoi";
+        sendBtn.textContent = TRANSLATIONS[currentLang].modal_btn_confirm;
       }
     }
 
@@ -1099,6 +1372,9 @@
     async function init() {
       document.getElementById("venue-list").innerHTML = '<p class="state-msg">Chargement…</p>';
       
+      // Initialize translation engine (URL / LS check)
+      loadLanguage();
+
       // Perform client side onboarding verification
       checkOnboarding();
 
