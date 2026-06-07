@@ -23,16 +23,30 @@ from datetime import datetime
 from pathlib import Path
 from urllib.parse import urljoin
 
+# Reconfigure stdout/stderr to UTF-8 to prevent encoding crashes on Windows console
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+except Exception:
+    pass
+
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
+from loguru import logger
 from PIL import Image
 from playwright.sync_api import sync_playwright
+from rich.console import Console
+from rich.panel import Panel
+from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
+from rich.table import Table
 
-# Load environment variables
-load_dotenv()
-load_dotenv(dotenv_path="backend/.env")
+console = Console()
+
+# Configure loguru: Log only to file, disable stdout output
+logger.remove()
+logger.add("logs/scraper.log", rotation="10 MB", level="DEBUG", encoding="utf-8")
 
 # Paths adjusted to look at the parent directory (root of the workspace)
 CSV_PATH = Path(__file__).parent.parent / "venues.csv"
@@ -98,7 +112,7 @@ def find_contact_page(page, website_url: str):
     if not url.startswith(("http://", "https://")):
         url = "https://" + url
 
-    print(f"  Navigating to homepage: {url}")
+    logger.debug(f"Navigating to homepage: {url}")
     try:
         page.goto(url, wait_until="domcontentloaded", timeout=25000)
         page.wait_for_timeout(2000)
@@ -107,14 +121,14 @@ def find_contact_page(page, website_url: str):
         if url.startswith("https://"):
             try:
                 url_http = url.replace("https://", "http://")
-                print(f"  Https failed ({e}). Retrying with http: {url_http}")
+                logger.debug(f"Https failed ({e}). Retrying with http: {url_http}")
                 page.goto(url_http, wait_until="domcontentloaded", timeout=25000)
                 page.wait_for_timeout(2000)
             except Exception as e2:
-                print(f"  Failed to load site {url}: {e2}")
+                logger.warning(f"Failed to load site {url}: {e2}")
                 return False
         else:
-            print(f"  Failed to load site {url}: {e}")
+            logger.warning(f"Failed to load site {url}: {e}")
             return False
 
     # Look for contact links
@@ -146,11 +160,11 @@ def find_contact_page(page, website_url: str):
         try:
             href = found_link.get_attribute("href")
             contact_url = urljoin(page.url, href)
-            print(f"  Found contact page link: {contact_url}. Navigating...")
+            logger.info(f"Found contact page link: {contact_url}. Navigating...")
             page.goto(contact_url, wait_until="domcontentloaded", timeout=25000)
             page.wait_for_timeout(2000)
         except Exception as e:
-            print(f"  Failed to navigate to contact link: {e}. Staying on homepage.")
+            logger.warning(f"Failed to navigate to contact link: {e}. Staying on homepage.")
             
     return True
 
@@ -161,13 +175,13 @@ def analyze_contact_page(html_content: str, screenshot_path: Path, client: genai
     
     # Check if screenshot exists and can be loaded
     if not screenshot_path.exists():
-        print(f"  Screenshot not found at {screenshot_path}")
+        logger.warning(f"Screenshot not found at {screenshot_path}")
         return None
 
     try:
         img = Image.open(screenshot_path)
     except Exception as e:
-        print(f"  Failed to open screenshot image: {e}")
+        logger.warning(f"Failed to open screenshot image: {e}")
         return None
 
     prompt = (
@@ -183,6 +197,7 @@ def analyze_contact_page(html_content: str, screenshot_path: Path, client: genai
     max_retries = 3
     for attempt in range(max_retries):
         try:
+            logger.debug(f"Calling Gemini API (attempt {attempt + 1}/{max_retries})...")
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=[img, f"Cleaned HTML DOM:\n{cleaned_dom}\n\nPrompt:\n{prompt}"],
@@ -198,9 +213,13 @@ def analyze_contact_page(html_content: str, screenshot_path: Path, client: genai
             data = json.loads(response.text)
             return ContactPageAnalysis(**data)
         except Exception as e:
-            print(f"  Gemini API call failed (attempt {attempt + 1}/{max_retries}): {e}")
+            logger.warning(f"Gemini API call failed (attempt {attempt + 1}/{max_retries}): {e}")
             if attempt < max_retries - 1:
-                time.sleep(3 * (attempt + 1))
+                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                    console.print("[yellow]⚠️  Gemini Rate Limit (429) hit. Pausing for 60 seconds to cool down...[/yellow]")
+                    time.sleep(60)
+                else:
+                    time.sleep(3 * (attempt + 1))
             else:
                 return None
 
@@ -212,11 +231,24 @@ def main():
     parser.add_argument("--venue", type=str, default=None, help="Process only a specific venue by name.")
     args = parser.parse_args()
 
+    # Load environment variables
+    load_dotenv()
+    load_dotenv(dotenv_path="backend/.env")
+
+    Path("logs").mkdir(parents=True, exist_ok=True)
+
+    console.print(Panel.fit(
+        "[bold magenta]Autocaller Contact Scraper[/bold magenta]\n"
+        "[dim]Playwright & Gemini Multimodal AI[/dim]",
+        border_style="magenta"
+    ))
+
     # Verify Gemini API Key
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
-        print("Error: GEMINI_API_KEY environment variable is not set in environment or .env file.")
-        print("Please set GEMINI_API_KEY in your .env or export it in your shell.")
+        console.print("[bold red]Error: GEMINI_API_KEY environment variable is not set in environment or .env file.[/bold red]")
+        console.print("Please set GEMINI_API_KEY in your .env or export it in your shell.")
+        logger.error("GEMINI_API_KEY not found.")
         sys.exit(1)
 
     # Initialize Gemini Client
@@ -224,7 +256,8 @@ def main():
 
     # Read CSV
     if not CSV_PATH.exists():
-        print(f"Error: CSV file not found at {CSV_PATH}")
+        console.print(f"[bold red]Error: CSV file not found at {CSV_PATH}[/bold red]")
+        logger.error(f"CSV file not found at {CSV_PATH}")
         sys.exit(1)
 
     with open(CSV_PATH, encoding="utf-8-sig") as f:
@@ -248,7 +281,6 @@ def main():
         # Already has details check
         has_details = bool(row.get("email")) and bool(row.get("phone"))
         if has_details and not args.force and not args.venue:
-            # Skip if we already have both email and phone
             continue
             
         to_process.append(row)
@@ -256,118 +288,169 @@ def main():
     if args.limit:
         to_process = to_process[:args.limit]
 
-    print(f"Found {len(to_process)} venues to process.")
+    logger.info(f"Selected {len(to_process)} venues for processing.")
+    
     if not to_process:
-        print("Nothing to process. Use --force to re-process all venues.")
-        sys.exit(0)
+        console.print("[yellow]Nothing to process. Use --force to re-process all venues.[/yellow]")
+        return
+
+    processed_results = []
 
     # Launch Playwright
     with sync_playwright() as p:
-        print("Starting browser...")
+        logger.debug("Starting browser context...")
         browser = p.chromium.launch(headless=True)
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            viewport={"width": 1280, "height": 800}
+            viewport={"width": 1280, "height": 800},
+            ignore_https_errors=True
         )
         page = context.new_page()
         page.set_default_timeout(25000)
 
-        for i, row in enumerate(to_process, 1):
-            name = row["name"]
-            website = row["website"]
-            slug = slugify(name)
-            
-            print(f"\n[{i}/{len(to_process)}] Processing: {name} ({website})")
-            
-            if not website:
-                print("  Skipping: No website URL specified.")
-                continue
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            TaskProgressColumn(),
+            console=console
+        ) as progress:
+            task = progress.add_task("[cyan]Processing venues...", total=len(to_process))
 
-            success = find_contact_page(page, website)
-            if not success:
-                print("  Skipping: Could not load website.")
-                continue
-
-            # Capture screenshot
-            screenshot_path = SCREENSHOTS_DIR / f"{slug}.png"
-            try:
-                # Trigger lazy loaded elements by scrolling to bottom and back up
-                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-                page.wait_for_timeout(1000)
-                page.evaluate("window.scrollTo(0, 0)")
-                page.wait_for_timeout(500)
-
-                # Capture the full height of the page
-                page.screenshot(path=str(screenshot_path), full_page=True)
-                print(f"  Saved full-page screenshot to: {screenshot_path}")
-            except Exception as e:
-                print(f"  Failed to take screenshot: {e}")
-                continue
-
-            # Get DOM HTML content
-            html_content = page.content()
-
-            # Analyze page with Gemini
-            print("  Analyzing contact page with Gemini API...")
-            analysis = analyze_contact_page(html_content, screenshot_path, client)
-
-            if analysis:
-                print(f"  Results:")
-                print(f"    Email: {analysis.email}")
-                print(f"    Phone: {analysis.phone}")
-                print(f"    Form: {'Yes' if analysis.has_form else 'No'}")
+            for original_idx, row in enumerate(to_process, 1):
+                name = row["name"]
+                website = row["website"]
+                slug = slugify(name)
                 
-                # Update CSV row
-                if analysis.email:
-                    # If the email is new or changed, set verification status to unchecked
-                    if row.get("email") != analysis.email:
-                        row["email"] = analysis.email
-                        row["email_verified"] = "unchecked"
-                if analysis.phone:
-                    row["phone"] = analysis.phone
-                row["last_verified"] = datetime.now().isoformat()
+                progress.update(task, description=f"[cyan]Scraping: {name}")
+                logger.info(f"Scraping [{original_idx}/{len(to_process)}]: {name} ({website})")
+                
+                if not website:
+                    progress.console.print(f"[yellow]⚠️  [{original_idx}] {name:30s} -> No website URL specified[/yellow]")
+                    logger.warning(f"No website specified for {name}")
+                    processed_results.append((name, None, None, False, "Skipped (No URL)"))
+                    progress.advance(task)
+                    continue
 
-                # If email and phone were updated or already exist, we might adjust contact_type
-                # E.g. if we have both email and phone: "email+phone", if only email: "email", etc.
-                if row.get("email") and row.get("phone"):
-                    row["contact_type"] = "email+phone"
-                elif row.get("email"):
-                    row["contact_type"] = "email"
-                elif row.get("phone"):
-                    row["contact_type"] = "phone"
-                elif analysis.has_form:
-                    row["contact_type"] = "form"
+                success = find_contact_page(page, website)
+                if not success:
+                    progress.console.print(f"[red]❌ [{original_idx}] {name:30s} -> Could not load website[/red]")
+                    logger.warning(f"Could not load website: {website}")
+                    processed_results.append((name, None, None, False, "Load Failed"))
+                    progress.advance(task)
+                    continue
 
-                # If has form, write JSON schema
-                if analysis.has_form and analysis.form_details:
-                    form_file = FORMS_DIR / f"{slug}.json"
-                    # Add metadata
-                    form_data = {
-                        "venue_name": name,
-                        "website": website,
-                        "contact_url": page.url,
-                        "extracted_email": analysis.email,
-                        "extracted_phone": analysis.phone,
-                        "form_details": analysis.form_details.model_dump(),
-                        "last_verified": row["last_verified"]
-                    }
-                    import json
-                    with open(form_file, "w", encoding="utf-8") as jf:
-                        json.dump(form_data, jf, indent=2, ensure_ascii=False)
-                    print(f"    Saved form details to: {form_file}")
-            else:
-                print("  Failed to get contact analysis from Gemini API.")
+                # Capture screenshot with scrolling/lazy-loading triggers
+                screenshot_path = SCREENSHOTS_DIR / f"{slug}.png"
+                try:
+                    logger.debug(f"Scrolling page for {name} to trigger lazy loaded items...")
+                    # Trigger lazy loaded elements by scrolling to bottom and back up
+                    page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                    page.wait_for_timeout(1000)
+                    page.evaluate("window.scrollTo(0, 0)")
+                    page.wait_for_timeout(500)
 
-            # Save CSV progressively after each success/attempt to preserve progress
-            with open(CSV_PATH, "w", newline="", encoding="utf-8") as f:
-                writer = csv.DictWriter(f, fieldnames=fieldnames)
-                writer.writeheader()
-                writer.writerows(rows)
-            print("  CSV updated.")
+                    # Capture the full height of the page
+                    page.screenshot(path=str(screenshot_path), full_page=True)
+                    logger.info(f"Saved full-page screenshot to: {screenshot_path}")
+                except Exception as e:
+                    progress.console.print(f"[red]❌ [{original_idx}] {name:30s} -> Failed to take screenshot ({e})[/red]")
+                    logger.error(f"Failed to take screenshot for {name}: {e}")
+                    processed_results.append((name, None, None, False, "Screenshot Failed"))
+                    progress.advance(task)
+                    continue
+
+                # Get DOM HTML content
+                html_content = page.content()
+
+                # Analyze page with Gemini
+                analysis = analyze_contact_page(html_content, screenshot_path, client)
+
+                if analysis:
+                    logger.info(f"Gemini output for {name}: email={analysis.email}, phone={analysis.phone}, form={analysis.has_form}")
+                    
+                    # Update CSV row
+                    if analysis.email:
+                        # If the email is new or changed, set verification status to unchecked
+                        if row.get("email") != analysis.email:
+                            row["email"] = analysis.email
+                            row["email_verified"] = "unchecked"
+                    if analysis.phone:
+                        row["phone"] = analysis.phone
+                    row["last_verified"] = datetime.now().isoformat()
+
+                    # Adjust contact_type
+                    if row.get("email") and row.get("phone"):
+                        row["contact_type"] = "email+phone"
+                    elif row.get("email"):
+                        row["contact_type"] = "email"
+                    elif row.get("phone"):
+                        row["contact_type"] = "phone"
+                    elif analysis.has_form:
+                        row["contact_type"] = "form"
+
+                    # If has form, write JSON schema
+                    if analysis.has_form and analysis.form_details:
+                        form_file = FORMS_DIR / f"{slug}.json"
+                        form_data = {
+                            "venue_name": name,
+                            "website": website,
+                            "contact_url": page.url,
+                            "extracted_email": analysis.email,
+                            "extracted_phone": analysis.phone,
+                            "form_details": analysis.form_details.model_dump(),
+                            "last_verified": row["last_verified"]
+                        }
+                        import json
+                        with open(form_file, "w", encoding="utf-8") as jf:
+                            json.dump(form_data, jf, indent=2, ensure_ascii=False)
+                        logger.info(f"Saved form structure to: {form_file}")
+
+                    form_status = "Yes" if analysis.has_form else "No"
+                    progress.console.print(
+                        f"[green]✅ [{original_idx}] {name:30s} -> "
+                        f"Email: {analysis.email or '-':24s} | "
+                        f"Phone: {analysis.phone or '-':14s} | "
+                        f"Form: {form_status}[/green]"
+                    )
+                    processed_results.append((name, analysis.email, analysis.phone, analysis.has_form, "Scraped"))
+                else:
+                    progress.console.print(f"[yellow]⚠️  [{original_idx}] {name:30s} -> Gemini analysis failed[/yellow]")
+                    logger.warning(f"Gemini analysis failed for {name}")
+                    processed_results.append((name, None, None, False, "AI Failed"))
+
+                # Save CSV progressively after each success/attempt to preserve progress
+                with open(CSV_PATH, "w", newline="", encoding="utf-8") as f:
+                    writer = csv.DictWriter(f, fieldnames=fieldnames)
+                    writer.writeheader()
+                    writer.writerows(rows)
+                logger.debug("Progressively updated CSV.")
+                progress.advance(task)
 
         browser.close()
 
-    print("\nProcessing complete!")
+    # Summary Table
+    table = Table(title="Scraping Result Summary", show_header=True, header_style="bold magenta")
+    table.add_column("Venue", style="dim")
+    table.add_column("Email", style="green")
+    table.add_column("Phone", style="cyan")
+    table.add_column("Form?", justify="center")
+    table.add_column("Status", style="bold")
+
+    for name, email, phone, has_form, status in processed_results:
+        form_text = "[green]Yes[/green]" if has_form else "[dim]No[/dim]"
+        color = "green" if status == "Scraped" else ("yellow" if "Skipped" in status else "red")
+        status_text = f"[{color}]{status}[/{color}]"
+        table.add_row(name, email or "-", phone or "-", form_text, status_text)
+
+    console.print("\n")
+    console.print(table)
+    console.print(Panel(
+        f"[bold]All changes progressively written to:[/bold]\n{CSV_PATH}", 
+        title="Processing Complete", 
+        border_style="magenta"
+    ))
+
 
 if __name__ == "__main__":
     main()

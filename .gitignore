@@ -62,4 +62,6 @@ Thumbs.db
 
 # Scraping outputs
 screenshots/
+logs/
+
 
