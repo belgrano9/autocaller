@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     from_email: str = ""
     from_name: str = "Devis Mariages"
     reply_to_domain: str = ""
+    test_email: str = ""
     webhook_signing_key: str = ""
 
 

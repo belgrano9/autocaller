@@ -152,9 +152,396 @@
     button.contact-btn.disabled-venue { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
 
     .state-msg { color: #888; font-size: 14px; padding: 32px 0; text-align: center; }
+
+    /* ── Global Updates ── */
+    body { font-family: system-ui, sans-serif; background: #fcfbfa; color: #2c2c2c; }
+    .nav-logo { color: #2c5e43; font-family: system-ui, sans-serif; font-size: 19px; }
+    .nav-links .btn-login { border-color: #2c5e43; color: #2c5e43; transition: all 0.2s; }
+    .nav-links .btn-login:hover { background: #2c5e43; color: #fff; }
+    .mode-toggle span.active-int { color: #2c5e43; }
+    
+    /* ── Onboarding Overlay ── */
+    .onboarding-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(252, 251, 250, 0.97);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+    .onboarding-card {
+      background: #fff;
+      border: 1px solid #e9e5e0;
+      border-radius: 20px;
+      padding: 36px;
+      width: 480px;
+      max-width: 90%;
+      box-shadow: 0 16px 40px rgba(44, 94, 67, 0.08);
+      animation: slideUp 0.4s ease;
+    }
+    .onboarding-slide h2 {
+      font-size: 24px;
+      color: #2c5e43;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .onboarding-desc {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-group input, .form-group textarea {
+      padding: 10px 14px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+      background: #fafafa;
+      color: #111;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: #2c5e43;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(44, 94, 67, 0.1);
+    }
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+    .form-row .form-group {
+      flex: 1;
+    }
+    .onboarding-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+      gap: 12px;
+    }
+    .btn-primary {
+      padding: 10px 24px;
+      background: #2c5e43;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #224933; }
+    .btn-skip {
+      background: none;
+      border: none;
+      color: #888;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration: underline;
+    }
+    .btn-skip:hover { color: #555; }
+    .btn-back {
+      background: none;
+      border: 1px solid #ddd;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: #555;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .btn-back:hover { background: #fafafa; }
+
+    /* ── Wedding Project Card ── */
+    .project-card {
+      background: #fff;
+      border: 1px solid #e9e5e0;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 16px rgba(44, 94, 67, 0.03);
+    }
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .project-header h3 {
+      font-size: 16px;
+      color: #2c5e43;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+    .project-sub {
+      font-size: 13px;
+      color: #666;
+    }
+    .btn-edit-project {
+      padding: 6px 14px;
+      background: #fff;
+      border: 1px solid #2c5e43;
+      color: #2c5e43;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-edit-project:hover {
+      background: #2c5e43;
+      color: #fff;
+    }
+    .project-divider {
+      border: 0;
+      height: 1px;
+      background: #e9e5e0;
+      margin: 16px 0;
+    }
+    .project-form {
+      transition: all 0.3s ease;
+    }
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 12px;
+    }
+    .save-indicator {
+      font-size: 12px;
+      color: #2c5e43;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .save-indicator.visible {
+      opacity: 1;
+    }
+    .btn-reset-profile {
+      background: none;
+      border: none;
+      color: #c0392b;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .btn-reset-profile:hover { color: #a93226; }
+
+    /* ── Modal Overlay ── */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(8px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-card {
+      background: #fff;
+      border-radius: 16px;
+      width: 650px;
+      max-width: 90%;
+      max-height: 90vh;
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.15);
+      display: flex;
+      flex-direction: column;
+      animation: slideUp 0.3s ease;
+    }
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-header h3 {
+      font-size: 16px;
+      color: #2c5e43;
+      font-weight: 700;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #888;
+    }
+    .modal-close:hover { color: #111; }
+    
+    .email-envelope {
+      background: #faf9f7;
+      padding: 16px 24px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .envelope-row {
+      display: flex;
+      font-size: 13px;
+    }
+    .envelope-label {
+      font-weight: 600;
+      color: #777;
+      width: 70px;
+    }
+    .envelope-val {
+      color: #222;
+      flex: 1;
+      font-family: monospace;
+    }
+    
+    .email-body-container {
+      flex: 1;
+      padding: 20px;
+      background: #fff;
+      overflow-y: auto;
+      min-height: 300px;
+    }
+    .preview-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      min-height: 320px;
+    }
+    
+    .modal-warning {
+      background: #fff3cd;
+      border-top: 1px solid #ffeeba;
+      color: #856404;
+      padding: 12px 24px;
+      font-size: 13px;
+    }
+    
+    .modal-actions {
+      padding: 16px 24px;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      background: #faf9f7;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+    }
+    .btn-modal-cancel {
+      padding: 10px 18px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      color: #555;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+    }
+    .btn-modal-cancel:hover { background: #fafafa; }
+    .btn-modal-send {
+      padding: 10px 24px;
+      background: #2c5e43;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    .btn-modal-send:hover { background: #224933; }
+    .btn-modal-send:disabled {
+      background: #a2bcae;
+      cursor: not-allowed;
+    }
+
+    /* Helper styles */
+    .hidden { display: none !important; }
+    
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .badge-contacted {
+      background: #d4edda;
+      color: #155724;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
+
+  <!-- Onboarding Wizard Overlay -->
+  <div id="onboarding-overlay" class="onboarding-overlay hidden">
+    <div class="onboarding-card">
+      <!-- Slide 1: Welcome & Profile -->
+      <div id="onboarding-slide-1" class="onboarding-slide">
+        <h2>Bienvenue sur Devis Mariages ✨</h2>
+        <p class="onboarding-desc">Créez votre profil pour commencer à planifier et contacter des lieux de réception en quelques clics.</p>
+        <div class="form-group">
+          <label for="ob-user-name">Votre Nom Complet</label>
+          <input type="text" id="ob-user-name" placeholder="ex: Alice Martin" />
+        </div>
+        <div class="form-group">
+          <label for="ob-user-email">Votre Adresse Email</label>
+          <input type="email" id="ob-user-email" placeholder="ex: alice.martin@gmail.com" />
+        </div>
+        <div class="onboarding-actions">
+          <button class="btn-skip" onclick="skipOnboarding()">Passer l'introduction</button>
+          <button class="btn-primary" onclick="nextOnboardingSlide()">Continuer</button>
+        </div>
+      </div>
+
+      <!-- Slide 2: Wedding Details -->
+      <div id="onboarding-slide-2" class="onboarding-slide hidden">
+        <h2>Votre Projet de Mariage 🤵👰</h2>
+        <p class="onboarding-desc">Ces informations seront utilisées pour personnaliser automatiquement vos demandes de devis.</p>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ob-partner-name">Prénom du conjoint</label>
+            <input type="text" id="ob-partner-name" placeholder="ex: Bob" />
+          </div>
+          <div class="form-group">
+            <label for="ob-event-date">Date souhaitée</label>
+            <input type="text" id="ob-event-date" placeholder="ex: 15 Septembre 2026" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ob-guest-count">Nombre d'invités</label>
+            <input type="number" id="ob-guest-count" placeholder="ex: 120" />
+          </div>
+          <div class="form-group">
+            <label for="ob-budget">Budget indicatif</label>
+            <input type="text" id="ob-budget" placeholder="ex: 15 000 €" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ob-notes">Message personnalisé (optionnel)</label>
+          <textarea id="ob-notes" rows="2" placeholder="Bonjour, nous aimerions obtenir vos tarifs..."></textarea>
+        </div>
+        <div class="onboarding-actions">
+          <button class="btn-back" onclick="prevOnboardingSlide()">Retour</button>
+          <button class="btn-primary" onclick="finishOnboarding()">Terminer</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <nav>
     <a class="nav-logo" href="/">Devis Mariages</a>
@@ -165,11 +552,55 @@
         <span id="mode-dev" onclick="setMode('dev')">DEV</span>
         <span id="mode-int" onclick="setMode('int')">INT</span>
       </div>
-      <a href="#" class="btn-login">Connexion</a>
+      <a href="#" class="btn-login" id="user-display" onclick="resetProfile()">Mode Invité</a>
     </div>
   </nav>
 
   <div class="container">
+    <!-- Wedding Project Settings Card -->
+    <div id="project-card" class="project-card hidden">
+      <div class="project-header">
+        <div>
+          <h3>🤵👰 Mon Projet de Mariage</h3>
+          <p class="project-sub" id="project-summary-text">Aucun projet configuré</p>
+        </div>
+        <button class="btn-edit-project" id="btn-toggle-project" onclick="toggleProjectForm()">Modifier le projet</button>
+      </div>
+      
+      <!-- Edit form (collapsible) -->
+      <div id="project-form" class="project-form hidden">
+        <hr class="project-divider" />
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-couple-name">Noms des mariés</label>
+            <input type="text" id="form-couple-name" oninput="saveProjectData()" placeholder="ex: Alice & Bob" />
+          </div>
+          <div class="form-group">
+            <label for="form-event-date">Date prévue</label>
+            <input type="text" id="form-event-date" oninput="saveProjectData()" placeholder="ex: 15 Septembre 2026" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="form-guest-count">Invités</label>
+            <input type="number" id="form-guest-count" oninput="saveProjectData()" placeholder="ex: 120" />
+          </div>
+          <div class="form-group">
+            <label for="form-budget">Budget</label>
+            <input type="text" id="form-budget" oninput="saveProjectData()" placeholder="ex: 15 000 €" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="form-notes">Informations complémentaires</label>
+          <textarea id="form-notes" rows="2" oninput="saveProjectData()" placeholder="ex: Hébergement requis pour 20 personnes..."></textarea>
+        </div>
+        <div class="project-footer">
+          <span class="save-indicator" id="save-status">Sauvegarde auto ✓</span>
+          <button class="btn-reset-profile" onclick="resetProfile()">Réinitialiser le profil</button>
+        </div>
+      </div>
+    </div>
+
     <h1>Lieux disponibles</h1>
     <p class="sub">Contactez plusieurs lieux en un clic et comparez leurs devis.</p>
 
@@ -205,10 +636,50 @@
     <div id="venue-list"></div>
   </div>
 
+  <!-- Email Preview Modal -->
+  <div id="preview-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Aperçu de la demande de devis</h3>
+        <button class="modal-close" onclick="closePreviewModal()">&times;</button>
+      </div>
+      <div class="email-envelope">
+        <div class="envelope-row">
+          <span class="envelope-label">De :</span>
+          <span class="envelope-val" id="preview-from"></span>
+        </div>
+        <div class="envelope-row">
+          <span class="envelope-label">À :</span>
+          <span class="envelope-val" id="preview-to"></span>
+        </div>
+        <div class="envelope-row">
+          <span class="envelope-label">Sujet :</span>
+          <span class="envelope-val" id="preview-subject"></span>
+        </div>
+      </div>
+      <div class="email-body-container">
+        <iframe id="preview-iframe" class="preview-iframe"></iframe>
+      </div>
+      <div class="modal-warning hidden" id="dev-warning">
+        ⚠️ <strong>Mode DEV actif :</strong> L'email de test sera redirigé vers l'adresse de test et non au lieu réel.
+      </div>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="closePreviewModal()">Annuler</button>
+        <button class="btn-modal-send" id="btn-confirm-send" onclick="sendOutreachEmail()">Confirmer l'envoi</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ── State ─────────────────────────────────────────────────────────────────
     let allVenues = [];
     const activeFilters = { type: "", contact: "" };
+    
+    // User & Project state
+    let userProfile = null;
+    let weddingProject = null;
+    let contactedVenues = {};
+    let activeVenue = null;  // Venue currently open in preview modal
 
     // ── Helpers ───────────────────────────────────────────────────────────────
     const CONTACT_LABELS = {
@@ -241,6 +712,9 @@
       if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name, "fr"));
       if (sort === "dept") list.sort((a, b) => (a.department ?? "").localeCompare(b.department ?? ""));
 
+      // Update total contacted count in title area if onboarded
+      updateContactStats();
+
       document.getElementById("count").textContent = `${list.length} lieu${list.length !== 1 ? "x" : ""} trouvé${list.length !== 1 ? "s" : ""}`;
       renderVenues(list);
     }
@@ -251,23 +725,35 @@
       const { label: priceLabel, unknown } = formatPrice(base_price_cents, price_tier);
       const contactLabel = CONTACT_LABELS[contact_method] ?? contact_method;
       const typeLabel    = style_tags?.[0] ?? "";
+      
+      const isContacted = contactedVenues[id] != null;
 
       const card = document.createElement("div");
       card.className = "venue";
+      
+      let badgeContactClass = accepts_email ? "badge-contact" : "badge-contact no";
+      let badgeContactText = contactLabel;
+      if (isContacted) {
+        badgeContactClass = "badge-contacted";
+        badgeContactText = "Contacté ✓";
+      }
+
       card.innerHTML = `
         <div class="venue-info">
           <strong title="${name}">${name}</strong>
           <div class="meta">${city}${department ? ` (${department})` : ""}${website_url ? ` · <a href="${website_url}" target="_blank" rel="noopener noreferrer" class="venue-link">Site web ↗</a>` : ""}</div>
         </div>
         ${typeLabel ? `<span class="badge badge-type">${typeLabel}</span>` : ""}
-        <span class="badge badge-contact ${accepts_email ? "" : "no"}">${contactLabel}</span>
+        <span class="badge ${badgeContactClass}" id="badge-contact-${id}">${badgeContactText}</span>
         <div class="venue-price ${unknown ? "unknown" : ""}">${priceLabel}</div>
-        <button class="contact-btn ${accepts_email ? "" : "disabled-venue"}" id="btn-${id}" ${accepts_email ? "" : 'disabled title="Contact manuel requis"'}>
-          ${accepts_email ? "Contacter" : "Manuel"}
+        <button class="contact-btn ${accepts_email ? "" : "disabled-venue"} ${isContacted ? "ok" : ""}" id="btn-${id}" ${accepts_email ? "" : 'disabled title="Contact manuel requis"'}>
+          ${isContacted ? "Renvoyer" : (accepts_email ? "Contacter" : "Manuel")}
         </button>
       `;
-      if (accepts_email)
-        card.querySelector("button").addEventListener("click", () => contactVenue(id, name));
+      
+      if (accepts_email) {
+        card.querySelector("button").addEventListener("click", () => contactVenue(venue));
+      }
       return card;
     }
 
@@ -281,28 +767,301 @@
       venues.forEach(v => list.appendChild(createVenueCard(v)));
     }
 
-    // ── Contact action ────────────────────────────────────────────────────────
-    async function contactVenue(id, name) {
-      const btn = document.getElementById(`btn-${id}`);
+    // ── Onboarding Logic ──────────────────────────────────────────────────────
+    function checkOnboarding() {
+      const onboarded = localStorage.getItem("onboarding_completed");
+      if (onboarded === "true") {
+        document.getElementById("onboarding-overlay").classList.add("hidden");
+        document.getElementById("project-card").classList.remove("hidden");
+        
+        // Load data
+        const savedProfile = localStorage.getItem("user_profile");
+        const savedProject = localStorage.getItem("wedding_project");
+        const savedContacted = localStorage.getItem("contacted_venues");
+        
+        if (savedProfile) userProfile = JSON.parse(savedProfile);
+        if (savedProject) weddingProject = JSON.parse(savedProject);
+        if (savedContacted) contactedVenues = JSON.parse(savedContacted);
+        
+        loadProjectIntoUI();
+      } else {
+        document.getElementById("onboarding-overlay").classList.remove("hidden");
+        document.getElementById("project-card").classList.add("hidden");
+      }
+    }
+
+    function nextOnboardingSlide() {
+      const name = document.getElementById("ob-user-name").value.trim();
+      const email = document.getElementById("ob-user-email").value.trim();
+      
+      if (!name || !email) {
+        alert("Veuillez saisir votre nom et votre adresse email.");
+        return;
+      }
+      
+      userProfile = { name, email };
+      document.getElementById("onboarding-slide-1").classList.add("hidden");
+      document.getElementById("onboarding-slide-2").classList.remove("hidden");
+    }
+
+    function prevOnboardingSlide() {
+      document.getElementById("onboarding-slide-2").classList.add("hidden");
+      document.getElementById("onboarding-slide-1").classList.remove("hidden");
+    }
+
+    function finishOnboarding() {
+      const partner = document.getElementById("ob-partner-name").value.trim();
+      const date = document.getElementById("ob-event-date").value.trim();
+      const guests = document.getElementById("ob-guest-count").value.trim();
+      const budget = document.getElementById("ob-budget").value.trim();
+      const notes = document.getElementById("ob-notes").value.trim();
+      
+      const coupleName = userProfile.name.split(" ")[0] + (partner ? ` & ${partner}` : "");
+      
+      weddingProject = {
+        couple_name: coupleName,
+        event_date: date || "Non définie",
+        guest_count: guests || "0",
+        budget: budget || "Non défini",
+        notes: notes || ""
+      };
+      
+      localStorage.setItem("user_profile", JSON.stringify(userProfile));
+      localStorage.setItem("wedding_project", JSON.stringify(weddingProject));
+      localStorage.setItem("onboarding_completed", "true");
+      
+      checkOnboarding();
+      applyFilters();
+    }
+
+    function skipOnboarding() {
+      userProfile = null;
+      weddingProject = {
+        couple_name: "Couple Invité",
+        event_date: "Non définie",
+        guest_count: "0",
+        budget: "Non défini",
+        notes: ""
+      };
+      
+      localStorage.setItem("onboarding_completed", "true");
+      checkOnboarding();
+      applyFilters();
+    }
+
+    function resetProfile() {
+      if (confirm("Voulez-vous réinitialiser votre profil et vos données de contact ?")) {
+        localStorage.clear();
+        window.location.reload();
+      }
+    }
+
+    // ── Wedding Project Panel ─────────────────────────────────────────────────
+    function loadProjectIntoUI() {
+      if (userProfile) {
+        document.getElementById("user-display").textContent = `Bonjour, ${userProfile.name.split(" ")[0]} ⚙️`;
+      } else {
+        document.getElementById("user-display").textContent = "Créer un profil 👤";
+      }
+      
+      if (weddingProject) {
+        document.getElementById("form-couple-name").value = weddingProject.couple_name || "";
+        document.getElementById("form-event-date").value = weddingProject.event_date || "";
+        document.getElementById("form-guest-count").value = weddingProject.guest_count || "";
+        document.getElementById("form-budget").value = weddingProject.budget || "";
+        document.getElementById("form-notes").value = weddingProject.notes || "";
+        
+        updateProjectSummaryText();
+      }
+    }
+
+    function updateProjectSummaryText() {
+      if (weddingProject) {
+        const parts = [];
+        if (weddingProject.event_date && weddingProject.event_date !== "Non définie") parts.push(`Date: ${weddingProject.event_date}`);
+        if (weddingProject.guest_count && weddingProject.guest_count !== "0") parts.push(`${weddingProject.guest_count} invités`);
+        if (weddingProject.budget && weddingProject.budget !== "Non défini") parts.push(`Budget: ${weddingProject.budget}`);
+        
+        const summary = parts.length > 0 ? parts.join(" · ") : "Aucun détail de projet défini";
+        document.getElementById("project-summary-text").textContent = `${weddingProject.couple_name} — ${summary}`;
+      }
+    }
+
+    function toggleProjectForm() {
+      const form = document.getElementById("project-form");
+      const btn = document.getElementById("btn-toggle-project");
+      if (form.classList.contains("hidden")) {
+        form.classList.remove("hidden");
+        btn.textContent = "Fermer";
+      } else {
+        form.classList.add("hidden");
+        btn.textContent = "Modifier le projet";
+      }
+    }
+
+    let saveTimer = null;
+    function saveProjectData() {
+      const couple = document.getElementById("form-couple-name").value.trim();
+      const date = document.getElementById("form-event-date").value.trim();
+      const guests = document.getElementById("form-guest-count").value.trim();
+      const budget = document.getElementById("form-budget").value.trim();
+      const notes = document.getElementById("form-notes").value.trim();
+      
+      weddingProject = {
+        couple_name: couple || (userProfile ? userProfile.name.split(" ")[0] : "Couple Invité"),
+        event_date: date || "Non définie",
+        guest_count: guests || "0",
+        budget: budget || "Non défini",
+        notes: notes || ""
+      };
+      
+      localStorage.setItem("wedding_project", JSON.stringify(weddingProject));
+      updateProjectSummaryText();
+      
+      // Show auto-save indicator
+      const indicator = document.getElementById("save-status");
+      indicator.classList.add("visible");
+      
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        indicator.classList.remove("visible");
+      }, 1500);
+    }
+
+    function updateContactStats() {
+      const contactedKeys = Object.keys(contactedVenues);
+      const totalContacted = contactedKeys.length;
+      if (totalContacted > 0) {
+        document.querySelector("p.sub").textContent = 
+          `Contactez plusieurs lieux en un clic. Vous avez déjà contacté ${totalContacted} lieu${totalContacted !== 1 ? 's' : ''} !`;
+      } else {
+        document.querySelector("p.sub").textContent = 
+          "Contactez plusieurs lieux en un clic et comparez leurs devis.";
+      }
+    }
+
+    // ── Preview & Contact Action ──────────────────────────────────────────────
+    async function contactVenue(venue) {
+      activeVenue = venue;
+      const btn = document.getElementById(`btn-${venue.id}`);
+      const originalText = btn.textContent;
+      
       btn.disabled = true;
-      btn.textContent = "Envoi…";
-      btn.className = "contact-btn";
+      btn.textContent = "Chargement…";
+      
+      const payload = {
+        couple_name: weddingProject ? weddingProject.couple_name : "Couple Invité",
+        event_date: weddingProject ? weddingProject.event_date : "Non définie",
+        guest_count: weddingProject ? weddingProject.guest_count : "0",
+        budget: weddingProject ? weddingProject.budget : "Non défini",
+        notes: weddingProject ? weddingProject.notes : "",
+        venue_name: venue.name,
+        venue_email: venue.email
+      };
+
       try {
-        const res = await fetch(`/api/test/send-email?venue_name=${encodeURIComponent(name)}`, { method: "POST" });
+        const res = await fetch("/api/outreach/preview", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        
         if (res.ok) {
-          btn.textContent = "Envoyé ✓";
-          btn.className = "contact-btn ok";
+          const data = await res.json();
+          openPreviewModal(data.from, data.to, data.subject, data.html, data.mode);
         } else {
           const err = await res.json().catch(() => ({}));
-          btn.textContent = "Erreur";
-          btn.className = "contact-btn err";
-          btn.title = err.detail ?? "Erreur inconnue";
-          btn.disabled = false;
+          alert("Erreur de chargement de l'aperçu: " + (err.detail ?? "Inconnue"));
         }
-      } catch {
-        btn.textContent = "Erreur réseau";
-        btn.className = "contact-btn err";
+      } catch (err) {
+        alert("Erreur réseau lors du chargement de l'aperçu.");
+      } finally {
         btn.disabled = false;
+        btn.textContent = originalText;
+      }
+    }
+
+    function openPreviewModal(from, to, subject, html, mode) {
+      document.getElementById("preview-from").textContent = from;
+      document.getElementById("preview-to").textContent = to;
+      document.getElementById("preview-subject").textContent = subject;
+      
+      const iframe = document.getElementById("preview-iframe");
+      iframe.srcdoc = html;
+      
+      const warning = document.getElementById("dev-warning");
+      if (mode === "dev") {
+        warning.classList.remove("hidden");
+      } else {
+        warning.classList.add("hidden");
+      }
+      
+      const sendBtn = document.getElementById("btn-confirm-send");
+      sendBtn.disabled = false;
+      sendBtn.textContent = "Confirmer l'envoi";
+      
+      document.getElementById("preview-modal").classList.remove("hidden");
+    }
+
+    function closePreviewModal() {
+      document.getElementById("preview-modal").classList.add("hidden");
+      activeVenue = null;
+    }
+
+    async function sendOutreachEmail() {
+      if (!activeVenue) return;
+      
+      const sendBtn = document.getElementById("btn-confirm-send");
+      sendBtn.disabled = true;
+      sendBtn.textContent = "Envoi en cours…";
+      
+      const payload = {
+        couple_name: weddingProject ? weddingProject.couple_name : "Couple Invité",
+        event_date: weddingProject ? weddingProject.event_date : "Non définie",
+        guest_count: weddingProject ? weddingProject.guest_count : "0",
+        budget: weddingProject ? weddingProject.budget : "Non défini",
+        notes: weddingProject ? weddingProject.notes : "",
+        venue_name: activeVenue.name,
+        venue_email: activeVenue.email
+      };
+
+      try {
+        const res = await fetch("/api/outreach/send", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        
+        if (res.ok) {
+          // Track contacted state
+          contactedVenues[activeVenue.id] = new Date().toISOString();
+          localStorage.setItem("contacted_venues", JSON.stringify(contactedVenues));
+          
+          // Update card button & badge directly
+          const btn = document.getElementById(`btn-${activeVenue.id}`);
+          if (btn) {
+            btn.textContent = "Renvoyer";
+            btn.classList.add("ok");
+          }
+          
+          const badge = document.getElementById(`badge-contact-${activeVenue.id}`);
+          if (badge) {
+            badge.className = "badge badge-contacted";
+            badge.textContent = "Contacté ✓";
+          }
+          
+          closePreviewModal();
+          updateContactStats();
+        } else {
+          const err = await res.json().catch(() => ({}));
+          alert("Erreur lors de l'envoi de l'email : " + (err.detail ?? "Inconnue"));
+          sendBtn.disabled = false;
+          sendBtn.textContent = "Confirmer l'envoi";
+        }
+      } catch (err) {
+        alert("Erreur réseau lors de l'envoi de l'email.");
+        sendBtn.disabled = false;
+        sendBtn.textContent = "Confirmer l'envoi";
       }
     }
 
@@ -339,6 +1098,10 @@
     // ── Init ──────────────────────────────────────────────────────────────────
     async function init() {
       document.getElementById("venue-list").innerHTML = '<p class="state-msg">Chargement…</p>';
+      
+      // Perform client side onboarding verification
+      checkOnboarding();
+
       try {
         allVenues = await fetch("/api/venues").then(r => {
           if (!r.ok) throw new Error(r.status);
