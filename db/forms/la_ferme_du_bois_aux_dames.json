@@ -1,0 +1,56 @@
+{
+  "venue_name": "La Ferme du Bois aux Dames",
+  "website": "https://lafermeduboisauxdames.fr",
+  "contact_url": "https://www.lafermeduboisauxdames.fr/contact-acces",
+  "extracted_email": "fermeduboisauxdames@gmail.com",
+  "extracted_phone": "07 82 03 14 36",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "Nom et Prénom",
+        "type": "text",
+        "label": "Nom et Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "E-mail",
+        "type": "email",
+        "label": "E‑mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Type d'évènement et date souhaitée",
+        "type": "text",
+        "label": "Type d'évènement et date souhaitée",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Téléphone",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Comment avez-vous connu notre Domaine ?",
+        "type": "text",
+        "label": "Comment avez-vous connu notre Domaine ?",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Message",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:01:04.108850"
+}

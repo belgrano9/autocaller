@@ -1,0 +1,56 @@
+{
+  "venue_name": "Les Barrés",
+  "website": "https://lesbarres.com",
+  "contact_url": "https://www.lesbarres.com/contact/demandes",
+  "extracted_email": null,
+  "extracted_phone": "09 50 14 65 00",
+  "form_details": {
+    "action": null,
+    "method": "post",
+    "fields": [
+      {
+        "name": "front_corebundle_contactclienttype[civilite]",
+        "type": "select",
+        "label": "Civilité",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "front_corebundle_contactclienttype[prenom]",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": "Prénom *"
+      },
+      {
+        "name": "front_corebundle_contactclienttype[nom]",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": "Nom *"
+      },
+      {
+        "name": "front_corebundle_contactclienttype[telephone]",
+        "type": "text",
+        "label": "Téléphone",
+        "required": true,
+        "placeholder": "Téléphone *"
+      },
+      {
+        "name": "front_corebundle_contactclienttype[email]",
+        "type": "email",
+        "label": "E-mail",
+        "required": true,
+        "placeholder": "E-mail *"
+      },
+      {
+        "name": "front_corebundle_contactclienttype[message]",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": "Message *"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:58:29.841091"
+}

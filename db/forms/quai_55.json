@@ -1,0 +1,49 @@
+{
+  "venue_name": "Quai 55",
+  "website": "https://quai55.com",
+  "contact_url": "https://www.quai55.com/nous-contacter/",
+  "extracted_email": "contact@quai55.com",
+  "extracted_phone": "01 46 08 08 09",
+  "form_details": {
+    "action": null,
+    "method": "post",
+    "fields": [
+      {
+        "name": "form_fields[name]",
+        "type": "text",
+        "label": "Nom et prénom",
+        "required": false,
+        "placeholder": "Nom et prénom"
+      },
+      {
+        "name": "form_fields[field_31a66a8]",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": "Téléphone"
+      },
+      {
+        "name": "form_fields[email]",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": "Email"
+      },
+      {
+        "name": "form_fields[field_6e78cdb]",
+        "type": "select",
+        "label": "Votre besoin :",
+        "required": true,
+        "placeholder": "Votre besoin :"
+      },
+      {
+        "name": "form_fields[message]",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": "Message"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:02:40.149309"
+}

@@ -1,0 +1,49 @@
+{
+  "venue_name": "Le Nomade Lodge",
+  "website": "https://nomade-lodge.com",
+  "contact_url": "https://nomade-lodge.com/contact",
+  "extracted_email": "infos@nomade-lodge.com",
+  "extracted_phone": "06 16 23 46 68",
+  "form_details": {
+    "action": null,
+    "method": "post",
+    "fields": [
+      {
+        "name": "first_name",
+        "type": "text",
+        "label": "Votre nom",
+        "required": true,
+        "placeholder": "Votre nom*"
+      },
+      {
+        "name": "last_name",
+        "type": "text",
+        "label": "Votre prénom",
+        "required": true,
+        "placeholder": "Votre prénom*"
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Votre adresse email",
+        "required": true,
+        "placeholder": "Votre adresse email*"
+      },
+      {
+        "name": "phone",
+        "type": "text",
+        "label": "Votre téléphone",
+        "required": false,
+        "placeholder": "Votre téléphone"
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Votre message",
+        "required": true,
+        "placeholder": "Veuillez saisir votre message..."
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:01:38.771680"
+}

@@ -1,0 +1,42 @@
+{
+  "venue_name": "Les Noces Royales",
+  "website": "https://lesnocesroyales.com",
+  "contact_url": "https://www.lesnocesroyales.com/contact/",
+  "extracted_email": "contact@lesnocesroyales.com",
+  "extracted_phone": "01 39 14 12 02",
+  "form_details": {
+    "action": "/contact/#wpcf7-f126-p58-o1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "your-name",
+        "type": "text",
+        "label": "Nom*",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-email",
+        "type": "email",
+        "label": "Email*",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-tel",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "your-message",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:49:38.486497"
+}

@@ -1,0 +1,70 @@
+{
+  "venue_name": "La Suite 91",
+  "website": "https://lasuite91.net",
+  "contact_url": "https://www.lasuite91.net/#contact",
+  "extracted_email": null,
+  "extracted_phone": "01.79.72.73.23",
+  "form_details": {
+    "action": "./#contact",
+    "method": "post",
+    "fields": [
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Nom *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "prenom",
+        "type": "text",
+        "label": "Prénom",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "telephone",
+        "type": "text",
+        "label": "Téléphone *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "text",
+        "label": "Email *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "adresse",
+        "type": "text",
+        "label": "Adresse",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "code_postal",
+        "type": "text",
+        "label": "CP / Ville",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "ville",
+        "type": "text",
+        "label": "CP / Ville",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message*",
+        "required": true,
+        "placeholder": "Message*"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:51:03.353940"
+}

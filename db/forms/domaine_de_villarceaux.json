@@ -1,0 +1,119 @@
+{
+  "venue_name": "Domaine de Villarceaux",
+  "website": "https://villarceaux.iledefrance.fr",
+  "contact_url": "https://www.iledefrance.fr/form/contact",
+  "extracted_email": null,
+  "extracted_phone": "+33 (0)1 53 85 53 85",
+  "form_details": {
+    "action": "/form/contact",
+    "method": "post",
+    "fields": [
+      {
+        "name": "votre_demande_concerne",
+        "type": "select",
+        "label": "Votre demande concerne",
+        "required": true,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_lycees_veuillez_completer_vot",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie Lycées, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_culture_veuillez_completer_vo",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie culture, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_transports_veuillez_completer",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie transports, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_formation_enseignement_recher",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie Formation, Enseignement, Recherche, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_sport_loisirs_veuillez_comple",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie Sport, Loisirs, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_international_veuillez_comple",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie International, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_sante_social_handicap_veuille",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie santé, social, handicap, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "vous_avez_selectionne_la_categorie_donnees_personnelles_veuillez",
+        "type": "select",
+        "label": "Vous avez sélectionné la catégorie données personnelles, veuillez compléter votre choix",
+        "required": false,
+        "placeholder": "- Sélectionner -"
+      },
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "prenom",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "e_mail",
+        "type": "email",
+        "label": "E-mail",
+        "required": true,
+        "placeholder": "ex : marie.martin@laposte.fr"
+      },
+      {
+        "name": "ville",
+        "type": "text",
+        "label": "Ville",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "captcha_response",
+        "type": "text",
+        "label": "Veuillez répondre à cette question",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:56:58.303091"
+}

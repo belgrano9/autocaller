@@ -1,0 +1,168 @@
+{
+  "venue_name": "La Ferme de la Corde",
+  "website": "https://fermedelacorde.com",
+  "contact_url": "https://www.fermedelacorde.com/devis-immediat/",
+  "extracted_email": null,
+  "extracted_phone": "01 84 80 14 35",
+  "form_details": {
+    "action": "/devis-immediat/",
+    "method": "post",
+    "fields": [
+      {
+        "name": "wpforms[fields][5]",
+        "type": "radio",
+        "label": "CIVILITE",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "wpforms[fields][86]",
+        "type": "text",
+        "label": "Votre prénom*",
+        "required": true,
+        "placeholder": "Votre prénom*"
+      },
+      {
+        "name": "wpforms[fields][87]",
+        "type": "text",
+        "label": "Votre nom*",
+        "required": true,
+        "placeholder": "Votre nom*"
+      },
+      {
+        "name": "wpforms[fields][7]",
+        "type": "email",
+        "label": "Votre adresse e-mail*",
+        "required": true,
+        "placeholder": "Votre adresse e-mail*"
+      },
+      {
+        "name": "wpforms[fields][8]",
+        "type": "tel",
+        "label": "Votre téléphone*",
+        "required": true,
+        "placeholder": "Votre téléphone*"
+      },
+      {
+        "name": "wpforms[fields][9]",
+        "type": "radio",
+        "label": "Vous êtes…",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "wpforms[fields][51]",
+        "type": "text",
+        "label": "Votre code postal*",
+        "required": true,
+        "placeholder": "Votre code postal*"
+      },
+      {
+        "name": "wpforms[fields][53]",
+        "type": "text",
+        "label": "Votre pays*",
+        "required": true,
+        "placeholder": "Votre pays*"
+      },
+      {
+        "name": "wpforms[fields][10]",
+        "type": "text",
+        "label": "Indiquez le nom de votre société*",
+        "required": true,
+        "placeholder": "Indiquez le nom de votre société*"
+      },
+      {
+        "name": "wpforms[fields][92]",
+        "type": "text",
+        "label": "Code postal de votre société*",
+        "required": true,
+        "placeholder": "Code postal de votre société*"
+      },
+      {
+        "name": "wpforms[fields][93]",
+        "type": "text",
+        "label": "Pays de votre société*",
+        "required": true,
+        "placeholder": "Pays de votre société*"
+      },
+      {
+        "name": "wpforms[fields][52][]",
+        "type": "checkbox",
+        "label": "Je ne réside pas en France",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "wpforms[fields][90]",
+        "type": "text",
+        "label": "Votre fonction*",
+        "required": false,
+        "placeholder": "Votre fonction*"
+      },
+      {
+        "name": "wpforms[fields][91][]",
+        "type": "checkbox",
+        "label": "Ma société ne se situe pas en France",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "wpforms[fields][18]",
+        "type": "number",
+        "label": "Nombre de personnes* (max. 200)",
+        "required": true,
+        "placeholder": "Nombre de personnes* (max. 200)"
+      },
+      {
+        "name": "wpforms[fields][15][date]",
+        "type": "text",
+        "label": "Date d'arrivée souhaitée*",
+        "required": true,
+        "placeholder": "Date d'arrivée souhaitée*"
+      },
+      {
+        "name": "wpforms[fields][17]",
+        "type": "radio",
+        "label": "Votre date est-elle flexible ?",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "wpforms[fields][109]",
+        "type": "select",
+        "label": "Choisissez votre créneau pour la Grange",
+        "required": false,
+        "placeholder": "Choisissez votre créneau pour la Grange"
+      },
+      {
+        "name": "wpforms[fields][110][]",
+        "type": "checkbox",
+        "label": "Je souhaite louer le Club House également",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "wpforms[fields][57][]",
+        "type": "checkbox",
+        "label": "Restauration et boissons",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "wpforms[fields][27]",
+        "type": "select",
+        "label": "Je souhaite ajouter une activité :",
+        "required": false,
+        "placeholder": "Je ne souhaite pas d'activité"
+      },
+      {
+        "name": "wpforms[fields][24]",
+        "type": "textarea",
+        "label": "Informations complémentaires",
+        "required": false,
+        "placeholder": "Informations complémentaires"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:54:04.307195"
+}

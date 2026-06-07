@@ -1,0 +1,42 @@
+{
+  "venue_name": "Château de Maudétour",
+  "website": "https://chateaudemaudetour.com",
+  "contact_url": "https://www.chateaudemaudetour.com/",
+  "extracted_email": null,
+  "extracted_phone": "+33616061220",
+  "form_details": {
+    "action": "/_contact/9995d40c-f2c0-11ef-b0d8-3260d44c31e4",
+    "method": "post",
+    "fields": [
+      {
+        "name": "contact[name]",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": "Nom"
+      },
+      {
+        "name": "contact[phone]",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": "Téléphone"
+      },
+      {
+        "name": "contact[mail]",
+        "type": "email",
+        "label": "E-Mail",
+        "required": true,
+        "placeholder": "E-Mail"
+      },
+      {
+        "name": "contact[message]",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": "Message"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:55:48.862389"
+}

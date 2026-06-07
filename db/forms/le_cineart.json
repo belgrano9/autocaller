@@ -1,0 +1,161 @@
+{
+  "venue_name": "Le Cinéart",
+  "website": "https://lecineart.com",
+  "contact_url": "https://lecineart.com/contact/",
+  "extracted_email": null,
+  "extracted_phone": "06 32 21 40 64",
+  "form_details": {
+    "action": null,
+    "method": "POST",
+    "fields": [
+      {
+        "name": "input_text_2",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_text_3",
+        "type": "text",
+        "label": "Nom de famille",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Adresse email",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_text_1",
+        "type": "text",
+        "label": "Téléphone",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_text_4",
+        "type": "text",
+        "label": "Adresse postale",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "numeric_field_1",
+        "type": "number",
+        "label": "Code postal",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_text_5",
+        "type": "text",
+        "label": "Ville",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_text_6",
+        "type": "text",
+        "label": "Date(s) souhaitée(s)",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "datetime",
+        "type": "text",
+        "label": "Heure de début",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "datetime_1",
+        "type": "text",
+        "label": "Heure de fin",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "dropdown",
+        "type": "select",
+        "label": "Type d'événement",
+        "required": false,
+        "placeholder": "Sélectionner dans la liste"
+      },
+      {
+        "name": "numeric_field",
+        "type": "number",
+        "label": "Nombre de personnes maximum prévues pour votre événement",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_radio",
+        "type": "radio",
+        "label": "Oui",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "input_radio",
+        "type": "radio",
+        "label": "Non",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "input_radio",
+        "type": "radio",
+        "label": "Je ne sais pas",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "checkbox[]",
+        "type": "checkbox",
+        "label": "Vidéo-projecteur et écran de projection",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "checkbox[]",
+        "type": "checkbox",
+        "label": "Sonorisation de la grande salle (micro + enceintes)",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "checkbox[]",
+        "type": "checkbox",
+        "label": "Sécurité",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "checkbox[]",
+        "type": "checkbox",
+        "label": "Autre (à préciser ci-dessous)",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "description",
+        "type": "textarea",
+        "label": "Informations complémentaires",
+        "required": false,
+        "placeholder": "N'hésitez pas à nous donner tous les détails utiles concernant votre événement."
+      },
+      {
+        "name": "checkbox_1[]",
+        "type": "checkbox",
+        "label": "En cochant cette case, j'accepte que mes données personnelles saisies dans ce formulaire soient utilisées par la société Recep'son pour répondre à ma demande. Les informations recueillies ne seront pas partagées avec des tiers et seront traitées conformément à notre politique de confidentialité.",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:59:13.725524"
+}

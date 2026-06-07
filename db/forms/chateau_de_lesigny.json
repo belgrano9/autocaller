@@ -1,0 +1,98 @@
+{
+  "venue_name": "Château de Lésigny",
+  "website": "https://chateaudelesigny.com",
+  "contact_url": "https://www.chateaudelesigny.com/contact",
+  "extracted_email": "CONTACT@CHATEAUDELESIGNY.COM",
+  "extracted_phone": "+33 06 47 30 62 44",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "nom,-prénom",
+        "type": "text",
+        "label": "Nom, Prénom",
+        "required": true,
+        "placeholder": "Name"
+      },
+      {
+        "name": "phone_code",
+        "type": "select",
+        "label": "Code",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Phone",
+        "required": true,
+        "placeholder": "Phone"
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": "Email"
+      },
+      {
+        "name": "Cinématographie",
+        "type": "checkbox",
+        "label": "Cinématographie",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Événementiel",
+        "type": "checkbox",
+        "label": "Événementiel",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Photoshoot Pro",
+        "type": "checkbox",
+        "label": "Photoshoot Pro",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Photoshoot Particulier",
+        "type": "checkbox",
+        "label": "Photoshoot Particulier",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Lieu d'événement public",
+        "type": "checkbox",
+        "label": "Lieu d'événement public",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Autre",
+        "type": "checkbox",
+        "label": "Autre",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": "Type your message here..."
+      },
+      {
+        "name": "captcha_checkbox",
+        "type": "checkbox",
+        "label": null,
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:55:31.167346"
+}

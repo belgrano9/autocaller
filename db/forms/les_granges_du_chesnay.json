@@ -1,0 +1,49 @@
+{
+  "venue_name": "Les Granges du Chesnay",
+  "website": "https://lesgrangesduchesnay.fr",
+  "contact_url": "https://lesgrangesduchesnay.fr/contact-2/",
+  "extracted_email": "contact@lesgrangesduchesnay.fr",
+  "extracted_phone": "06 43 54 38 19",
+  "form_details": {
+    "action": "https://lesgrangesduchesnay.fr/wp-json/metform/v1/entries/insert/1068",
+    "method": "POST",
+    "fields": [
+      {
+        "name": "mf-listing-fname",
+        "type": "text",
+        "label": "Votre nom",
+        "required": false,
+        "placeholder": "Votre nom "
+      },
+      {
+        "name": "mf-email",
+        "type": "email",
+        "label": "Votre Email",
+        "required": false,
+        "placeholder": "Votre Email "
+      },
+      {
+        "name": "mf-telephone",
+        "type": "tel",
+        "label": "Votre téléphone",
+        "required": false,
+        "placeholder": "Votre téléphone "
+      },
+      {
+        "name": "mf-date",
+        "type": "text",
+        "label": "Date de votre événement",
+        "required": false,
+        "placeholder": "Date de votre événement "
+      },
+      {
+        "name": "mf-textarea",
+        "type": "textarea",
+        "label": "Votre demande",
+        "required": false,
+        "placeholder": "Votre demande "
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:02:21.197632"
+}

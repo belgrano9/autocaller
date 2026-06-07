@@ -1,0 +1,77 @@
+{
+  "venue_name": "Domaine de la Corniche",
+  "website": "https://domainedelacorniche.com",
+  "contact_url": "https://www.domainedelacorniche.com/fr/page/contact-hotel-romantique-proche-de-paris.1653.html",
+  "extracted_email": "contact@domainedelacorniche.com",
+  "extracted_phone": "+33 (0)1 30 93 20 00",
+  "form_details": {
+    "action": "#Form_118_1588_1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "Form_118_1588_1[lastname]",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Form_118_1588_1[firstname]",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Form_118_1588_1[company]",
+        "type": "text",
+        "label": "Société",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "Form_118_1588_1[mobile]",
+        "type": "tel",
+        "label": "Mobile",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Form_118_1588_1[address]",
+        "type": "text",
+        "label": "Adresse",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "Form_118_1588_1[email]",
+        "type": "text",
+        "label": "Email",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Form_118_1588_1[arrival_date]",
+        "type": "date",
+        "label": "Date d'arrivée",
+        "required": false,
+        "placeholder": "yyyy-mm-dd"
+      },
+      {
+        "name": "Form_118_1588_1[departure_date]",
+        "type": "date",
+        "label": "Date de départ",
+        "required": false,
+        "placeholder": "yyyy-mm-dd"
+      },
+      {
+        "name": "Form_118_1588_1[message]",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:00:47.113967"
+}

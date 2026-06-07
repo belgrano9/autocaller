@@ -1,0 +1,77 @@
+{
+  "venue_name": "Pavillon Royal",
+  "website": "https://pavillon-royal.paris",
+  "contact_url": "https://pavillon-royal.paris/contact/",
+  "extracted_email": "info@pavillon-royal.paris",
+  "extracted_phone": "01 58 01 11 11",
+  "form_details": {
+    "action": "/contact/#wpcf7-f14-p111-o1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "text-Nom",
+        "type": "text",
+        "label": "Nom*",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "text-Soc",
+        "type": "text",
+        "label": "Société",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "tel-Contact",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "email-Contact",
+        "type": "email",
+        "label": "Email*",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "text-Evenement",
+        "type": "select",
+        "label": "Type d'évènement souhaité",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "date-Souhait",
+        "type": "text",
+        "label": "Date souhaitée*",
+        "required": true,
+        "placeholder": "jj/mm/aaaa"
+      },
+      {
+        "name": "text-Objet",
+        "type": "select",
+        "label": "Votre demande*",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "menu-Personne",
+        "type": "select",
+        "label": "Nombre de personne*",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "textarea-Message",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:58:49.295610"
+}

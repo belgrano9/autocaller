@@ -1,0 +1,49 @@
+{
+  "venue_name": "Salons Lyna",
+  "website": "https://lessalonslyna.eatbu.com",
+  "contact_url": "https://lessalonslyna.eatbu.com/?lang=en",
+  "extracted_email": "lessalonslyna@gmail.com",
+  "extracted_phone": "+33664804961",
+  "form_details": {
+    "action": "https://website.dish.co/contact?establishmentId=175511",
+    "method": "POST",
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "Your name",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Your email",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "phone",
+        "type": "phone",
+        "label": "your phone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "subject",
+        "type": "text",
+        "label": "Subject",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Your message",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:59:30.177369"
+}

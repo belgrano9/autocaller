@@ -1,0 +1,42 @@
+{
+  "venue_name": "Château de Boury",
+  "website": "https://chateaudeboury.fr",
+  "contact_url": "https://www.chateaudeboury.fr/contact",
+  "extracted_email": "chateauboury@gmail.com",
+  "extracted_phone": "02 32 55 15 10",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "prénom",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "E-mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Message",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:03:42.729428"
+}

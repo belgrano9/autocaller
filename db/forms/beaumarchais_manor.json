@@ -1,0 +1,35 @@
+{
+  "venue_name": "Beaumarchais Manor",
+  "website": "https://beaumarchais.eu",
+  "contact_url": "https://beaumarchais.eu/contactez-nous/",
+  "extracted_email": "info@manoirdebeaumarchais.fr",
+  "extracted_phone": "01 64 07 11 08",
+  "form_details": {
+    "action": null,
+    "method": "post",
+    "fields": [
+      {
+        "name": "form_fields[name]",
+        "type": "text",
+        "label": "Nom",
+        "required": false,
+        "placeholder": "Nom"
+      },
+      {
+        "name": "form_fields[email]",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": "Email"
+      },
+      {
+        "name": "form_fields[message]",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": "Message"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:54:46.608823"
+}

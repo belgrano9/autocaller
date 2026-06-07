@@ -1,0 +1,63 @@
+{
+  "venue_name": "Château du Vivier",
+  "website": "https://www.chateauduvivier.com",
+  "contact_url": "https://www.chateauduvivier.com/contact",
+  "extracted_email": "lechateauduvivier@gmail.com",
+  "extracted_phone": "+33 6 86 63 63 18",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "Nom complet *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "eventType",
+        "type": "select",
+        "label": "Type d'événement",
+        "required": false,
+        "placeholder": "Sélectionner..."
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "label": "Date souhaitée",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "guests",
+        "type": "number",
+        "label": "Nombre d'invités",
+        "required": false,
+        "placeholder": "Ex: 100"
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message *",
+        "required": true,
+        "placeholder": "Décrivez votre projet..."
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:55:03.973153"
+}

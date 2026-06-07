@@ -1,0 +1,42 @@
+{
+  "venue_name": "Espace Eden",
+  "website": "https://salles-eden.fr",
+  "contact_url": "https://salles-eden.fr/contact/",
+  "extracted_email": "contact@salles-eden.fr",
+  "extracted_phone": "01 60 54 08 21",
+  "form_details": {
+    "action": "/contact/#wpcf7-f6-p1559-o1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Adresse email",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "objet",
+        "type": "text",
+        "label": "Objet",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message ou commentaire",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:59:59.192124"
+}

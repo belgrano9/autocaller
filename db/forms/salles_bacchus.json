@@ -1,0 +1,35 @@
+{
+  "venue_name": "Salles Bacchus",
+  "website": "https://sallesbacchus.fr",
+  "contact_url": "https://sallesbacchus.fr/",
+  "extracted_email": "jimmarigeon@gmail.com",
+  "extracted_phone": "06 99 24 19 48",
+  "form_details": {
+    "action": "https://formspree.io/f/mzbolnlw",
+    "method": "POST",
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "Nom",
+        "required": false,
+        "placeholder": "Nom"
+      },
+      {
+        "name": "email",
+        "type": "text",
+        "label": "Email",
+        "required": false,
+        "placeholder": "Email"
+      },
+      {
+        "name": "how",
+        "type": "textarea",
+        "label": "Décriver votre demande",
+        "required": false,
+        "placeholder": "Décriver votre demande"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:00:27.673586"
+}

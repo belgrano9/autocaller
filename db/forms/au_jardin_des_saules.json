@@ -1,0 +1,63 @@
+{
+  "venue_name": "Au Jardin des Saules",
+  "website": "https://aujardindessaules.com",
+  "contact_url": "https://www.aujardindessaules.com/contact",
+  "extracted_email": "aujardindessaules@gmail.com",
+  "extracted_phone": null,
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Numéro de téléphone",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "type-d-evenement",
+        "type": "radio",
+        "label": "Type d'événement",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "date-de-l-evenement",
+        "type": "text",
+        "label": "Préciser la date de l'événement",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "nombre-d-adultes",
+        "type": "text",
+        "label": "Préciser le nombre d'adultes",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "nombre-d-enfants",
+        "type": "text",
+        "label": "Préciser le nombre d'enfants",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:50:45.291172"
+}

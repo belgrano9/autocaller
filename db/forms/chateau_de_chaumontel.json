@@ -1,0 +1,63 @@
+{
+  "venue_name": "Château de Chaumontel",
+  "website": "https://chateaudechaumontel.com",
+  "contact_url": "https://chateaudechaumontel.com/acces-contact/",
+  "extracted_email": "info@chateaudechaumontel.com",
+  "extracted_phone": "06 49 19 61 64",
+  "form_details": {
+    "action": "forminator_submit_form_custom-forms",
+    "method": "post",
+    "fields": [
+      {
+        "name": "text-2",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": "Nom"
+      },
+      {
+        "name": "text-3",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": "Prénom"
+      },
+      {
+        "name": "email-1",
+        "type": "email",
+        "label": "Adresse mail *",
+        "required": true,
+        "placeholder": "Adresse mail *"
+      },
+      {
+        "name": "phone-1",
+        "type": "text",
+        "label": "Téléphone *",
+        "required": true,
+        "placeholder": "Téléphone *"
+      },
+      {
+        "name": "text-1",
+        "type": "text",
+        "label": "Objet de votre demande",
+        "required": false,
+        "placeholder": "Objet de votre demande"
+      },
+      {
+        "name": "textarea-1",
+        "type": "textarea",
+        "label": "Votre message",
+        "required": false,
+        "placeholder": "Votre message"
+      },
+      {
+        "name": "consent-1",
+        "type": "checkbox",
+        "label": "J'accepte la politique de confidentialité",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:56:07.197463"
+}

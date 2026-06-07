@@ -1,0 +1,77 @@
+{
+  "venue_name": "La Grange des Mollières",
+  "website": "https://lagrangedesmollieres.fr",
+  "contact_url": "https://www.lagrangedesmollieres.fr/contact/",
+  "extracted_email": null,
+  "extracted_phone": "01 34 76 14 69",
+  "form_details": {
+    "action": null,
+    "method": "post",
+    "fields": [
+      {
+        "name": "form_fields[name]",
+        "type": "text",
+        "label": "Nom & Prénom",
+        "required": true,
+        "placeholder": "Nom & Prénom"
+      },
+      {
+        "name": "form_fields[field_997ee26]",
+        "type": "text",
+        "label": "Type de prestation",
+        "required": true,
+        "placeholder": "Type de prestation"
+      },
+      {
+        "name": "form_fields[field_27a64b1]",
+        "type": "number",
+        "label": "Nombre de personnes",
+        "required": true,
+        "placeholder": "Nombre de personnes"
+      },
+      {
+        "name": "form_fields[field_e715b76]",
+        "type": "date",
+        "label": "Date",
+        "required": true,
+        "placeholder": "Date"
+      },
+      {
+        "name": "form_fields[email]",
+        "type": "select",
+        "label": "Comment nous avez-vous connu ?",
+        "required": true,
+        "placeholder": "Faite votre choix :"
+      },
+      {
+        "name": "form_fields[field_4e14b19]",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": "Email"
+      },
+      {
+        "name": "form_fields[field_8c85b15]",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": true,
+        "placeholder": "Téléphone"
+      },
+      {
+        "name": "form_fields[message]",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": "Message"
+      },
+      {
+        "name": "form_fields[field_61ffd89]",
+        "type": "checkbox",
+        "label": "J’accepte que les données saisies soient utilisées pour traiter ma demande.",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:54:26.343577"
+}

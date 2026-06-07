@@ -216,8 +216,8 @@ def analyze_contact_page(html_content: str, screenshot_path: Path, client: genai
             logger.warning(f"Gemini API call failed (attempt {attempt + 1}/{max_retries}): {e}")
             if attempt < max_retries - 1:
                 if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
-                    console.print("[yellow]⚠️  Gemini Rate Limit (429) hit. Pausing for 60 seconds to cool down...[/yellow]")
-                    time.sleep(60)
+                    console.print("[yellow]⚠️  Gemini Rate Limit (429) hit. Pausing for 30 seconds to cool down...[/yellow]")
+                    time.sleep(30)
                 else:
                     time.sleep(3 * (attempt + 1))
             else:

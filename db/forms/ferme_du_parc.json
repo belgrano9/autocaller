@@ -1,0 +1,70 @@
+{
+  "venue_name": "Ferme du Parc",
+  "website": "https://lafermeduparc.com",
+  "contact_url": "https://lafermeduparc.com/",
+  "extracted_email": "info@epicura-receptions.fr",
+  "extracted_phone": "06 47 83 42 78",
+  "form_details": {
+    "action": "email-templates/contact-form.php",
+    "method": "post",
+    "fields": [
+      {
+        "name": "firstname",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": "Votre prénom"
+      },
+      {
+        "name": "lastname",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": "Votre nom"
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": "Votre email"
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": "Votre téléphone"
+      },
+      {
+        "name": "event_type",
+        "type": "select",
+        "label": "Type d'événement",
+        "required": true,
+        "placeholder": "Sélectionnez un type d'événement"
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "label": "Date souhaitée",
+        "required": false,
+        "placeholder": "dd/mm/yyyy"
+      },
+      {
+        "name": "guests",
+        "type": "number",
+        "label": "Nombre d'invités",
+        "required": false,
+        "placeholder": "Ex: 150"
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Votre message",
+        "required": true,
+        "placeholder": "Décrivez votre projet..."
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:57:13.243192"
+}

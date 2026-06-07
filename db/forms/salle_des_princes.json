@@ -1,0 +1,56 @@
+{
+  "venue_name": "Salle des Princes",
+  "website": "https://salledesprinces-drancy.fr",
+  "contact_url": "https://salledesprinces-drancy.fr/contact.php",
+  "extracted_email": "salledesprinces@yahoo.fr",
+  "extracted_phone": "06 16 27 65 55",
+  "form_details": {
+    "action": "contact.php",
+    "method": "post",
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "Votre Nom *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "pn",
+        "type": "text",
+        "label": "Numéro de téléphone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "text",
+        "label": "Email *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "reason",
+        "type": "text",
+        "label": "Objet",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "captcha",
+        "type": "text",
+        "label": "Entrez le code ci-contre",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:50:19.789003"
+}

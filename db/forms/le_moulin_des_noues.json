@@ -1,0 +1,49 @@
+{
+  "venue_name": "Le Moulin des Noues",
+  "website": "https://lemoulindesnoues.com",
+  "contact_url": "https://lemoulindesnoues.com/contact/",
+  "extracted_email": "contact@lmdn.fr",
+  "extracted_phone": "+33 (0)6 64 90 64 24",
+  "form_details": {
+    "action": "/contact/#wpcf7-f11596-p11545-o1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "your-name",
+        "type": "text",
+        "label": "Votre nom (obligatoire)",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-email",
+        "type": "email",
+        "label": "Votre email (obligatoire)",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "tel-620",
+        "type": "tel",
+        "label": "Votre numéro de tél.",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "your-subject",
+        "type": "text",
+        "label": "Sujet",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "your-message",
+        "type": "textarea",
+        "label": "Votre message",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:57:29.849247"
+}

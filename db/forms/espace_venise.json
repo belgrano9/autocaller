@@ -1,0 +1,49 @@
+{
+  "venue_name": "Espace Venise",
+  "website": "https://espace-venise.com",
+  "contact_url": "https://www.espace-venise.com/contact",
+  "extracted_email": "info@espacevenise.com",
+  "extracted_phone": "01 39 90 53 75",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "prénom",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:00:15.321167"
+}

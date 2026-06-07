@@ -1,0 +1,42 @@
+{
+  "venue_name": "Le Manoir des Cygnes",
+  "website": "https://lemanoirdescygnes.fr",
+  "contact_url": "https://lemanoirdescygnes.fr/#contact",
+  "extracted_email": "lemanoirdescygnes@gmail.com",
+  "extracted_phone": "01 64 93 81 56",
+  "form_details": {
+    "action": null,
+    "method": "post",
+    "fields": [
+      {
+        "name": "form_fields[name]",
+        "type": "text",
+        "label": "Nom",
+        "required": false,
+        "placeholder": "Nom"
+      },
+      {
+        "name": "form_fields[email]",
+        "type": "email",
+        "label": "E-mail",
+        "required": true,
+        "placeholder": "E-mail"
+      },
+      {
+        "name": "form_fields[field_cad223e]",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": "Téléphone"
+      },
+      {
+        "name": "form_fields[message]",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": "Message"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:52:57.190581"
+}

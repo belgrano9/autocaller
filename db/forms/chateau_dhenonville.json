@@ -1,0 +1,49 @@
+{
+  "venue_name": "Château d'Hénonville",
+  "website": "https://chateaudhenonville.com",
+  "contact_url": "https://www.chateaudhenonville.com/contact",
+  "extracted_email": "chateaudhenonville@gmail.com",
+  "extracted_phone": "+33 6 22 64 96 88",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "nom-*",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": "Nom *"
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": "Email *"
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": true,
+        "placeholder": "Téléphone *"
+      },
+      {
+        "name": "sujet-",
+        "type": "text",
+        "label": "Sujet",
+        "required": false,
+        "placeholder": "Sujet "
+      },
+      {
+        "name": "Message",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": "Message"
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T18:04:09.609861"
+}

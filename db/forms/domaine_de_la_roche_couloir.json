@@ -1,0 +1,105 @@
+{
+  "venue_name": "Domaine de la Roche Couloir",
+  "website": "https://domainedelarochecouloir.com",
+  "contact_url": "https://www.domainedelarochecouloir.com/contact-acces",
+  "extracted_email": "elodie@domainesevenements.com",
+  "extracted_phone": "+33 6 69 65 40 44",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "date_from",
+        "type": "text",
+        "label": "DATE DE L'ÉVÉNEMENT",
+        "required": false,
+        "placeholder": ""
+      },
+      {
+        "name": "time_from",
+        "type": "text",
+        "label": "Heure de début",
+        "required": false,
+        "placeholder": ""
+      },
+      {
+        "name": "time_to",
+        "type": "text",
+        "label": "Heure de fin",
+        "required": false,
+        "placeholder": ""
+      },
+      {
+        "name": "custom_field[241][]",
+        "type": "select",
+        "label": "Si la date est flexible",
+        "required": false,
+        "placeholder": "Sélectionnez une option"
+      },
+      {
+        "name": "number_of_persons",
+        "type": "number",
+        "label": "Nombre de personne",
+        "required": true,
+        "placeholder": ""
+      },
+      {
+        "name": "budget",
+        "type": "number",
+        "label": "votre budget",
+        "required": false,
+        "placeholder": ""
+      },
+      {
+        "name": "description",
+        "type": "textarea",
+        "label": "DÉCRIVEZ-NOUS LE DÉROULÉ DE VOTRE ÉVÉNEMENT",
+        "required": false,
+        "placeholder": ""
+      },
+      {
+        "name": "last_name",
+        "type": "text",
+        "label": "NOM",
+        "required": true,
+        "placeholder": ""
+      },
+      {
+        "name": "name",
+        "type": "text",
+        "label": "PRÉNOM",
+        "required": true,
+        "placeholder": ""
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "ADRESSE EMAIL",
+        "required": true,
+        "placeholder": ""
+      },
+      {
+        "name": "phone",
+        "type": "text",
+        "label": "N° TÉLÉPHONE",
+        "required": true,
+        "placeholder": ""
+      },
+      {
+        "name": "request_consent",
+        "type": "checkbox",
+        "label": "En soumettant ce formulaire, j’accepte que les informations saisies dans ce formulaire soient traitées pour permettre de me recontacter dans le cadre de la relation commerciale qui découle de cette demande de devis.",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "request_consent_newsletter",
+        "type": "checkbox",
+        "label": "J’accepte que les informations saisies dans ce formulaire soient utilisées pour m’envoyer des emails d'informations & de prospections.",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:53:33.067007"
+}

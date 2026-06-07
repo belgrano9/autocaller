@@ -1,0 +1,42 @@
+{
+  "venue_name": "Château de Montgeroult",
+  "website": "https://chateaudemontgeroult.com",
+  "contact_url": "https://www.chateaudemontgeroult.com/contact/",
+  "extracted_email": "ch.montgeroult@orange.fr",
+  "extracted_phone": "01.34.42.71.03 / 06.79.73.18.23",
+  "form_details": {
+    "action": "/contact/#wpcf7-f408-p78-o1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "your-name",
+        "type": "text",
+        "label": "Votre nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-email",
+        "type": "email",
+        "label": "Votre e-mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-subject",
+        "type": "text",
+        "label": "Objet",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-message",
+        "type": "textarea",
+        "label": "Votre message",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:56:27.882519"
+}

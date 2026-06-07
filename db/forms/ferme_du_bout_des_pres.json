@@ -1,0 +1,49 @@
+{
+  "venue_name": "Ferme du Bout des Prés",
+  "website": "https://www.lafermeduboutdespres.com",
+  "contact_url": "https://www.lafermeduboutdespres.com/contactez-nous.html",
+  "extracted_email": "contact@lafermeduboutdespres.com",
+  "extracted_phone": "01 34 85 29 04",
+  "form_details": {
+    "action": "/contactez-nous.html",
+    "method": "POST",
+    "fields": [
+      {
+        "name": "custom_form_submission[e6580fc8-ac66-11e3-967b-5605e959fb74]",
+        "type": "text",
+        "label": "Nom complet",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "custom_form_submission[e659a3ce-ac66-11e3-9bef-b5f98cd7dafe]",
+        "type": "text",
+        "label": "Adresse e-mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "custom_form_submission[e63781a4-ac66-11e3-984f-593d6dc15735]",
+        "type": "text",
+        "label": "Téléphone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "custom_form_submission[e63eaa88-ac66-11e3-842f-2c32131ee564]",
+        "type": "text",
+        "label": "Objet du message",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "custom_form_submission[e66032d4-ac66-11e3-9b8e-fbc9e4f43d46]",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:52:32.954951"
+}
