@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head><meta charset="UTF-8"></head>
+<body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
+  <p>Bonjour,</p>
+
+  <p>
+    Je me permets de vous contacter au nom de <strong>{{ couple_name }}</strong>,
+    un couple qui prépare son mariage et souhaiterait recevoir votre devis pour
+    <strong>{{ venue_name }}</strong>.
+  </p>
+
+  <p><strong>Détails de l'événement :</strong></p>
+  <ul>
+    <li><strong>Date souhaitée :</strong> {{ event_date }}</li>
+    <li><strong>Nombre d'invités :</strong> {{ guest_count }} personnes</li>
+    <li><strong>Style :</strong> {{ style }}</li>
+    <li><strong>Budget indicatif :</strong> {{ budget }}</li>
+    {% if notes %}<li><strong>Informations complémentaires :</strong> {{ notes }}</li>{% endif %}
+  </ul>
+
+  <p>
+    Pourriez-vous nous faire parvenir votre devis détaillé ainsi que vos disponibilités
+    pour cette date ? N'hésitez pas à inclure vos formules, prestations comprises et
+    éventuelles options.
+  </p>
+
+  <p>
+    Vous pouvez répondre directement à cet email — votre réponse sera transmise
+    automatiquement au couple.
+  </p>
+
+  <p>Avec nos cordiales salutations,</p>
+  <p><strong>L'équipe Devis Mariages</strong><br>
+  <small>Ce message a été envoyé au nom du couple via la plateforme Devis Mariages.<br>
+  Pour ne plus recevoir ce type de demandes : <a href="#">se désabonner</a>.</small></p>
+</body>
+</html>

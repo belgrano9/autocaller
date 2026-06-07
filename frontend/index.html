@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devis Mariages</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, sans-serif; background: #f9f9f9; color: #111; }
+
+    /* ── Navbar ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 0 5%;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .nav-logo { font-size: 17px; font-weight: 700; color: #2d6a4f; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { font-size: 14px; color: #555; text-decoration: none; }
+    .nav-links a:hover { color: #2d6a4f; }
+    .nav-links .btn-login {
+      padding: 6px 16px;
+      border: 1px solid #2d6a4f;
+      border-radius: 6px;
+      color: #2d6a4f;
+      font-weight: 600;
+    }
+    .nav-links .btn-login:hover { background: #2d6a4f; color: #fff; }
+
+    .mode-toggle {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #f3f3f3;
+      border-radius: 20px;
+      padding: 3px 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .mode-toggle span {
+      padding: 3px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      color: #888;
+      transition: all 0.15s;
+    }
+    .mode-toggle span.active-dev  { background: #fff; color: #e67e22; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+    .mode-toggle span.active-int  { background: #fff; color: #2d6a4f; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+
+    /* ── Container ── */
+    .container { width: 75%; margin: 36px auto; }
+    h1 { font-size: 22px; margin-bottom: 4px; }
+    p.sub { color: #666; font-size: 14px; margin-bottom: 20px; }
+
+    /* ── Filter bar ── */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+    .filters-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    .filters-label { font-size: 12px; color: #999; margin-right: 2px; }
+
+    .chip {
+      padding: 5px 13px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 12px;
+      cursor: pointer;
+      background: #fff;
+      color: #555;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .chip:hover { border-color: #2d6a4f; color: #2d6a4f; }
+    .chip.active { background: #2d6a4f; border-color: #2d6a4f; color: #fff; }
+
+    .divider { width: 1px; background: #e0e0e0; align-self: stretch; margin: 0 4px; }
+
+    .sort-select {
+      padding: 5px 10px;
+      border: 1px solid #ddd;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #555;
+      background: #fff;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* ── Count ── */
+    .count { font-size: 13px; color: #888; margin-bottom: 12px; }
+
+    /* ── Venue card ── */
+    .venue {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow 0.15s;
+    }
+    .venue:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
+
+    .venue-info { flex: 1; min-width: 0; }
+    .venue-info strong { font-size: 15px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .venue-info .meta { font-size: 12px; color: #888; margin-top: 3px; }
+    .venue-link { color: #2d6a4f; text-decoration: none; }
+    .venue-link:hover { text-decoration: underline; }
+
+    .badge {
+      font-size: 11px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .badge-type    { background: #f0f0f0; color: #555; }
+    .badge-contact { background: #e8f5e9; color: #2d6a4f; }
+    .badge-contact.no { background: #f5f5f5; color: #aaa; }
+
+    .venue-price {
+      font-size: 14px;
+      font-weight: 600;
+      color: #2d6a4f;
+      white-space: nowrap;
+      min-width: 110px;
+      text-align: right;
+    }
+    .venue-price.unknown { color: #bbb; font-weight: 400; font-style: italic; }
+
+    button.contact-btn {
+      padding: 8px 18px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      min-width: 100px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    button.contact-btn:disabled { cursor: wait; opacity: 0.75; }
+    button.contact-btn.ok  { background: #2d6a4f; }
+    button.contact-btn.err { background: #c0392b; }
+    button.contact-btn.disabled-venue { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
+
+    .state-msg { color: #888; font-size: 14px; padding: 32px 0; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="/">Devis Mariages</a>
+    <div class="nav-links">
+      <a href="#">Nos lieux</a>
+      <a href="#">Comment ça marche</a>
+      <div class="mode-toggle">
+        <span id="mode-dev" onclick="setMode('dev')">DEV</span>
+        <span id="mode-int" onclick="setMode('int')">INT</span>
+      </div>
+      <a href="#" class="btn-login">Connexion</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h1>Lieux disponibles</h1>
+    <p class="sub">Contactez plusieurs lieux en un clic et comparez leurs devis.</p>
+
+    <div class="filters">
+      <div class="filters-group">
+        <span class="filters-label">Type</span>
+        <span class="chip active" data-filter="type" data-value="">Tous</span>
+        <span class="chip" data-filter="type" data-value="château">Château</span>
+        <span class="chip" data-filter="type" data-value="domaine">Domaine</span>
+        <span class="chip" data-filter="type" data-value="salle">Salle</span>
+        <span class="chip" data-filter="type" data-value="ferme">Ferme</span>
+        <span class="chip" data-filter="type" data-value="atypique">Atypique</span>
+      </div>
+      <div class="divider"></div>
+      <div class="filters-group">
+        <span class="filters-label">Contact</span>
+        <span class="chip active" data-filter="contact" data-value="">Tous</span>
+        <span class="chip" data-filter="contact" data-value="email">Email ✓</span>
+        <span class="chip" data-filter="contact" data-value="other">Autres</span>
+      </div>
+      <div class="divider"></div>
+      <div class="filters-group">
+        <span class="filters-label">Trier</span>
+        <select class="sort-select" id="sort">
+          <option value="default">Par défaut</option>
+          <option value="name">Nom A–Z</option>
+          <option value="dept">Département</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="count" id="count"></div>
+    <div id="venue-list"></div>
+  </div>
+
+  <script>
+    // ── State ─────────────────────────────────────────────────────────────────
+    let allVenues = [];
+    const activeFilters = { type: "", contact: "" };
+
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    const CONTACT_LABELS = {
+      "email":        "Email",
+      "email+phone":  "Email",
+      "form_only":    "Formulaire",
+      "phone_only":   "Téléphone",
+      "platform_only":"Plateforme",
+    };
+
+    function formatPrice(cents, tier) {
+      if (cents != null) return { label: `~${Math.round(cents/100).toLocaleString("fr-FR")} €`, unknown: false };
+      if (tier) return { label: { budget:"Économique", mid:"Milieu de gamme", premium:"Premium", luxury:"Luxe" }[tier] ?? tier, unknown: false };
+      return { label: "Prix sur devis", unknown: true };
+    }
+
+    // ── Filter + sort ─────────────────────────────────────────────────────────
+    function applyFilters() {
+      let list = [...allVenues];
+
+      if (activeFilters.type)
+        list = list.filter(v => v.style_tags?.includes(activeFilters.type));
+
+      if (activeFilters.contact === "email")
+        list = list.filter(v => v.accepts_email);
+      else if (activeFilters.contact === "other")
+        list = list.filter(v => !v.accepts_email);
+
+      const sort = document.getElementById("sort").value;
+      if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name, "fr"));
+      if (sort === "dept") list.sort((a, b) => (a.department ?? "").localeCompare(b.department ?? ""));
+
+      document.getElementById("count").textContent = `${list.length} lieu${list.length !== 1 ? "x" : ""} trouvé${list.length !== 1 ? "s" : ""}`;
+      renderVenues(list);
+    }
+
+    // ── Render ────────────────────────────────────────────────────────────────
+    function createVenueCard(venue) {
+      const { id, name, city, department, contact_method, accepts_email, base_price_cents, price_tier, style_tags, website_url } = venue;
+      const { label: priceLabel, unknown } = formatPrice(base_price_cents, price_tier);
+      const contactLabel = CONTACT_LABELS[contact_method] ?? contact_method;
+      const typeLabel    = style_tags?.[0] ?? "";
+
+      const card = document.createElement("div");
+      card.className = "venue";
+      card.innerHTML = `
+        <div class="venue-info">
+          <strong title="${name}">${name}</strong>
+          <div class="meta">${city}${department ? ` (${department})` : ""}${website_url ? ` · <a href="${website_url}" target="_blank" rel="noopener noreferrer" class="venue-link">Site web ↗</a>` : ""}</div>
+        </div>
+        ${typeLabel ? `<span class="badge badge-type">${typeLabel}</span>` : ""}
+        <span class="badge badge-contact ${accepts_email ? "" : "no"}">${contactLabel}</span>
+        <div class="venue-price ${unknown ? "unknown" : ""}">${priceLabel}</div>
+        <button class="contact-btn ${accepts_email ? "" : "disabled-venue"}" id="btn-${id}" ${accepts_email ? "" : 'disabled title="Contact manuel requis"'}>
+          ${accepts_email ? "Contacter" : "Manuel"}
+        </button>
+      `;
+      if (accepts_email)
+        card.querySelector("button").addEventListener("click", () => contactVenue(id, name));
+      return card;
+    }
+
+    function renderVenues(venues) {
+      const list = document.getElementById("venue-list");
+      list.innerHTML = "";
+      if (!venues.length) {
+        list.innerHTML = '<p class="state-msg">Aucun lieu pour ces filtres.</p>';
+        return;
+      }
+      venues.forEach(v => list.appendChild(createVenueCard(v)));
+    }
+
+    // ── Contact action ────────────────────────────────────────────────────────
+    async function contactVenue(id, name) {
+      const btn = document.getElementById(`btn-${id}`);
+      btn.disabled = true;
+      btn.textContent = "Envoi…";
+      btn.className = "contact-btn";
+      try {
+        const res = await fetch(`/api/test/send-email?venue_name=${encodeURIComponent(name)}`, { method: "POST" });
+        if (res.ok) {
+          btn.textContent = "Envoyé ✓";
+          btn.className = "contact-btn ok";
+        } else {
+          const err = await res.json().catch(() => ({}));
+          btn.textContent = "Erreur";
+          btn.className = "contact-btn err";
+          btn.title = err.detail ?? "Erreur inconnue";
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = "Erreur réseau";
+        btn.className = "contact-btn err";
+        btn.disabled = false;
+      }
+    }
+
+    // ── Filter chips ──────────────────────────────────────────────────────────
+    document.querySelectorAll(".chip").forEach(chip => {
+      chip.addEventListener("click", () => {
+        const group = chip.dataset.filter;
+        document.querySelectorAll(`.chip[data-filter="${group}"]`).forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        activeFilters[group] = chip.dataset.value;
+        applyFilters();
+      });
+    });
+
+    document.getElementById("sort").addEventListener("change", applyFilters);
+
+    // ── Mode toggle ───────────────────────────────────────────────────────────
+    function applyModeUI(mode) {
+      document.getElementById("mode-dev").className = mode === "dev" ? "active-dev" : "";
+      document.getElementById("mode-int").className = mode === "int" ? "active-int" : "";
+    }
+
+    async function setMode(mode) {
+      const res = await fetch(`/api/mode/${mode}`, { method: "POST" });
+      const data = await res.json();
+      applyModeUI(data.mode);
+    }
+
+    async function loadMode() {
+      const data = await fetch("/api/mode").then(r => r.json());
+      applyModeUI(data.mode);
+    }
+
+    // ── Init ──────────────────────────────────────────────────────────────────
+    async function init() {
+      document.getElementById("venue-list").innerHTML = '<p class="state-msg">Chargement…</p>';
+      try {
+        allVenues = await fetch("/api/venues").then(r => {
+          if (!r.ok) throw new Error(r.status);
+          return r.json();
+        });
+        applyFilters();
+      } catch (err) {
+        document.getElementById("venue-list").innerHTML =
+          `<p class="state-msg">Impossible de charger les lieux (${err.message}).</p>`;
+      }
+    }
+
+    loadMode();
+    init();
+  </script>
+</body>
+</html>
