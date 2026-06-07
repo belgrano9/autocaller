@@ -1,0 +1,56 @@
+{
+  "venue_name": "Domaine de la Vallée Aux Pages",
+  "website": "https://vallee-aux-pages.com",
+  "contact_url": "https://www.vallee-aux-pages.com/contact/",
+  "extracted_email": "contact@vallee-aux-pages.com",
+  "extracted_phone": "+33 1 30 59 04 54",
+  "form_details": {
+    "action": "https://www.vallee-aux-pages.com/contact/",
+    "method": "post",
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": "Nom"
+      },
+      {
+        "name": "phone",
+        "type": "text",
+        "label": "Téléphone",
+        "required": true,
+        "placeholder": "Téléphone"
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Adresse Mail",
+        "required": true,
+        "placeholder": "Adresse Mail"
+      },
+      {
+        "name": "subject",
+        "type": "text",
+        "label": "Sujet",
+        "required": true,
+        "placeholder": "Sujet"
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": "Message"
+      },
+      {
+        "name": "rgpd",
+        "type": "checkbox",
+        "label": "J’ai lu et j’accepte votre Politique de Confidentialité",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:28:53.540812"
+}

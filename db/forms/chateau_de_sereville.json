@@ -1,0 +1,42 @@
+{
+  "venue_name": "Château de Séréville",
+  "website": "https://chateaudesereville.com",
+  "contact_url": "https://www.chateaudesereville.com/documentation-mariage/",
+  "extracted_email": "zcch@orange.fr",
+  "extracted_phone": "00 33 6 19 92 30 12",
+  "form_details": {
+    "action": "",
+    "method": "post",
+    "fields": [
+      {
+        "name": "mc8b7a1fd52f5d1dd0",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "mc8b7a1fd52f5d1dd1",
+        "type": "email",
+        "label": "E-mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "mc8b7a1fd52f5d1dd2",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "captcha",
+        "type": "text",
+        "label": "Veuillez entrer le code:",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:29:10.977141"
+}

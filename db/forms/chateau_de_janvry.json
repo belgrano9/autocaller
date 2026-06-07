@@ -1,0 +1,56 @@
+{
+  "venue_name": "Château de Janvry",
+  "website": "https://www.chateaudejanvry.com",
+  "contact_url": "https://www.chateaudejanvry.com/demande-de-devis/",
+  "extracted_email": "contact@chateaudejanvry.com",
+  "extracted_phone": "06 35 45 58 96",
+  "form_details": {
+    "action": "/demande-de-devis/#wpcf7-f23397-p6463-o1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "your-name",
+        "type": "text",
+        "label": "Indiquez votre nom (prénom-nom) *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-email",
+        "type": "email",
+        "label": "Votre adresse email : *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-phone",
+        "type": "tel",
+        "label": "Votre téléphone : *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "your-company",
+        "type": "text",
+        "label": "Votre entreprise :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "your-message",
+        "type": "textarea",
+        "label": "Décrivez brièvement votre projet (date, nombre de participants, etc...) : *",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "acceptance-648",
+        "type": "checkbox",
+        "label": "j'accepte d'être contacté par email par le château de Janvry, vos données ne seront jamais transmises à un tiers.",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:26:07.856130"
+}

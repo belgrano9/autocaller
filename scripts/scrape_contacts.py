@@ -291,9 +291,15 @@ def main():
             # Capture screenshot
             screenshot_path = SCREENSHOTS_DIR / f"{slug}.png"
             try:
-                # Capture the current viewport
-                page.screenshot(path=str(screenshot_path), full_page=False)
-                print(f"  Saved screenshot to: {screenshot_path}")
+                # Trigger lazy loaded elements by scrolling to bottom and back up
+                page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+                page.wait_for_timeout(1000)
+                page.evaluate("window.scrollTo(0, 0)")
+                page.wait_for_timeout(500)
+
+                # Capture the full height of the page
+                page.screenshot(path=str(screenshot_path), full_page=True)
+                print(f"  Saved full-page screenshot to: {screenshot_path}")
             except Exception as e:
                 print(f"  Failed to take screenshot: {e}")
                 continue

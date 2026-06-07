@@ -1,0 +1,63 @@
+{
+  "venue_name": "Domaine La Ville du Bois",
+  "website": "https://domainelavilledubois.com",
+  "contact_url": "https://www.domainelavilledubois.com/contact.html",
+  "extracted_email": "lavilledubois77540@gmail.com",
+  "extracted_phone": "06 62 01 46 53",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "of_name",
+        "type": "text",
+        "label": "Nom et prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "of_email",
+        "type": "email",
+        "label": "Adresse email",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "of_phone_number",
+        "type": "text",
+        "label": "Numéro de téléphone",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "of_subject",
+        "type": "text",
+        "label": "Sujet",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "of_message",
+        "type": "textarea",
+        "label": "Message",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "of_rgpd",
+        "type": "checkbox",
+        "label": "J'ai lu et j'accepte les conditions générales d'utilisation et la politique de confidentialité du site La Ville Du Bois.",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "of_captcha",
+        "type": "text",
+        "label": "Recopier le code ci-contre",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:30:08.304709"
+}

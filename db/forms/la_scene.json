@@ -1,0 +1,77 @@
+{
+  "venue_name": "La Scène",
+  "website": "https://lascene78.com",
+  "contact_url": "https://lascene78.com/contact/",
+  "extracted_email": "contact@lascene78.com",
+  "extracted_phone": "06 03 50 00 74",
+  "form_details": {
+    "action": null,
+    "method": "post",
+    "fields": [
+      {
+        "name": "form_fields[name]",
+        "type": "text",
+        "label": "Nom / Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "form_fields[email]",
+        "type": "email",
+        "label": "E-mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "form_fields[field_0dce9b7]",
+        "type": "tel",
+        "label": "Téléphone",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "form_fields[field_e5c8fd8]",
+        "type": "text",
+        "label": "Date de l'évènement",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "form_fields[field_7595a13]",
+        "type": "select",
+        "label": "Type d'évènement",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "form_fields[field_5d2d1b9]",
+        "type": "number",
+        "label": "Nombre d'invités",
+        "required": true,
+        "placeholder": "100 invités minimum"
+      },
+      {
+        "name": "form_fields[message][]",
+        "type": "checkbox",
+        "label": "Décoration",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "form_fields[message][]",
+        "type": "checkbox",
+        "label": "Cérémonie extérieure",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "form_fields[field_56b1c98]",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:30:56.788218"
+}

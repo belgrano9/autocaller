@@ -1,0 +1,49 @@
+{
+  "venue_name": "Château de Bouffémont",
+  "website": "https://chateaubouffemont.com",
+  "contact_url": "https://www.chateaubouffemont.com/contact",
+  "extracted_email": "info@chateaubouffemont.com",
+  "extracted_phone": "+33 (0) 1 39 91 20 94",
+  "form_details": {
+    "action": "",
+    "method": "post",
+    "fields": [
+      {
+        "name": "txtName",
+        "type": "text",
+        "label": "Name*",
+        "required": true,
+        "placeholder": "Name"
+      },
+      {
+        "name": "txtEmail",
+        "type": "email",
+        "label": "Email*",
+        "required": true,
+        "placeholder": "Email"
+      },
+      {
+        "name": "txtPhone",
+        "type": "tel",
+        "label": "Phone Number*",
+        "required": true,
+        "placeholder": "Phone Number"
+      },
+      {
+        "name": "txtMessage",
+        "type": "textarea",
+        "label": "Message*",
+        "required": true,
+        "placeholder": "Message"
+      },
+      {
+        "name": "chkNewsletter",
+        "type": "checkbox",
+        "label": "To be in touch and to provide updates we will be sending our latest news by using the information on this form above. If you don't want to miss out, please make sure to check this box.",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:29:46.785487"
+}

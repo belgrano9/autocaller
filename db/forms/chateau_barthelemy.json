@@ -1,0 +1,56 @@
+{
+  "venue_name": "Château Barthélemy",
+  "website": "https://chateaubarthelemy.fr",
+  "contact_url": "https://www.chateaubarthelemy.fr/informations-pratiques/contact-acces/",
+  "extracted_email": "chateau.barthelemy@gmail.com",
+  "extracted_phone": "06 85 89 19 53",
+  "form_details": {
+    "action": "/informations-pratiques/contact-acces/#gf_1",
+    "method": "post",
+    "fields": [
+      {
+        "name": "input_1.3",
+        "type": "text",
+        "label": "Prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_1.6",
+        "type": "text",
+        "label": "Nom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_7",
+        "type": "tel",
+        "label": "Numéro de téléphone",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_2",
+        "type": "email",
+        "label": "E-mail :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_4",
+        "type": "textarea",
+        "label": "Message :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "input_6.1",
+        "type": "checkbox",
+        "label": "En soumettant ce formulaire, j'affirme avoir pris connaissance de la Politique de confidentialité et j'accepte que les informations saisies soient exploitées dans le cadre de ma demande ci-dessus.",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:27:14.519635"
+}

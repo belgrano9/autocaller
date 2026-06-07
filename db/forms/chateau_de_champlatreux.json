@@ -1,0 +1,56 @@
+{
+  "venue_name": "Château de Champlâtreux",
+  "website": "https://chateau-de-champlatreux.com",
+  "contact_url": "https://www.chateau-de-champlatreux.com/",
+  "extracted_email": "hello@chateau-de-champlatreux.com",
+  "extracted_phone": "+33 6 73 87 22 48",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "name",
+        "type": "text",
+        "label": "Name",
+        "required": true,
+        "placeholder": "Name"
+      },
+      {
+        "name": "address",
+        "type": "text",
+        "label": "Address",
+        "required": false,
+        "placeholder": "Address"
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Email",
+        "required": true,
+        "placeholder": "Email"
+      },
+      {
+        "name": "phone",
+        "type": "tel",
+        "label": "Phone",
+        "required": false,
+        "placeholder": "Phone"
+      },
+      {
+        "name": "subject",
+        "type": "text",
+        "label": "Subject",
+        "required": false,
+        "placeholder": "Subject"
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Type your message here...",
+        "required": false,
+        "placeholder": "Type your message here..."
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:27:49.640426"
+}

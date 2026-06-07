@@ -1,0 +1,84 @@
+{
+  "venue_name": "Château de Méridon",
+  "website": "https://chateaudemeridon.com",
+  "contact_url": "https://chateaudemeridon.com/contact",
+  "extracted_email": "contact@chateaudemeridon.fr",
+  "extracted_phone": "+33 (0)6 58 86 42 79",
+  "form_details": {
+    "action": null,
+    "method": null,
+    "fields": [
+      {
+        "name": "fname",
+        "type": "text",
+        "label": "First name",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "lname",
+        "type": "text",
+        "label": "Last name",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Country",
+        "type": "select",
+        "label": "Country",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Phone Number",
+        "type": "text",
+        "label": "Phone Number",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Type of event",
+        "type": "select",
+        "label": "Type of event",
+        "required": true,
+        "placeholder": "Select an option"
+      },
+      {
+        "name": "Number of guests",
+        "type": "text",
+        "label": "Number of guests",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Overall event budget",
+        "type": "select",
+        "label": "Overall event budget",
+        "required": true,
+        "placeholder": "Select an option"
+      },
+      {
+        "name": "Location budget",
+        "type": "text",
+        "label": "Location budget",
+        "required": true,
+        "placeholder": " €"
+      },
+      {
+        "name": "E-mail",
+        "type": "email",
+        "label": "E-mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "Message",
+        "type": "textarea",
+        "label": "Message",
+        "required": false,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:26:50.147043"
+}

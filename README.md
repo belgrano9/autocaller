@@ -68,3 +68,15 @@ Following the `/grill-me` alignment, the system will operate under these specifi
 *   `GET /api/mode` & `POST /api/mode/{mode}`: Toggles dev/int SMTP modes (already implemented).
 *   `POST /api/outreach/preview`: Takes wedding details + venue name, renders and returns the HTML preview.
 *   `POST /api/outreach/send`: Takes wedding details + venue name + venue email. Performs the SMTP send according to the current mode.
+
+---
+
+## Future Roadmap & TODOs
+
+### 1. Dynamic Contact Form Integration
+For venues that do not accept emails (e.g., `contact_type` = `form` or `phone+form` in `venues.csv`), we plan to build an automated form-filling assistant:
+*   **JSON Schema Loading**: Load the structured form blueprints extracted by the scraper from `db/forms/<venue_slug>.json`.
+*   **Dynamic UI Render**: Enable the "Contacter" button for form-based venues in the frontend. When clicked, display a modal dynamically rendering input elements required by the venue's form.
+*   **Auto-Mapping (Smart Fill)**: Pre-fill input fields (email, names, phone, guest count, budget, event date, and message) using the global "Wedding Project" settings state.
+*   **Backend Playwright Submitter**: Send the filled-in fields to a backend API (e.g., `/api/outreach/submit-form`) that spins up Playwright to navigate, fill out the form elements, submit it, and return a success verification screenshot.
+

@@ -11,7 +11,7 @@
       {
         "name": "nom",
         "type": "text",
-        "label": "Nom :",
+        "label": "Nom : *",
         "required": true,
         "placeholder": null
       },
@@ -46,18 +46,18 @@
       {
         "name": "email",
         "type": "text",
-        "label": "Email :",
+        "label": "Email : *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "message",
         "type": "textarea",
-        "label": "Message :",
+        "label": "Message : *",
         "required": true,
         "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T17:23:49.412029"
+  "last_verified": "2026-06-07T17:29:19.347222"
 }

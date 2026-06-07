@@ -1,0 +1,119 @@
+{
+  "venue_name": "Château des Bondons",
+  "website": "https://chateaudesbondons.com",
+  "contact_url": "https://www.chateaudesbondons.com/fr/contact.html",
+  "extracted_email": "castel@chateaudesbondons.com",
+  "extracted_phone": "+33 1 60 22 00 98",
+  "form_details": {
+    "action": "valid_form.php",
+    "method": "post",
+    "fields": [
+      {
+        "name": "date_repas",
+        "type": "text",
+        "label": "Date du repas * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "dejeuner",
+        "type": "select",
+        "label": "Déjeuner :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "diner",
+        "type": "select",
+        "label": "Diner :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "nb_adultes",
+        "type": "number",
+        "label": "Nombre d'adultes * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "nb_enfants",
+        "type": "number",
+        "label": "Nombre d'enfants :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "obs",
+        "type": "textarea",
+        "label": "Remarques :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "titre",
+        "type": "select",
+        "label": "Titre * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "prenom",
+        "type": "text",
+        "label": "Prénom * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Nom * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "societe",
+        "type": "text",
+        "label": "Société :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "telephone",
+        "type": "text",
+        "label": "Téléphone * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "portable",
+        "type": "text",
+        "label": "Téléphone mobile :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "label": "Courriel * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "email_again",
+        "type": "email",
+        "label": "Réécrire l’adresse e-mail * :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "agree",
+        "type": "checkbox",
+        "label": "J'accepte que les données saisies soient enregistrées et envoyées *:",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:28:07.053238"
+}
