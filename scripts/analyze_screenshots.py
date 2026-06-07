@@ -74,6 +74,8 @@ class VisualFormVerification(BaseModel):
     form_is_visible: bool = Field(description="True if the contact form is visible in the screenshot.")
     submit_button_is_visible: bool = Field(description="True if the submit/send/confirm button for the form is visible in the screenshot.")
     is_draft_accurate: bool = Field(description="True if the draft JSON matches the screenshot perfectly without corrections.")
+    extracted_email: Optional[str] = Field(description="Any email address visible on the page (e.g. in text, header, footer) that can be used for contact. Null if none is visible.")
+    extracted_phone: Optional[str] = Field(description="Any phone number visible on the page (preferably French format) that can be used for contact. Null if none is visible.")
     verified_form_details: Optional[ContactFormDetails] = Field(description="The corrected/verified form schema matching the screenshot. Null if no form is visible.")
     verification_notes: Optional[str] = Field(description="Explanation of any corrections made or reasons for verification failure.")
 
@@ -107,9 +109,10 @@ def verify_screenshot_with_gemini(screenshot_path: Path, draft_schema: Optional[
         "Instructions:\n"
         "1. Check if a contact/inquiry form is visible in the screenshot.\n"
         "2. Check if the submit/send/confirm button for that form is visible in the screenshot.\n"
-        "3. Compare the visible fields in the screenshot with the provided draft schema. Correct any errors in the schema (e.g. incorrect field labels, missing fields, or wrong field types) to match exactly what is visually present.\n"
-        "4. If no draft schema was provided, extract the form schema from scratch based on the screenshot.\n"
-        "5. Output the result in the required JSON structure."
+        "3. Look for any email addresses or phone numbers visible anywhere on the page (headers, footers, body text) and extract them.\n"
+        "4. Compare the visible form fields in the screenshot with the provided draft schema. Correct any errors in the schema (e.g. incorrect field labels, missing fields, or wrong field types) to match exactly what is visually present.\n"
+        "5. If no draft schema was provided, extract the form schema from scratch based on the screenshot.\n"
+        "6. Output the result in the required JSON structure."
     )
 
     max_retries = 3
@@ -285,6 +288,14 @@ def main():
                 row["last_verified"] = datetime.now().isoformat()
 
                 if is_useful and verification.verified_form_details:
+                    # Update email and phone in CSV row if Gemini found/corrected them
+                    new_email = verification.extracted_email or (draft_schema.get("extracted_email") if draft_schema else None) or row.get("email")
+                    new_phone = verification.extracted_phone or (draft_schema.get("extracted_phone") if draft_schema else None) or row.get("phone")
+                    if new_email:
+                        row["email"] = new_email
+                    if new_phone:
+                        row["phone"] = new_phone
+
                     # Update contact type in CSV to form (or email+form if email exists)
                     if row.get("email"):
                         row["contact_type"] = "email+form"
@@ -296,8 +307,8 @@ def main():
                         "venue_name": name,
                         "website": row.get("website"),
                         "contact_url": draft_schema.get("contact_url") if draft_schema else None,
-                        "extracted_email": verification.verified_form_details.model_dump().get("extracted_email") or row.get("email"),
-                        "extracted_phone": verification.verified_form_details.model_dump().get("extracted_phone") or row.get("phone"),
+                        "extracted_email": row.get("email"),
+                        "extracted_phone": row.get("phone"),
                         "form_details": verification.verified_form_details.model_dump(),
                         "last_verified": row["last_verified"],
                         "qa_verified": True,
