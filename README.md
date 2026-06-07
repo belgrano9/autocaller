@@ -26,7 +26,7 @@ A lightweight, database-free web application designed to catalog wedding venues 
 ### 1. Data Store
 All wedding venues are stored in a local flat CSV file: [venues.csv](file:///e:/workspace/autocaller/venues.csv).
 *   **Columns**: `name`, `city`, `department`, `region`, `type`, `website`, `email`, `phone`, `contact_type`, `email_verified`
-*   **Email Verification**: The [verify_emails.py](file:///e:/workspace/autocaller/verify_emails.py) script can be run locally to verify emails via DNS and SMTP handshakes.
+*   **Email Verification**: The [verify_emails.py](file:///e:/workspace/autocaller/scripts/verify_emails.py) script can be run locally to verify emails via DNS and SMTP handshakes.
 
 ### 2. Dual-Mode SMTP Dispatcher
 Emails are sent directly from the FastAPI backend depending on the runtime mode:

@@ -1,0 +1,63 @@
+{
+  "venue_name": "Château du Breuil",
+  "website": "https://chateau-du-breuil.com",
+  "contact_url": "https://www.chateau-du-breuil.com/contact.html",
+  "extracted_email": "info@chateau-du-breuil.com",
+  "extracted_phone": "01 34 86 41 02",
+  "form_details": {
+    "action": "/contact.html",
+    "method": "post",
+    "fields": [
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Nom :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "prenom",
+        "type": "text",
+        "label": "Prénom :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "adresse",
+        "type": "text",
+        "label": "Adresse :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "cpVille",
+        "type": "text",
+        "label": "CP / Ville :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "telephone",
+        "type": "text",
+        "label": "Téléphone :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "email",
+        "type": "text",
+        "label": "Email :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Message :",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:23:49.412029"
+}

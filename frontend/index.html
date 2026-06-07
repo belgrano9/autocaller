@@ -583,26 +583,26 @@
         <div class="form-row">
           <div class="form-group">
             <label for="form-couple-name" data-i18n="project_label_couple">Noms des mariés</label>
-            <input type="text" id="form-couple-name" oninput="saveProjectData()" placeholder="ex: Alice & Bob" />
+            <input type="text" id="form-couple-name" oninput="saveProjectData()" data-i18n-placeholder="project_placeholder_couple" placeholder="ex: Alice & Bob" />
           </div>
           <div class="form-group">
             <label for="form-event-date" data-i18n="project_label_date">Date prévue</label>
-            <input type="text" id="form-event-date" oninput="saveProjectData()" placeholder="ex: 15 Septembre 2026" />
+            <input type="text" id="form-event-date" oninput="saveProjectData()" data-i18n-placeholder="project_placeholder_date" placeholder="ex: 15 Septembre 2026" />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
             <label for="form-guest-count" data-i18n="project_label_guests">Invités</label>
-            <input type="number" id="form-guest-count" oninput="saveProjectData()" placeholder="ex: 120" />
+            <input type="number" id="form-guest-count" oninput="saveProjectData()" data-i18n-placeholder="project_placeholder_guests" placeholder="ex: 120" />
           </div>
           <div class="form-group">
             <label for="form-budget" data-i18n="project_label_budget">Budget</label>
-            <input type="text" id="form-budget" oninput="saveProjectData()" placeholder="ex: 15 000 €" />
+            <input type="text" id="form-budget" oninput="saveProjectData()" data-i18n-placeholder="project_placeholder_budget" placeholder="ex: 15 000 €" />
           </div>
         </div>
         <div class="form-group">
           <label for="form-notes" data-i18n="project_label_notes">Informations complémentaires</label>
-          <textarea id="form-notes" rows="2" oninput="saveProjectData()" placeholder="ex: Hébergement requis pour 20 personnes..."></textarea>
+          <textarea id="form-notes" rows="2" oninput="saveProjectData()" data-i18n-placeholder="project_placeholder_notes" placeholder="ex: Hébergement requis pour 20 personnes..."></textarea>
         </div>
         <div class="project-footer">
           <span class="save-indicator" id="save-status" data-i18n="project_footer_save">Sauvegarde auto ✓</span>
@@ -722,6 +722,13 @@
         project_label_notes: "Informations complémentaires",
         project_footer_save: "Sauvegarde auto ✓",
         project_footer_reset: "Réinitialiser le profil",
+        project_placeholder_couple: "ex: Alice & Bob",
+        project_placeholder_date: "ex: 15 Septembre 2026",
+        project_placeholder_guests: "ex: 120",
+        project_placeholder_budget: "ex: 15 000 €",
+        project_placeholder_notes: "ex: Hébergement requis pour 20 personnes...",
+        not_defined: "Non définie",
+        no_budget: "Non défini",
         main_title: "Lieux disponibles",
         main_desc: "Contactez plusieurs lieux en un clic et comparez leurs devis.",
         main_desc_contacted: "Contactez plusieurs lieux en un clic. Vous avez déjà contacté {count} lieu{s} !",
@@ -805,6 +812,13 @@
         project_label_notes: "Additional Info",
         project_footer_save: "Auto-saved ✓",
         project_footer_reset: "Reset Profile",
+        project_placeholder_couple: "e.g., Alice & Bob",
+        project_placeholder_date: "e.g., September 15, 2026",
+        project_placeholder_guests: "e.g., 120",
+        project_placeholder_budget: "e.g., 15,000 €",
+        project_placeholder_notes: "e.g., Accommodation required for 20 people...",
+        not_defined: "Not defined",
+        no_budget: "Not defined",
         main_title: "Available Venues",
         main_desc: "Contact multiple venues in one click and compare their quotes.",
         main_desc_contacted: "Contact multiple venues in one click. You have already contacted {count} venue{s}!",
@@ -1076,9 +1090,9 @@
       
       weddingProject = {
         couple_name: coupleName,
-        event_date: date || "Non définie",
+        event_date: date || "",
         guest_count: guests || "0",
-        budget: budget || "Non défini",
+        budget: budget || "",
         notes: notes || ""
       };
       
@@ -1094,9 +1108,9 @@
       userProfile = null;
       weddingProject = {
         couple_name: currentLang === "en" ? "Guest Couple" : "Couple Invité",
-        event_date: "Non définie",
+        event_date: "",
         guest_count: "0",
-        budget: "Non défini",
+        budget: "",
         notes: ""
       };
       
@@ -1124,9 +1138,15 @@
       
       if (weddingProject) {
         document.getElementById("form-couple-name").value = weddingProject.couple_name || "";
-        document.getElementById("form-event-date").value = weddingProject.event_date || "";
-        document.getElementById("form-guest-count").value = weddingProject.guest_count || "";
-        document.getElementById("form-budget").value = weddingProject.budget || "";
+        
+        const dateVal = weddingProject.event_date;
+        document.getElementById("form-event-date").value = (dateVal === "Non définie" || dateVal === "Not defined") ? "" : (dateVal || "");
+        
+        document.getElementById("form-guest-count").value = (weddingProject.guest_count === "0") ? "" : (weddingProject.guest_count || "");
+        
+        const budgetVal = weddingProject.budget;
+        document.getElementById("form-budget").value = (budgetVal === "Non défini" || budgetVal === "Not defined") ? "" : (budgetVal || "");
+        
         document.getElementById("form-notes").value = weddingProject.notes || "";
         
         updateProjectSummaryText();
@@ -1136,14 +1156,28 @@
     function updateProjectSummaryText() {
       if (weddingProject) {
         const parts = [];
-        if (weddingProject.event_date && weddingProject.event_date !== "Non définie") parts.push(`Date: ${weddingProject.event_date}`);
-        if (weddingProject.guest_count && weddingProject.guest_count !== "0") {
-          const guestSuffix = currentLang === "en" ? "guests" : "invités";
-          parts.push(`${weddingProject.guest_count} ${guestSuffix}`);
-        }
-        if (weddingProject.budget && weddingProject.budget !== "Non défini") parts.push(`Budget: ${weddingProject.budget}`);
+        const dateVal = weddingProject.event_date;
+        const guestVal = weddingProject.guest_count;
+        const budgetVal = weddingProject.budget;
         
-        const summary = parts.length > 0 ? parts.join(" · ") : (currentLang === "en" ? "No project details set" : "Aucun détail de projet défini");
+        const dateText = (dateVal && dateVal !== "Non définie" && dateVal !== "Not defined" && dateVal !== "") 
+          ? dateVal 
+          : TRANSLATIONS[currentLang].not_defined;
+          
+        const budgetText = (budgetVal && budgetVal !== "Non défini" && budgetVal !== "Not defined" && budgetVal !== "") 
+          ? budgetVal 
+          : TRANSLATIONS[currentLang].no_budget;
+        
+        parts.push(`Date: ${dateText}`);
+        
+        if (guestVal && guestVal !== "0") {
+          const guestSuffix = currentLang === "en" ? "guests" : "invités";
+          parts.push(`${guestVal} ${guestSuffix}`);
+        }
+        
+        parts.push(`Budget: ${budgetText}`);
+        
+        const summary = parts.join(" · ");
         document.getElementById("project-summary-text").textContent = `${weddingProject.couple_name} — ${summary}`;
       }
     }
@@ -1174,9 +1208,9 @@
         
       weddingProject = {
         couple_name: couple || defaultName,
-        event_date: date || "Non définie",
+        event_date: date || "",
         guest_count: guests || "0",
-        budget: budget || "Non défini",
+        budget: budget || "",
         notes: notes || ""
       };
       

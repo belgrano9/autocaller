@@ -12,7 +12,7 @@ Updates email_verified column with:
   smtp_ok      — MX found + SMTP confirmed mailbox exists
   smtp_unknown — MX found but server blocked verification
 
-Run: uv run python verify_emails.py
+Run: uv run python scripts/verify_emails.py
 """
 
 import csv
@@ -24,7 +24,8 @@ from pathlib import Path
 
 import dns.resolver
 
-CSV_PATH = Path(__file__).parent / "venues.csv"
+# Adjusted to look in the parent directory (root of the workspace)
+CSV_PATH = Path(__file__).parent.parent / "venues.csv"
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 HOSTED_PROVIDERS = {
