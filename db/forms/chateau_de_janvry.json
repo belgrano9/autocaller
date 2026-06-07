@@ -11,35 +11,35 @@
       {
         "name": "your-name",
         "type": "text",
-        "label": "Indiquez votre nom (prénom-nom) *",
+        "label": "Indiquez votre nom (prénom-nom)",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-email",
         "type": "email",
-        "label": "Votre adresse email : *",
+        "label": "Votre adresse email",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-phone",
         "type": "tel",
-        "label": "Votre téléphone : *",
+        "label": "Votre téléphone",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-company",
         "type": "text",
-        "label": "Votre entreprise :",
+        "label": "Votre entreprise",
         "required": false,
         "placeholder": null
       },
       {
         "name": "your-message",
         "type": "textarea",
-        "label": "Décrivez brièvement votre projet (date, nombre de participants, etc...) : *",
+        "label": "Décrivez brièvement votre projet (date, nombre de participants, etc...)",
         "required": true,
         "placeholder": null
       },
@@ -52,5 +52,5 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:26:07.856130"
+  "last_verified": "2026-06-07T17:45:09.081022"
 }

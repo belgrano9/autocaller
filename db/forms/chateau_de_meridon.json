@@ -23,56 +23,56 @@
         "placeholder": null
       },
       {
-        "name": "Country",
+        "name": "phone_country_code",
         "type": "select",
         "label": "Country",
         "required": true,
-        "placeholder": null
+        "placeholder": "France"
       },
       {
-        "name": "Phone Number",
-        "type": "text",
+        "name": "phone_number",
+        "type": "tel",
         "label": "Phone Number",
         "required": true,
-        "placeholder": null
+        "placeholder": "+33"
       },
       {
-        "name": "Type of event",
+        "name": "event_type",
         "type": "select",
         "label": "Type of event",
         "required": true,
         "placeholder": "Select an option"
       },
       {
-        "name": "Number of guests",
+        "name": "number_of_guests",
         "type": "text",
         "label": "Number of guests",
         "required": true,
         "placeholder": null
       },
       {
-        "name": "Overall event budget",
+        "name": "overall_event_budget",
         "type": "select",
         "label": "Overall event budget",
         "required": true,
         "placeholder": "Select an option"
       },
       {
-        "name": "Location budget",
+        "name": "location_budget",
         "type": "text",
         "label": "Location budget",
         "required": true,
         "placeholder": " €"
       },
       {
-        "name": "E-mail",
+        "name": "email",
         "type": "email",
         "label": "E-mail",
         "required": true,
         "placeholder": null
       },
       {
-        "name": "Message",
+        "name": "message",
         "type": "textarea",
         "label": "Message",
         "required": false,
@@ -80,5 +80,5 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:26:50.147043"
+  "last_verified": "2026-06-07T17:45:50.857091"
 }

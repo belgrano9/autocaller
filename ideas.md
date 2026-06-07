@@ -12,6 +12,7 @@ providers before choosing one. Candidate domains:
   before picking one.
 - **Legal services**: lawyers (divorce, real estate, business formation) — people
   often shop around for consultations/quotes before committing.
+- **Small retail suppliers**: suppliers of food, newspapers, magazines, and goods for small local shops (e.g. convenience stores, grocery stores, newsagents) looking to compare wholesale quotes or establish delivery agreements.
 
 Each domain would need its own outreach template (tone, required details) and
 its own provider directory (equivalent of `venues.csv`), but the contact/send

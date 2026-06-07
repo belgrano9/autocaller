@@ -44,7 +44,7 @@
         "placeholder": "Subject"
       },
       {
-        "name": "message",
+        "name": "Type your message here...",
         "type": "textarea",
         "label": "Type your message here...",
         "required": false,
@@ -52,5 +52,5 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:27:49.640426"
+  "last_verified": "2026-06-07T17:46:59.490387"
 }

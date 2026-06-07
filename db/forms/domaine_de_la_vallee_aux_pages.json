@@ -9,42 +9,42 @@
     "method": "post",
     "fields": [
       {
-        "name": "name",
+        "name": "et_pb_contact_name_0",
         "type": "text",
         "label": "Nom",
         "required": true,
         "placeholder": "Nom"
       },
       {
-        "name": "phone",
-        "type": "text",
+        "name": "et_pb_contact_phone_0",
+        "type": "tel",
         "label": "Téléphone",
         "required": true,
         "placeholder": "Téléphone"
       },
       {
-        "name": "email",
+        "name": "et_pb_contact_email_0",
         "type": "email",
         "label": "Adresse Mail",
         "required": true,
         "placeholder": "Adresse Mail"
       },
       {
-        "name": "subject",
+        "name": "et_pb_contact_subject_0",
         "type": "text",
         "label": "Sujet",
         "required": true,
         "placeholder": "Sujet"
       },
       {
-        "name": "message",
+        "name": "et_pb_contact_message_0",
         "type": "textarea",
         "label": "Message",
         "required": true,
         "placeholder": "Message"
       },
       {
-        "name": "rgpd",
+        "name": "et_pb_contact_rgpd_0",
         "type": "checkbox",
         "label": "J’ai lu et j’accepte votre Politique de Confidentialité",
         "required": true,
@@ -52,5 +52,5 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:28:53.540812"
+  "last_verified": "2026-06-07T17:47:49.522421"
 }

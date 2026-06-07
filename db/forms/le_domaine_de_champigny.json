@@ -1,0 +1,112 @@
+{
+  "venue_name": "Le Domaine de Champigny",
+  "website": "https://ledomainedechampigny.com",
+  "contact_url": "https://www.ledomainedechampigny.com/contact-devis-salles-reception-seminaire",
+  "extracted_email": "contact@ledomainedechampigny.com",
+  "extracted_phone": "01 64 38 89 42",
+  "form_details": {
+    "action": null,
+    "method": "POST",
+    "fields": [
+      {
+        "name": "devis_salle",
+        "type": "checkbox",
+        "label": "Un devis pour louer une salle",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "devis_voiture",
+        "type": "checkbox",
+        "label": "Un devis pour louer une voiture",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "devis_collection",
+        "type": "checkbox",
+        "label": "Un devis pour visiter la collection",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "nature",
+        "type": "radio",
+        "label": "Un particulier",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "nature",
+        "type": "radio",
+        "label": "Un professionnel",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "nature",
+        "type": "radio",
+        "label": "Une association",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "nom",
+        "type": "text",
+        "label": "Votre nom / prénom",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "mail",
+        "type": "email",
+        "label": "Votre mail",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "telephone",
+        "type": "text",
+        "label": "Votre téléphone",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "evenement",
+        "type": "select",
+        "label": "Evènement",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "nb_personne",
+        "type": "text",
+        "label": "Nombre de personnes :",
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "date_souhaitee",
+        "type": "text",
+        "label": "Date souhaitée :",
+        "required": true,
+        "placeholder": null
+      },
+      {
+        "name": "date_souhaitee_precision",
+        "type": "select",
+        "label": null,
+        "required": false,
+        "placeholder": null
+      },
+      {
+        "name": "message",
+        "type": "textarea",
+        "label": "Votre message",
+        "required": true,
+        "placeholder": null
+      }
+    ]
+  },
+  "last_verified": "2026-06-07T17:48:09.195730"
+}
