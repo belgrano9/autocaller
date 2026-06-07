@@ -12,38 +12,41 @@
         "name": "name",
         "type": "text",
         "label": "Nom",
-        "required": true,
+        "required": false,
         "placeholder": "Nom"
       },
       {
         "name": "email",
         "type": "email",
         "label": "Email",
-        "required": true,
+        "required": false,
         "placeholder": "Email"
       },
       {
         "name": "subject",
         "type": "text",
         "label": "Sujet",
-        "required": true,
+        "required": false,
         "placeholder": "Sujet"
       },
       {
         "name": "message",
         "type": "textarea",
         "label": "Message",
-        "required": true,
+        "required": false,
         "placeholder": "Message"
       },
       {
         "name": "capt",
         "type": "text",
         "label": "Combien font neuf plus deux",
-        "required": true,
+        "required": false,
         "placeholder": "Combien font neuf plus deux"
       }
     ]
   },
-  "last_verified": "2026-06-07T17:57:43.699312"
+  "last_verified": "2026-06-07T18:29:29.542319",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The contact form, submit button, extracted email (barrobar@free.fr), and phone number (06.11.01.80.96) are all visible and match the draft. All form fields (Nom, Email, Sujet, Message, Combien font neuf plus deux) and their types/placeholders match the draft. However, the 'required' attribute for all fields in the draft was set to 'true', but there are no visual indicators (e.g., asterisks) in the screenshot to confirm these fields are mandatory. Therefore, 'required' has been set to 'false' in the verified details based on visual evidence, making the draft inaccurate."
 }

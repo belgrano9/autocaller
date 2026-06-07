@@ -73,5 +73,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:58:49.295610"
+  "last_verified": "2026-06-07T18:31:01.882388",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The draft schema perfectly matches the contact form visible in the screenshot, including all fields, labels, required indicators, and placeholders. Extracted email and phone numbers also match the footer information."
 }

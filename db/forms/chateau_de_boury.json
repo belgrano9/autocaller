@@ -11,32 +11,35 @@
       {
         "name": "prénom",
         "type": "text",
-        "label": "Prénom",
+        "label": "Prénom *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "nom",
         "type": "text",
-        "label": "Nom",
+        "label": "Nom *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "email",
         "type": "email",
-        "label": "E-mail",
+        "label": "E-mail *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "Message",
         "type": "textarea",
-        "label": "Message",
+        "label": "Message *",
         "required": true,
         "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T18:03:42.729428"
+  "last_verified": "2026-06-07T18:22:29.614513",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft was not perfectly accurate. Corrected the 'label' property for all fields to include the asterisk (*) as visible in the screenshot, indicating they are required fields. The original draft labels were 'Prénom', 'Nom', 'E-mail', 'Message', and have been updated to 'Prénom *', 'Nom *', 'E-mail *', 'Message *' respectively."
 }

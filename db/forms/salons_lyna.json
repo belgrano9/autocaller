@@ -24,7 +24,7 @@
       },
       {
         "name": "phone",
-        "type": "phone",
+        "type": "tel",
         "label": "your phone",
         "required": false,
         "placeholder": null
@@ -45,5 +45,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:59:30.177369"
+  "last_verified": "2026-06-07T18:31:51.073918",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The contact form is visible with a 'Send' button. The extracted email 'lessalonslyna@gmail.com' matches the draft. The extracted phone number was corrected from '06 64 80 49 61' in the draft to '+33664804961' as seen on the page under 'Call us'. The form fields in the draft accurately reflect the visible input fields and their placeholder texts. The 'action' and 'method' attributes of the form are not visually verifiable from the screenshot. The 'required' status of fields is assumed based on the draft as no visual indicators (like asterisks) are present."
 }

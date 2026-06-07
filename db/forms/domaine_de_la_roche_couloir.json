@@ -32,21 +32,21 @@
       {
         "name": "custom_field[241][]",
         "type": "select",
-        "label": "Si la date est flexible",
+        "label": "SI LA DATE EST FLEXIBLE",
         "required": false,
         "placeholder": "Sélectionnez une option"
       },
       {
         "name": "number_of_persons",
         "type": "number",
-        "label": "Nombre de personne",
+        "label": "NOMBRE DE PERSONNE *",
         "required": true,
         "placeholder": ""
       },
       {
         "name": "budget",
         "type": "number",
-        "label": "votre budget",
+        "label": "VOTRE BUDGET",
         "required": false,
         "placeholder": ""
       },
@@ -60,28 +60,28 @@
       {
         "name": "last_name",
         "type": "text",
-        "label": "NOM",
+        "label": "NOM *",
         "required": true,
         "placeholder": ""
       },
       {
         "name": "name",
         "type": "text",
-        "label": "PRÉNOM",
+        "label": "PRÉNOM *",
         "required": true,
         "placeholder": ""
       },
       {
         "name": "email",
         "type": "email",
-        "label": "ADRESSE EMAIL",
+        "label": "ADRESSE EMAIL *",
         "required": true,
         "placeholder": ""
       },
       {
         "name": "phone",
         "type": "text",
-        "label": "N° TÉLÉPHONE",
+        "label": "N° TÉLÉPHONE *",
         "required": true,
         "placeholder": ""
       },
@@ -101,5 +101,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:53:33.067007"
+  "last_verified": "2026-06-07T18:25:59.648694",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft was not perfectly accurate. The 'extracted_email' was not visible in the screenshot and has been set to null. The 'extracted_phone' was updated to the full international format '+33 6 69 65 40 44' as visible. Several field labels in 'verified_form_details.fields' were corrected to match the exact capitalization and inclusion of the asterisk (*) as seen in the screenshot: 'SI LA DATE EST FLEXIBLE', 'NOMBRE DE PERSONNE *', 'VOTRE BUDGET', 'NOM *', 'PRÉNOM *', 'ADRESSE EMAIL *', and 'N° TÉLÉPHONE *'."
 }

@@ -52,5 +52,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:46:18.464481"
+  "last_verified": "2026-06-07T18:21:57.470188",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The contact form and its submit button ('Envoyer') are clearly visible. All form fields (Prénom, Nom, Numéro de téléphone, E-mail, Message, and the privacy policy checkbox) match the draft schema perfectly in terms of labels, types, and required status. The form's action and method could not be visually verified from the screenshot. The phone number '06 85 89 19 53' is visible in the footer and matches the draft. However, the email address 'chateau.barthelemy@gmail.com' provided in the draft schema is not visible anywhere on the page in the screenshot, hence 'extracted_email' is set to null. Due to this discrepancy, 'is_draft_accurate' is false."
 }

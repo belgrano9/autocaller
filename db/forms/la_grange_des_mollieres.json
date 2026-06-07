@@ -2,7 +2,7 @@
   "venue_name": "La Grange des Mollières",
   "website": "https://lagrangedesmollieres.fr",
   "contact_url": "https://www.lagrangedesmollieres.fr/contact/",
-  "extracted_email": null,
+  "extracted_email": "",
   "extracted_phone": "01 34 76 14 69",
   "form_details": {
     "action": null,
@@ -14,27 +14,6 @@
         "label": "Nom & Prénom",
         "required": true,
         "placeholder": "Nom & Prénom"
-      },
-      {
-        "name": "form_fields[field_997ee26]",
-        "type": "text",
-        "label": "Type de prestation",
-        "required": true,
-        "placeholder": "Type de prestation"
-      },
-      {
-        "name": "form_fields[field_27a64b1]",
-        "type": "number",
-        "label": "Nombre de personnes",
-        "required": true,
-        "placeholder": "Nombre de personnes"
-      },
-      {
-        "name": "form_fields[field_e715b76]",
-        "type": "date",
-        "label": "Date",
-        "required": true,
-        "placeholder": "Date"
       },
       {
         "name": "form_fields[email]",
@@ -73,5 +52,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:54:26.343577"
+  "last_verified": "2026-06-07T18:28:10.585326",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft schema contained fields 'Type de prestation', 'Nombre de personnes', and 'Date' which are not visible in the provided screenshot and have been removed from the verified form details. The 'name' attribute for the 'Comment nous avez-vous connu ?' field is 'form_fields[email]' in the draft, which seems semantically incorrect but cannot be verified visually and is kept as per the draft."
 }

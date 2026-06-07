@@ -59,5 +59,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:49:22.424870"
+  "last_verified": "2026-06-07T18:26:38.721193",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The contact form is visible, although partially obscured by a cookie consent pop-up. All fields in the draft schema accurately reflect the visible form elements, including labels, types, and required status. The submit button 'Envoyer' is also visible. Extracted email and phone numbers match the draft."
 }

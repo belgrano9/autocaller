@@ -38,5 +38,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:48:36.457863"
+  "last_verified": "2026-06-07T18:24:30.247284",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The draft schema accurately reflects the visible contact form and its fields in the screenshot. The extracted email and phone numbers are also clearly visible on the page near the form."
 }

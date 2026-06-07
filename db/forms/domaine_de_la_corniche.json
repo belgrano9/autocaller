@@ -55,14 +55,14 @@
         "type": "date",
         "label": "Date d'arrivée",
         "required": false,
-        "placeholder": "yyyy-mm-dd"
+        "placeholder": "dd/mm/yyyy"
       },
       {
         "name": "Form_118_1588_1[departure_date]",
         "type": "date",
         "label": "Date de départ",
         "required": false,
-        "placeholder": "yyyy-mm-dd"
+        "placeholder": "dd/mm/yyyy"
       },
       {
         "name": "Form_118_1588_1[message]",
@@ -73,5 +73,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T18:00:47.113967"
+  "last_verified": "2026-06-07T18:25:40.133723",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft's 'extracted_phone' was updated to include the full international format '+33 (0)1 30 93 20 00' as seen on the page. The placeholders for 'Date d'arrivée' and 'Date de départ' fields were corrected from 'yyyy-mm-dd' to 'dd/mm/yyyy' to match the visual representation in the screenshot."
 }

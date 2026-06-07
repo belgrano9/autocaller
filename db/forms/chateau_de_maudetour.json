@@ -2,7 +2,7 @@
   "venue_name": "Château de Maudétour",
   "website": "https://chateaudemaudetour.com",
   "contact_url": "https://www.chateaudemaudetour.com/",
-  "extracted_email": null,
+  "extracted_email": "contact@chateaudemaudetour.com",
   "extracted_phone": "06 16 06 12 20",
   "form_details": {
     "action": "/_contact/9995d40c-f2c0-11ef-b0d8-3260d44c31e4",
@@ -12,7 +12,7 @@
         "name": "contact[name]",
         "type": "text",
         "label": "Nom",
-        "required": true,
+        "required": false,
         "placeholder": "Nom"
       },
       {
@@ -26,17 +26,20 @@
         "name": "contact[mail]",
         "type": "email",
         "label": "E-Mail",
-        "required": true,
+        "required": false,
         "placeholder": "E-Mail"
       },
       {
         "name": "contact[message]",
         "type": "textarea",
         "label": "Message",
-        "required": true,
+        "required": false,
         "placeholder": "Message"
       }
     ]
   },
-  "last_verified": "2026-06-07T17:55:48.862389"
+  "last_verified": "2026-06-07T18:23:36.578535",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Extracted email 'contact@chateaudemaudetour.com' and phone '+33 6 16 06 12 20' from the footer. The draft schema incorrectly marked 'Nom', 'E-Mail', and 'Message' fields as required; visually, there are no indicators (like asterisks) to suggest they are mandatory, so their 'required' property has been set to false."
 }

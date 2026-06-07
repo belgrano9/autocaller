@@ -11,60 +11,63 @@
       {
         "name": "nom",
         "type": "text",
-        "label": "Nom",
-        "required": true,
+        "label": null,
+        "required": false,
         "placeholder": "Nom"
       },
       {
         "name": "prénom",
         "type": "text",
-        "label": "Prénom",
+        "label": null,
         "required": false,
         "placeholder": "Prénom"
       },
       {
         "name": "phone",
         "type": "tel",
-        "label": "Téléphone",
+        "label": null,
         "required": false,
         "placeholder": "Téléphone"
       },
       {
         "name": "email",
         "type": "email",
-        "label": "Email",
-        "required": true,
+        "label": null,
+        "required": false,
         "placeholder": "Email"
       },
       {
         "name": "Je souhaite...",
         "type": "select",
-        "label": "Je souhaite...",
+        "label": null,
         "required": false,
         "placeholder": "Je souhaite..."
       },
       {
         "name": "nombre-de personnes (approx.)",
         "type": "text",
-        "label": "Nombre de personnes (approx.)",
+        "label": null,
         "required": false,
         "placeholder": "Nombre de personnes (approx.)"
       },
       {
         "name": "période-souhaitée",
         "type": "text",
-        "label": "Période souhaitée",
+        "label": null,
         "required": false,
         "placeholder": "Période souhaitée"
       },
       {
         "name": "Message",
         "type": "textarea",
-        "label": "Message",
-        "required": true,
+        "label": null,
+        "required": false,
         "placeholder": "Message"
       }
     ]
   },
-  "last_verified": "2026-06-07T17:45:26.691747"
+  "last_verified": "2026-06-07T18:24:14.151497",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft schema was corrected. All 'label' fields were set to null as no explicit labels are visible in the screenshot, only placeholder text. All 'required' fields were set to false as there are no visual indicators (e.g., asterisks) in the screenshot to confirm their mandatory status."
 }

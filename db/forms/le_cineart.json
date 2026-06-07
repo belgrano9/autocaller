@@ -2,7 +2,7 @@
   "venue_name": "Le Cinéart",
   "website": "https://lecineart.com",
   "contact_url": "https://lecineart.com/contact/",
-  "extracted_email": null,
+  "extracted_email": "lecineart92@gmail.com",
   "extracted_phone": "06 32 21 40 64",
   "form_details": {
     "action": null,
@@ -157,5 +157,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:59:13.725524"
+  "last_verified": "2026-06-07T18:29:16.229675",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": null
 }

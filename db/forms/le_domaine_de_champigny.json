@@ -54,14 +54,14 @@
         "name": "nom",
         "type": "text",
         "label": "Votre nom / prénom",
-        "required": true,
+        "required": false,
         "placeholder": null
       },
       {
         "name": "mail",
         "type": "email",
         "label": "Votre mail",
-        "required": true,
+        "required": false,
         "placeholder": null
       },
       {
@@ -89,7 +89,7 @@
         "name": "date_souhaitee",
         "type": "text",
         "label": "Date souhaitée :",
-        "required": true,
+        "required": false,
         "placeholder": null
       },
       {
@@ -103,10 +103,13 @@
         "name": "message",
         "type": "textarea",
         "label": "Votre message",
-        "required": true,
+        "required": false,
         "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T17:48:09.195730"
+  "last_verified": "2026-06-07T18:29:47.157763",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The 'required' status for fields 'Votre nom / prénom', 'Votre mail', 'Date souhaitée :', and 'Votre message' in the draft schema was changed from 'true' to 'false' as there are no visual indicators (e.g., asterisks) on the screenshot to suggest they are mandatory."
 }

@@ -11,63 +11,63 @@
       {
         "name": "fname",
         "type": "text",
-        "label": "First name",
+        "label": "First name (required)",
         "required": true,
         "placeholder": null
       },
       {
         "name": "lname",
         "type": "text",
-        "label": "Last name",
+        "label": "Last name (required)",
         "required": true,
         "placeholder": null
       },
       {
         "name": "phone_country_code",
         "type": "select",
-        "label": "Country",
+        "label": "Country (required)",
         "required": true,
         "placeholder": "France"
       },
       {
         "name": "phone_number",
         "type": "tel",
-        "label": "Phone Number",
+        "label": "Phone Number (required)",
         "required": true,
         "placeholder": "+33"
       },
       {
         "name": "event_type",
         "type": "select",
-        "label": "Type of event",
+        "label": "Type of event (required)",
         "required": true,
         "placeholder": "Select an option"
       },
       {
         "name": "number_of_guests",
         "type": "text",
-        "label": "Number of guests",
+        "label": "Number of guests (required)",
         "required": true,
         "placeholder": null
       },
       {
         "name": "overall_event_budget",
         "type": "select",
-        "label": "Overall event budget",
+        "label": "Overall event budget (required)",
         "required": true,
         "placeholder": "Select an option"
       },
       {
         "name": "location_budget",
         "type": "text",
-        "label": "Location budget",
+        "label": "Location budget (required)",
         "required": true,
         "placeholder": " €"
       },
       {
         "name": "email",
         "type": "email",
-        "label": "E-mail",
+        "label": "E-mail (required)",
         "required": true,
         "placeholder": null
       },
@@ -80,5 +80,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:45:50.857091"
+  "last_verified": "2026-06-07T18:23:48.414118",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected field labels to include '(required)' where visually present in the screenshot. Updated extracted_phone to match the full format visible on the page."
 }

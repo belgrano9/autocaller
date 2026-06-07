@@ -18,28 +18,28 @@
       {
         "name": "your-email",
         "type": "email",
-        "label": "Votre adresse email",
+        "label": "Votre adresse email :",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-phone",
         "type": "tel",
-        "label": "Votre téléphone",
+        "label": "Votre téléphone :",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-company",
         "type": "text",
-        "label": "Votre entreprise",
+        "label": "Votre entreprise :",
         "required": false,
         "placeholder": null
       },
       {
         "name": "your-message",
         "type": "textarea",
-        "label": "Décrivez brièvement votre projet (date, nombre de participants, etc...)",
+        "label": "Décrivez brièvement votre projet (date, nombre de participants, etc...) :",
         "required": true,
         "placeholder": null
       },
@@ -52,5 +52,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:45:09.081022"
+  "last_verified": "2026-06-07T18:23:05.558114",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected labels for 'Votre adresse email', 'Votre téléphone', 'Votre entreprise', and 'Décrivez brièvement votre projet' to include a colon at the end, as visible in the screenshot. The draft was missing these colons."
 }

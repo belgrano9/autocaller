@@ -13,37 +13,40 @@
         "type": "text",
         "label": "Votre nom",
         "required": false,
-        "placeholder": "Votre nom "
+        "placeholder": null
       },
       {
         "name": "mf-email",
         "type": "email",
         "label": "Votre Email",
         "required": false,
-        "placeholder": "Votre Email "
+        "placeholder": null
       },
       {
         "name": "mf-telephone",
         "type": "tel",
         "label": "Votre téléphone",
         "required": false,
-        "placeholder": "Votre téléphone "
+        "placeholder": null
       },
       {
         "name": "mf-date",
         "type": "text",
         "label": "Date de votre événement",
         "required": false,
-        "placeholder": "Date de votre événement "
+        "placeholder": null
       },
       {
         "name": "mf-textarea",
         "type": "textarea",
         "label": "Votre demande",
         "required": false,
-        "placeholder": "Votre demande "
+        "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T18:02:21.197632"
+  "last_verified": "2026-06-07T18:28:50.232752",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft was not entirely accurate. The 'placeholder' attribute for all form fields was corrected from the label text to null, as no placeholder text is visibly displayed inside the input fields in the screenshot. The labels are displayed above the input fields."
 }

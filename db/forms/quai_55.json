@@ -26,14 +26,14 @@
         "name": "form_fields[email]",
         "type": "email",
         "label": "Email",
-        "required": true,
+        "required": false,
         "placeholder": "Email"
       },
       {
         "name": "form_fields[field_6e78cdb]",
         "type": "select",
         "label": "Votre besoin :",
-        "required": true,
+        "required": false,
         "placeholder": "Votre besoin :"
       },
       {
@@ -45,5 +45,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T18:02:40.149309"
+  "last_verified": "2026-06-07T18:31:18.921989",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft schema incorrectly marked 'Email' and 'Votre besoin :' fields as required. Visually, there are no indicators (e.g., asterisks) on the screenshot to suggest these fields are mandatory. Corrected 'required' attribute to false for these fields in the verified form details."
 }

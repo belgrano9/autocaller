@@ -11,21 +11,21 @@
       {
         "name": "prénom",
         "type": "text",
-        "label": "Prénom",
+        "label": "Prénom *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "nom",
         "type": "text",
-        "label": "Nom",
+        "label": "Nom *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "email",
         "type": "email",
-        "label": "Email",
+        "label": "Email *",
         "required": true,
         "placeholder": null
       },
@@ -45,5 +45,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T18:00:15.321167"
+  "last_verified": "2026-06-07T18:26:55.120426",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The draft schema accurately reflects the contact form visible in the screenshot. All fields, labels, and required states match. Email and phone number were extracted from the footer."
 }

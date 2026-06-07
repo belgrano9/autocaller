@@ -23,13 +23,6 @@
         "placeholder": null
       },
       {
-        "name": "tel-620",
-        "type": "tel",
-        "label": "Votre numéro de tél.",
-        "required": false,
-        "placeholder": null
-      },
-      {
         "name": "your-subject",
         "type": "text",
         "label": "Sujet",
@@ -45,5 +38,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:57:29.849247"
+  "last_verified": "2026-06-07T18:30:13.542875",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft schema included a 'Votre numéro de tél.' field which is not visible in the screenshot. This field has been removed from the verified form details."
 }

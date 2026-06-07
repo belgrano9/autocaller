@@ -2,7 +2,7 @@
   "venue_name": "La Suite 91",
   "website": "https://lasuite91.net",
   "contact_url": "https://www.lasuite91.net/#contact",
-  "extracted_email": null,
+  "extracted_email": "contact@lasuite91.net",
   "extracted_phone": "01 79 72 73 23",
   "form_details": {
     "action": "./#contact",
@@ -40,18 +40,11 @@
         "name": "adresse",
         "type": "text",
         "label": "Adresse",
-        "required": true,
-        "placeholder": null
-      },
-      {
-        "name": "code_postal",
-        "type": "text",
-        "label": "CP / Ville",
         "required": false,
         "placeholder": null
       },
       {
-        "name": "ville",
+        "name": "cp_ville",
         "type": "text",
         "label": "CP / Ville",
         "required": false,
@@ -66,5 +59,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:51:03.353940"
+  "last_verified": "2026-06-07T18:28:31.600674",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected 'extracted_email' from null to 'contact@lasuite91.net' as it is visible in the footer. Corrected 'Adresse' field's 'required' status from true to false, as no asterisk is visible in the screenshot. Consolidated 'code_postal' and 'ville' fields into a single 'cp_ville' field, as only one input box with the label 'CP / Ville' is visible in the screenshot. The 'cp_ville' field is not required."
 }

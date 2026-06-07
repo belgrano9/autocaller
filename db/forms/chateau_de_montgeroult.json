@@ -11,32 +11,35 @@
       {
         "name": "your-name",
         "type": "text",
-        "label": "Votre nom",
+        "label": "VOTRE NOM",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-email",
         "type": "email",
-        "label": "Votre e-mail",
+        "label": "VOTRE E-MAIL",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-subject",
         "type": "text",
-        "label": "Objet",
+        "label": "OBJET",
         "required": true,
         "placeholder": null
       },
       {
         "name": "your-message",
         "type": "textarea",
-        "label": "Votre message",
+        "label": "VOTRE MESSAGE",
         "required": true,
         "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T17:56:27.882519"
+  "last_verified": "2026-06-07T18:23:57.656004",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected the casing of field labels to match the uppercase presentation in the screenshot (e.g., 'Votre nom' changed to 'VOTRE NOM'). All other details from the draft schema for the form and extracted contact information are accurate based on the screenshot."
 }

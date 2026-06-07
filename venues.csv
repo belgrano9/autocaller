@@ -1,67 +1,67 @@
 name,city,department,region,type,website,email,phone,contact_type,email_verified,last_verified
-Château de Janvry,Janvry,91,Île-de-France,château,https://www.chateaudejanvry.com,contact@chateaudejanvry.com,06 35 45 58 96,email+phone,smtp_ok,2026-06-07T17:45:09.081022
-Château de Santeny,Santeny,94,Île-de-France,château,https://chateaudesanteny.fr,contact@chateaudesanteny.fr,01 43 86 60 56,email+phone,smtp_unknown,2026-06-07T17:45:26.691747
-Château de Méridon,Chevreuse,78,Île-de-France,château,https://chateaudemeridon.com,contact@chateaudemeridon.fr,06 58 86 42 79,email+phone,smtp_unknown,2026-06-07T17:45:50.857091
-Château Barthélemy,Paray-Douaville,78,Île-de-France,château,https://chateaubarthelemy.fr,chateau.barthelemy@gmail.com,06 85 89 19 53,email+phone,mx_ok,2026-06-07T17:46:18.464481
-Château d'Hazeville,Wy-dit-Joli-Village,95,Île-de-France,château,https://hazeville.fr,contact@hazeville.fr,06 14 19 79 30,email+phone,smtp_unknown,2026-06-07T17:46:38.343787
-Château de Champlâtreux,Épinay-Champlâtreux,95,Île-de-France,château,https://chateau-de-champlatreux.com,hello@chateau-de-champlatreux.com,06 73 87 22 48,email+phone,smtp_ok,2026-06-07T17:46:59.490387
-Château des Bondons,La Ferté-sous-Jouarre,77,Île-de-France,château,https://chateaudesbondons.com,castel@chateaudesbondons.com,01 60 22 00 98,email+phone,smtp_unknown,2026-06-07T17:47:19.637540
-Domaine de la Vallée Aux Pages,Paray-Douaville,78,Île-de-France,domaine,https://vallee-aux-pages.com,contact@vallee-aux-pages.com,01 30 59 04 54,email+phone,smtp_unknown,2026-06-07T17:47:49.522421
-Domaine des Hirondelles,Longvilliers,78,Île-de-France,domaine,https://ledomainedeshirondelles.fr,contact@webexpire.fr,01 34 83 05 51,email+phone,unchecked,2026-06-07T17:47:56.225284
-Le Domaine de Champigny,Crisenoy,77,Île-de-France,domaine,https://ledomainedechampigny.com,contact@ledomainedechampigny.com,01 64 38 89 42,email+phone,smtp_unknown,2026-06-07T17:48:09.195730
-Château de Séréville,La Belliole,77,Île-de-France,château,https://chateaudesereville.com,zcch@orange.fr,06 19 92 30 12,email+phone,mx_ok,2026-06-07T17:48:36.457863
-Château du Breuil,Garancières,78,Île-de-France,château,https://chateau-du-breuil.com,info@chateau-du-breuil.com,01 34 86 41 02,email+phone,smtp_unknown,2026-06-07T17:48:48.701823
-Château de Bouffémont,Bouffémont,95,Île-de-France,château,https://chateaubouffemont.com,info@chateaubouffemont.com,01 39 91 20 94,email+phone,smtp_ok,2026-06-07T17:49:03.423054
+Château de Janvry,Janvry,91,Île-de-France,château,https://www.chateaudejanvry.com,contact@chateaudejanvry.com,06 35 45 58 96,email+form,smtp_ok,2026-06-07T18:23:05.558114
+Château de Santeny,Santeny,94,Île-de-France,château,https://chateaudesanteny.fr,contact@chateaudesanteny.fr,01 43 86 60 56,email+form,smtp_unknown,2026-06-07T18:24:14.151497
+Château de Méridon,Chevreuse,78,Île-de-France,château,https://chateaudemeridon.com,contact@chateaudemeridon.fr,06 58 86 42 79,email+form,smtp_unknown,2026-06-07T18:23:48.414118
+Château Barthélemy,Paray-Douaville,78,Île-de-France,château,https://chateaubarthelemy.fr,chateau.barthelemy@gmail.com,06 85 89 19 53,email+form,mx_ok,2026-06-07T18:21:57.470188
+Château d'Hazeville,Wy-dit-Joli-Village,95,Île-de-France,château,https://hazeville.fr,contact@hazeville.fr,06 14 19 79 30,manual,smtp_unknown,2026-06-07T18:24:34.622783
+Château de Champlâtreux,Épinay-Champlâtreux,95,Île-de-France,château,https://chateau-de-champlatreux.com,hello@chateau-de-champlatreux.com,06 73 87 22 48,email+form,smtp_ok,2026-06-07T18:22:41.720142
+Château des Bondons,La Ferté-sous-Jouarre,77,Île-de-France,château,https://chateaudesbondons.com,castel@chateaudesbondons.com,01 60 22 00 98,manual,smtp_unknown,2026-06-07T18:22:12.613577
+Domaine de la Vallée Aux Pages,Paray-Douaville,78,Île-de-France,domaine,https://vallee-aux-pages.com,contact@vallee-aux-pages.com,01 30 59 04 54,email+form,smtp_unknown,2026-06-07T18:26:17.239756
+Domaine des Hirondelles,Longvilliers,78,Île-de-France,domaine,https://ledomainedeshirondelles.fr,contact@webexpire.fr,01 34 83 05 51,manual,unchecked,2026-06-07T18:25:14.898240
+Le Domaine de Champigny,Crisenoy,77,Île-de-France,domaine,https://ledomainedechampigny.com,contact@ledomainedechampigny.com,01 64 38 89 42,email+form,smtp_unknown,2026-06-07T18:29:47.157763
+Château de Séréville,La Belliole,77,Île-de-France,château,https://chateaudesereville.com,zcch@orange.fr,06 19 92 30 12,email+form,mx_ok,2026-06-07T18:24:30.247284
+Château du Breuil,Garancières,78,Île-de-France,château,https://chateau-du-breuil.com,info@chateau-du-breuil.com,01 34 86 41 02,email+form,smtp_unknown,2026-06-07T18:24:55.260811
+Château de Bouffémont,Bouffémont,95,Île-de-France,château,https://chateaubouffemont.com,info@chateaubouffemont.com,01 39 91 20 94,email+form,smtp_ok,2026-06-07T18:22:22.581636
 Château de Villiers-le-Mahieu,Villiers-le-Mahieu,78,Île-de-France,château,https://chateauvilliersmahieu.com,,,form,no_email,
 Domaine Malar,Guillerval,91,Île-de-France,domaine,https://domainemalar91.com,,06 61 78 88 83,phone+form,no_email,
-Domaine La Ville du Bois,Lumigny-Nesles-Ormeaux,77,Île-de-France,domaine,https://domainelavilledubois.com,lavilledubois77540@gmail.com,06 62 01 46 53,email+phone,mx_ok,2026-06-07T17:49:22.424870
-Les Noces Royales,Carrières-sur-Seine,78,Île-de-France,salle,https://lesnocesroyales.com,contact@lesnocesroyales.com,01 39 14 12 02,email+phone,smtp_unknown,2026-06-07T17:49:38.486497
-La Scène,Vernouillet,78,Île-de-France,salle,https://lascene78.com,contact@lascene78.com,06 03 50 00 74,email+phone,smtp_ok,2026-06-07T17:50:02.767996
-Salle des Princes,Drancy,93,Île-de-France,salle,https://salledesprinces-drancy.fr,salledesprinces@yahoo.fr,06 16 27 65 55,email+phone,mx_ok,2026-06-07T17:50:19.789003
-Au Jardin des Saules,Argenteuil,95,Île-de-France,salle,https://aujardindessaules.com,aujardindessaules@gmail.com,01 34 34 04 98,email+phone,mx_ok,2026-06-07T17:50:45.291172
-La Suite 91,Fleury Mérogis,91,Île-de-France,salle,https://lasuite91.net,lasuite91700@gmail.com,01 79 72 73 23,email+phone,mx_ok,2026-06-07T17:51:03.353940
-Tassili Réception,Achères,78,Île-de-France,salle,https://letassilireception.com,letassili78@gmail.com,06 13 31 66 73,email+phone,unchecked,2026-06-07T17:51:12.932536
-Domaine de la Beauvoisière,Avrainville,91,Île-de-France,domaine,https://domainedelabeauvoisiere.com,info@domainedelabeauvoisiere.com,01 78 83 80 34,email+phone,unchecked,2026-06-07T17:51:37.044564
-Ferme d'Auxonnettes,Saint-Fargeau-Ponthierry,77,Île-de-France,ferme,https://ferme-auxonnettes.fr,info@ferme-auxonnettes.fr,01 64 09 83 01,email+phone,unchecked,2026-06-07T17:51:48.863078
+Domaine La Ville du Bois,Lumigny-Nesles-Ormeaux,77,Île-de-France,domaine,https://domainelavilledubois.com,lavilledubois77540@gmail.com,06 62 01 46 53,email+form,mx_ok,2026-06-07T18:26:38.721193
+Les Noces Royales,Carrières-sur-Seine,78,Île-de-France,salle,https://lesnocesroyales.com,contact@lesnocesroyales.com,01 39 14 12 02,email+form,smtp_unknown,2026-06-07T18:28:56.507291
+La Scène,Vernouillet,78,Île-de-France,salle,https://lascene78.com,contact@lascene78.com,06 03 50 00 74,email+form,smtp_ok,2026-06-07T18:28:19.758677
+Salle des Princes,Drancy,93,Île-de-France,salle,https://salledesprinces-drancy.fr,salledesprinces@yahoo.fr,06 16 27 65 55,email+form,mx_ok,2026-06-07T18:31:39.453340
+Au Jardin des Saules,Argenteuil,95,Île-de-France,salle,https://aujardindessaules.com,aujardindessaules@gmail.com,01 34 34 04 98,email+form,mx_ok,2026-06-07T18:21:35.149924
+La Suite 91,Fleury Mérogis,91,Île-de-France,salle,https://lasuite91.net,contact@lasuite91.net,01 79 72 73 23,email+form,mx_ok,2026-06-07T18:28:31.600674
+Tassili Réception,Achères,78,Île-de-France,salle,https://letassilireception.com,letassili78@gmail.com,06 13 31 66 73,manual,unchecked,2026-06-07T18:31:55.620885
+Domaine de la Beauvoisière,Avrainville,91,Île-de-France,domaine,https://domainedelabeauvoisiere.com,info@domainedelabeauvoisiere.com,01 78 83 80 34,email+form,unchecked,2026-06-07T18:25:26.851314
+Ferme d'Auxonnettes,Saint-Fargeau-Ponthierry,77,Île-de-France,ferme,https://ferme-auxonnettes.fr,info@ferme-auxonnettes.fr,01 64 09 83 01,manual,unchecked,2026-06-07T18:27:00.451113
 Abbaye de Cercanceaux,Souppes-sur-Loing,77,Île-de-France,atypique,https://abbaye-cercanceaux.fr,cercanceaux@orange.fr,06 11 63 77 93,email+phone,mx_ok,
-Prieuré Saint-Cyr,Saint-Cyr-sur-Morin,77,Île-de-France,atypique,https://prieuresaintcyr.com,info@prieuresaintcyr.com,06 17 60 82 55,email+phone,smtp_unknown,2026-06-07T17:52:01.732946
-Abbaye des Vaux de Cernay,Cernay-la-Ville,78,Île-de-France,atypique,https://domainedesvauxdecernay.fr,contact@domainedesvauxdecernay.fr,,email,smtp_unknown,2026-06-07T17:52:15.157331
-Ferme du Bout des Prés,Cernay-la-Ville,78,Île-de-France,ferme,https://www.lafermeduboutdespres.com,contact@lafermeduboutdespres.com,01 34 85 29 04,email+phone,smtp_unknown,2026-06-07T17:52:32.954951
-Le Manoir des Cygnes,Le Coudray-Montceaux,91,Île-de-France,manoir,https://lemanoirdescygnes.fr,lemanoirdescygnes@gmail.com,01 64 93 81 56,email+phone,mx_ok,2026-06-07T17:52:57.190581
-Le Manoir de l'Île aux Loups,Nogent-sur-Marne,94,Île-de-France,manoir,https://manoirauxloups.com,renseignements@manoirauxloups.com,01 48 72 68 00,email+phone,smtp_unknown,2026-06-07T17:53:05.050987
-Domaine de la Roche Couloir,Chevreuse,78,Île-de-France,domaine,https://domainedelarochecouloir.com,elodie@domainesevenements.com,06 69 65 40 44,email+phone,unchecked,2026-06-07T17:53:33.067007
-La Ferme de la Corde,Férolles-Attilly,77,Île-de-France,ferme,https://fermedelacorde.com,contact@one-experience.fr,01 84 80 14 35,email+phone,smtp_unknown,2026-06-07T17:54:04.307195
-La Grange des Mollières,La Villeneuve-en-Chevrie,78,Île-de-France,ferme,https://lagrangedesmollieres.fr,,01 34 76 14 69,phone,no_email,2026-06-07T17:54:26.343577
-Beaumarchais Manor,Les Chapelles-Bourbon,77,Île-de-France,manoir,https://beaumarchais.eu,info@manoirdebeaumarchais.fr,01 64 07 11 08,email+phone,unchecked,2026-06-07T17:54:46.608823
-Château du Vivier,Fontenay-Trésigny,77,Île-de-France,château,https://www.chateauduvivier.com,lechateauduvivier@gmail.com,06 86 63 63 18,email+phone,unchecked,2026-06-07T17:55:03.973153
-Château de Crénille,Chaumes-en-Brie,77,Île-de-France,château,https://chateau-de-crenille.com,,07 82 30 97 80,phone,no_email,2026-06-07T17:55:12.093476
-Château de Lésigny,Lésigny,77,Île-de-France,château,https://chateaudelesigny.com,CONTACT@CHATEAUDELESIGNY.COM,06 47 30 62 44,email+phone,unchecked,2026-06-07T17:55:31.167346
-Château de Maudétour,Maudétour-en-Vexin,95,Île-de-France,château,https://chateaudemaudetour.com,info@chateaudemaudetour.com,06 16 06 12 20,email+phone,smtp_unknown,2026-06-07T17:55:48.862389
-Château de Chaumontel,Chaumontel,95,Île-de-France,château,https://chateaudechaumontel.com,info@chateaudechaumontel.com,06 49 19 61 64,email+phone,unchecked,2026-06-07T17:56:07.197463
-Château de Montgeroult,Montgeroult,95,Île-de-France,château,https://chateaudemontgeroult.com,ch.montgeroult@orange.fr,01 34 42 71 03 / 06 79 73 18 23,email+phone,unchecked,2026-06-07T17:56:27.882519
-Domaine de Villarceaux,Chaussy,95,Île-de-France,domaine,https://villarceaux.iledefrance.fr,domainedevillarceaux@iledefrance.fr,01 53 85 53 85,email+phone,smtp_unknown,2026-06-07T17:56:58.303091
-Ferme du Parc,Chatignonville,91,Île-de-France,ferme,https://lafermeduparc.com,info@epicura-receptions.fr,06 47 83 42 78,email+phone,unchecked,2026-06-07T17:57:13.243192
-Le Moulin des Noues,Soisy-sur-École,91,Île-de-France,atypique,https://lemoulindesnoues.com,contact@lmdn.fr,06 64 90 64 24,email+phone,smtp_unknown,2026-06-07T17:57:29.849247
-Le Couvent de Limours,Limours,91,Île-de-France,atypique,https://domaineducouvent.fr,barrobar@free.fr,06 11 01 80 96,email+phone,mx_ok,2026-06-07T17:57:43.699312
-Domaine des Coccinelles,Angervilliers,91,Île-de-France,domaine,https://ledomainedescoccinelles.fr,secretariat.vtvm@gmail.com,01 34 83 05 51,email+phone,mx_ok,2026-06-07T17:57:49.580353
-Ferme de Montblin,Lisses,91,Île-de-France,ferme,https://fermedemontblin.com,info@fermedemontblin.com,01 64 57 27 59,email+phone,smtp_unknown,2026-06-07T17:58:04.504116
-Les Barrés,Paris,75,Île-de-France,salle,https://lesbarres.com,contact@les-barres.com,09 50 14 65 00,email+phone,smtp_ok,2026-06-07T17:58:29.841091
-Pavillon Royal,Paris 16e,75,Île-de-France,salle,https://pavillon-royal.paris,info@pavillon-royal.paris,01 58 01 11 11,email+phone,unchecked,2026-06-07T17:58:49.295610
-Le Cinéart,Nanterre,92,Île-de-France,atypique,https://lecineart.com,lecineart92@gmail.com,06 32 21 40 64,email+phone,mx_ok,2026-06-07T17:59:13.725524
-Salons Lyna,Vitry-sur-Seine,94,Île-de-France,salle,https://lessalonslyna.eatbu.com,lessalonslyna@gmail.com,06 64 80 49 61,email+phone,unchecked,2026-06-07T17:59:30.177369
-L'Event,Boissy-Saint-Léger,94,Île-de-France,salle,https://salonlevent.com,contact@salonlevent.com,06 34 60 01 75,email+phone,smtp_unknown,2026-06-07T17:59:44.012156
-Espace Eden,Villeparisis,77,Île-de-France,salle,https://salles-eden.fr,contact@salles-eden.fr,01 60 54 08 21,email+phone,unchecked,2026-06-07T17:59:59.192124
-Espace Venise,Sarcelles,95,Île-de-France,salle,https://espace-venise.com,info@espacevenise.com,01 39 90 53 75,email+phone,unchecked,2026-06-07T18:00:15.321167
-Salles Bacchus,Vitry-sur-Seine,94,Île-de-France,salle,https://sallesbacchus.fr,jimmarigeon@gmail.com,06 99 24 19 48,email+phone,unchecked,2026-06-07T18:00:27.673586
-Domaine de la Corniche,Rolleboise,78,Île-de-France,hôtel,https://domainedelacorniche.com,contact@domainedelacorniche.com,01 30 93 20 00,email+phone,unchecked,2026-06-07T18:00:47.113967
-La Ferme du Bois aux Dames,Soisy-Bouy,77,Île-de-France,ferme,https://lafermeduboisauxdames.fr,fermeduboisauxdames@gmail.com,07 82 03 14 36,email+phone,unchecked,2026-06-07T18:01:04.108850
-Le Moulin de Pommeuse,Pommeuse,77,Île-de-France,atypique,https://le-moulin-de-pommeuse.com,,01 64 75 29 45,phone,no_email,2026-06-07T18:01:25.291693
-Le Nomade Lodge,La Chapelle-Gauthier,77,Île-de-France,atypique,https://nomade-lodge.com,infos@nomade-lodge.com,06 16 23 46 68,email+phone,unchecked,2026-06-07T18:01:38.771680
-Château de l'Hermitage,Ennery,95,Île-de-France,château,https://chateaudelhermitage.fr,contact@chateauhmt.com,01 30 30 09 15,email+phone,unchecked,2026-06-07T18:01:59.795783
-Les Granges du Chesnay,Étampes,91,Île-de-France,ferme,https://lesgrangesduchesnay.fr,contact@lesgrangesduchesnay.fr,06 43 54 38 19,email+phone,unchecked,2026-06-07T18:02:21.197632
-Quai 55,Boulogne-Billancourt,92,Île-de-France,péniche,https://quai55.com,contact@quai55.com,01 46 08 08 09,email+phone,unchecked,2026-06-07T18:02:40.149309
-Yachts de Paris,Paris,75,Île-de-France,bateau,https://yachtsdeparis.fr,,01 44 54 14 70,phone,no_email,2026-06-07T18:03:00.481938
-Le VIP Paris Yacht Hôtel,Paris,75,Île-de-France,bateau,https://le-vip-paris.com,service.client@le-vip-paris.com,01 44 68 06 38,email+phone,unchecked,2026-06-07T18:03:24.675886
-Château de Boury,Boury-en-Vexin,60,Proche IDF,château,https://chateaudeboury.fr,chateauboury@gmail.com,02 32 55 15 10,email+phone,mx_ok,2026-06-07T18:03:42.729428
-Château de Pontarmé,Pontarmé,60,Proche IDF,château,https://chateaudepontarme.com,info@chateaudepontarme.com,03 44 54 61 02,email+phone,unchecked,2026-06-07T18:03:54.898892
-Château d'Hénonville,Hénonville,60,Proche IDF,château,https://chateaudhenonville.com,chateaudhenonville@gmail.com,06 22 64 96 88,email+phone,unchecked,2026-06-07T18:04:09.609861
+Prieuré Saint-Cyr,Saint-Cyr-sur-Morin,77,Île-de-France,atypique,https://prieuresaintcyr.com,info@prieuresaintcyr.com,06 17 60 82 55,manual,smtp_unknown,2026-06-07T18:31:08.329767
+Abbaye des Vaux de Cernay,Cernay-la-Ville,78,Île-de-France,atypique,https://domainedesvauxdecernay.fr,contact@domainedesvauxdecernay.fr,,manual,smtp_unknown,2026-06-07T18:21:24.508053
+Ferme du Bout des Prés,Cernay-la-Ville,78,Île-de-France,ferme,https://www.lafermeduboutdespres.com,contact@lafermeduboutdespres.com,01 34 85 29 04,email+form,smtp_unknown,2026-06-07T18:27:25.951410
+Le Manoir des Cygnes,Le Coudray-Montceaux,91,Île-de-France,manoir,https://lemanoirdescygnes.fr,lemanoirdescygnes@gmail.com,01 64 93 81 56,email+form,mx_ok,2026-06-07T18:29:57.911526
+Le Manoir de l'Île aux Loups,Nogent-sur-Marne,94,Île-de-France,manoir,https://manoirauxloups.com,renseignements@manoirauxloups.com,01 48 72 68 00,manual,smtp_unknown,2026-06-07T18:30:02.576013
+Domaine de la Roche Couloir,Chevreuse,78,Île-de-France,domaine,https://domainedelarochecouloir.com,elodie@domainesevenements.com,06 69 65 40 44,email+form,unchecked,2026-06-07T18:25:59.648694
+La Ferme de la Corde,Férolles-Attilly,77,Île-de-France,ferme,https://fermedelacorde.com,contact@one-experience.fr,01 84 80 14 35,email+form,smtp_unknown,2026-06-07T18:27:50.640649
+La Grange des Mollières,La Villeneuve-en-Chevrie,78,Île-de-France,ferme,https://lagrangedesmollieres.fr,,01 34 76 14 69,form,no_email,2026-06-07T18:28:10.585326
+Beaumarchais Manor,Les Chapelles-Bourbon,77,Île-de-France,manoir,https://beaumarchais.eu,info@manoirdebeaumarchais.fr,01 64 07 11 08,email+form,unchecked,2026-06-07T18:21:46.360869
+Château du Vivier,Fontenay-Trésigny,77,Île-de-France,château,https://www.chateauduvivier.com,lechateauduvivier@gmail.com,06 86 63 63 18,email+form,unchecked,2026-06-07T18:25:03.071897
+Château de Crénille,Chaumes-en-Brie,77,Île-de-France,château,https://chateau-de-crenille.com,,07 82 30 97 80,manual,no_email,2026-06-07T18:22:56.946080
+Château de Lésigny,Lésigny,77,Île-de-France,château,https://chateaudelesigny.com,CONTACT@CHATEAUDELESIGNY.COM,06 47 30 62 44,email+form,unchecked,2026-06-07T18:23:17.376818
+Château de Maudétour,Maudétour-en-Vexin,95,Île-de-France,château,https://chateaudemaudetour.com,contact@chateaudemaudetour.com,06 16 06 12 20,email+form,smtp_unknown,2026-06-07T18:23:36.578535
+Château de Chaumontel,Chaumontel,95,Île-de-France,château,https://chateaudechaumontel.com,info@chateaudechaumontel.com,06 49 19 61 64,email+form,unchecked,2026-06-07T18:22:50.802006
+Château de Montgeroult,Montgeroult,95,Île-de-France,château,https://chateaudemontgeroult.com,ch.montgeroult@orange.fr,01 34 42 71 03 / 06 79 73 18 23,email+form,unchecked,2026-06-07T18:23:57.656004
+Domaine de Villarceaux,Chaussy,95,Île-de-France,domaine,https://villarceaux.iledefrance.fr,domainedevillarceaux@iledefrance.fr,01 53 85 53 85,manual,smtp_unknown,2026-06-07T18:26:29.639743
+Ferme du Parc,Chatignonville,91,Île-de-France,ferme,https://lafermeduparc.com,info@epicura-receptions.fr,06 47 83 42 78,email+form,unchecked,2026-06-07T18:27:39.266166
+Le Moulin des Noues,Soisy-sur-École,91,Île-de-France,atypique,https://lemoulindesnoues.com,contact@lmdn.fr,06 64 90 64 24,email+form,smtp_unknown,2026-06-07T18:30:13.542875
+Le Couvent de Limours,Limours,91,Île-de-France,atypique,https://domaineducouvent.fr,barrobar@free.fr,06 11 01 80 96,email+form,mx_ok,2026-06-07T18:29:29.542319
+Domaine des Coccinelles,Angervilliers,91,Île-de-France,domaine,https://ledomainedescoccinelles.fr,secretariat.vtvm@gmail.com,01 34 83 05 51,manual,mx_ok,2026-06-07T18:25:06.124032
+Ferme de Montblin,Lisses,91,Île-de-France,ferme,https://fermedemontblin.com,info@fermedemontblin.com,01 64 57 27 59,email+form,smtp_unknown,2026-06-07T18:27:18.090751
+Les Barrés,Paris,75,Île-de-France,salle,https://lesbarres.com,contact@les-barres.com,09 50 14 65 00,manual,smtp_ok,2026-06-07T18:28:37.822306
+Pavillon Royal,Paris 16e,75,Île-de-France,salle,https://pavillon-royal.paris,info@pavillon-royal.paris,01 58 01 11 11,email+form,unchecked,2026-06-07T18:31:01.882388
+Le Cinéart,Nanterre,92,Île-de-France,atypique,https://lecineart.com,lecineart92@gmail.com,06 32 21 40 64,email+form,mx_ok,2026-06-07T18:29:16.229675
+Salons Lyna,Vitry-sur-Seine,94,Île-de-France,salle,https://lessalonslyna.eatbu.com,lessalonslyna@gmail.com,06 64 80 49 61,email+form,unchecked,2026-06-07T18:31:51.073918
+L'Event,Boissy-Saint-Léger,94,Île-de-France,salle,https://salonlevent.com,contact@salonlevent.com,06 34 60 01 75,manual,smtp_unknown,2026-06-07T18:29:01.428051
+Espace Eden,Villeparisis,77,Île-de-France,salle,https://salles-eden.fr,contact@salles-eden.fr,01 60 54 08 21,email+form,unchecked,2026-06-07T18:26:45.322535
+Espace Venise,Sarcelles,95,Île-de-France,salle,https://espace-venise.com,info@espacevenise.com,01 39 90 53 75,email+form,unchecked,2026-06-07T18:26:55.120426
+Salles Bacchus,Vitry-sur-Seine,94,Île-de-France,salle,https://sallesbacchus.fr,jimmarigeon@gmail.com,06 99 24 19 48,email+form,unchecked,2026-06-07T18:31:28.861233
+Domaine de la Corniche,Rolleboise,78,Île-de-France,hôtel,https://domainedelacorniche.com,contact@domainedelacorniche.com,01 30 93 20 00,email+form,unchecked,2026-06-07T18:25:40.133723
+La Ferme du Bois aux Dames,Soisy-Bouy,77,Île-de-France,ferme,https://lafermeduboisauxdames.fr,fermeduboisauxdames@gmail.com,07 82 03 14 36,email+form,unchecked,2026-06-07T18:27:57.634710
+Le Moulin de Pommeuse,Pommeuse,77,Île-de-France,atypique,https://le-moulin-de-pommeuse.com,,01 64 75 29 45,form,no_email,2026-06-07T18:30:24.172331
+Le Nomade Lodge,La Chapelle-Gauthier,77,Île-de-France,atypique,https://nomade-lodge.com,infos@nomade-lodge.com,06 16 23 46 68,email+form,unchecked,2026-06-07T18:30:42.223922
+Château de l'Hermitage,Ennery,95,Île-de-France,château,https://chateaudelhermitage.fr,contact@chateauhmt.com,01 30 30 09 15,manual,unchecked,2026-06-07T18:23:24.618043
+Les Granges du Chesnay,Étampes,91,Île-de-France,ferme,https://lesgrangesduchesnay.fr,contact@lesgrangesduchesnay.fr,06 43 54 38 19,email+form,unchecked,2026-06-07T18:28:50.232752
+Quai 55,Boulogne-Billancourt,92,Île-de-France,péniche,https://quai55.com,contact@quai55.com,01 46 08 08 09,email+form,unchecked,2026-06-07T18:31:18.921989
+Yachts de Paris,Paris,75,Île-de-France,bateau,https://yachtsdeparis.fr,,01 44 54 14 70,manual,no_email,2026-06-07T18:32:07.398107
+Le VIP Paris Yacht Hôtel,Paris,75,Île-de-France,bateau,https://le-vip-paris.com,service.client@le-vip-paris.com,01 44 68 06 38,manual,unchecked,2026-06-07T18:30:53.069641
+Château de Boury,Boury-en-Vexin,60,Proche IDF,château,https://chateaudeboury.fr,chateauboury@gmail.com,02 32 55 15 10,email+form,mx_ok,2026-06-07T18:22:29.614513
+Château de Pontarmé,Pontarmé,60,Proche IDF,château,https://chateaudepontarme.com,info@chateaudepontarme.com,03 44 54 61 02,manual,unchecked,2026-06-07T18:24:02.471218
+Château d'Hénonville,Hénonville,60,Proche IDF,château,https://chateaudhenonville.com,chateaudhenonville@gmail.com,06 22 64 96 88,email+form,unchecked,2026-06-07T18:24:48.192465

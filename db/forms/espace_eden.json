@@ -38,5 +38,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:59:59.192124"
+  "last_verified": "2026-06-07T18:26:45.322535",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The draft schema accurately reflects the contact form and contact information visible in the screenshot. No corrections were needed."
 }

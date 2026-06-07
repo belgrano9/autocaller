@@ -11,14 +11,14 @@
       {
         "name": "custom_form_submission[e6580fc8-ac66-11e3-967b-5605e959fb74]",
         "type": "text",
-        "label": "Nom complet",
+        "label": "Nom complet *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "custom_form_submission[e659a3ce-ac66-11e3-9bef-b5f98cd7dafe]",
         "type": "text",
-        "label": "Adresse e-mail",
+        "label": "Adresse e-mail *",
         "required": true,
         "placeholder": null
       },
@@ -39,11 +39,14 @@
       {
         "name": "custom_form_submission[e66032d4-ac66-11e3-9b8e-fbc9e4f43d46]",
         "type": "textarea",
-        "label": "Message",
+        "label": "Message *",
         "required": true,
         "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T17:52:32.954951"
+  "last_verified": "2026-06-07T18:27:25.951410",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected field labels for 'Nom complet', 'Adresse e-mail', and 'Message' to include the asterisk, as it is visually part of the label in the screenshot, indicating required fields."
 }

@@ -66,5 +66,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:51:37.044564"
+  "last_verified": "2026-06-07T18:25:26.851314",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The draft JSON accurately reflects the visible contact form and contact information on the page. All fields, labels, placeholders, and types (where visually discernible) match the screenshot. The extracted email and phone number are also consistent with the visible information."
 }

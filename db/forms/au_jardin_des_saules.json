@@ -3,7 +3,7 @@
   "website": "https://aujardindessaules.com",
   "contact_url": "https://www.aujardindessaules.com/contact",
   "extracted_email": "aujardindessaules@gmail.com",
-  "extracted_phone": "",
+  "extracted_phone": "01 34 34 04 98",
   "form_details": {
     "action": null,
     "method": null,
@@ -11,53 +11,56 @@
       {
         "name": "email",
         "type": "email",
-        "label": "Mail",
+        "label": "Mail *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "phone",
         "type": "tel",
-        "label": "Numéro de téléphone",
+        "label": "Numéro de téléphone *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "type-d-evenement",
         "type": "radio",
-        "label": "Type d'événement",
+        "label": "Type d'événement *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "date-de-l-evenement",
         "type": "text",
-        "label": "Préciser la date de l'événement",
+        "label": "Préciser la date de l'événement *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "nombre-d-adultes",
         "type": "text",
-        "label": "Préciser le nombre d'adultes",
+        "label": "Préciser le nombre d'adultes *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "nombre-d-enfants",
         "type": "text",
-        "label": "Préciser le nombre d'enfants",
+        "label": "Préciser le nombre d'enfants *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "message",
         "type": "textarea",
-        "label": "Message",
+        "label": "Message *",
         "required": true,
         "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T17:50:45.291172"
+  "last_verified": "2026-06-07T18:21:35.149924",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected field labels to include the asterisk (*) as visually present in the screenshot for all required fields (Mail, Numéro de téléphone, Type d'événement, Préciser la date de l'événement, Préciser le nombre d'adultes, Préciser le nombre d'enfants, Message). No general contact phone number was found on the page outside of the form field."
 }

@@ -52,5 +52,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:50:19.789003"
+  "last_verified": "2026-06-07T18:31:39.453340",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": null
 }

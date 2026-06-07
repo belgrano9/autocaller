@@ -52,5 +52,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:47:49.522421"
+  "last_verified": "2026-06-07T18:26:17.239756",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The extracted phone number format differs from the draft. Screenshot shows '+33 1 30 59 04 54' while draft had '01 30 59 04 54'."
 }

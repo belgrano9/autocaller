@@ -84,15 +84,11 @@
         "label": "Message",
         "required": true,
         "placeholder": "Type your message here..."
-      },
-      {
-        "name": "captcha_checkbox",
-        "type": "checkbox",
-        "label": null,
-        "required": true,
-        "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T17:55:31.167346"
+  "last_verified": "2026-06-07T18:23:17.376818",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft included a 'captcha_checkbox' field which is not visible in the screenshot. This field has been removed from the verified form details. All other fields match the screenshot."
 }

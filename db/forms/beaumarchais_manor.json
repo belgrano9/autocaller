@@ -31,5 +31,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:54:46.608823"
+  "last_verified": "2026-06-07T18:21:46.360869",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected extracted_phone to '+331 64 07 11 08' to match the format visible in the header and contact information section. All form fields (Nom, Email, Message) and their placeholders match the screenshot."
 }

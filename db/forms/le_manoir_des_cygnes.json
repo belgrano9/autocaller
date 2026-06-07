@@ -38,5 +38,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T17:52:57.190581"
+  "last_verified": "2026-06-07T18:29:57.911526",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The draft schema accurately reflects the contact form visible in the screenshot. Extracted email and phone numbers also match the footer information. The 'required' status for fields is not visually indicated in the screenshot, but the draft's assumptions are maintained."
 }

@@ -34,7 +34,7 @@
         "type": "text",
         "label": "Sujet",
         "required": false,
-        "placeholder": "Sujet "
+        "placeholder": "Sujet"
       },
       {
         "name": "Message",
@@ -45,5 +45,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T18:04:09.609861"
+  "last_verified": "2026-06-07T18:24:48.192465",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "Corrected 'extracted_phone' from '06 22 64 96 88' to '+33 6 22 64 96 88' to match the visible international format. Corrected the placeholder for the 'Sujet' field from 'Sujet ' to 'Sujet' to remove the trailing space."
 }

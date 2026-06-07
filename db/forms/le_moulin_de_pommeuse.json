@@ -2,23 +2,23 @@
   "venue_name": "Le Moulin de Pommeuse",
   "website": "https://le-moulin-de-pommeuse.com",
   "contact_url": "https://www.le-moulin-de-pommeuse.com/contact/",
-  "extracted_email": null,
+  "extracted_email": "",
   "extracted_phone": "01 64 75 29 45",
   "form_details": {
     "action": null,
-    "method": "post",
+    "method": null,
     "fields": [
       {
         "name": "item_meta[8]",
         "type": "text",
-        "label": "Nom",
+        "label": "Nom *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "item_meta[9]",
         "type": "text",
-        "label": "Prénom",
+        "label": "Prénom *",
         "required": true,
         "placeholder": null
       },
@@ -32,39 +32,28 @@
       {
         "name": "item_meta[10]",
         "type": "email",
-        "label": "Email",
+        "label": "Email *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "item_meta[12]",
         "type": "text",
-        "label": "Objet",
+        "label": "Objet *",
         "required": true,
         "placeholder": null
       },
       {
         "name": "item_meta[13]",
         "type": "textarea",
-        "label": "Message",
+        "label": "Message *",
         "required": true,
-        "placeholder": null
-      },
-      {
-        "name": "item_meta[19][]",
-        "type": "checkbox",
-        "label": "Acceptation de la Politique de confidentialité",
-        "required": true,
-        "placeholder": null
-      },
-      {
-        "name": "g-recaptcha-response",
-        "type": "recaptcha",
-        "label": "Captcha",
-        "required": false,
         "placeholder": null
       }
     ]
   },
-  "last_verified": "2026-06-07T18:01:25.291693"
+  "last_verified": "2026-06-07T18:30:24.172331",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft was not accurate. The labels for 'Nom', 'Prénom', 'Email', 'Objet', and 'Message' were corrected to include the asterisk (*) as seen in the screenshot, indicating they are required fields. Two fields, 'Acceptation de la Politique de confidentialité' (checkbox) and 'Captcha' (recaptcha), were removed from the verified_form_details as they are not visible in the provided screenshot. The form method could not be visually verified, so it was set to null. The extracted phone number matches the draft. No email address was found on the page."
 }

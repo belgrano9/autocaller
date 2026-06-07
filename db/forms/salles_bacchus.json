@@ -11,25 +11,28 @@
       {
         "name": "name",
         "type": "text",
-        "label": "Nom",
+        "label": null,
         "required": false,
         "placeholder": "Nom"
       },
       {
         "name": "email",
-        "type": "text",
-        "label": "Email",
+        "type": "email",
+        "label": null,
         "required": false,
         "placeholder": "Email"
       },
       {
         "name": "how",
         "type": "textarea",
-        "label": "Décriver votre demande",
+        "label": null,
         "required": false,
         "placeholder": "Décriver votre demande"
       }
     ]
   },
-  "last_verified": "2026-06-07T18:00:27.673586"
+  "last_verified": "2026-06-07T18:31:28.861233",
+  "qa_verified": true,
+  "qa_accurate": false,
+  "qa_notes": "The draft was corrected. For the 'Nom', 'Email', and 'Décriver votre demande' fields, the 'label' was set to null as no explicit labels are visible outside the input fields; the text is part of the placeholder. The 'Email' field's type was corrected from 'text' to 'email' to better reflect its purpose."
 }

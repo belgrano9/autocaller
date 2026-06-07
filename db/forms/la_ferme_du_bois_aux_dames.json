@@ -18,7 +18,7 @@
       {
         "name": "E-mail",
         "type": "email",
-        "label": "E‑mail",
+        "label": "E-mail",
         "required": true,
         "placeholder": null
       },
@@ -52,5 +52,8 @@
       }
     ]
   },
-  "last_verified": "2026-06-07T18:01:04.108850"
+  "last_verified": "2026-06-07T18:27:57.634710",
+  "qa_verified": true,
+  "qa_accurate": true,
+  "qa_notes": "The draft schema accurately reflects the visible contact form and its fields, including labels, types, and required status. Extracted email and phone numbers are also correct."
 }
