@@ -63,7 +63,7 @@ SCREENSHOTS_DIR = Path(__file__).parent.parent / "screenshots"
 FORMS_DIR = Path(__file__).parent.parent / "db" / "forms"
 
 
-def verify_screenshot_with_gemini(screenshot_path: Path, draft_schema: Optional[dict], client: genai.Client) -> VisualFormVerification | None:
+def verify_screenshot_with_gemini(screenshot_path: Path, draft_schema: dict | None, client: genai.Client) -> VisualFormVerification | None:
     """Calls Gemini to visually verify the screenshot against the draft JSON schema."""
     if not screenshot_path.exists():
         logger.warning(f"Screenshot not found at {screenshot_path}")
