@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 """
-Scrapes contact information and contact forms from wedding venue websites.
-Uses Playwright to navigate, takes a screenshot of the contact page, sanitizes the DOM,
-and analyzes the page using the Gemini API via the google-genai SDK.
+Scrapes contact information (email, phone) and contact forms from wedding venue websites.
 
-Usage:
+This script processes wedding venues listed in 'venues.csv'. For each venue:
+  1. It launches a headless Playwright browser tab.
+  2. It navigates to the homepage and looks for a contact/inquiry page.
+  3. It takes a full-page screenshot of the contact page (triggering lazy loads via scroll).
+  4. It sanitizes the page HTML DOM.
+  5. It sends the clean DOM and screenshot to the Gemini API (gemini-2.5-flash) to structure
+     the contact details and form schemas.
+  6. It saves the structured form details under 'db/forms/<venue_slug>.json' and updates 'venues.csv'.
+
+Execution:
   uv run python scripts/scrape_contacts.py [options]
 
 Options:
@@ -18,8 +25,6 @@ import re
 import csv
 import sys
 import argparse
-import unicodedata
-import phonenumbers
 from datetime import datetime
 from pathlib import Path
 from urllib.parse import urljoin
@@ -43,6 +48,10 @@ from rich.panel import Panel
 from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
 from rich.table import Table
 
+# Import shared models and utils
+from models import ContactPageAnalysis
+from utils import slugify, format_phone
+
 console = Console()
 
 # Configure loguru: Log only to file, disable stdout output
@@ -57,72 +66,6 @@ FORMS_DIR = Path(__file__).parent.parent / "db" / "forms"
 # Ensure directories exist
 SCREENSHOTS_DIR.mkdir(parents=True, exist_ok=True)
 FORMS_DIR.mkdir(parents=True, exist_ok=True)
-
-
-# --- Structured Output Schemas ---
-from pydantic import BaseModel, Field
-from typing import List, Optional
-
-class ContactFormField(BaseModel):
-    name: Optional[str] = Field(description="The 'name' attribute of the input/textarea field, or a descriptive placeholder if missing.")
-    type: Optional[str] = Field(description="The type of the field (e.g., text, email, tel, textarea, select, checkbox, radio).")
-    label: Optional[str] = Field(description="The label or visual text associated with this field.")
-    required: bool = Field(description="Whether the field is marked as required.")
-    placeholder: Optional[str] = Field(description="The placeholder text of the field, if any.")
-
-class ContactFormDetails(BaseModel):
-    action: Optional[str] = Field(description="The action URL/endpoint of the form, if any.")
-    method: Optional[str] = Field(description="The HTTP method of the form (e.g., POST, GET).")
-    fields: List[ContactFormField] = Field(description="List of fields present in the contact form.")
-
-class ContactPageAnalysis(BaseModel):
-    email: Optional[str] = Field(description="Any contact/booking email address found on the page, or null if none.")
-    phone: Optional[str] = Field(description="Any contact telephone number found on the page (preferably French format), or null.")
-    has_form: bool = Field(description="Whether a contact/inquiry form exists on the page.")
-    form_details: Optional[ContactFormDetails] = Field(description="Details of the contact form if one exists, else null.")
-
-
-def slugify(value: str) -> str:
-    """Converts a string to a clean filename-safe slug."""
-    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
-    value = re.sub(r'[^\w\s-]', '', value).strip().lower()
-    value = re.sub(r'[-\s]+', '_', value)
-    return value
-
-
-def format_phone(phone: str, default_country: str = "FR") -> str:
-    """
-    General phone formatter for any country using Google's libphonenumber.
-    If the number belongs to the default country, formats as NATIONAL.
-    Otherwise formats as INTERNATIONAL.
-    """
-    if not phone or phone.strip() in ("", "-", "None"):
-        return ""
-    
-    parts = re.split(r'[/,]', phone)
-    formatted_parts = []
-    
-    for part in parts:
-        part = part.strip()
-        if not part:
-            continue
-        try:
-            # Parse using the default country code
-            parsed = phonenumbers.parse(part, default_country.upper())
-            if phonenumbers.is_valid_number(parsed):
-                region = phonenumbers.region_code_for_number(parsed)
-                # If matches default country, use national spacing. Otherwise use international.
-                if region == default_country.upper():
-                    fmt = phonenumbers.PhoneNumberFormat.NATIONAL
-                else:
-                    fmt = phonenumbers.PhoneNumberFormat.INTERNATIONAL
-                formatted_parts.append(phonenumbers.format_number(parsed, fmt))
-            else:
-                formatted_parts.append(part)
-        except Exception:
-            formatted_parts.append(part)
-            
-    return " / ".join(formatted_parts)
 
 
 def clean_html(html_content: str) -> str:

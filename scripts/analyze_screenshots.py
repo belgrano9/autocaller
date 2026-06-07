@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """
 Visual QA Verifier & Corrector for scraped contact forms.
-Loads locally captured screenshots and cross-references them with draft JSON schemas
-extracted from the HTML DOM to verify visual accuracy, correct any mismatches,
-and confirm the form is visible and submit-ready.
 
-Usage:
+This script processes screenshots captured by the scraper under 'screenshots/'. For each screenshot:
+  1. It identifies the corresponding venue in 'venues.csv' using its slug.
+  2. It loads any DOM-extracted draft form schema from 'db/forms/<venue_slug>.json'.
+  3. It calls the Gemini API (gemini-2.5-flash) with the screenshot image and the draft schema.
+  4. Gemini performs visual verification: checking if the form and submit button are present,
+     extracting visible email/phone contacts, and correcting any form field labels/types.
+  5. It saves the verified/corrected JSON schema back to 'db/forms/<venue_slug>.json' (marking it verified).
+  6. It updates the venue's contact status and verification metadata in 'venues.csv'.
+
+Execution:
   uv run python scripts/analyze_screenshots.py [options]
 
 Options:
@@ -20,8 +26,6 @@ import csv
 import sys
 import json
 import argparse
-import unicodedata
-import phonenumbers
 import time
 from datetime import datetime
 from pathlib import Path
@@ -43,6 +47,10 @@ from rich.panel import Panel
 from rich.progress import BarColumn, Progress, SpinnerColumn, TaskProgressColumn, TextColumn
 from rich.table import Table
 
+# Import shared models and utils
+from models import VisualFormVerification
+from utils import slugify, format_phone
+
 console = Console()
 
 # Configure loguru: Log only to file, disable stdout output
@@ -53,75 +61,6 @@ logger.add("logs/analyzer.log", rotation="10 MB", level="DEBUG", encoding="utf-8
 CSV_PATH = Path(__file__).parent.parent / "venues.csv"
 SCREENSHOTS_DIR = Path(__file__).parent.parent / "screenshots"
 FORMS_DIR = Path(__file__).parent.parent / "db" / "forms"
-
-
-# --- Structured Output Schemas ---
-from pydantic import BaseModel, Field
-from typing import List, Optional
-
-class ContactFormField(BaseModel):
-    name: Optional[str] = Field(description="The 'name' attribute of the input/textarea field, or a descriptive placeholder if missing.")
-    type: Optional[str] = Field(description="The type of the field (e.g., text, email, tel, textarea, select, checkbox, radio).")
-    label: Optional[str] = Field(description="The label or visual text associated with this field.")
-    required: bool = Field(description="Whether the field is marked as required.")
-    placeholder: Optional[str] = Field(description="The placeholder text of the field, if any.")
-
-class ContactFormDetails(BaseModel):
-    action: Optional[str] = Field(description="The action URL/endpoint of the form, if any.")
-    method: Optional[str] = Field(description="The HTTP method of the form (e.g., POST, GET).")
-    fields: List[ContactFormField] = Field(description="List of fields present in the contact form.")
-
-class VisualFormVerification(BaseModel):
-    form_is_visible: bool = Field(description="True if the contact form is visible in the screenshot.")
-    submit_button_is_visible: bool = Field(description="True if the submit/send/confirm button for the form is visible in the screenshot.")
-    is_draft_accurate: bool = Field(description="True if the draft JSON matches the screenshot perfectly without corrections.")
-    extracted_email: Optional[str] = Field(description="Any email address visible on the page (e.g. in text, header, footer) that can be used for contact. Null if none is visible.")
-    extracted_phone: Optional[str] = Field(description="Any phone number visible on the page (preferably French format) that can be used for contact. Null if none is visible.")
-    verified_form_details: Optional[ContactFormDetails] = Field(description="The corrected/verified form schema matching the screenshot. Null if no form is visible.")
-    verification_notes: Optional[str] = Field(description="Explanation of any corrections made or reasons for verification failure.")
-
-
-def slugify(value: str) -> str:
-    """Converts a string to a clean filename-safe slug."""
-    value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
-    value = re.sub(r'[^\w\s-]', '', value).strip().lower()
-    value = re.sub(r'[-\s]+', '_', value)
-    return value
-
-
-def format_phone(phone: str, default_country: str = "FR") -> str:
-    """
-    General phone formatter for any country using Google's libphonenumber.
-    If the number belongs to the default country, formats as NATIONAL.
-    Otherwise formats as INTERNATIONAL.
-    """
-    if not phone or phone.strip() in ("", "-", "None"):
-        return ""
-    
-    parts = re.split(r'[/,]', phone)
-    formatted_parts = []
-    
-    for part in parts:
-        part = part.strip()
-        if not part:
-            continue
-        try:
-            # Parse using the default country code
-            parsed = phonenumbers.parse(part, default_country.upper())
-            if phonenumbers.is_valid_number(parsed):
-                region = phonenumbers.region_code_for_number(parsed)
-                # If matches default country, use national spacing. Otherwise use international.
-                if region == default_country.upper():
-                    fmt = phonenumbers.PhoneNumberFormat.NATIONAL
-                else:
-                    fmt = phonenumbers.PhoneNumberFormat.INTERNATIONAL
-                formatted_parts.append(phonenumbers.format_number(parsed, fmt))
-            else:
-                formatted_parts.append(part)
-        except Exception:
-            formatted_parts.append(part)
-            
-    return " / ".join(formatted_parts)
 
 
 def verify_screenshot_with_gemini(screenshot_path: Path, draft_schema: Optional[dict], client: genai.Client) -> VisualFormVerification | None:

@@ -80,3 +80,17 @@ For venues that do not accept emails (e.g., `contact_type` = `form` or `phone+fo
 *   **Auto-Mapping (Smart Fill)**: Pre-fill input fields (email, names, phone, guest count, budget, event date, and message) using the global "Wedding Project" settings state.
 *   **Backend Playwright Submitter**: Send the filled-in fields to a backend API (e.g., `/api/outreach/submit-form`) that spins up Playwright to navigate, fill out the form elements, submit it, and return a success verification screenshot.
 
+---
+
+## Code Quality & Modularity Guidelines
+
+To keep the project clean, maintainable, and easy to understand as it expands, the following design principles must be followed:
+
+1. **Single-Responsibility Principle (SRP)**: Keep scripts focused on a single responsibility. Business logic, utility helpers, and structured data schemas must be separated from CLI orchestrators.
+2. **Modularity**: Share code by centralizing models, parameters, and common helpers into dedicated shared modules (e.g. `scripts/models.py` and `scripts/utils.py`). Do not duplicate code across different CLI scripts.
+3. **Module-Level Docstrings**: Every Python module/file must start with a descriptive, self-contained docstring at the top of the file explaining:
+   * Exactly what the file does and what responsibility it has.
+   * Its CLI commands, inputs, and outputs (if applicable).
+4. **Function Docstrings & Types**: Standardize functions with clear Google-style docstrings describing arguments, return types, and exceptions, with proper type hinting.
+
+
