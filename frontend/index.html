@@ -59,6 +59,190 @@
     h1 { font-size: 22px; margin-bottom: 4px; }
     p.sub { color: #666; font-size: 14px; margin-bottom: 20px; }
 
+    /* ── Dashboard layout (gallery + sidebar) ── */
+    .dashboard-layout { display: flex; align-items: flex-start; gap: 22px; }
+    .main-col { flex: 1; min-width: 0; }
+    .sidebar { width: 290px; flex-shrink: 0; display: flex; flex-direction: column; gap: 16px; position: sticky; top: 20px; }
+
+    /* ── Map card ── */
+    .map-card {
+      background: #fff;
+      border: 1px solid #e9e5e0;
+      border-radius: 16px;
+      padding: 14px 14px 11px;
+      box-shadow: 0 4px 16px rgba(44, 94, 67, 0.03);
+    }
+    .map-card-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 8px;
+    }
+    .map-card-title {
+      font-size: 10.5px; font-weight: 700; color: #999;
+      text-transform: uppercase; letter-spacing: 0.08em;
+    }
+    .map-card-actions { display: flex; gap: 6px; align-items: center; }
+    .map-clear-btn {
+      font-size: 10px; background: none; border: 1px solid #e9e5e0;
+      border-radius: 5px; padding: 1px 7px; cursor: pointer;
+      color: #2c5e43; font-weight: 600;
+    }
+    .map-clear-btn:hover { background: #fafafa; }
+    .map-zoom-btn {
+      font-size: 10.5px; padding: 3px 10px; border-radius: 7px;
+      cursor: pointer; font-weight: 700; border: 1px solid; transition: all 0.2s;
+      background: #e8f2ec; border-color: #c2d8cc; color: #2c5e43;
+    }
+    .map-zoom-btn.active { background: #fbf3e3; border-color: #e0c880; color: #8a6a20; }
+    .map-svg-wrap svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+    .map-svg-wrap .hex-tile { cursor: pointer; }
+    .map-svg-wrap .hex-tile.no-venues { cursor: default; }
+    .map-legend { display: flex; gap: 12px; padding-top: 8px; flex-wrap: wrap; align-items: center; }
+    .map-legend-item { display: flex; gap: 5px; align-items: center; font-size: 10.5px; color: #999; }
+    .map-legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .map-legend-hint { margin-left: auto; font-size: 10px; color: #c0b8b0; font-style: italic; }
+
+    /* ── Activity feed card ── */
+    .activity-card {
+      background: #fff;
+      border: 1px solid #e9e5e0;
+      border-radius: 16px;
+      padding: 14px 14px 4px;
+      box-shadow: 0 4px 16px rgba(44, 94, 67, 0.03);
+      max-height: 420px;
+      overflow-y: auto;
+    }
+    .activity-card-title {
+      font-size: 10.5px; font-weight: 700; color: #999;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin-bottom: 13px;
+    }
+    .feed-empty { font-size: 12px; color: #b0a99f; padding-bottom: 12px; }
+    .feed-item { display: flex; gap: 10px; padding-bottom: 15px; position: relative; }
+    .feed-line { position: absolute; left: 5px; top: 13px; bottom: 0; width: 1px; background: #e9e5e0; }
+    .feed-dot {
+      width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+      transition: box-shadow 0.4s;
+    }
+    .feed-item-new .feed-dot { box-shadow: 0 0 0 4px rgba(44,94,67,0.18); }
+    .feed-item-new .feed-action { color: #2c5e43; }
+    .feed-body { flex: 1; min-width: 0; }
+    .feed-action { font-size: 12.5px; font-weight: 600; color: #1a1a1a; transition: color 0.4s; }
+    .feed-venue { font-size: 11.5px; color: #999; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .feed-time { font-size: 10.5px; color: #c0b8b0; margin-top: 1px; }
+
+    /* ── Outreach choice popover ── */
+    .choice-popover {
+      position: fixed;
+      z-index: 200;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.14), 0 1px 6px rgba(0,0,0,0.07);
+      border: 1px solid #e9e5e0;
+      overflow: hidden;
+      min-width: 200px;
+      animation: slideUp 0.14s ease;
+    }
+    .choice-popover-header { padding: 8px 12px 6px; border-bottom: 1px solid #e9e5e0; }
+    .choice-popover-title {
+      font-size: 10.5px; font-weight: 700; color: #999;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .choice-popover-venue { font-size: 11px; color: #888; margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .choice-popover-body { padding: 5px 6px; }
+    .choice-option {
+      width: 100%; display: flex; align-items: center; gap: 10px;
+      padding: 8px 10px; background: none; border: none; border-radius: 7px;
+      cursor: pointer; text-align: left; transition: background 0.12s; font-family: inherit;
+    }
+    .choice-option:hover { background: #eef4f0; }
+    .choice-option.form:hover { background: #faf2e1; }
+    .choice-option.disabled { opacity: 0.55; cursor: default; }
+    .choice-option.disabled:hover { background: none; }
+    .choice-option-icon {
+      width: 28px; height: 28px; border-radius: 7px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .choice-option-icon.email { background: #e8f2ec; }
+    .choice-option-icon.form { background: #fbf3e3; }
+    .choice-option-icon.call { background: #f0f0f0; }
+    .choice-option-text { display: flex; flex-direction: column; }
+    .choice-option-label { font-size: 12.5px; font-weight: 600; color: #1a1a1a; display: flex; align-items: center; gap: 6px; }
+    .choice-option-desc { font-size: 10.5px; color: #999; }
+    .choice-soon-badge {
+      font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 5px;
+      background: #f0f0f0; color: #999; text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .choice-divider { margin: 3px 0 2px; border-top: 1px dashed #e9e5e0; }
+
+    /* ── Auto-fill form modal ── */
+    .autoform-card { width: 560px; }
+    .autoform-header {
+      padding: 16px 20px 14px; border-bottom: 1px solid #eee;
+      display: flex; justify-content: space-between; align-items: flex-start;
+    }
+    .autoform-title { font-size: 14.5px; font-weight: 700; color: #1a1a1a; }
+    .autoform-subtitle { font-size: 12px; color: #999; margin-top: 2px; }
+    .autoform-header-actions { display: flex; gap: 8px; align-items: center; }
+    .autoform-link {
+      font-size: 10.5px; color: #b8975e; text-decoration: none;
+      border: 1px solid #e0c880; border-radius: 6px; padding: 2px 8px; font-weight: 600;
+    }
+    .autoform-link:hover { background: #fbf3e3; }
+    .autoform-badge {
+      font-size: 10.5px; padding: 2px 9px; background: #fbf3e3; color: #b8975e;
+      border-radius: 8px; font-weight: 700;
+    }
+    .autoform-info {
+      padding: 8px 20px; background: #fffbeb; border-bottom: 1px solid #fde68a;
+      font-size: 12px; color: #92400e;
+    }
+    .autoform-fields {
+      overflow-y: auto; padding: 14px 20px;
+      display: flex; flex-direction: column; gap: 11px; max-height: 50vh;
+    }
+    .autoform-field-head { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .autoform-field-label {
+      font-size: 10.5px; font-weight: 700; color: #999;
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .autoform-required { color: #e57373; margin-left: 3px; }
+    .autoform-field-status { font-size: 10px; color: #f59e0b; transition: color 0.2s; }
+    .autoform-field-status.auto { color: #aaa; }
+    .autoform-field-status.filled { color: #2c5e43; font-weight: 700; }
+    .autoform-input {
+      width: 100%; padding: 8px 11px; border: 1px solid #e9e5e0; border-radius: 7px;
+      font-size: 12px; background: #fafaf8; outline: none; font-family: 'DM Sans', sans-serif;
+      color: #1a1a1a; transition: all 0.25s;
+    }
+    textarea.autoform-input { resize: none; }
+    .autoform-input.unmapped { border-color: #fcd34d; background: #fffbeb; }
+    .autoform-input.filled { border-color: #a7c4b3; background: #e8f2ec; }
+    .autoform-checkbox-row {
+      display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px;
+      border: 1px solid #e9e5e0; border-radius: 7px; cursor: pointer;
+      font-size: 11.5px; color: #666; background: #fafaf8; transition: all 0.25s;
+    }
+    .autoform-checkbox-row.unmapped { border-color: #fcd34d; background: #fffbeb; }
+    .autoform-checkbox-row.filled { border-color: #a7c4b3; background: #e8f2ec; }
+    .autoform-checkbox { margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+    .autoform-checkbox-label { flex: 1; line-height: 1.4; }
+    .autoform-checkbox-row .autoform-field-status { flex-shrink: 0; }
+    .autoform-footer {
+      padding: 12px 20px; border-top: 1px solid #eee; background: #faf9f7;
+      border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .autoform-btn-fill, .autoform-btn-submit {
+      padding: 8px 20px; border: none; border-radius: 7px;
+      font-size: 12.5px; font-weight: 700; cursor: pointer; color: #fff;
+    }
+    .autoform-btn-fill { background: #b8975e; }
+    .autoform-btn-fill:disabled { background: #ccc; cursor: default; }
+    .autoform-btn-submit { background: #2c5e43; }
+    .autoform-btn-submit:disabled { background: #a2bcae; cursor: default; }
+    .autoform-done { font-size: 12px; color: #2c5e43; font-weight: 700; }
+
     /* ── Filter bar ── */
     .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
     .filters-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
@@ -94,62 +278,123 @@
     /* ── Count ── */
     .count { font-size: 13px; color: #888; margin-bottom: 12px; }
 
-    /* ── Venue card ── */
-    .venue {
+    /* ── Search box ── */
+    .search-wrap { position: relative; display: flex; align-items: center; }
+    .search-icon { position: absolute; left: 11px; pointer-events: none; }
+    .search-input {
+      padding: 6px 26px 6px 30px;
+      border: 1px solid #ddd;
+      border-radius: 18px;
+      font-size: 12px;
+      outline: none;
       background: #fff;
-      border: 1px solid #e0e0e0;
+      color: #1a1a1a;
+      width: 160px;
+      transition: border-color 0.15s;
+    }
+    .search-input:focus { border-color: #2d6a4f; }
+    .search-clear {
+      position: absolute; right: 8px;
+      background: none; border: none;
+      font-size: 14px; color: #aaa;
+      cursor: pointer; line-height: 1; padding: 0;
+    }
+    .search-clear:hover { color: #555; }
+
+    /* ── Venue gallery grid ── */
+    .venue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(216px, 1fr));
+      gap: 14px;
+    }
+    .venue-card {
+      background: #fff;
+      border: 1.5px solid #e0e0e0;
       border-radius: 12px;
-      padding: 16px 20px;
-      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .venue-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.09); }
+    .venue-card.status-contacted,
+    .venue-card.status-replied { border-color: #a7c4b3; }
+    .venue-card.status-retained { border-color: #b8975e; }
+
+    .venue-photo {
+      height: 124px;
+      position: relative;
+      overflow: hidden;
       display: flex;
       align-items: center;
-      gap: 16px;
-      transition: box-shadow 0.15s;
+      justify-content: center;
     }
-    .venue:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.07); }
-
-    .venue-info { flex: 1; min-width: 0; }
-    .venue-info strong { font-size: 15px; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .venue-info .meta { font-size: 12px; color: #888; margin-top: 3px; }
-    .venue-link { color: #2d6a4f; text-decoration: none; }
-    .venue-link:hover { text-decoration: underline; }
-
-    .badge {
-      font-size: 11px;
-      padding: 2px 10px;
-      border-radius: 20px;
-      white-space: nowrap;
+    .venue-photo-label {
+      font-size: 10px;
+      color: #a09490;
+      font-family: monospace;
+      letter-spacing: 0.06em;
     }
-    .badge-type    { background: #f0f0f0; color: #555; }
-    .badge-contact { background: #e8f5e9; color: #2d6a4f; }
-    .badge-contact.no { background: #f5f5f5; color: #aaa; }
+    .venue-photo.type-château  { background: repeating-linear-gradient(135deg, #ede8f8, #ede8f8 10px, #ddd4f0 10px, #ddd4f0 20px); }
+    .venue-photo.type-domaine  { background: repeating-linear-gradient(135deg, #e8f2ec, #e8f2ec 10px, #d6e8dd 10px, #d6e8dd 20px); }
+    .venue-photo.type-salle    { background: repeating-linear-gradient(135deg, #f5ede4, #f5ede4 10px, #ecddd0 10px, #ecddd0 20px); }
+    .venue-photo.type-ferme    { background: repeating-linear-gradient(135deg, #f0eadf, #f0eadf 10px, #e4d8c8 10px, #e4d8c8 20px); }
+    .venue-photo.type-atypique { background: repeating-linear-gradient(135deg, #f0f0e8, #f0f0e8 10px, #e4e4d0 10px, #e4e4d0 20px); }
 
-    .venue-price {
-      font-size: 14px;
-      font-weight: 600;
-      color: #2d6a4f;
-      white-space: nowrap;
-      min-width: 110px;
-      text-align: right;
+    .photo-status-badge {
+      position: absolute; top: 8px; right: 8px;
+      font-size: 9.5px; font-weight: 700;
+      color: #fff; padding: 2px 7px; border-radius: 8px;
     }
-    .venue-price.unknown { color: #bbb; font-weight: 400; font-style: italic; }
+    .photo-status-badge.status-retained  { background: #b8975e; }
+    .photo-status-badge.status-replied   { background: #d97706; }
+    .photo-status-badge.status-contacted { background: rgba(44,94,67,0.82); }
+    .photo-form-badge {
+      position: absolute; bottom: 7px; left: 7px;
+      background: rgba(184,151,94,0.9); color: #fff;
+      font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 6px;
+    }
 
-    button.contact-btn {
-      padding: 8px 18px;
-      background: #1a1a1a;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      min-width: 100px;
-      white-space: nowrap;
+    .venue-card-body { padding: 9px 11px 11px; }
+    .venue-card-name {
+      font-size: 12.5px; font-weight: 600; color: #1a1a1a;
+      line-height: 1.3; margin-bottom: 3px;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .venue-card-meta { font-size: 11px; color: #888; margin-bottom: 7px; }
+    .venue-card-meta a { color: #2d6a4f; text-decoration: none; }
+    .venue-card-meta a:hover { text-decoration: underline; }
+
+    .status-picker { display: flex; gap: 3px; margin-bottom: 8px; }
+    .status-btn {
+      flex: 1; padding: 3px 0;
+      font-size: 9px; font-weight: 700; letter-spacing: 0.02em;
+      border: 1.5px solid #e5e0db; border-radius: 5px;
+      background: transparent; color: #bbb;
+      cursor: pointer; transition: all 0.13s;
+    }
+    .status-btn:hover:not(.active) { border-color: #bbb; color: #888; }
+    .status-btn.active[data-status="none"]      { background: #c8c2bb; border-color: #c8c2bb; color: #fff; }
+    .status-btn.active[data-status="contacted"] { background: #2c5e43; border-color: #2c5e43; color: #fff; }
+    .status-btn.active[data-status="replied"]   { background: #d97706; border-color: #d97706; color: #fff; }
+    .status-btn.active[data-status="retained"]  { background: #b8975e; border-color: #b8975e; color: #fff; }
+
+    .venue-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .venue-type-chip { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; }
+    .venue-type-chip.château  { background: #f3f0ff; color: #7c3aed; }
+    .venue-type-chip.domaine  { background: #e8f2ec; color: #2c5e43; }
+    .venue-type-chip.salle    { background: #fff7ed; color: #c2410c; }
+    .venue-type-chip.ferme    { background: #fdf4ff; color: #9333ea; }
+    .venue-type-chip.atypique { background: #fef9c3; color: #92400e; }
+
+    button.venue-card-action {
+      font-size: 10.5px; padding: 4px 10px;
+      background: #2d6a4f; color: #fff;
+      border: none; border-radius: 6px;
+      cursor: pointer; font-weight: 600;
       transition: background 0.2s;
     }
-    button.contact-btn:disabled { cursor: wait; opacity: 0.75; }
-    button.contact-btn.ok  { background: #2d6a4f; }
-    button.contact-btn.err { background: #c0392b; }
-    button.contact-btn.disabled-venue { background: #e0e0e0; color: #aaa; cursor: not-allowed; }
+    button.venue-card-action:disabled { cursor: wait; opacity: 0.75; }
+    button.venue-card-action.contacted { background: #a7c4b3; }
 
     .state-msg { color: #888; font-size: 14px; padding: 32px 0; text-align: center; }
 
@@ -160,40 +405,6 @@
     .nav-links .btn-login:hover { background: #2c5e43; color: #fff; }
     .mode-toggle span.active-int { color: #2c5e43; }
     
-    /* ── Onboarding Overlay ── */
-    .onboarding-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: rgba(252, 251, 250, 0.97);
-      backdrop-filter: blur(12px);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.3s ease;
-    }
-    .onboarding-card {
-      background: #fff;
-      border: 1px solid #e9e5e0;
-      border-radius: 20px;
-      padding: 36px;
-      width: 480px;
-      max-width: 90%;
-      box-shadow: 0 16px 40px rgba(44, 94, 67, 0.08);
-      animation: slideUp 0.4s ease;
-    }
-    .onboarding-slide h2 {
-      font-size: 24px;
-      color: #2c5e43;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-    .onboarding-desc {
-      color: #666;
-      font-size: 14px;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
     .form-group {
       margin-bottom: 18px;
       display: flex;
@@ -229,45 +440,6 @@
     .form-row .form-group {
       flex: 1;
     }
-    .onboarding-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 24px;
-      gap: 12px;
-    }
-    .btn-primary {
-      padding: 10px 24px;
-      background: #2c5e43;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-      transition: background 0.2s;
-    }
-    .btn-primary:hover { background: #224933; }
-    .btn-skip {
-      background: none;
-      border: none;
-      color: #888;
-      cursor: pointer;
-      font-size: 13px;
-      text-decoration: underline;
-    }
-    .btn-skip:hover { color: #555; }
-    .btn-back {
-      background: none;
-      border: 1px solid #ddd;
-      padding: 10px 18px;
-      border-radius: 8px;
-      color: #555;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .btn-back:hover { background: #fafafa; }
 
     /* ── Wedding Project Card ── */
     .project-card {
@@ -492,63 +664,6 @@
 </head>
 <body>
 
-  <!-- Onboarding Wizard Overlay -->
-  <div id="onboarding-overlay" class="onboarding-overlay hidden">
-    <div class="onboarding-card">
-      <!-- Slide 1: Welcome & Profile -->
-      <div id="onboarding-slide-1" class="onboarding-slide">
-        <h2 data-i18n="ob_welcome_title">Bienvenue sur Devis Mariages ✨</h2>
-        <p class="onboarding-desc" data-i18n="ob_welcome_desc">Créez votre profil pour commencer à planifier et contacter des lieux de réception en quelques clics.</p>
-        <div class="form-group">
-          <label for="ob-user-name" data-i18n="ob_label_fullname">Votre Nom Complet</label>
-          <input type="text" id="ob-user-name" data-i18n-placeholder="ob_placeholder_fullname" placeholder="ex: Alice Martin" />
-        </div>
-        <div class="form-group">
-          <label for="ob-user-email" data-i18n="ob_label_email">Votre Adresse Email</label>
-          <input type="email" id="ob-user-email" data-i18n-placeholder="ob_placeholder_email" placeholder="ex: alice.martin@gmail.com" />
-        </div>
-        <div class="onboarding-actions">
-          <button class="btn-skip" onclick="skipOnboarding()" data-i18n="ob_btn_skip">Passer l'introduction</button>
-          <button class="btn-primary" onclick="nextOnboardingSlide()" data-i18n="ob_btn_next">Continuer</button>
-        </div>
-      </div>
-
-      <!-- Slide 2: Wedding Details -->
-      <div id="onboarding-slide-2" class="onboarding-slide hidden">
-        <h2 data-i18n="ob_project_title">Votre Projet de Mariage 🤵👰</h2>
-        <p class="onboarding-desc" data-i18n="ob_project_desc">Ces informations seront utilisées pour personnaliser automatiquement vos demandes de devis.</p>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="ob-partner-name" data-i18n="ob_label_partner">Prénom du conjoint</label>
-            <input type="text" id="ob-partner-name" data-i18n-placeholder="ob_placeholder_partner" placeholder="ex: Bob" />
-          </div>
-          <div class="form-group">
-            <label for="ob-event-date" data-i18n="ob_label_date">Date souhaitée</label>
-            <input type="text" id="ob-event-date" data-i18n-placeholder="ob_placeholder_date" placeholder="ex: 15 Septembre 2026" />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="ob-guest-count" data-i18n="ob_label_guests">Nombre d'invités</label>
-            <input type="number" id="ob-guest-count" data-i18n-placeholder="ob_placeholder_guests" placeholder="ex: 120" />
-          </div>
-          <div class="form-group">
-            <label for="ob-budget" data-i18n="ob_label_budget">Budget indicatif</label>
-            <input type="text" id="ob-budget" data-i18n-placeholder="ob_placeholder_budget" placeholder="ex: 15 000 €" />
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="ob-notes" data-i18n="ob_label_notes">Message personnalisé (optionnel)</label>
-          <textarea id="ob-notes" rows="2" data-i18n-placeholder="ob_placeholder_notes" placeholder="Bonjour, nous aimerions obtenir vos tarifs..."></textarea>
-        </div>
-        <div class="onboarding-actions">
-          <button class="btn-back" onclick="prevOnboardingSlide()" data-i18n="ob_btn_back">Retour</button>
-          <button class="btn-primary" onclick="finishOnboarding()" data-i18n="ob_btn_finish">Terminer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <nav>
     <a class="nav-logo" href="/">Devis Mariages</a>
     <div class="nav-links">
@@ -567,6 +682,8 @@
   </nav>
 
   <div class="container">
+   <div class="dashboard-layout">
+    <div class="main-col">
     <!-- Wedding Project Settings Card -->
     <div id="project-card" class="project-card hidden">
       <div class="project-header">
@@ -616,6 +733,17 @@
 
     <div class="filters">
       <div class="filters-group">
+        <div class="search-wrap">
+          <svg class="search-icon" width="13" height="13" viewBox="0 0 16 16" fill="none">
+            <circle cx="6.5" cy="6.5" r="5" stroke="#aaa" stroke-width="1.5"/>
+            <path d="M10.5 10.5L14 14" stroke="#aaa" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <input type="text" id="venue-search" class="search-input" data-i18n-placeholder="search_placeholder" placeholder="Rechercher…" oninput="onSearchInput(this.value)" />
+          <button id="search-clear" class="search-clear hidden" onclick="clearSearch()">×</button>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="filters-group">
         <span class="filters-label" data-i18n="filter_type">Type</span>
         <span class="chip active" data-filter="type" data-value="" data-i18n="chip_all">Tous</span>
         <span class="chip" data-filter="type" data-value="château" data-i18n="chip_château">Château</span>
@@ -644,6 +772,33 @@
 
     <div class="count" id="count"></div>
     <div id="venue-list"></div>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="map-card">
+        <div class="map-card-header">
+          <span class="map-card-title" data-i18n="map_title">Carte · France</span>
+          <div class="map-card-actions">
+            <button id="map-clear-btn" class="map-clear-btn hidden" onclick="setSelectedDept(null)" data-i18n="map_btn_clear">← Tout</button>
+            <button id="map-zoom-btn" class="map-zoom-btn" onclick="toggleIdfMode()"></button>
+          </div>
+        </div>
+        <div class="map-svg-wrap" id="hex-map"></div>
+        <div class="map-legend">
+          <div class="map-legend-item"><span class="map-legend-dot" style="background:#2c5e43"></span><span data-i18n="map_legend_contacted">Contacté</span></div>
+          <div class="map-legend-item"><span class="map-legend-dot" style="background:#d97706"></span><span data-i18n="map_legend_replied">Répondu</span></div>
+          <div class="map-legend-item"><span class="map-legend-dot" style="background:#b8b0a0"></span><span data-i18n="map_legend_no_venues">Sans lieu</span></div>
+          <span class="map-legend-hint" data-i18n="map_legend_hint">Cliquer pour filtrer</span>
+        </div>
+      </div>
+
+      <div class="activity-card">
+        <div class="activity-card-title" data-i18n="feed_title">Activité récente</div>
+        <div id="feed-list"></div>
+      </div>
+    </aside>
+   </div>
   </div>
 
   <!-- Email Preview Modal -->
@@ -680,6 +835,70 @@
     </div>
   </div>
 
+  <!-- Outreach choice popover -->
+  <div id="choice-popover" class="choice-popover hidden" data-choice-popover>
+    <div class="choice-popover-header">
+      <div class="choice-popover-title" data-i18n="outreach_popover_title">Contacter</div>
+      <div class="choice-popover-venue" id="choice-popover-venue"></div>
+    </div>
+    <div class="choice-popover-body">
+      <button class="choice-option email" id="choice-opt-email" onclick="chooseEmailOption()">
+        <span class="choice-option-icon email">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><rect x="2" y="5" width="16" height="11" rx="2" stroke="#2c5e43" stroke-width="1.5"/><path d="M2 7l8 5 8-5" stroke="#2c5e43" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="choice-option-text">
+          <span class="choice-option-label" data-i18n="outreach_opt_email_label">Envoyer un email</span>
+          <span class="choice-option-desc" id="choice-opt-email-desc" data-i18n="outreach_opt_email_desc">Demande de devis par email</span>
+        </span>
+      </button>
+      <button class="choice-option form" id="choice-opt-form" onclick="chooseFormOption()">
+        <span class="choice-option-icon form">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><rect x="4" y="2" width="12" height="16" rx="2" stroke="#b8975e" stroke-width="1.5"/><path d="M7 7h6M7 10h6M7 13h4" stroke="#b8975e" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="choice-option-text">
+          <span class="choice-option-label" data-i18n="outreach_opt_form_label">Remplir le formulaire</span>
+          <span class="choice-option-desc" data-i18n="outreach_opt_form_desc">Auto-remplissage du formulaire</span>
+        </span>
+      </button>
+      <div class="choice-divider"></div>
+      <div class="choice-option call disabled">
+        <span class="choice-option-icon call">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M5.5 3C6.1 3 6.6 3.4 6.8 4L7.7 6.5c.2.5.1 1.1-.3 1.4L6 9.2c.6 1.2 1.6 2.2 2.8 2.8l1.3-1.4c.4-.4.9-.5 1.4-.3l2.5.9c.6.2 1 .7 1 1.3v2.5C15 15.6 14.4 16 13.7 16 7.2 16 2 10.8 2 4.3 2 3.6 2.4 3 3 3h2.5z" stroke="#888" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="choice-option-text">
+          <span class="choice-option-label">
+            <span data-i18n="outreach_opt_call_label">Appel automatique</span>
+            <span class="choice-soon-badge" data-i18n="outreach_opt_soon">Bientôt</span>
+          </span>
+          <span class="choice-option-desc" data-i18n="outreach_opt_call_desc">Prise de contact par téléphone</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auto-fill form modal -->
+  <div id="autoform-modal" class="modal-overlay hidden">
+    <div class="modal-card autoform-card">
+      <div class="autoform-header">
+        <div>
+          <div class="autoform-title" data-i18n="autoform_title">Remplissage automatique du formulaire</div>
+          <div class="autoform-subtitle" id="autoform-venue-meta"></div>
+        </div>
+        <div class="autoform-header-actions">
+          <a id="autoform-link" class="autoform-link hidden" target="_blank" rel="noopener noreferrer" data-i18n="autoform_open_link">Ouvrir ↗</a>
+          <span class="autoform-badge" data-i18n="autoform_badge">Formulaire web</span>
+          <button class="modal-close" onclick="closeAutoFormModal()">&times;</button>
+        </div>
+      </div>
+      <div class="autoform-info" id="autoform-info"></div>
+      <div class="autoform-fields" id="autoform-fields"></div>
+      <div class="autoform-footer">
+        <button class="btn-modal-cancel" onclick="closeAutoFormModal()" data-i18n="modal_btn_cancel">Annuler</button>
+        <div id="autoform-actions"></div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ── Translation Dictionary ───────────────────────────────────────────────
     const TRANSLATIONS = {
@@ -689,28 +908,6 @@
         nav_how: "Comment ça marche",
         nav_guest: "Mode Invité",
         nav_hello: "Bonjour",
-        ob_welcome_title: "Bienvenue sur Devis Mariages ✨",
-        ob_welcome_desc: "Créez votre profil pour commencer à planifier et contacter des lieux de réception en quelques clics.",
-        ob_label_fullname: "Votre Nom Complet",
-        ob_placeholder_fullname: "ex: Alice Martin",
-        ob_label_email: "Votre Adresse Email",
-        ob_placeholder_email: "ex: alice.martin@gmail.com",
-        ob_btn_skip: "Passer l'introduction",
-        ob_btn_next: "Continuer",
-        ob_project_title: "Votre Projet de Mariage 🤵👰",
-        ob_project_desc: "Ces informations seront utilisées pour personnaliser automatiquement vos demandes de devis.",
-        ob_label_partner: "Prénom du conjoint",
-        ob_placeholder_partner: "ex: Bob",
-        ob_label_date: "Date souhaitée",
-        ob_placeholder_date: "ex: 15 Septembre 2026",
-        ob_label_guests: "Nombre d'invités",
-        ob_placeholder_guests: "ex: 120",
-        ob_label_budget: "Budget indicatif",
-        ob_placeholder_budget: "ex: 15 000 €",
-        ob_label_notes: "Message personnalisé (optionnel)",
-        ob_placeholder_notes: "Bonjour, nous aimerions obtenir vos tarifs...",
-        ob_btn_back: "Retour",
-        ob_btn_finish: "Terminer",
         project_card_title: "Mon Projet de Mariage",
         project_card_no_config: "Aucun projet configuré",
         project_card_btn_edit: "Modifier le projet",
@@ -731,7 +928,8 @@
         no_budget: "Non défini",
         main_title: "Lieux disponibles",
         main_desc: "Contactez plusieurs lieux en un clic et comparez leurs devis.",
-        main_desc_contacted: "Contactez plusieurs lieux en un clic. Vous avez déjà contacté {count} lieu{s} !",
+        main_desc_contacted_one: "Contactez plusieurs lieux en un clic. Vous avez déjà contacté {count} lieu !",
+        main_desc_contacted_many: "Contactez plusieurs lieux en un clic. Vous avez déjà contacté {count} lieux !",
         filter_type: "Type",
         filter_contact: "Contact",
         filter_sort: "Trier",
@@ -746,12 +944,66 @@
         chip_salle: "Salle",
         chip_ferme: "Ferme",
         chip_atypique: "Atypique",
-        count_found: "{count} lieu{s} trouvé{s}",
+        count_found_one: "{count} lieu trouvé",
+        count_found_many: "{count} lieux trouvés",
         venue_website: "Site web ↗",
-        venue_contacted: "Contacté ✓",
         venue_btn_resend: "Renvoyer",
         venue_btn_contact: "Contacter",
-        venue_btn_manual: "Manuel",
+        search_placeholder: "Rechercher…",
+        status_none: "Aucun",
+        status_contacted: "Contacté",
+        status_replied: "Répondu",
+        status_retained: "Retenu",
+        badge_form_only: "Formulaire web",
+        map_title: "Carte · France",
+        map_btn_clear: "← Tout",
+        map_btn_zoom_in: "↓ Zoom IDF",
+        map_btn_zoom_out: "↑ Toute la France",
+        map_legend_contacted: "Contacté",
+        map_legend_replied: "Répondu",
+        map_legend_no_venues: "Sans lieu",
+        map_legend_hint: "Cliquer pour filtrer",
+        map_dept_venues_one: "lieu",
+        map_dept_venues_many: "lieux",
+        feed_title: "Activité récente",
+        feed_empty: "Aucune activité pour l'instant.",
+        feed_action_contacted: "Contacté",
+        feed_action_replied: "Réponse reçue",
+        feed_action_retained: "Lieu retenu ★",
+        feed_action_email_sent: "Email envoyé",
+        feed_action_form_submitted: "Formulaire soumis",
+        feed_time_now: "À l'instant",
+        feed_time_minutes: "Il y a {n} min",
+        feed_time_hours: "Il y a {n} h",
+        feed_time_yesterday: "Hier {time}",
+        outreach_popover_title: "Contacter",
+        outreach_opt_email_label: "Envoyer un email",
+        outreach_opt_email_desc: "Demande de devis par email",
+        outreach_opt_email_unavailable: "Email non disponible pour ce lieu",
+        outreach_opt_form_label: "Remplir le formulaire",
+        outreach_opt_form_desc: "Auto-remplissage du formulaire",
+        outreach_opt_call_label: "Appel automatique",
+        outreach_opt_call_desc: "Prise de contact par téléphone",
+        outreach_opt_soon: "Bientôt",
+        autoform_title: "Remplissage automatique du formulaire",
+        autoform_badge: "Formulaire web",
+        autoform_open_link: "Ouvrir ↗",
+        autoform_info_full: "Tous les champs peuvent être remplis automatiquement depuis votre projet.",
+        autoform_info_partial: "{mapped}/{total} champs mappés. {unmapped} champ(s) à remplir manuellement.",
+        autoform_status_filled: "✓ rempli",
+        autoform_status_auto: "auto ←",
+        autoform_status_manual: "⚠ manuel",
+        autoform_field_name: "Nom complet",
+        autoform_field_email: "Email",
+        autoform_field_phone: "Téléphone",
+        autoform_field_date: "Date souhaitée",
+        autoform_field_guests: "Nombre d'invités",
+        autoform_field_message: "Message",
+        autoform_btn_fill: "Remplir automatiquement →",
+        autoform_btn_filling: "Remplissage…",
+        autoform_btn_submit: "Soumettre le formulaire →",
+        autoform_btn_submitting: "Soumission Playwright…",
+        autoform_done: "✓ Soumis via Playwright",
         modal_title: "Aperçu de la demande de devis",
         modal_from: "De :",
         modal_to: "À :",
@@ -760,18 +1012,10 @@
         modal_btn_cancel: "Annuler",
         modal_btn_confirm: "Confirmer l'envoi",
         modal_btn_sending: "Envoi en cours…",
-        alert_ob_missing: "Veuillez saisir votre nom et votre adresse email.",
         alert_reset_confirm: "Voulez-vous réinitialiser votre profil et vos données de contact ?",
         alert_preview_err: "Erreur de chargement de l'aperçu",
         alert_send_err: "Erreur lors de l'envoi de l'email",
         alert_network_err: "Erreur réseau",
-        contact_labels: {
-          "email": "Email",
-          "email+phone": "Email",
-          "form_only": "Formulaire",
-          "phone_only": "Téléphone",
-          "platform_only": "Plateforme"
-        }
       },
       en: {
         page_title: "Wedding Quotes",
@@ -779,28 +1023,6 @@
         nav_how: "How it works",
         nav_guest: "Guest Mode",
         nav_hello: "Hello",
-        ob_welcome_title: "Welcome to Devis Mariages ✨",
-        ob_welcome_desc: "Create your profile to start planning and contacting wedding venues in just a few clicks.",
-        ob_label_fullname: "Your Full Name",
-        ob_placeholder_fullname: "e.g., Alice Martin",
-        ob_label_email: "Your Email Address",
-        ob_placeholder_email: "e.g., alice.martin@gmail.com",
-        ob_btn_skip: "Skip Introduction",
-        ob_btn_next: "Continue",
-        ob_project_title: "Your Wedding Project 🤵👰",
-        ob_project_desc: "This information will be used to automatically customize your quote requests.",
-        ob_label_partner: "Partner's Name",
-        ob_placeholder_partner: "e.g., Bob",
-        ob_label_date: "Target Date",
-        ob_placeholder_date: "e.g., September 15, 2026",
-        ob_label_guests: "Number of Guests",
-        ob_placeholder_guests: "e.g., 120",
-        ob_label_budget: "Estimated Budget",
-        ob_placeholder_budget: "e.g., 15,000 €",
-        ob_label_notes: "Personalized Message (optional)",
-        ob_placeholder_notes: "Hello, we would like to inquire about your rates...",
-        ob_btn_back: "Back",
-        ob_btn_finish: "Finish",
         project_card_title: "My Wedding Project",
         project_card_no_config: "No project configured",
         project_card_btn_edit: "Edit Project",
@@ -821,7 +1043,8 @@
         no_budget: "Not defined",
         main_title: "Available Venues",
         main_desc: "Contact multiple venues in one click and compare their quotes.",
-        main_desc_contacted: "Contact multiple venues in one click. You have already contacted {count} venue{s}!",
+        main_desc_contacted_one: "Contact multiple venues in one click. You have already contacted {count} venue!",
+        main_desc_contacted_many: "Contact multiple venues in one click. You have already contacted {count} venues!",
         filter_type: "Type",
         filter_contact: "Contact",
         filter_sort: "Sort by",
@@ -836,12 +1059,66 @@
         chip_salle: "Hall",
         chip_ferme: "Barn",
         chip_atypique: "Atypical",
-        count_found: "{count} venue{s} found",
+        count_found_one: "{count} venue found",
+        count_found_many: "{count} venues found",
         venue_website: "Website ↗",
-        venue_contacted: "Contacted ✓",
         venue_btn_resend: "Resend",
         venue_btn_contact: "Contact",
-        venue_btn_manual: "Manual",
+        search_placeholder: "Search…",
+        status_none: "None",
+        status_contacted: "Contacted",
+        status_replied: "Replied",
+        status_retained: "Retained",
+        badge_form_only: "Web form",
+        map_title: "Map · France",
+        map_btn_clear: "← All",
+        map_btn_zoom_in: "↓ Zoom Paris area",
+        map_btn_zoom_out: "↑ All of France",
+        map_legend_contacted: "Contacted",
+        map_legend_replied: "Replied",
+        map_legend_no_venues: "No venues",
+        map_legend_hint: "Click to filter",
+        map_dept_venues_one: "venue",
+        map_dept_venues_many: "venues",
+        feed_title: "Recent activity",
+        feed_empty: "No activity yet.",
+        feed_action_contacted: "Contacted",
+        feed_action_replied: "Reply received",
+        feed_action_retained: "Venue retained ★",
+        feed_action_email_sent: "Email sent",
+        feed_action_form_submitted: "Form submitted",
+        feed_time_now: "Just now",
+        feed_time_minutes: "{n} min ago",
+        feed_time_hours: "{n} h ago",
+        feed_time_yesterday: "Yesterday {time}",
+        outreach_popover_title: "Contact",
+        outreach_opt_email_label: "Send an email",
+        outreach_opt_email_desc: "Quote request by email",
+        outreach_opt_email_unavailable: "Email not available for this venue",
+        outreach_opt_form_label: "Fill out the form",
+        outreach_opt_form_desc: "Auto-fill the contact form",
+        outreach_opt_call_label: "Automated call",
+        outreach_opt_call_desc: "Phone outreach",
+        outreach_opt_soon: "Soon",
+        autoform_title: "Automatic form filling",
+        autoform_badge: "Web form",
+        autoform_open_link: "Open ↗",
+        autoform_info_full: "All fields can be filled in automatically from your project.",
+        autoform_info_partial: "{mapped}/{total} fields mapped. {unmapped} field(s) need manual input.",
+        autoform_status_filled: "✓ filled",
+        autoform_status_auto: "auto ←",
+        autoform_status_manual: "⚠ manual",
+        autoform_field_name: "Full name",
+        autoform_field_email: "Email",
+        autoform_field_phone: "Phone",
+        autoform_field_date: "Preferred date",
+        autoform_field_guests: "Number of guests",
+        autoform_field_message: "Message",
+        autoform_btn_fill: "Auto-fill →",
+        autoform_btn_filling: "Filling…",
+        autoform_btn_submit: "Submit form →",
+        autoform_btn_submitting: "Submitting via Playwright…",
+        autoform_done: "✓ Submitted via Playwright",
         modal_title: "Quote Request Preview",
         modal_from: "From:",
         modal_to: "To:",
@@ -850,31 +1127,42 @@
         modal_btn_cancel: "Cancel",
         modal_btn_confirm: "Confirm Send",
         modal_btn_sending: "Sending…",
-        alert_ob_missing: "Please enter your name and email address.",
         alert_reset_confirm: "Do you want to reset your profile and contact data?",
         alert_preview_err: "Error loading email preview",
         alert_send_err: "Error sending email",
         alert_network_err: "Network error",
-        contact_labels: {
-          "email": "Email",
-          "email+phone": "Email",
-          "form_only": "Form",
-          "phone_only": "Phone",
-          "platform_only": "Platform"
-        }
       }
     };
 
     // ── State ─────────────────────────────────────────────────────────────────
     let allVenues = [];
     const activeFilters = { type: "", contact: "" };
-    
+    let searchQuery = "";
+    let selectedDept = null;
+    let idfMode = false;
+
     // User & Project state
     let userProfile = null;
     let weddingProject = null;
     let contactedVenues = {};
+    let venueStatuses = {};
     let activeVenue = null;  // Venue currently open in preview modal
     let currentLang = "fr";
+
+    // Activity feed
+    const MAX_FEED = 8;
+    let activityFeed = [];
+    const FEED_KIND = {
+      contacted:      { labelKey: "feed_action_contacted",      color: "#2c5e43" },
+      replied:        { labelKey: "feed_action_replied",        color: "#d97706" },
+      retained:       { labelKey: "feed_action_retained",       color: "#b8975e" },
+      email_sent:     { labelKey: "feed_action_email_sent",     color: "#3b82f6" },
+      form_submitted: { labelKey: "feed_action_form_submitted", color: "#b8975e" },
+    };
+
+    // Outreach choice popover + auto-form modal
+    let choiceVenue = null;
+    let autoForm = null;
 
     // ── Translation Engine ───────────────────────────────────────────────────
     function setLanguage(lang) {
@@ -917,6 +1205,8 @@
       // Refresh text variables that display dynamically
       loadProjectIntoUI();
       applyFilters();
+      renderHexMap();
+      renderActivityFeed();
     }
 
     function loadLanguage() {
@@ -940,22 +1230,83 @@
       setLanguage(currentLang);
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
-    function formatPrice(cents, tier) {
-      if (cents != null) return { label: `~${Math.round(cents/100).toLocaleString("fr-FR")} €`, unknown: false };
-      if (tier) {
-        const tiers = {
-          fr: { budget: "Économique", mid: "Milieu de gamme", premium: "Premium", luxury: "Luxe" },
-          en: { budget: "Budget-friendly", mid: "Mid-range", premium: "Premium", luxury: "Luxury" }
-        };
-        return { label: tiers[currentLang][tier] ?? tier, unknown: false };
+    // ── Status tracking ───────────────────────────────────────────────────────
+    const STATUS_ORDER = ["none", "contacted", "replied", "retained"];
+    const STATUS_SHORT = {
+      fr: { none: "—", contacted: "Cont.", replied: "Rép.", retained: "Ret." },
+      en: { none: "—", contacted: "Cont.", replied: "Repl.", retained: "Kept" }
+    };
+
+    function venueStatus(id) {
+      return venueStatuses[id] || "none";
+    }
+
+    function setVenueStatus(id, status) {
+      const prevStatus = venueStatus(id);
+      if (status === "none") delete venueStatuses[id];
+      else venueStatuses[id] = status;
+      localStorage.setItem("venue_statuses", JSON.stringify(venueStatuses));
+      updateContactStats();
+      renderHexMap();
+
+      if (status !== "none" && status !== prevStatus && FEED_KIND[status]) {
+        pushFeedItem(id, status);
       }
-      return { label: currentLang === "fr" ? "Prix sur devis" : "Pricing on request", unknown: true };
+
+      const card = document.querySelector(`.venue-card[data-id="${id}"]`);
+      if (card) refreshCardStatusUI(card, id);
+    }
+
+    function refreshCardStatusUI(card, id) {
+      const status = venueStatus(id);
+      card.className = `venue-card status-${status}`;
+
+      card.querySelectorAll(".status-btn").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.status === status);
+      });
+
+      const badgeHost = card.querySelector(".venue-photo");
+      let badge = badgeHost.querySelector(".photo-status-badge");
+      if (status === "none") {
+        if (badge) badge.remove();
+      } else {
+        if (!badge) {
+          badge = document.createElement("div");
+          badge.className = "photo-status-badge";
+          badgeHost.appendChild(badge);
+        }
+        badge.className = `photo-status-badge status-${status}`;
+        badge.textContent = TRANSLATIONS[currentLang][`status_${status}`];
+      }
+
+      const actionBtn = card.querySelector(".venue-card-action");
+      if (actionBtn) {
+        actionBtn.textContent = status !== "none"
+          ? TRANSLATIONS[currentLang].venue_btn_resend
+          : TRANSLATIONS[currentLang].venue_btn_contact;
+        actionBtn.classList.toggle("contacted", status !== "none");
+      }
     }
 
     // ── Filter + sort ─────────────────────────────────────────────────────────
+    function onSearchInput(value) {
+      searchQuery = value.trim().toLowerCase();
+      document.getElementById("search-clear").classList.toggle("hidden", !value);
+      applyFilters();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById("venue-search");
+      input.value = "";
+      onSearchInput("");
+      input.focus();
+    }
+
     function applyFilters() {
       let list = [...allVenues];
+
+      if (selectedDept)
+        list = list.filter(v => v.department === selectedDept);
 
       if (activeFilters.type)
         list = list.filter(v => v.style_tags?.includes(activeFilters.type));
@@ -965,6 +1316,13 @@
       else if (activeFilters.contact === "other")
         list = list.filter(v => !v.accepts_email);
 
+      if (searchQuery)
+        list = list.filter(v =>
+          v.name.toLowerCase().includes(searchQuery) ||
+          v.city.toLowerCase().includes(searchQuery) ||
+          (v.style_tags?.[0] ?? "").toLowerCase().includes(searchQuery)
+        );
+
       const sort = document.getElementById("sort").value;
       if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name, "fr"));
       if (sort === "dept") list.sort((a, b) => (a.department ?? "").localeCompare(b.department ?? ""));
@@ -972,58 +1330,59 @@
       // Update total contacted count in title area if onboarded
       updateContactStats();
 
-      const totalFoundText = TRANSLATIONS[currentLang].count_found
-        .replace("{count}", list.length)
-        .replace("{s}", list.length !== 1 ? "s" : "");
-        
+      const countKey = list.length === 1 ? "count_found_one" : "count_found_many";
+      const totalFoundText = TRANSLATIONS[currentLang][countKey].replace("{count}", list.length);
+
       document.getElementById("count").textContent = totalFoundText;
       renderVenues(list);
     }
 
     // ── Render ────────────────────────────────────────────────────────────────
     function createVenueCard(venue) {
-      const { id, name, city, department, contact_method, accepts_email, base_price_cents, price_tier, style_tags, website_url } = venue;
-      const { label: priceLabel, unknown } = formatPrice(base_price_cents, price_tier);
-      
-      const labelKey = TRANSLATIONS[currentLang].contact_labels[contact_method] ?? contact_method;
-      
-      // Look up styles translated tag (e.g. Castle, Estate)
-      const typeKey = style_tags?.[0] ? `chip_${style_tags[0]}` : "";
-      const typeLabel = TRANSLATIONS[currentLang][typeKey] ?? style_tags?.[0] ?? "";
-      
-      const isContacted = contactedVenues[id] != null;
+      const { id, name, city, department, accepts_email, style_tags, website_url } = venue;
+      const type = style_tags?.[0] ?? "";
+      const typeKey = type ? `chip_${type}` : "";
+      const typeLabel = TRANSLATIONS[currentLang][typeKey] ?? type;
+      const status = venueStatus(id);
+      const t = TRANSLATIONS[currentLang];
 
       const card = document.createElement("div");
-      card.className = "venue";
-      
-      let badgeContactClass = accepts_email ? "badge-contact" : "badge-contact no";
-      let badgeContactText = labelKey;
-      if (isContacted) {
-        badgeContactClass = "badge-contacted";
-        badgeContactText = TRANSLATIONS[currentLang].venue_contacted;
-      }
+      card.className = `venue-card status-${status}`;
+      card.dataset.id = id;
 
-      const websiteBtnLabel = TRANSLATIONS[currentLang].venue_website;
-      const buttonLabel = isContacted 
-        ? TRANSLATIONS[currentLang].venue_btn_resend 
-        : (accepts_email ? TRANSLATIONS[currentLang].venue_btn_contact : TRANSLATIONS[currentLang].venue_btn_manual);
+      const actionLabel = status !== "none" ? t.venue_btn_resend : t.venue_btn_contact;
 
       card.innerHTML = `
-        <div class="venue-info">
-          <strong title="${name}">${name}</strong>
-          <div class="meta">${city}${department ? ` (${department})` : ""}${website_url ? ` · <a href="${website_url}" target="_blank" rel="noopener noreferrer" class="venue-link">${websiteBtnLabel}</a>` : ""}</div>
+        <div class="venue-photo type-${type}">
+          <span class="venue-photo-label">${typeLabel}</span>
+          ${status !== "none" ? `<div class="photo-status-badge status-${status}">${t[`status_${status}`]}</div>` : ""}
+          ${!accepts_email ? `<div class="photo-form-badge">${t.badge_form_only}</div>` : ""}
         </div>
-        ${typeLabel ? `<span class="badge badge-type">${typeLabel}</span>` : ""}
-        <span class="badge ${badgeContactClass}" id="badge-contact-${id}">${badgeContactText}</span>
-        <div class="venue-price ${unknown ? "unknown" : ""}">${priceLabel}</div>
-        <button class="contact-btn ${accepts_email ? "" : "disabled-venue"} ${isContacted ? "ok" : ""}" id="btn-${id}" ${accepts_email ? "" : 'disabled title="Contact manuel requis"'}>
-          ${buttonLabel}
-        </button>
+        <div class="venue-card-body">
+          <div class="venue-card-name" title="${name}">${name}</div>
+          <div class="venue-card-meta">
+            ${city}${department ? ` · Dép. ${department}` : ""}${website_url ? ` · <a href="${website_url}" target="_blank" rel="noopener noreferrer">${t.venue_website}</a>` : ""}
+          </div>
+          <div class="status-picker">
+            ${STATUS_ORDER.map(s => `<button class="status-btn ${status === s ? "active" : ""}" data-status="${s}" title="${t[`status_${s}`]}">${STATUS_SHORT[currentLang][s]}</button>`).join("")}
+          </div>
+          <div class="venue-card-footer">
+            ${typeLabel ? `<span class="venue-type-chip ${type}">${typeLabel}</span>` : "<span></span>"}
+            <button class="venue-card-action ${status !== "none" ? "contacted" : ""}">
+              ${actionLabel}
+            </button>
+          </div>
+        </div>
       `;
-      
-      if (accepts_email) {
-        card.querySelector("button").addEventListener("click", () => contactVenue(venue));
-      }
+
+      card.querySelectorAll(".status-btn").forEach(btn => {
+        btn.addEventListener("click", e => {
+          e.stopPropagation();
+          setVenueStatus(id, btn.dataset.status);
+        });
+      });
+
+      card.querySelector(".venue-card-action").addEventListener("click", e => openOutreachChoice(e, venue));
       return card;
     }
 
@@ -1034,89 +1393,239 @@
         list.innerHTML = `<p class="state-msg">${currentLang === "fr" ? "Aucun lieu pour ces filtres." : "No venues match these filters."}</p>`;
         return;
       }
-      venues.forEach(v => list.appendChild(createVenueCard(v)));
+      const grid = document.createElement("div");
+      grid.className = "venue-grid";
+      venues.forEach(v => grid.appendChild(createVenueCard(v)));
+      list.appendChild(grid);
+    }
+
+    // ── Hex Map (France / IDF zoom) ───────────────────────────────────────────
+    const HEX_FILLERS = [
+      { col: 4, row: 2 }, { col: 6, row: 2 },
+      { col: 3, row: 3 }, { col: 5, row: 3 },
+      { col: 3, row: 4 },
+      { col: 5, row: 5 },
+      { col: 9, row: 6 }, { col: 10, row: 7 }, { col: 11, row: 7 },
+      { col: 7, row: 8 }, { col: 10, row: 8 },
+      { col: 8, row: 10 },
+    ];
+
+    const HEX_DEPTS = [
+      { id: "62", col: 5, row: 0, f: "#7da86a" }, { id: "59", col: 6, row: 0, f: "#7da86a" },
+      { id: "80", col: 5, row: 1, f: "#7da86a" }, { id: "02", col: 6, row: 1, f: "#7da86a" },
+      { id: "60", col: 7, row: 2, f: "#7da86a" },
+      { id: "76", col: 4, row: 1, f: "#68a060" }, { id: "14", col: 3, row: 2, f: "#68a060" },
+      { id: "27", col: 5, row: 2, f: "#68a060" }, { id: "50", col: 2, row: 3, f: "#68a060" },
+      { id: "61", col: 4, row: 3, f: "#68a060" },
+      { id: "08", col: 7, row: 1, f: "#c4784a" }, { id: "57", col: 9, row: 1, f: "#c4784a" },
+      { id: "51", col: 8, row: 2, f: "#c4784a" }, { id: "55", col: 9, row: 2, f: "#c4784a" },
+      { id: "54", col: 10, row: 2, f: "#c4784a" }, { id: "67", col: 11, row: 2, f: "#c4784a" },
+      { id: "10", col: 9, row: 3, f: "#c4784a" }, { id: "52", col: 10, row: 3, f: "#c4784a" },
+      { id: "88", col: 11, row: 3, f: "#c4784a" }, { id: "68", col: 12, row: 3, f: "#c4784a" },
+      { id: "95", col: 7, row: 3, f: "#c8a44e" }, { id: "93", col: 8, row: 3, f: "#c8a44e" },
+      { id: "78", col: 5, row: 4, f: "#c8a44e" }, { id: "92", col: 6, row: 4, f: "#c8a44e" },
+      { id: "75", col: 7, row: 4, f: "#c8a44e" }, { id: "94", col: 8, row: 4, f: "#c8a44e" },
+      { id: "77", col: 9, row: 4, f: "#c8a44e" }, { id: "91", col: 6, row: 5, f: "#c8a44e" },
+      { id: "29", col: 1, row: 4, f: "#4e8a8a" }, { id: "22", col: 2, row: 4, f: "#4e8a8a" },
+      { id: "56", col: 2, row: 5, f: "#4e8a8a" }, { id: "35", col: 3, row: 5, f: "#4e8a8a" },
+      { id: "53", col: 4, row: 4, f: "#7ab858" }, { id: "72", col: 4, row: 5, f: "#7ab858" },
+      { id: "44", col: 3, row: 6, f: "#7ab858" }, { id: "49", col: 4, row: 6, f: "#7ab858" },
+      { id: "85", col: 3, row: 7, f: "#7ab858" },
+      { id: "28", col: 6, row: 3, f: "#a89850" }, { id: "45", col: 7, row: 5, f: "#a89850" },
+      { id: "41", col: 6, row: 6, f: "#a89850" }, { id: "37", col: 5, row: 6, f: "#a89850" },
+      { id: "36", col: 6, row: 7, f: "#a89850" }, { id: "18", col: 7, row: 6, f: "#a89850" },
+      { id: "89", col: 8, row: 5, f: "#8068b0" }, { id: "58", col: 9, row: 5, f: "#8068b0" },
+      { id: "21", col: 10, row: 4, f: "#8068b0" }, { id: "71", col: 10, row: 5, f: "#8068b0" },
+      { id: "39", col: 11, row: 5, f: "#8068b0" }, { id: "70", col: 11, row: 4, f: "#8068b0" },
+      { id: "25", col: 12, row: 4, f: "#8068b0" }, { id: "90", col: 13, row: 4, f: "#8068b0" },
+      { id: "79", col: 4, row: 7, f: "#a86848" }, { id: "86", col: 5, row: 7, f: "#a86848" },
+      { id: "23", col: 7, row: 7, f: "#a86848" }, { id: "16", col: 5, row: 8, f: "#a86848" },
+      { id: "17", col: 4, row: 8, f: "#a86848" }, { id: "87", col: 6, row: 8, f: "#a86848" },
+      { id: "19", col: 6, row: 9, f: "#a86848" }, { id: "24", col: 5, row: 9, f: "#a86848" },
+      { id: "33", col: 4, row: 9, f: "#a86848" }, { id: "47", col: 5, row: 10, f: "#a86848" },
+      { id: "40", col: 4, row: 10, f: "#a86848" }, { id: "64", col: 4, row: 11, f: "#a86848" },
+      { id: "03", col: 8, row: 6, f: "#4870a8" }, { id: "63", col: 8, row: 7, f: "#4870a8" },
+      { id: "15", col: 8, row: 8, f: "#4870a8" }, { id: "43", col: 9, row: 8, f: "#4870a8" },
+      { id: "42", col: 9, row: 7, f: "#4870a8" }, { id: "69", col: 10, row: 6, f: "#4870a8" },
+      { id: "01", col: 11, row: 6, f: "#4870a8" }, { id: "74", col: 12, row: 6, f: "#4870a8" },
+      { id: "07", col: 9, row: 9, f: "#4870a8" }, { id: "26", col: 10, row: 9, f: "#4870a8" },
+      { id: "38", col: 11, row: 8, f: "#4870a8" }, { id: "73", col: 12, row: 7, f: "#4870a8" },
+      { id: "46", col: 7, row: 9, f: "#b06080" }, { id: "12", col: 8, row: 9, f: "#b06080" },
+      { id: "48", col: 9, row: 10, f: "#b06080" }, { id: "82", col: 6, row: 10, f: "#b06080" },
+      { id: "81", col: 7, row: 10, f: "#b06080" }, { id: "30", col: 9, row: 11, f: "#b06080" },
+      { id: "34", col: 8, row: 11, f: "#b06080" }, { id: "31", col: 7, row: 11, f: "#b06080" },
+      { id: "32", col: 6, row: 11, f: "#b06080" }, { id: "65", col: 5, row: 11, f: "#b06080" },
+      { id: "09", col: 6, row: 12, f: "#b06080" }, { id: "11", col: 8, row: 12, f: "#b06080" },
+      { id: "66", col: 7, row: 12, f: "#b06080" },
+      { id: "84", col: 10, row: 10, f: "#5080b0" }, { id: "13", col: 10, row: 11, f: "#5080b0" },
+      { id: "04", col: 11, row: 10, f: "#5080b0" }, { id: "05", col: 12, row: 8, f: "#5080b0" },
+      { id: "83", col: 11, row: 11, f: "#5080b0" }, { id: "06", col: 12, row: 10, f: "#5080b0" },
+      { id: "20", col: 13, row: 12, f: "#788070" },
+    ];
+
+    const HEX_IDF_DEPTS = [
+      { id: "60", col: 1, row: 0, f: "#7da86a" }, { id: "95", col: 2, row: 0, f: "#c8a44e" },
+      { id: "78", col: 1, row: 1, f: "#c8a44e" }, { id: "93", col: 2, row: 1, f: "#c8a44e" },
+      { id: "92", col: 1, row: 2, f: "#c8a44e" }, { id: "75", col: 2, row: 2, f: "#c8a44e" }, { id: "77", col: 3, row: 2, f: "#c8a44e" },
+      { id: "91", col: 1, row: 3, f: "#c8a44e" }, { id: "94", col: 2, row: 3, f: "#c8a44e" },
+    ];
+
+    function hexHelpers(R, ML, MT) {
+      const HW = R * Math.sqrt(3);
+      const RH = R * 1.5;
+      const HO = HW / 2;
+      const cx = (col, row) => ML + col * HW + (row % 2 ? HO : 0);
+      const cy = (row) => MT + row * RH;
+      const pts = (col, row, r = R) => Array.from({ length: 6 }, (_, i) => {
+        const a = (60 * i + 30) * Math.PI / 180;
+        return `${(cx(col, row) + r * Math.cos(a)).toFixed(1)},${(cy(row) + r * Math.sin(a)).toFixed(1)}`;
+      }).join(" ");
+      return { cx, cy, pts };
+    }
+
+    function deptVenueCounts() {
+      const counts = {};
+      allVenues.forEach(v => {
+        if (v.department) counts[v.department] = (counts[v.department] || 0) + 1;
+      });
+      return counts;
+    }
+
+    function deptContactedCounts() {
+      const counts = {};
+      allVenues.forEach(v => {
+        if (v.department && venueStatus(v.id) !== "none")
+          counts[v.department] = (counts[v.department] || 0) + 1;
+      });
+      return counts;
+    }
+
+    function hexFillerSvg(col, row, helpers) {
+      return `<polygon points="${helpers.pts(col, row)}" fill="#c8bfaf" fill-opacity="0.45" stroke="#b8a890" stroke-width="0.6" style="pointer-events:none" />`;
+    }
+
+    function hexTileSvg(d, R, helpers, counts, contacted) {
+      const { cx, cy, pts } = helpers;
+      const count = counts[d.id] || 0;
+      const numContacted = contacted[d.id] || 0;
+      const progress = count > 0 ? numContacted / count : 0;
+      const isSel = selectedDept === d.id;
+      const hasVenues = count > 0;
+      const t = TRANSLATIONS[currentLang];
+      const x0 = cx(d.col, d.row), y0 = cy(d.row);
+      const r = R - 3.5;
+      const bevelPts = Array.from({ length: 6 }, (_, i) => {
+        const a = (60 * i + 30) * Math.PI / 180;
+        return `${(x0 + r * Math.cos(a)).toFixed(1)},${(y0 + r * Math.sin(a)).toFixed(1)}`;
+      }).join(" ");
+
+      let svg = `<g class="hex-tile ${hasVenues ? "" : "no-venues"}" data-dept="${d.id}" data-has-venues="${hasVenues ? "1" : "0"}">`;
+      svg += `<polygon points="${pts(d.col, d.row)}" fill="${d.f}" fill-opacity="${hasVenues ? 1 : 0.68}" stroke="${isSel ? "#b8975e" : "#9a8a6a"}" stroke-width="${isSel ? 2.2 : 0.7}" />`;
+      if (progress > 0) {
+        svg += `<polygon points="${pts(d.col, d.row)}" fill="#2c5e43" fill-opacity="${(progress * 0.35).toFixed(2)}" stroke="none" style="pointer-events:none" />`;
+      }
+      svg += `<polygon points="${bevelPts}" fill="none" stroke="white" stroke-width="0.7" stroke-opacity="0.18" style="pointer-events:none" />`;
+      svg += `<text x="${x0.toFixed(1)}" y="${(y0 + (hasVenues ? -2.5 : 3.5)).toFixed(1)}" text-anchor="middle" font-size="${hasVenues ? (R > 20 ? 11 : 8.5) : (R > 20 ? 9 : 7.5)}" font-weight="700" font-family="DM Sans, sans-serif" fill="white" fill-opacity="${hasVenues ? 0.96 : 0.5}" style="pointer-events:none; user-select:none">${d.id}</text>`;
+      if (hasVenues) {
+        const label = count > 1 ? t.map_dept_venues_many : t.map_dept_venues_one;
+        svg += `<text x="${x0.toFixed(1)}" y="${(y0 + (R > 20 ? 12 : 8.5)).toFixed(1)}" text-anchor="middle" font-size="${R > 20 ? 9.5 : 6.5}" font-family="DM Sans, sans-serif" fill="white" fill-opacity="0.75" style="pointer-events:none; user-select:none">${count} ${label}</text>`;
+      }
+      if (numContacted > 0) {
+        const bx = x0 + R * 0.55, by = y0 - R * 0.55;
+        svg += `<g style="pointer-events:none">`;
+        svg += `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${R > 20 ? 7 : 5.5}" fill="#2c5e43" stroke="white" stroke-width="1" />`;
+        svg += `<text x="${bx.toFixed(1)}" y="${(by + (R > 20 ? 3.5 : 2.5)).toFixed(1)}" text-anchor="middle" font-size="${R > 20 ? 7.5 : 5.5}" font-weight="700" font-family="DM Sans, sans-serif" fill="white" style="user-select:none">${numContacted}</text>`;
+        svg += `</g>`;
+      }
+      svg += `</g>`;
+      return svg;
+    }
+
+    function renderHexMap() {
+      const wrap = document.getElementById("hex-map");
+      if (!wrap) return;
+      const counts = deptVenueCounts();
+      const contacted = deptContactedCounts();
+      let svg;
+
+      if (idfMode) {
+        const IR = 34, IR_ML = 18, IR_MT = 14, W = 270, H = 228;
+        const helpers = hexHelpers(IR, IR_ML, IR_MT);
+        svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
+          + `<defs><pattern id="map-bg-idf" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#e8dece" /><path d="M0 5L5 0" stroke="#ddd2bf" stroke-width="0.3" /></pattern></defs>`
+          + `<rect width="${W}" height="${H}" rx="6" fill="url(#map-bg-idf)" />`
+          + `<rect width="${W}" height="${H}" rx="6" fill="none" stroke="#c4b49a" stroke-width="1" />`
+          + HEX_IDF_DEPTS.map(d => hexTileSvg(d, IR, helpers, counts, contacted)).join("")
+          + `</svg>`;
+      } else {
+        const FR = 12, FR_ML = 11, FR_MT = 9, W = 310, H = 258;
+        const helpers = hexHelpers(FR, FR_ML, FR_MT);
+        svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
+          + `<defs><pattern id="map-bg-fr" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#e8dece" /><path d="M0 5L5 0" stroke="#ddd2bf" stroke-width="0.3" /></pattern></defs>`
+          + `<rect width="${W}" height="${H}" rx="6" fill="url(#map-bg-fr)" />`
+          + `<rect width="${W}" height="${H}" rx="6" fill="none" stroke="#c4b49a" stroke-width="1" />`
+          + HEX_FILLERS.map(f => hexFillerSvg(f.col, f.row, helpers)).join("")
+          + HEX_DEPTS.map(d => hexTileSvg(d, FR, helpers, counts, contacted)).join("")
+          + `</svg>`;
+      }
+
+      wrap.innerHTML = svg;
+      wrap.querySelectorAll(".hex-tile[data-has-venues='1']").forEach(tile => {
+        tile.addEventListener("click", () => {
+          const id = tile.dataset.dept;
+          setSelectedDept(selectedDept === id ? null : id);
+        });
+      });
+
+      document.getElementById("map-clear-btn").classList.toggle("hidden", !selectedDept);
+      const zoomBtn = document.getElementById("map-zoom-btn");
+      const t = TRANSLATIONS[currentLang];
+      zoomBtn.textContent = idfMode ? t.map_btn_zoom_out : t.map_btn_zoom_in;
+      zoomBtn.classList.toggle("active", idfMode);
+    }
+
+    function setSelectedDept(deptId) {
+      selectedDept = deptId;
+      renderHexMap();
+      applyFilters();
+    }
+
+    function toggleIdfMode() {
+      idfMode = !idfMode;
+      setSelectedDept(null);
     }
 
     // ── Onboarding Logic ──────────────────────────────────────────────────────
     function checkOnboarding() {
-      const onboarded = localStorage.getItem("onboarding_completed");
-      if (onboarded === "true") {
-        document.getElementById("onboarding-overlay").classList.add("hidden");
-        document.getElementById("project-card").classList.remove("hidden");
-        
-        // Load data
-        const savedProfile = localStorage.getItem("user_profile");
-        const savedProject = localStorage.getItem("wedding_project");
-        const savedContacted = localStorage.getItem("contacted_venues");
-        
-        if (savedProfile) userProfile = JSON.parse(savedProfile);
-        if (savedProject) weddingProject = JSON.parse(savedProject);
-        if (savedContacted) contactedVenues = JSON.parse(savedContacted);
-        
-        loadProjectIntoUI();
+      const savedProfile = localStorage.getItem("user_profile");
+      const savedProject = localStorage.getItem("wedding_project");
+
+      if (!savedProfile || !savedProject) {
+        window.location.href = `onboarding.html?lang=${currentLang}`;
+        return false;
+      }
+
+      document.getElementById("project-card").classList.remove("hidden");
+
+      const savedContacted = localStorage.getItem("contacted_venues");
+      const savedStatuses = localStorage.getItem("venue_statuses");
+      userProfile = JSON.parse(savedProfile);
+      weddingProject = JSON.parse(savedProject);
+      if (savedContacted) contactedVenues = JSON.parse(savedContacted);
+
+      if (savedStatuses) {
+        venueStatuses = JSON.parse(savedStatuses);
+      } else if (localStorage.getItem("dm_fresh_account") === "1") {
+        venueStatuses = {};
       } else {
-        document.getElementById("onboarding-overlay").classList.remove("hidden");
-        document.getElementById("project-card").classList.add("hidden");
+        // Migrate legacy binary contact tracking into the richer status model
+        venueStatuses = {};
+        for (const id of Object.keys(contactedVenues)) venueStatuses[id] = "contacted";
       }
-    }
+      localStorage.setItem("venue_statuses", JSON.stringify(venueStatuses));
 
-    function nextOnboardingSlide() {
-      const name = document.getElementById("ob-user-name").value.trim();
-      const email = document.getElementById("ob-user-email").value.trim();
-      
-      if (!name || !email) {
-        alert(TRANSLATIONS[currentLang].alert_ob_missing);
-        return;
-      }
-      
-      userProfile = { name, email };
-      document.getElementById("onboarding-slide-1").classList.add("hidden");
-      document.getElementById("onboarding-slide-2").classList.remove("hidden");
-    }
-
-    function prevOnboardingSlide() {
-      document.getElementById("onboarding-slide-2").classList.add("hidden");
-      document.getElementById("onboarding-slide-1").classList.remove("hidden");
-    }
-
-    function finishOnboarding() {
-      const partner = document.getElementById("ob-partner-name").value.trim();
-      const date = document.getElementById("ob-event-date").value.trim();
-      const guests = document.getElementById("ob-guest-count").value.trim();
-      const budget = document.getElementById("ob-budget").value.trim();
-      const notes = document.getElementById("ob-notes").value.trim();
-      
-      const coupleName = userProfile.name.split(" ")[0] + (partner ? ` & ${partner}` : "");
-      
-      weddingProject = {
-        couple_name: coupleName,
-        event_date: date || "",
-        guest_count: guests || "0",
-        budget: budget || "",
-        notes: notes || ""
-      };
-      
-      localStorage.setItem("user_profile", JSON.stringify(userProfile));
-      localStorage.setItem("wedding_project", JSON.stringify(weddingProject));
-      localStorage.setItem("onboarding_completed", "true");
-      
-      checkOnboarding();
-      applyFilters();
-    }
-
-    function skipOnboarding() {
-      userProfile = null;
-      weddingProject = {
-        couple_name: currentLang === "en" ? "Guest Couple" : "Couple Invité",
-        event_date: "",
-        guest_count: "0",
-        budget: "",
-        notes: ""
-      };
-      
-      localStorage.setItem("onboarding_completed", "true");
-      checkOnboarding();
-      applyFilters();
+      loadProjectIntoUI();
+      return true;
     }
 
     function resetProfile() {
@@ -1228,16 +1737,13 @@
     }
 
     function updateContactStats() {
-      const contactedKeys = Object.keys(contactedVenues);
-      const totalContacted = contactedKeys.length;
+      const totalContacted = Object.keys(venueStatuses).length;
       
       const descEl = document.getElementById("main-desc-paragraph");
       
       if (totalContacted > 0) {
-        const text = TRANSLATIONS[currentLang].main_desc_contacted
-          .replace("{count}", totalContacted)
-          .replace("{s}", totalContacted !== 1 ? "s" : "");
-        descEl.textContent = text;
+        const key = totalContacted === 1 ? "main_desc_contacted_one" : "main_desc_contacted_many";
+        descEl.textContent = TRANSLATIONS[currentLang][key].replace("{count}", totalContacted);
       } else {
         descEl.textContent = TRANSLATIONS[currentLang].main_desc;
       }
@@ -1246,9 +1752,15 @@
     // ── Preview & Contact Action ──────────────────────────────────────────────
     async function contactVenue(venue) {
       activeVenue = venue;
-      const btn = document.getElementById(`btn-${venue.id}`);
-      const originalText = btn.textContent;
-      
+      const card = document.querySelector(`.venue-card[data-id="${venue.id}"]`);
+      const btn = card ? card.querySelector(".venue-card-action") : null;
+      const originalText = btn ? btn.textContent : "";
+
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = currentLang === "en" ? "Loading…" : "Chargement…";
+      }
+
       btn.disabled = true;
       btn.textContent = currentLang === "en" ? "Loading…" : "Chargement…";
       
@@ -1280,8 +1792,10 @@
       } catch (err) {
         alert(TRANSLATIONS[currentLang].alert_network_err);
       } finally {
-        btn.disabled = false;
-        btn.textContent = originalText;
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = originalText;
+        }
       }
     }
 
@@ -1340,25 +1854,8 @@
         });
         
         if (res.ok) {
-          // Track contacted state
-          contactedVenues[activeVenue.id] = new Date().toISOString();
-          localStorage.setItem("contacted_venues", JSON.stringify(contactedVenues));
-          
-          // Update card button & badge directly
-          const btn = document.getElementById(`btn-${activeVenue.id}`);
-          if (btn) {
-            btn.textContent = TRANSLATIONS[currentLang].venue_btn_resend;
-            btn.classList.add("ok");
-          }
-          
-          const badge = document.getElementById(`badge-contact-${activeVenue.id}`);
-          if (badge) {
-            badge.className = "badge badge-contacted";
-            badge.textContent = TRANSLATIONS[currentLang].venue_contacted;
-          }
-          
+          recordOutreach(activeVenue, "email_sent");
           closePreviewModal();
-          updateContactStats();
         } else {
           const err = await res.json().catch(() => ({}));
           alert(TRANSLATIONS[currentLang].alert_send_err + " : " + (err.detail ?? "Inconnue"));
@@ -1369,6 +1866,380 @@
         alert(TRANSLATIONS[currentLang].alert_network_err);
         sendBtn.disabled = false;
         sendBtn.textContent = TRANSLATIONS[currentLang].modal_btn_confirm;
+      }
+    }
+
+    // Records a successful outreach action: stamps contact time, advances status
+    // to "contacted" on first contact, or pushes a feed entry for a repeat send.
+    function recordOutreach(venue, kind) {
+      contactedVenues[venue.id] = new Date().toISOString();
+      localStorage.setItem("contacted_venues", JSON.stringify(contactedVenues));
+
+      if (venueStatus(venue.id) === "none") {
+        setVenueStatus(venue.id, "contacted");
+      } else {
+        pushFeedItem(venue.id, kind);
+      }
+    }
+
+    // ── Activity feed ─────────────────────────────────────────────────────────
+    function loadActivityFeed() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("activity_feed") || "null");
+        if (Array.isArray(saved)) return saved;
+      } catch (e) {}
+
+      if (localStorage.getItem("dm_fresh_account")) return [];
+
+      // Existing account without a saved feed: synthesise entries from current
+      // venue statuses, ordered by their contact timestamp (most recent first).
+      const items = Object.keys(venueStatuses)
+        .filter(id => venueStatuses[id] !== "none")
+        .map(id => ({
+          venueId: Number(id),
+          kind: venueStatuses[id],
+          iso: contactedVenues[id] || new Date(0).toISOString(),
+        }));
+      items.sort((a, b) => new Date(b.iso) - new Date(a.iso));
+      return items.slice(0, MAX_FEED);
+    }
+
+    function pushFeedItem(venueId, kind) {
+      activityFeed = [{ venueId, kind, iso: new Date().toISOString() }, ...activityFeed].slice(0, MAX_FEED);
+      localStorage.setItem("activity_feed", JSON.stringify(activityFeed));
+      renderActivityFeed(true);
+    }
+
+    function isYesterday(date) {
+      const y = new Date();
+      y.setDate(y.getDate() - 1);
+      return date.getFullYear() === y.getFullYear() && date.getMonth() === y.getMonth() && date.getDate() === y.getDate();
+    }
+
+    function formatFeedTime(iso) {
+      const t = TRANSLATIONS[currentLang];
+      const then = new Date(iso);
+      const diffMin = Math.floor((Date.now() - then.getTime()) / 60000);
+
+      if (diffMin < 1) return t.feed_time_now;
+      if (diffMin < 60) return t.feed_time_minutes.replace("{n}", diffMin);
+
+      const diffH = Math.floor(diffMin / 60);
+      if (diffH < 24) return t.feed_time_hours.replace("{n}", diffH);
+
+      const locale = currentLang === "fr" ? "fr-FR" : "en-US";
+      if (isYesterday(then)) {
+        return t.feed_time_yesterday.replace("{time}", then.toLocaleTimeString(locale, { hour: "2-digit", minute: "2-digit" }));
+      }
+      return then.toLocaleDateString(locale, { day: "numeric", month: "short" });
+    }
+
+    function renderActivityFeed(highlightFirst) {
+      const host = document.getElementById("feed-list");
+      const t = TRANSLATIONS[currentLang];
+
+      if (!activityFeed.length) {
+        host.innerHTML = `<p class="feed-empty">${t.feed_empty}</p>`;
+        return;
+      }
+
+      host.innerHTML = activityFeed.map((item, i) => {
+        const venue = allVenues.find(v => v.id === item.venueId);
+        const kindInfo = FEED_KIND[item.kind] || FEED_KIND.contacted;
+        const isNew = highlightFirst && i === 0;
+        return `
+          <div class="feed-item ${isNew ? "feed-item-new" : ""}">
+            ${i < activityFeed.length - 1 ? '<span class="feed-line"></span>' : ""}
+            <span class="feed-dot" style="background:${kindInfo.color}"></span>
+            <div class="feed-body">
+              <div class="feed-action">${t[kindInfo.labelKey]}</div>
+              <div class="feed-venue">${venue ? venue.name : "—"}</div>
+              <div class="feed-time">${formatFeedTime(item.iso)}</div>
+            </div>
+          </div>`;
+      }).join("");
+
+      if (highlightFirst) {
+        setTimeout(() => {
+          const first = host.querySelector(".feed-item-new");
+          if (first) first.classList.remove("feed-item-new");
+        }, 1500);
+      }
+    }
+
+    // ── Outreach choice popover ───────────────────────────────────────────────
+    function openOutreachChoice(e, venue) {
+      e.stopPropagation();
+      choiceVenue = venue;
+      const t = TRANSLATIONS[currentLang];
+
+      const emailOpt = document.getElementById("choice-opt-email");
+      emailOpt.classList.toggle("disabled", !venue.accepts_email);
+      emailOpt.disabled = !venue.accepts_email;
+      document.getElementById("choice-opt-email-desc").textContent =
+        venue.accepts_email ? t.outreach_opt_email_desc : t.outreach_opt_email_unavailable;
+
+      document.getElementById("choice-popover-venue").textContent = venue.name;
+
+      const popover = document.getElementById("choice-popover");
+      popover.classList.remove("hidden");
+      const rect = e.currentTarget.getBoundingClientRect();
+      const top = Math.min(rect.bottom + 6, window.innerHeight - popover.offsetHeight - 10);
+      const left = Math.min(rect.left, window.innerWidth - popover.offsetWidth - 10);
+      popover.style.top = `${Math.max(10, top)}px`;
+      popover.style.left = `${Math.max(10, left)}px`;
+    }
+
+    function closeOutreachPopover() {
+      choiceVenue = null;
+      document.getElementById("choice-popover").classList.add("hidden");
+    }
+
+    function chooseEmailOption() {
+      if (!choiceVenue || !choiceVenue.accepts_email) return;
+      const venue = choiceVenue;
+      closeOutreachPopover();
+      contactVenue(venue);
+    }
+
+    function chooseFormOption() {
+      if (!choiceVenue) return;
+      const venue = choiceVenue;
+      closeOutreachPopover();
+      openAutoFormModal(venue);
+    }
+
+    document.addEventListener("click", e => {
+      if (!choiceVenue) return;
+      if (!e.target.closest("[data-choice-popover]") && !e.target.closest(".venue-card-action")) {
+        closeOutreachPopover();
+      }
+    });
+
+    // ── Auto-fill form modal ──────────────────────────────────────────────────
+    const AUTOFORM_FALLBACK_FIELDS = [
+      { name: "name",    labelKey: "autoform_field_name",    type: "text",     required: true  },
+      { name: "email",   labelKey: "autoform_field_email",   type: "email",    required: true  },
+      { name: "phone",   labelKey: "autoform_field_phone",   type: "tel",      required: false },
+      { name: "date",    labelKey: "autoform_field_date",    type: "text",     required: false },
+      { name: "guests",  labelKey: "autoform_field_guests",  type: "number",   required: false },
+      { name: "message", labelKey: "autoform_field_message", type: "textarea", required: true  },
+    ];
+
+    function slugifyVenueName(name) {
+      const COMBINING_DIACRITICS = new RegExp("[\\u0300-\\u036f]", "g");
+      let s = name.normalize("NFKD").replace(COMBINING_DIACRITICS, "");
+      s = s.replace(/[^\w\s-]/g, "").trim().toLowerCase();
+      return s.replace(/[-\s]+/g, "_");
+    }
+
+    function mapAutoFormInputType(type) {
+      if (type === "checkbox") return "checkbox";
+      return ["text", "email", "tel", "number", "textarea"].includes(type) ? type : "text";
+    }
+
+    // Smart field mapper: guesses a value for a form field from the wedding
+    // project + user profile based on regex matches over its name/label.
+    function autoMapFormField(field, project, profile) {
+      // Consent / opt-in checkboxes: auto-check rather than text-matching the label
+      if (field.type === "checkbox") return true;
+
+      const key = `${field.name} ${field.label}`.toLowerCase();
+      const couple = project?.couple_name || "";
+      const firstName = couple.split(" & ")[0] || couple;
+
+      if (/lastname|family|nom(?!bre)$/.test(key))
+        return firstName.split(" ").slice(-1)[0] || couple || null;
+      if (/firstname|prenom|first.?name/.test(key))
+        return firstName.split(" ")[0] || couple || null;
+      if (/fullname|full.?name|nom.*complet|contact.*name|^name$|txtname/.test(key))
+        return couple || null;
+      if (/email|mail/.test(key))
+        return profile?.email || null;
+      if (/phone|tel|mobile|portable/.test(key))
+        return profile?.phone || "06 12 34 56 78";
+      if (/guest|invit|nombre|nb.*pers|person/.test(key))
+        return project?.guest_count ?? null;
+      if (/budget/.test(key))
+        return project?.budget ?? null;
+      if (/date|arrival|arrivee|départ|depart/.test(key))
+        return project?.event_date ?? null;
+      if (/company|societe|organisation/.test(key))
+        return couple ? `Mariage ${couple}` : null;
+      if (/message|notes?|comment|demande|request|objet|sujet/.test(key)) {
+        const lines = currentLang === "fr"
+          ? [
+              `Bonjour,`, ``,
+              `Nous sommes ${couple} et préparons notre mariage prévu le ${project?.event_date || "—"} pour ${project?.guest_count || "—"} invités (budget indicatif : ${project?.budget || "—"}).`,
+              ``,
+              `Nous souhaiterions recevoir vos tarifs détaillés et vos disponibilités pour cette date.`,
+              ``, `Cordialement,`, couple,
+            ]
+          : [
+              `Hello,`, ``,
+              `We are ${couple} and are planning our wedding on ${project?.event_date || "—"} for ${project?.guest_count || "—"} guests (estimated budget: ${project?.budget || "—"}).`,
+              ``,
+              `We would love to receive your detailed pricing and availability for this date.`,
+              ``, `Best regards,`, couple,
+            ];
+        return lines.join("\n");
+      }
+      return null;
+    }
+
+    async function openAutoFormModal(venue) {
+      autoForm = { venue, fields: [], values: {}, filled: {}, step: "loading", contactUrl: null };
+      renderAutoFormModal();
+      document.getElementById("autoform-modal").classList.remove("hidden");
+
+      let schemaFields = null;
+      let contactUrl = null;
+      try {
+        const res = await fetch(`/api/forms/${slugifyVenueName(venue.name)}`);
+        if (res.ok) {
+          const data = await res.json();
+          const rawFields = data.form_details?.fields ?? [];
+          if (rawFields.length) {
+            schemaFields = rawFields.map(f => ({
+              name: f.name,
+              label: f.label || f.name,
+              type: mapAutoFormInputType(f.type),
+              required: !!f.required,
+            }));
+          }
+          contactUrl = data.contact_url || null;
+        }
+      } catch (e) { /* offline → fall back to generic schema below */ }
+
+      if (!autoForm || autoForm.venue !== venue) return; // modal closed in the meantime
+
+      const t = TRANSLATIONS[currentLang];
+      const fields = (schemaFields && schemaFields.length)
+        ? schemaFields
+        : AUTOFORM_FALLBACK_FIELDS.map(f => ({ name: f.name, label: t[f.labelKey], type: f.type, required: f.required }));
+
+      const values = {};
+      fields.forEach(f => {
+        const v = autoMapFormField(f, weddingProject, userProfile);
+        if (v !== null && v !== "") values[f.name] = v;
+      });
+
+      autoForm.fields = fields;
+      autoForm.values = values;
+      autoForm.filled = {};
+      autoForm.step = "idle";
+      autoForm.contactUrl = contactUrl;
+      renderAutoFormModal();
+    }
+
+    function closeAutoFormModal() {
+      document.getElementById("autoform-modal").classList.add("hidden");
+      autoForm = null;
+    }
+
+    function handleAutoFormFill() {
+      if (!autoForm || autoForm.step !== "idle") return;
+      autoForm.step = "filling";
+      renderAutoFormModal();
+      const fields = autoForm.fields;
+      fields.forEach((f, i) => {
+        setTimeout(() => {
+          if (!autoForm) return;
+          autoForm.filled[f.name] = autoForm.values[f.name] != null;
+          if (i === fields.length - 1) autoForm.step = "ready";
+          renderAutoFormModal();
+        }, i * 120);
+      });
+    }
+
+    function handleAutoFormSubmit() {
+      if (!autoForm || autoForm.step !== "ready") return;
+      autoForm.step = "submitting";
+      renderAutoFormModal();
+      setTimeout(() => {
+        if (!autoForm) return;
+        autoForm.step = "done";
+        renderAutoFormModal();
+        const venue = autoForm.venue;
+        setTimeout(() => {
+          recordOutreach(venue, "form_submitted");
+          closeAutoFormModal();
+        }, 1400);
+      }, 1000);
+    }
+
+    function renderAutoFormModal() {
+      if (!autoForm) return;
+      const t = TRANSLATIONS[currentLang];
+      const { venue, fields, values, filled, step, contactUrl } = autoForm;
+
+      document.getElementById("autoform-venue-meta").textContent = `${venue.name} · ${venue.city}`;
+
+      const link = document.getElementById("autoform-link");
+      if (contactUrl) {
+        link.href = contactUrl;
+        link.classList.remove("hidden");
+      } else {
+        link.classList.add("hidden");
+      }
+
+      const info = document.getElementById("autoform-info");
+      const unmapped = fields.filter(f => values[f.name] == null);
+      info.textContent = unmapped.length > 0
+        ? t.autoform_info_partial.replace("{mapped}", fields.length - unmapped.length).replace("{total}", fields.length).replace("{unmapped}", unmapped.length)
+        : t.autoform_info_full;
+
+      const fieldsHost = document.getElementById("autoform-fields");
+      fieldsHost.innerHTML = fields.map(f => {
+        const isFilled = !!filled[f.name];
+        const isMapped = values[f.name] != null;
+        const stateClass = isFilled ? "filled" : (!isMapped ? "unmapped" : "");
+        const statusLabel = isFilled ? t.autoform_status_filled : (isMapped ? t.autoform_status_auto : t.autoform_status_manual);
+
+        if (f.type === "checkbox") {
+          return `
+            <label class="autoform-checkbox-row ${stateClass}">
+              <input type="checkbox" class="autoform-checkbox" data-field="${f.name}">
+              <span class="autoform-checkbox-label">${f.label}${f.required ? '<span class="autoform-required">*</span>' : ""}</span>
+              <span class="autoform-field-status ${stateClass}">${statusLabel}</span>
+            </label>`;
+        }
+
+        const inputHtml = f.type === "textarea"
+          ? `<textarea class="autoform-input ${stateClass}" data-field="${f.name}" rows="3"></textarea>`
+          : `<input class="autoform-input ${stateClass}" data-field="${f.name}" type="${f.type}">`;
+        return `
+          <div class="autoform-field">
+            <div class="autoform-field-head">
+              <label class="autoform-field-label">${f.label}${f.required ? '<span class="autoform-required">*</span>' : ""}</label>
+              <span class="autoform-field-status ${stateClass}">${statusLabel}</span>
+            </div>
+            ${inputHtml}
+          </div>`;
+      }).join("");
+
+      fieldsHost.querySelectorAll(".autoform-input").forEach(el => {
+        const name = el.dataset.field;
+        el.value = values[name] ?? "";
+        el.addEventListener("input", e => { autoForm.values[name] = e.target.value; });
+      });
+      fieldsHost.querySelectorAll(".autoform-checkbox").forEach(el => {
+        const name = el.dataset.field;
+        el.checked = !!values[name];
+        el.addEventListener("change", e => { autoForm.values[name] = e.target.checked; });
+      });
+
+      const actions = document.getElementById("autoform-actions");
+      if (step === "done") {
+        actions.innerHTML = `<span class="autoform-done">${t.autoform_done}</span>`;
+      } else if (step === "filling") {
+        actions.innerHTML = `<button class="autoform-btn-fill" disabled>${t.autoform_btn_filling}</button>`;
+      } else if (step === "ready") {
+        actions.innerHTML = `<button class="autoform-btn-submit" onclick="handleAutoFormSubmit()">${t.autoform_btn_submit}</button>`;
+      } else if (step === "submitting") {
+        actions.innerHTML = `<button class="autoform-btn-submit" disabled>${t.autoform_btn_submitting}</button>`;
+      } else {
+        actions.innerHTML = `<button class="autoform-btn-fill" onclick="handleAutoFormFill()" ${step === "loading" ? "disabled" : ""}>${t.autoform_btn_fill}</button>`;
       }
     }
 
@@ -1409,8 +2280,8 @@
       // Initialize translation engine (URL / LS check)
       loadLanguage();
 
-      // Perform client side onboarding verification
-      checkOnboarding();
+      // Redirect to onboarding if no profile/project saved yet
+      if (!checkOnboarding()) return;
 
       try {
         allVenues = await fetch("/api/venues").then(r => {
@@ -1418,6 +2289,9 @@
           return r.json();
         });
         applyFilters();
+        renderHexMap();
+        activityFeed = loadActivityFeed();
+        renderActivityFeed();
       } catch (err) {
         document.getElementById("venue-list").innerHTML =
           `<p class="state-msg">Impossible de charger les lieux (${err.message}).</p>`;

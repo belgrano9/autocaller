@@ -3,13 +3,14 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from app.routers import mode, outreach, venues
+from app.routers import forms, mode, outreach, venues
 
 app = FastAPI(title="Devis Mariages API", version="0.1.0")
 
 app.include_router(venues.router, prefix="/api")
 app.include_router(outreach.router, prefix="/api")
 app.include_router(mode.router, prefix="/api")
+app.include_router(forms.router, prefix="/api")
 
 
 from fastapi.responses import FileResponse

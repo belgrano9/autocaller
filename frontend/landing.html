@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis Mariages — Trouvez votre lieu de mariage idéal en Île-de-France</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:       #2c5e43;
+      --green-dark:  #1e4430;
+      --green-light: #e8f0ec;
+      --gold:        #b8975e;
+      --cream:       #faf9f6;
+      --border:      #e8e3de;
+      --muted:       #7a7068;
+      --text:        #1a1a1a;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--text);
+      background: #fff;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
+    a { text-decoration: none; }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 62px;
+      background: rgba(250,249,246,0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.01em;
+    }
+    .nav-links { display: flex; align-items: center; gap: 24px; }
+    .nav-link {
+      font-size: 14px;
+      color: var(--muted);
+      transition: color 0.15s;
+    }
+    .nav-link:hover { color: var(--green); }
+    .btn-nav {
+      padding: 9px 22px;
+      background: var(--green-dark);
+      color: #fff;
+      border-radius: 7px;
+      font-size: 14px;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-nav:hover { background: var(--green); transform: translateY(-1px); }
+
+    /* ─── LANG TOGGLE ─────────────────────────────────── */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: #ece8e3;
+      border-radius: 20px;
+      padding: 3px 4px;
+      gap: 2px;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .lang-toggle span {
+      padding: 3px 10px;
+      border-radius: 16px;
+      cursor: pointer;
+      color: #999;
+      transition: all 0.15s;
+      user-select: none;
+      letter-spacing: 0.04em;
+    }
+    .lang-toggle span.active {
+      background: #fff;
+      color: var(--green);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      background: var(--cream);
+      padding: 160px 6% 96px;
+      text-align: center;
+      position: relative;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 36px;
+    }
+    .hero-eyebrow strong { color: var(--green); font-weight: 600; }
+    .hero h1 {
+      font-size: clamp(56px, 8vw, 100px);
+      font-weight: 400;
+      line-height: 1.02;
+      letter-spacing: -0.015em;
+      color: var(--text);
+      margin-bottom: 28px;
+    }
+    .hero h1 em { font-style: italic; color: var(--green); }
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 490px;
+      margin: 0 auto 48px;
+      font-weight: 400;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      padding: 14px 34px;
+      background: var(--green-dark);
+      color: #fff;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      display: inline-block;
+    }
+    .btn-primary:hover { background: var(--green); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(44,94,67,.22); }
+    .btn-outline {
+      padding: 14px 28px;
+      background: transparent;
+      color: var(--green);
+      border: 1px solid rgba(44,94,67,.4);
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+      display: inline-block;
+    }
+    .btn-outline:hover { background: var(--green-light); border-color: var(--green); }
+
+    /* ─── TICKER ──────────────────────────────────────── */
+    .ticker-wrap {
+      overflow: hidden;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0;
+      position: relative;
+    }
+    .ticker-wrap::before,
+    .ticker-wrap::after {
+      content: '';
+      position: absolute; top: 0; bottom: 0; width: 100px;
+      z-index: 2; pointer-events: none;
+    }
+    .ticker-wrap::before { left: 0; background: linear-gradient(to right, #fff, transparent); }
+    .ticker-wrap::after  { right: 0; background: linear-gradient(to left, #fff, transparent); }
+    .ticker-track {
+      display: flex;
+      width: max-content;
+      animation: ticker 60s linear infinite;
+    }
+    .ticker-track:hover { animation-play-state: paused; }
+    .ticker-item {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px;
+      color: var(--muted);
+      padding: 0 6px;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .ticker-dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ─── STATS ───────────────────────────────────────── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat {
+      padding: 38px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+    .stat:last-child { border-right: none; }
+    .stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 46px;
+      font-weight: 500;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-desc { font-size: 13px; color: var(--muted); }
+
+    /* ─── SECTION COMMON ──────────────────────────────── */
+    .section { padding: 88px 6%; }
+    .section-bg { background: var(--cream); }
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+    .sec-title {
+      font-size: clamp(34px, 4vw, 52px);
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .sec-sub {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.65;
+      max-width: 480px;
+      margin-bottom: 52px;
+    }
+
+    /* ─── HOW IT WORKS ────────────────────────────────── */
+    .hiw-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .hiw-step {
+      background: #fff;
+      padding: 44px 38px;
+    }
+    .hiw-step + .hiw-step { border-left: 1px solid var(--border); }
+    .step-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green);
+      margin-bottom: 24px;
+    }
+    .step-num {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+    .step-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.72;
+    }
+
+    /* ─── FEATURES ────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .feature-card {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 34px 28px;
+      transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px rgba(44,94,67,.08);
+    }
+    .feat-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: var(--green-light);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+    .feat-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 23px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+    .feat-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.68;
+    }
+
+    /* ─── VENUE TYPES ─────────────────────────────────── */
+    .types-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .type-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .type-card:hover { border-color: var(--green); transform: translateY(-3px); }
+    .type-count {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 56px;
+      font-weight: 500;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .type-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 18px;
+      letter-spacing: 0.01em;
+    }
+    .type-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .type-list li {
+      font-size: 12.5px;
+      color: var(--muted);
+      padding-left: 13px;
+      position: relative;
+      line-height: 1.4;
+    }
+    .type-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 5px;
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ─── FINAL CTA ───────────────────────────────────── */
+    .cta-section {
+      background: var(--green-dark);
+      padding: 104px 6%;
+      text-align: center;
+    }
+    .gold-rule {
+      width: 40px; height: 1px;
+      background: var(--gold);
+      margin: 0 auto 28px;
+    }
+    .cta-section .sec-title { color: #fff; margin-bottom: 18px; }
+    .cta-section .sec-sub { color: rgba(255,255,255,.6); margin: 0 auto 48px; }
+    .btn-white {
+      padding: 14px 38px;
+      background: #fff;
+      color: var(--green-dark);
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.22); }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: #111;
+      padding: 28px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px;
+      color: #fff;
+      font-weight: 500;
+    }
+    .footer-meta { font-size: 13px; color: rgba(255,255,255,.35); }
+
+    /* ─── REVEAL ANIMATIONS ───────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s cubic-bezier(.2,.8,.2,1), transform 0.6s cubic-bezier(.2,.8,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 960px) {
+      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(3) { border-top: 1px solid var(--border); }
+      .hiw-grid { grid-template-columns: 1fr; }
+      .hiw-step + .hiw-step { border-left: none; border-top: 1px solid var(--border); }
+      .features-grid { grid-template-columns: 1fr; }
+      .types-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .nav-links .nav-link { display: none; }
+      .types-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 48px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ──────────────────────────────────────────────── -->
+<nav>
+  <span class="nav-logo">Devis Mariages</span>
+  <div class="nav-links">
+    <a class="nav-link" href="#how" data-i18n="nav_how">Comment ça marche</a>
+    <a class="nav-link" href="#types" data-i18n="nav_types">Les lieux</a>
+    <div class="lang-toggle">
+      <span id="lang-fr" onclick="setLang('fr')">FR</span>
+      <span id="lang-en" onclick="setLang('en')">EN</span>
+    </div>
+    <a class="btn-nav" data-ob-link href="onboarding.html?lang=fr" data-i18n="nav_app">S'inscrire</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ──────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    <span data-i18n="eyebrow_hero"><strong>66</strong> lieux référencés en Île-de-France</span>
+  </div>
+  <h1 id="hero-h1">Trouvez votre lieu<br><em>de mariage idéal</em></h1>
+  <p class="hero-sub" data-i18n="hero_sub">Parcourez châteaux, domaines, fermes et lieux atypiques. Envoyez des demandes de devis personnalisées à chaque lieu en un seul clic.</p>
+  <div class="hero-ctas">
+    <a class="btn-primary" data-ob-link href="onboarding.html?lang=fr" data-i18n="btn_start">Commencer maintenant</a>
+    <a class="btn-outline" href="#types" data-i18n="btn_browse">Voir les lieux →</a>
+  </div>
+</section>
+
+<!-- ─── TICKER ────────────────────────────────────────────── -->
+<div class="ticker-wrap">
+  <div class="ticker-track" id="ticker-track"></div>
+</div>
+
+<!-- ─── STATS ─────────────────────────────────────────────── -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-val">66</div>
+    <div class="stat-desc" data-i18n="stat1_desc">Lieux référencés</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">9</div>
+    <div class="stat-desc" data-i18n="stat2_desc">Types de lieux</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val" data-i18n="stat3_val">1 clic</div>
+    <div class="stat-desc" data-i18n="stat3_desc">Pour envoyer un devis</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">0 €</div>
+    <div class="stat-desc" data-i18n="stat4_desc">D'abonnement</div>
+  </div>
+</div>
+
+<!-- ─── HOW IT WORKS ──────────────────────────────────────── -->
+<section class="section section-bg" id="how">
+  <div class="eyebrow" data-i18n="eyebrow_hiw">Fonctionnement</div>
+  <h2 class="sec-title" data-i18n="hiw_title">Trois étapes, c'est tout</h2>
+  <p class="sec-sub" data-i18n="hiw_sub">De la configuration de votre projet à l'envoi des devis, tout se passe en quelques minutes.</p>
+  <div class="hiw-grid reveal">
+    <div class="hiw-step">
+      <div class="step-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+      </div>
+      <div class="step-num" data-i18n="step1_num">Étape 01</div>
+      <h3 class="step-title" data-i18n="step1_title">Décrivez votre mariage</h3>
+      <p class="step-desc" data-i18n="step1_desc">Renseignez le nom des mariés, la date souhaitée, le nombre d'invités et votre budget. Ces informations personnalisent automatiquement chaque demande de devis.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <div class="step-num" data-i18n="step2_num">Étape 02</div>
+      <h3 class="step-title" data-i18n="step2_title">Explorez les lieux</h3>
+      <p class="step-desc" data-i18n="step2_desc">Filtrez par type (château, domaine, ferme…) ou par disponibilité email. Consultez directement les sites des lieux qui vous intéressent depuis l'application.</p>
+    </div>
+    <div class="hiw-step">
+      <div class="step-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+      </div>
+      <div class="step-num" data-i18n="step3_num">Étape 03</div>
+      <h3 class="step-title" data-i18n="step3_title">Envoyez vos devis</h3>
+      <p class="step-desc" data-i18n="step3_desc">Prévisualisez l'email personnalisé avant de l'envoyer. Confirmez en un clic — la demande part directement dans la boîte du lieu, avec toutes vos informations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ──────────────────────────────────────────── -->
+<section class="section" id="features">
+  <div class="eyebrow" data-i18n="eyebrow_feat">Fonctionnalités</div>
+  <h2 class="sec-title" data-i18n="feat_title">Conçu pour aller à l'essentiel</h2>
+  <p class="sec-sub" data-i18n="feat_sub">Pas de fonctions superflues — juste ce qu'il faut pour contacter les lieux rapidement et sereinement.</p>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feat-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </div>
+      <h3 class="feat-title" data-i18n="feat1_title">Aperçu avant envoi</h3>
+      <p class="feat-desc" data-i18n="feat1_desc">Visualisez l'email complet — objet, corps, coordonnées — exactement tel que le lieu le recevra, avant de confirmer l'envoi.</p>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:.1s">
+      <div class="feat-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9,11 12,14 22,4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      </div>
+      <h3 class="feat-title" data-i18n="feat2_title">Suivi des contacts</h3>
+      <p class="feat-desc" data-i18n="feat2_desc">Chaque lieu contacté est automatiquement marqué "Contacté ✓". Gardez une vue d'ensemble de vos démarches sans aucun effort.</p>
+    </div>
+    <div class="feature-card reveal" style="transition-delay:.2s">
+      <div class="feat-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h3 class="feat-title" data-i18n="feat3_title">Données locales</h3>
+      <p class="feat-desc" data-i18n="feat3_desc">Votre profil et votre historique restent dans votre navigateur. Aucun compte requis, aucune donnée transmise à un serveur tiers.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VENUE TYPES ────────────────────────────────────────── -->
+<section class="section section-bg" id="types">
+  <div class="eyebrow" data-i18n="eyebrow_types">Le répertoire</div>
+  <h2 class="sec-title" data-i18n="types_title">66 lieux, tous styles de mariage</h2>
+  <p class="sec-sub" data-i18n="types_sub">De l'abbaye médiévale à la péniche parisienne, pour chaque vision du jour J.</p>
+  <div class="types-grid">
+    <div class="type-card reveal">
+      <div class="type-count">21</div>
+      <div class="type-name" data-i18n="type1_name">Châteaux</div>
+      <ul class="type-list">
+        <li>Château de Janvry</li>
+        <li>Château de Bouffémont</li>
+        <li>Château Barthélemy</li>
+        <li>Château de Champlâtreux</li>
+      </ul>
+    </div>
+    <div class="type-card reveal" style="transition-delay:.1s">
+      <div class="type-count">9</div>
+      <div class="type-name" data-i18n="type2_name">Domaines</div>
+      <ul class="type-list">
+        <li>Domaine de Villarceaux</li>
+        <li>Domaine La Ville du Bois</li>
+        <li>Domaine de la Beauvoisière</li>
+        <li>Le Domaine de Champigny</li>
+      </ul>
+    </div>
+    <div class="type-card reveal" style="transition-delay:.2s">
+      <div class="type-count">13</div>
+      <div class="type-name" data-i18n="type3_name">Salles de réception</div>
+      <ul class="type-list">
+        <li>Pavillon Royal, Paris</li>
+        <li>Les Noces Royales</li>
+        <li>Au Jardin des Saules</li>
+        <li>Espace Eden</li>
+      </ul>
+    </div>
+    <div class="type-card reveal" style="transition-delay:.3s">
+      <div class="type-count">23</div>
+      <div class="type-name" data-i18n="type4_name">Fermes, Manoirs & Atypiques</div>
+      <ul class="type-list">
+        <li>Abbaye des Vaux de Cernay</li>
+        <li>Beaumarchais Manor</li>
+        <li>Le Nomade Lodge</li>
+        <li>Quai 55 — Péniche</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ──────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="gold-rule"></div>
+  <h2 class="sec-title" id="cta-title"><em>Votre lieu de rêve vous attend</em></h2>
+  <p class="sec-sub" data-i18n="cta_sub">Commencez dès maintenant — gratuit, sans inscription, sans installation.</p>
+  <a class="btn-white" data-ob-link href="onboarding.html?lang=fr" data-i18n="btn_open">S'inscrire →</a>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <span class="footer-logo">Devis Mariages</span>
+  <span class="footer-meta" data-i18n="footer_meta">Île-de-France · 66 lieux · 2026</span>
+</footer>
+
+<script>
+  /* ── Translations ─────────────────────────────────────────── */
+  const T = {
+    fr: {
+      page_title:    "Devis Mariages — Trouvez votre lieu de mariage idéal en Île-de-France",
+      nav_how:       "Comment ça marche",
+      nav_types:     "Les lieux",
+      nav_app:       "S'inscrire",
+      eyebrow_hero:  "66 lieux référencés en Île-de-France",
+      hero_h1:       "Trouvez votre lieu<br><em>de mariage idéal</em>",
+      hero_sub:      "Parcourez châteaux, domaines, fermes et lieux atypiques. Envoyez des demandes de devis personnalisées à chaque lieu en un seul clic.",
+      btn_start:     "Commencer maintenant",
+      btn_browse:    "Voir les lieux →",
+      stat1_desc:    "Lieux référencés",
+      stat2_desc:    "Types de lieux",
+      stat3_val:     "1 clic",
+      stat3_desc:    "Pour envoyer un devis",
+      stat4_desc:    "D'abonnement",
+      eyebrow_hiw:   "Fonctionnement",
+      hiw_title:     "Trois étapes, c'est tout",
+      hiw_sub:       "De la configuration de votre projet à l'envoi des devis, tout se passe en quelques minutes.",
+      step1_num:     "Étape 01",
+      step1_title:   "Décrivez votre mariage",
+      step1_desc:    "Renseignez le nom des mariés, la date souhaitée, le nombre d'invités et votre budget. Ces informations personnalisent automatiquement chaque demande de devis.",
+      step2_num:     "Étape 02",
+      step2_title:   "Explorez les lieux",
+      step2_desc:    "Filtrez par type (château, domaine, ferme…) ou par disponibilité email. Consultez directement les sites des lieux qui vous intéressent depuis l'application.",
+      step3_num:     "Étape 03",
+      step3_title:   "Envoyez vos devis",
+      step3_desc:    "Prévisualisez l'email personnalisé avant de l'envoyer. Confirmez en un clic — la demande part directement dans la boîte du lieu, avec toutes vos informations.",
+      eyebrow_feat:  "Fonctionnalités",
+      feat_title:    "Conçu pour aller à l'essentiel",
+      feat_sub:      "Pas de fonctions superflues — juste ce qu'il faut pour contacter les lieux rapidement et sereinement.",
+      feat1_title:   "Aperçu avant envoi",
+      feat1_desc:    "Visualisez l'email complet — objet, corps, coordonnées — exactement tel que le lieu le recevra, avant de confirmer l'envoi.",
+      feat2_title:   "Suivi des contacts",
+      feat2_desc:    "Chaque lieu contacté est automatiquement marqué \"Contacté ✓\". Gardez une vue d'ensemble de vos démarches sans aucun effort.",
+      feat3_title:   "Données locales",
+      feat3_desc:    "Votre profil et votre historique restent dans votre navigateur. Aucun compte requis, aucune donnée transmise à un serveur tiers.",
+      eyebrow_types: "Le répertoire",
+      types_title:   "66 lieux, tous styles de mariage",
+      types_sub:     "De l'abbaye médiévale à la péniche parisienne, pour chaque vision du jour J.",
+      type1_name:    "Châteaux",
+      type2_name:    "Domaines",
+      type3_name:    "Salles de réception",
+      type4_name:    "Fermes, Manoirs & Atypiques",
+      cta_title:     "<em>Votre lieu de rêve vous attend</em>",
+      cta_sub:       "Commencez dès maintenant — gratuit, sans inscription, sans installation.",
+      btn_open:      "S'inscrire →",
+      footer_meta:   "Île-de-France · 66 lieux · 2026",
+    },
+    en: {
+      page_title:    "Devis Mariages — Find your ideal wedding venue in Île-de-France",
+      nav_how:       "How it works",
+      nav_types:     "Venues",
+      nav_app:       "Sign up",
+      eyebrow_hero:  "66 venues listed in Île-de-France",
+      hero_h1:       "Find your ideal<br><em>wedding venue</em>",
+      hero_sub:      "Browse châteaux, estates, barns and unique venues. Send personalized quote requests to each venue in a single click.",
+      btn_start:     "Get started",
+      btn_browse:    "Browse venues →",
+      stat1_desc:    "Listed venues",
+      stat2_desc:    "Venue types",
+      stat3_val:     "1 click",
+      stat3_desc:    "To send a quote",
+      stat4_desc:    "Subscription fee",
+      eyebrow_hiw:   "How It Works",
+      hiw_title:     "Three steps, that's all",
+      hiw_sub:       "From setting up your project to sending quotes, everything takes just a few minutes.",
+      step1_num:     "Step 01",
+      step1_title:   "Describe your wedding",
+      step1_desc:    "Enter the couple's names, desired date, guest count and budget. This information automatically personalizes every quote request sent on your behalf.",
+      step2_num:     "Step 02",
+      step2_title:   "Browse the venues",
+      step2_desc:    "Filter by type (château, estate, barn…) or by email availability. Browse the websites of venues you like directly from the app.",
+      step3_num:     "Step 03",
+      step3_title:   "Send your quotes",
+      step3_desc:    "Preview the personalized email before sending. Confirm in one click — the request goes straight to the venue's inbox with all your details.",
+      eyebrow_feat:  "Features",
+      feat_title:    "Built for simplicity",
+      feat_sub:      "No unnecessary features — just what you need to reach venues quickly and with confidence.",
+      feat1_title:   "Preview before sending",
+      feat1_desc:    "See the full email — subject, body, contact details — exactly as the venue will receive it, before confirming the send.",
+      feat2_title:   "Contact tracking",
+      feat2_desc:    "Every contacted venue is automatically marked \"Contacted ✓\". Keep track of your outreach with zero effort.",
+      feat3_title:   "Local data",
+      feat3_desc:    "Your profile and history stay in your browser. No account needed, no data sent to any third-party server.",
+      eyebrow_types: "The Directory",
+      types_title:   "66 venues, every wedding style",
+      types_sub:     "From a medieval abbey to a Parisian riverboat, for every vision of your big day.",
+      type1_name:    "Châteaux",
+      type2_name:    "Estates",
+      type3_name:    "Reception Halls",
+      type4_name:    "Farms, Manors & Unique Venues",
+      cta_title:     "<em>Your dream venue is waiting</em>",
+      cta_sub:       "Start right now — free, no sign-up, no install.",
+      btn_open:      "Sign up →",
+      footer_meta:   "Île-de-France · 66 venues · 2026",
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    if (!T[lang]) return;
+    currentLang = lang;
+
+    // Toggle button state
+    document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+
+    // Page meta
+    document.documentElement.lang = lang;
+    document.title = T[lang].page_title;
+
+    // Plain text nodes
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+    });
+
+    // innerHTML nodes (hero h1, cta title)
+    document.getElementById('hero-h1').innerHTML = T[lang].hero_h1;
+    document.getElementById('cta-title').innerHTML = T[lang].cta_title;
+
+    // Persist & update URL
+    // Update onboarding links with current language
+    document.querySelectorAll('[data-ob-link]').forEach(el => {
+      el.href = 'onboarding.html?lang=' + lang;
+    });
+
+    localStorage.setItem('lp_lang', lang);
+    const target = '/' + lang;
+    if (window.location.pathname !== target) {
+      window.history.pushState(null, '', target);
+    }
+  }
+
+  function loadLang() {
+    const path = window.location.pathname;
+    let lang = 'fr';
+    if (path === '/en') {
+      lang = 'en';
+    } else if (path === '/fr') {
+      lang = 'fr';
+    } else {
+      const saved = localStorage.getItem('lp_lang');
+      if (saved && T[saved]) {
+        lang = saved;
+      } else {
+        const browser = (navigator.language || 'fr').substring(0, 2);
+        if (T[browser]) lang = browser;
+      }
+    }
+    setLang(lang);
+  }
+
+  /* ── Ticker ───────────────────────────────────────────────── */
+  const VENUES = [
+    "Château de Janvry","Château Barthélemy","Château de Champlâtreux",
+    "Château de Bouffémont","Domaine de Villarceaux","Abbaye des Vaux de Cernay",
+    "Pavillon Royal","Le Moulin de Pommeuse","Domaine La Ville du Bois",
+    "Château de Méridon","La Grange des Mollières","Le Nomade Lodge",
+    "Les Noces Royales","Château de Séréville","Ferme du Bout des Prés",
+    "Château du Breuil","Domaine de la Beauvoisière","Au Jardin des Saules",
+    "Quai 55","Yachts de Paris","Château de Lésigny","Le Couvent de Limours",
+    "Beaumarchais Manor","Château de Chaumontel","Ferme de Montblin",
+    "Le Cinéart","Domaine des Hirondelles","Château des Bondons",
+    "Les Granges du Chesnay","Prieuré Saint-Cyr","Château de Boury",
+    "Le Manoir des Cygnes","La Suite 91","Château d'Hénonville",
+    "Ferme du Parc","Espace Venise","Domaine de la Corniche","Salles Bacchus"
+  ];
+
+  function buildTicker() {
+    const track = document.getElementById('ticker-track');
+    [...VENUES, ...VENUES].forEach(name => {
+      const span = document.createElement('span');
+      span.className = 'ticker-item';
+      span.textContent = name;
+      const dot = document.createElement('span');
+      dot.className = 'ticker-dot';
+      span.appendChild(dot);
+      track.appendChild(span);
+    });
+  }
+
+  /* ── Scroll reveal ────────────────────────────────────────── */
+  function initReveal() {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
+
+  buildTicker();
+  initReveal();
+  loadLang();
+</script>
+</body>
+</html>

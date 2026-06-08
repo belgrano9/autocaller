@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Devis Mariages — Mon compte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:       #2c5e43;
+      --green-dark:  #1e4430;
+      --green-light: #e8f0ec;
+      --gold:        #b8975e;
+      --cream:       #faf9f6;
+      --border:      #e8e3de;
+      --muted:       #7a7068;
+      --text:        #1a1a1a;
+      --red:         #c0392b;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      color: var(--text); background: var(--cream);
+      -webkit-font-smoothing: antialiased; min-height: 100vh;
+    }
+    h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
+    a { text-decoration: none; }
+    button { cursor: pointer; font-family: 'DM Sans', sans-serif; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      height: 56px;
+      background: rgba(250,249,246,0.94);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; color: var(--green); }
+    .nav-back { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 5px; transition: color 0.15s; }
+    .nav-back:hover { color: var(--green); }
+
+    main {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      padding: 80px 20px 48px;
+    }
+    .ob-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 40px;
+      width: 100%; max-width: 480px;
+      box-shadow: 0 24px 64px rgba(44,94,67,0.07);
+    }
+
+    /* Progress */
+    .progress { display: flex; align-items: center; justify-content: center; margin-bottom: 36px; }
+    .p-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #f0ece7; color: var(--muted);
+      font-size: 12px; font-weight: 600;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; transition: all 0.3s; font-family: 'DM Sans', sans-serif;
+    }
+    .p-dot.active { background: var(--green); color: #fff; }
+    .p-dot.done   { background: var(--green-light); color: var(--green); }
+    .p-dot.done::before { content: '✓'; font-size: 11px; font-weight: 700; }
+    .p-dot.done > span  { display: none; }
+    .p-line { width: 40px; height: 1px; background: var(--border); flex-shrink: 0; transition: background 0.3s; }
+    .p-line.done { background: var(--green-light); }
+
+    /* Steps */
+    .step { display: none; }
+    .step.active { display: block; animation: slideIn  0.32s cubic-bezier(.2,.8,.2,1) forwards; }
+    .step.back   { display: block; animation: slideBack 0.32s cubic-bezier(.2,.8,.2,1) forwards; }
+    @keyframes slideIn   { from { opacity:0; transform:translateX(22px); }  to { opacity:1; transform:none; } }
+    @keyframes slideBack { from { opacity:0; transform:translateX(-22px); } to { opacity:1; transform:none; } }
+
+    .step-eye { font-size: 11px; font-weight: 600; letter-spacing: 0.13em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+    .step-title { font-size: 28px; font-weight: 500; line-height: 1.15; margin-bottom: 6px; }
+    .step-sub { font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 26px; }
+
+    /* Auth tabs */
+    .auth-tabs { display: flex; background: #f0ece7; border-radius: 10px; padding: 3px; gap: 3px; margin-bottom: 22px; }
+    .auth-tab { flex: 1; padding: 9px 12px; border: none; background: transparent; border-radius: 8px; font-size: 13px; font-weight: 500; color: var(--muted); transition: all 0.2s; }
+    .auth-tab.active { background: #fff; color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,0.09); }
+
+    /* Form */
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .field label { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.5px; }
+    .field input, .field select {
+      padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px;
+      font-size: 14px; background: #fafafa; color: var(--text);
+      outline: none; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+      width: 100%; appearance: none; -webkit-appearance: none;
+    }
+    .field input:focus, .field select:focus { border-color: var(--green); background: #fff; box-shadow: 0 0 0 3px rgba(44,94,67,0.1); }
+    .field input.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(192,57,43,0.08); }
+    .field-err { font-size: 12px; color: var(--red); min-height: 16px; }
+    .pwd-row { position: relative; }
+    .pwd-row input { padding-right: 42px; }
+    .pwd-eye { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--muted); padding: 4px; line-height: 0; transition: color 0.15s; }
+    .pwd-eye:hover { color: var(--green); }
+    .sel-wrap { position: relative; }
+    .sel-wrap::after { content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%); border: 4px solid transparent; border-top: 5px solid var(--muted); pointer-events: none; }
+
+    /* Couple preview */
+    .couple-preview { text-align: center; padding: 20px 0 22px; font-family: 'Cormorant Garamond', serif; font-size: 40px; font-style: italic; color: var(--green); letter-spacing: 0.01em; line-height: 1.1; }
+    .cp-amp { font-style: normal; color: var(--gold); margin: 0 12px; }
+    #cp-partner { opacity: 0.25; transition: opacity 0.25s; }
+    #cp-partner.typed { opacity: 1; }
+
+    /* Date modes */
+    .date-modes { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+    .mode-chip { padding: 7px 14px; border: 1px solid var(--border); border-radius: 20px; background: #fff; font-size: 13px; font-weight: 500; color: var(--muted); transition: all 0.15s; }
+    .mode-chip:hover { border-color: rgba(44,94,67,.5); color: var(--green); }
+    .mode-chip.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .date-panel { display: none; }
+    .date-panel.visible { display: block; animation: slideIn 0.2s ease; }
+    .date-row { display: flex; gap: 10px; }
+    .date-row .field { flex: 1; }
+    .chip-section { margin-bottom: 16px; }
+    .chip-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #bbb; margin-bottom: 8px; }
+    .chip-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip { padding: 8px 16px; border: 1px solid var(--border); border-radius: 20px; background: #fff; font-size: 13px; font-weight: 500; color: var(--text); transition: all 0.15s; }
+    .chip:hover { border-color: rgba(44,94,67,.4); color: var(--green); }
+    .chip.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .date-open-note { background: var(--cream); border: 1px solid var(--border); border-radius: 10px; padding: 16px; font-size: 14px; color: var(--muted); line-height: 1.55; margin-bottom: 14px; }
+
+    /* Guest options */
+    .guest-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+    .g-opt { display: flex; align-items: center; gap: 14px; padding: 13px 16px; border: 1px solid var(--border); border-radius: 10px; background: #fff; cursor: pointer; transition: all 0.15s; user-select: none; }
+    .g-opt:hover { border-color: rgba(44,94,67,.35); background: #fafafa; }
+    .g-opt.selected { border-color: var(--green); background: var(--green-light); }
+    .g-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color 0.15s; }
+    .g-radio-dot { width: 8px; height: 8px; border-radius: 50%; background: transparent; transition: background 0.15s; }
+    .g-opt.selected .g-radio { border-color: var(--green); }
+    .g-opt.selected .g-radio-dot { background: var(--green); }
+    .g-info { flex: 1; }
+    .g-range { font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.2; }
+    .g-tag   { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .g-badge { font-size: 11px; font-weight: 600; letter-spacing: 0.02em; padding: 3px 9px; border-radius: 20px; background: #f0ece7; color: var(--muted); flex-shrink: 0; transition: all 0.15s; }
+    .g-opt.selected .g-badge { background: rgba(44,94,67,.12); color: var(--green); }
+
+    .divider { height: 1px; background: var(--border); margin: 18px 0; }
+
+    /* Buttons */
+    .step-actions { display: flex; align-items: center; justify-content: space-between; margin-top: 26px; }
+    .step-actions.single { justify-content: flex-end; }
+    .btn-back { display: flex; align-items: center; gap: 6px; background: none; border: 1px solid var(--border); border-radius: 8px; padding: 10px 18px; font-size: 14px; font-weight: 500; color: var(--muted); transition: all 0.15s; }
+    .btn-back:hover { border-color: var(--muted); color: var(--text); }
+    .btn-next { display: flex; align-items: center; gap: 8px; padding: 11px 26px; background: var(--green-dark); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; transition: all 0.2s; }
+    .btn-next:hover { background: var(--green); transform: translateY(-1px); }
+    .btn-next.full { width: 100%; justify-content: center; }
+    .step-footer { text-align: center; margin-top: 18px; font-size: 13px; color: var(--muted); }
+    .step-footer a { color: var(--green); font-weight: 500; }
+    .step-footer a:hover { text-decoration: underline; }
+
+    @media (max-width: 520px) {
+      .ob-card { padding: 28px 20px; border-radius: 16px; }
+      .couple-preview { font-size: 32px; }
+      .date-row { flex-direction: column; gap: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Devis Mariages</span>
+  <a class="nav-back" href="Landing Page.html">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg>
+    <span data-i18n="nav_back">Retour</span>
+  </a>
+</nav>
+
+<main>
+<div class="ob-card">
+
+  <div class="progress" id="progress-bar">
+    <div class="p-dot active" id="pd1"><span>1</span></div>
+    <div class="p-line"        id="pl1"></div>
+    <div class="p-dot"         id="pd2"><span>2</span></div>
+    <div class="p-line"        id="pl2"></div>
+    <div class="p-dot"         id="pd3"><span>3</span></div>
+    <div class="p-line"        id="pl3"></div>
+    <div class="p-dot"         id="pd4"><span>4</span></div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step active" id="step-1">
+    <div class="step-eye" data-i18n="s1_eye">Bienvenue</div>
+    <h2 class="step-title" id="s1-title">Créer mon compte</h2>
+    <p class="step-sub" id="s1-sub">Votre profil pour contacter les lieux et personnaliser vos demandes.</p>
+
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tab-reg"   onclick="setMode('register')" data-i18n="tab_reg">Créer un compte</button>
+      <button class="auth-tab"        id="tab-login" onclick="setMode('login')"    data-i18n="tab_login">Se connecter</button>
+    </div>
+
+    <div id="field-name" class="field">
+      <label data-i18n="lbl_name">Votre prénom</label>
+      <input id="inp-name" type="text" placeholder="ex : Alice" autocomplete="given-name" oninput="clearErr('name')">
+      <span class="field-err" id="err-name"></span>
+    </div>
+    <div class="field">
+      <label data-i18n="lbl_email">Adresse email</label>
+      <input id="inp-email" type="email" placeholder="alice@example.com" autocomplete="email" oninput="clearErr('email')">
+      <span class="field-err" id="err-email"></span>
+    </div>
+    <div class="field">
+      <label data-i18n="lbl_pwd">Mot de passe</label>
+      <div class="pwd-row">
+        <input id="inp-pwd" type="password" placeholder="Minimum 8 caractères" autocomplete="new-password" oninput="clearErr('pwd')">
+        <button type="button" class="pwd-eye" onclick="togglePwd()" aria-label="Afficher">
+          <svg id="eye-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </button>
+      </div>
+      <span class="field-err" id="err-pwd"></span>
+    </div>
+
+    <div class="step-actions single">
+      <button class="btn-next full" onclick="step1Next()">
+        <span id="s1-btn" data-i18n="btn_cont">Continuer</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+    <div class="step-footer" id="s1-footer">
+      Déjà un compte ? <a href="#" onclick="setMode('login');return false">Se connecter →</a>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step-2">
+    <div class="step-eye" data-i18n="s2_eye">Votre mariage</div>
+    <h2 class="step-title" data-i18n="s2_title">Les heureux mariés</h2>
+    <p class="step-sub" data-i18n="s2_sub">Comment s'appelle votre futur(e) époux(se) ?</p>
+
+    <div class="couple-preview">
+      <span id="cp-you">Vous</span><span class="cp-amp">&</span><span id="cp-partner">…</span>
+    </div>
+
+    <div class="field">
+      <label data-i18n="lbl_partner">Prénom de votre partenaire</label>
+      <input id="inp-partner" type="text" placeholder="ex : Bob" autocomplete="off" oninput="livePreview();clearErr('partner')">
+      <span class="field-err" id="err-partner"></span>
+    </div>
+
+    <div class="step-actions">
+      <button class="btn-back" onclick="goBack(2)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="btn_back">Retour</span>
+      </button>
+      <button class="btn-next" onclick="step2Next()">
+        <span data-i18n="btn_cont">Continuer</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step-3">
+    <div class="step-eye" data-i18n="s3_eye">La date</div>
+    <h2 class="step-title" data-i18n="s3_title">Quand est le grand jour ?</h2>
+    <p class="step-sub" data-i18n="s3_sub">Précisez autant que vous souhaitez — une saison suffit.</p>
+
+    <div class="date-modes">
+      <button class="mode-chip active" data-mode="precise" onclick="setDateMode('precise')" data-i18n="mode_precise">Date précise</button>
+      <button class="mode-chip"        data-mode="month"   onclick="setDateMode('month')"   data-i18n="mode_month">Mois</button>
+      <button class="mode-chip"        data-mode="season"  onclick="setDateMode('season')"  data-i18n="mode_season">Saison</button>
+      <button class="mode-chip"        data-mode="open"    onclick="setDateMode('open')"    data-i18n="mode_open">Pas encore fixée</button>
+    </div>
+
+    <!-- Precise -->
+    <div class="date-panel visible" id="dp-precise">
+      <div class="date-row">
+        <div class="field">
+          <label data-i18n="lbl_day">Jour</label>
+          <div class="sel-wrap"><select id="d-day"></select></div>
+        </div>
+        <div class="field" style="flex:2">
+          <label data-i18n="lbl_month_p">Mois</label>
+          <div class="sel-wrap"><select id="d-month"></select></div>
+        </div>
+        <div class="field">
+          <label data-i18n="lbl_year_p">Année</label>
+          <div class="sel-wrap"><select id="d-year-p"></select></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Month only -->
+    <div class="date-panel" id="dp-month">
+      <div class="date-row">
+        <div class="field" style="flex:2">
+          <label data-i18n="lbl_month_p">Mois</label>
+          <div class="sel-wrap"><select id="dm-month"></select></div>
+        </div>
+        <div class="field">
+          <label data-i18n="lbl_year_p">Année</label>
+          <div class="sel-wrap"><select id="dm-year"></select></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Season -->
+    <div class="date-panel" id="dp-season">
+      <div class="chip-section">
+        <div class="chip-label" data-i18n="chip_lbl_year">Année</div>
+        <div class="chip-row" id="year-chips"></div>
+      </div>
+      <div class="chip-section">
+        <div class="chip-label" data-i18n="chip_lbl_season">Saison</div>
+        <div class="chip-row" id="season-chips"></div>
+      </div>
+    </div>
+
+    <!-- Open -->
+    <div class="date-panel" id="dp-open">
+      <div class="date-open-note" data-i18n="open_note">Pas de problème — vous pourrez préciser la date depuis votre tableau de bord. Indiquez une fourchette si vous en avez une.</div>
+      <div class="field">
+        <label data-i18n="lbl_hint">Fourchette indicative <span style="color:#ccc;text-transform:none;letter-spacing:0;font-size:10px">— optionnel</span></label>
+        <input id="d-hint" type="text" placeholder="ex : été 2027, début 2026…">
+      </div>
+    </div>
+
+    <div class="step-actions">
+      <button class="btn-back" onclick="goBack(3)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="btn_back">Retour</span>
+      </button>
+      <button class="btn-next" onclick="step3Next()">
+        <span data-i18n="btn_cont">Continuer</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step" id="step-4">
+    <div class="step-eye" data-i18n="s4_eye">Votre réception</div>
+    <h2 class="step-title" data-i18n="s4_title">Combien de convives ?</h2>
+    <p class="step-sub" data-i18n="s4_sub">Une fourchette suffit — elle personnalisera vos demandes de devis.</p>
+
+    <div class="guest-options">
+      <div class="g-opt" data-range="< 50" onclick="pickGuests(this)">
+        <div class="g-radio"><div class="g-radio-dot"></div></div>
+        <div class="g-info">
+          <div class="g-range" data-i18n="g1_range">Moins de 50 personnes</div>
+          <div class="g-tag"   data-i18n="g1_tag">Cérémonie intime</div>
+        </div>
+        <span class="g-badge" data-i18n="g1_badge">Intime</span>
+      </div>
+      <div class="g-opt" data-range="50–100" onclick="pickGuests(this)">
+        <div class="g-radio"><div class="g-radio-dot"></div></div>
+        <div class="g-info">
+          <div class="g-range" data-i18n="g2_range">50 à 100 personnes</div>
+          <div class="g-tag"   data-i18n="g2_tag">Mariage convivial</div>
+        </div>
+        <span class="g-badge" data-i18n="g2_badge">Convivial</span>
+      </div>
+      <div class="g-opt" data-range="100–200" onclick="pickGuests(this)">
+        <div class="g-radio"><div class="g-radio-dot"></div></div>
+        <div class="g-info">
+          <div class="g-range" data-i18n="g3_range">100 à 200 personnes</div>
+          <div class="g-tag"   data-i18n="g3_tag">Grand mariage</div>
+        </div>
+        <span class="g-badge" data-i18n="g3_badge">Grand</span>
+      </div>
+      <div class="g-opt" data-range="200–500" onclick="pickGuests(this)">
+        <div class="g-radio"><div class="g-radio-dot"></div></div>
+        <div class="g-info">
+          <div class="g-range" data-i18n="g4_range">200 à 500 personnes</div>
+          <div class="g-tag"   data-i18n="g4_tag">Réception fastueuse</div>
+        </div>
+        <span class="g-badge" data-i18n="g4_badge">Fastueux</span>
+      </div>
+      <div class="g-opt" data-range="500+" onclick="pickGuests(this)">
+        <div class="g-radio"><div class="g-radio-dot"></div></div>
+        <div class="g-info">
+          <div class="g-range" data-i18n="g5_range">Plus de 500 personnes</div>
+          <div class="g-tag"   data-i18n="g5_tag">Grand événement</div>
+        </div>
+        <span class="g-badge" data-i18n="g5_badge">Événement</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label data-i18n="lbl_budget">Budget indicatif <span style="color:#ccc;font-size:10px;text-transform:none;letter-spacing:0">— optionnel</span></label>
+      <input id="inp-budget" type="text" placeholder="ex : 15 000 €">
+    </div>
+
+    <div class="step-actions">
+      <button class="btn-back" onclick="goBack(4)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg>
+        <span data-i18n="btn_back">Retour</span>
+      </button>
+      <button class="btn-next" onclick="finish()">
+        <span data-i18n="btn_start">Commencer</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20,6 9,17 4,12"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+</main>
+
+<script>
+  /* ── Translations ──────────────────────────────────────── */
+  const T = {
+    fr: {
+      page_title:  "Devis Mariages — Mon compte",
+      nav_back:    "Retour",
+      s1_eye:      "Bienvenue",
+      title_reg:   "Créer mon compte",
+      title_login: "Bon retour",
+      sub_reg:     "Votre profil pour contacter les lieux et personnaliser vos demandes.",
+      sub_login:   "Ravi de vous revoir — connectez-vous pour retrouver votre projet.",
+      tab_reg:     "Créer un compte",
+      tab_login:   "Se connecter",
+      lbl_name:    "Votre prénom",
+      ph_name:     "ex : Alice",
+      lbl_email:   "Adresse email",
+      ph_email:    "alice@example.com",
+      lbl_pwd:     "Mot de passe",
+      ph_pwd:      "Minimum 8 caractères",
+      btn_cont:    "Continuer",
+      btn_signin:  "Se connecter",
+      footer_reg:   "Déjà un compte ? <a href=\"#\" onclick=\"setMode('login');return false\">Se connecter →</a>",
+      footer_login: "Pas encore de compte ? <a href=\"#\" onclick=\"setMode('register');return false\">Créer le mien →</a>",
+      s2_eye:      "Votre mariage",
+      s2_title:    "Les heureux mariés",
+      s2_sub:      "Comment s'appelle votre futur(e) époux(se) ?",
+      lbl_partner: "Prénom de votre partenaire",
+      ph_partner:  "ex : Bob",
+      s3_eye:      "La date",
+      s3_title:    "Quand est le grand jour ?",
+      s3_sub:      "Précisez autant que vous souhaitez — une saison suffit.",
+      mode_precise:"Date précise",
+      mode_month:  "Mois",
+      mode_season: "Saison",
+      mode_open:   "Pas encore fixée",
+      lbl_day:     "Jour",
+      lbl_month_p: "Mois",
+      lbl_year_p:  "Année",
+      chip_lbl_year:   "Année",
+      chip_lbl_season: "Saison",
+      seasons: ["Printemps","Été","Automne","Hiver"],
+      months:  ["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],
+      open_note:   "Pas de problème — vous pourrez préciser la date depuis votre tableau de bord. Indiquez une fourchette si vous en avez une.",
+      lbl_hint:    "Fourchette indicative",
+      ph_hint:     "ex : été 2027, début 2026…",
+      s4_eye:      "Votre réception",
+      s4_title:    "Combien de convives ?",
+      s4_sub:      "Une fourchette suffit — elle personnalisera vos demandes de devis.",
+      g1_range:"Moins de 50 personnes", g1_tag:"Cérémonie intime",     g1_badge:"Intime",
+      g2_range:"50 à 100 personnes",    g2_tag:"Mariage convivial",    g2_badge:"Convivial",
+      g3_range:"100 à 200 personnes",   g3_tag:"Grand mariage",        g3_badge:"Grand",
+      g4_range:"200 à 500 personnes",   g4_tag:"Réception fastueuse",  g4_badge:"Fastueux",
+      g5_range:"Plus de 500 personnes", g5_tag:"Grand événement",      g5_badge:"Événement",
+      lbl_budget:  "Budget indicatif",
+      ph_budget:   "ex : 15 000 €",
+      btn_start:   "Commencer",
+      btn_back:    "Retour",
+      err_name:    "Veuillez entrer votre prénom.",
+      err_email:   "Adresse email invalide.",
+      err_pwd:     "Minimum 8 caractères.",
+      err_partner: "Veuillez entrer le prénom de votre partenaire.",
+    },
+    en: {
+      page_title:  "Devis Mariages — My account",
+      nav_back:    "Back",
+      s1_eye:      "Welcome",
+      title_reg:   "Create my account",
+      title_login: "Welcome back",
+      sub_reg:     "Your profile to contact venues and personalize your quote requests.",
+      sub_login:   "Good to see you — sign in to find your project.",
+      tab_reg:     "Create account",
+      tab_login:   "Sign in",
+      lbl_name:    "Your first name",
+      ph_name:     "e.g. Alice",
+      lbl_email:   "Email address",
+      ph_email:    "alice@example.com",
+      lbl_pwd:     "Password",
+      ph_pwd:      "Minimum 8 characters",
+      btn_cont:    "Continue",
+      btn_signin:  "Sign in",
+      footer_reg:   "Already have an account? <a href=\"#\" onclick=\"setMode('login');return false\">Sign in →</a>",
+      footer_login: "No account yet? <a href=\"#\" onclick=\"setMode('register');return false\">Create mine →</a>",
+      s2_eye:      "Your wedding",
+      s2_title:    "The happy couple",
+      s2_sub:      "What's your future spouse's name?",
+      lbl_partner: "Your partner's first name",
+      ph_partner:  "e.g. Bob",
+      s3_eye:      "The date",
+      s3_title:    "When is the big day?",
+      s3_sub:      "Be as specific as you like — a season is enough.",
+      mode_precise:"Exact date",
+      mode_month:  "Month",
+      mode_season: "Season",
+      mode_open:   "Not set yet",
+      lbl_day:     "Day",
+      lbl_month_p: "Month",
+      lbl_year_p:  "Year",
+      chip_lbl_year:   "Year",
+      chip_lbl_season: "Season",
+      seasons: ["Spring","Summer","Fall","Winter"],
+      months:  ["January","February","March","April","May","June","July","August","September","October","November","December"],
+      open_note:   "No problem — you can specify the date from your dashboard later. Add a rough timeframe if you have one.",
+      lbl_hint:    "Rough timeframe",
+      ph_hint:     "e.g. summer 2027, early 2026…",
+      s4_eye:      "Your reception",
+      s4_title:    "How many guests?",
+      s4_sub:      "A rough range is enough — it will personalize your quote requests.",
+      g1_range:"Under 50 guests",      g1_tag:"Intimate ceremony",   g1_badge:"Intimate",
+      g2_range:"50 to 100 guests",     g2_tag:"Friendly wedding",    g2_badge:"Friendly",
+      g3_range:"100 to 200 guests",    g3_tag:"Large wedding",       g3_badge:"Large",
+      g4_range:"200 to 500 guests",    g4_tag:"Lavish reception",    g4_badge:"Lavish",
+      g5_range:"Over 500 guests",      g5_tag:"Grand event",         g5_badge:"Grand",
+      lbl_budget:  "Estimated budget",
+      ph_budget:   "e.g. €15,000",
+      btn_start:   "Get started",
+      btn_back:    "Back",
+      err_name:    "Please enter your first name.",
+      err_email:   "Invalid email address.",
+      err_pwd:     "Minimum 8 characters.",
+      err_partner: "Please enter your partner's first name.",
+    }
+  };
+
+  /* ── State ─────────────────────────────────────────────── */
+  let currentLang    = 'fr';
+  let authMode       = 'register';
+  let dateMode       = 'precise';
+  let pickedSeasonKey = null; // 0=spring,1=summer,2=fall,3=winter
+  let pickedYear     = null;
+  let pickedGuests   = null;
+
+  /* ── i18n ──────────────────────────────────────────────── */
+  function setLang(lang) {
+    if (!T[lang]) return;
+    currentLang = lang;
+    document.title = T[lang].page_title;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const k = el.getAttribute('data-i18n');
+      if (T[lang][k] !== undefined) el.textContent = T[lang][k];
+    });
+
+    // Placeholders
+    const phs = { 'inp-name': 'ph_name', 'inp-email': 'ph_email', 'inp-pwd': 'ph_pwd',
+                  'inp-partner': 'ph_partner', 'd-hint': 'ph_hint', 'inp-budget': 'ph_budget' };
+    Object.entries(phs).forEach(([id, key]) => {
+      const el = document.getElementById(id);
+      if (el && T[lang][key]) el.placeholder = T[lang][key];
+    });
+
+    populateMonths(lang);
+    buildSeasonChips(lang);
+    setMode(authMode); // re-applies mode-specific strings in new language
+    localStorage.setItem('ob_lang', lang);
+  }
+
+  function loadLang() {
+    const params  = new URLSearchParams(window.location.search);
+    const urlLang = params.get('lang');
+    const saved   = localStorage.getItem('ob_lang');
+    const lang    = (urlLang && T[urlLang]) ? urlLang
+                  : (saved   && T[saved])   ? saved
+                  : 'fr';
+    setLang(lang);
+  }
+
+  /* ── Init ──────────────────────────────────────────────── */
+  (function init() {
+    const yr = new Date().getFullYear();
+
+    // Day options
+    const dayEl = document.getElementById('d-day');
+    dayEl.innerHTML = '<option value="">—</option>';
+    for (let d = 1; d <= 31; d++) {
+      const o = document.createElement('option');
+      o.textContent = o.value = d < 10 ? '0'+d : ''+d;
+      dayEl.appendChild(o);
+    }
+
+    // Year dropdowns
+    ['d-year-p','dm-year'].forEach(id => {
+      const el = document.getElementById(id);
+      el.innerHTML = '<option value="">—</option>';
+      for (let y = yr; y <= yr+5; y++) {
+        const o = document.createElement('option');
+        o.textContent = o.value = y;
+        el.appendChild(o);
+      }
+    });
+
+    // Year chips for season picker
+    const yc = document.getElementById('year-chips');
+    for (let y = yr; y <= yr+5; y++) {
+      const b = document.createElement('button');
+      b.className = 'chip'; b.textContent = y; b.dataset.year = y;
+      b.onclick = () => pickYear(b);
+      yc.appendChild(b);
+    }
+
+    // Restore saved profile
+    try {
+      const p = JSON.parse(localStorage.getItem('user_profile') || '{}');
+      if (p.name)  document.getElementById('inp-name').value  = p.name;
+      if (p.email) document.getElementById('inp-email').value = p.email;
+    } catch(e) {}
+
+    loadLang();
+  })();
+
+  function populateMonths(lang) {
+    const months = T[lang].months;
+    ['d-month','dm-month'].forEach(id => {
+      const el = document.getElementById(id);
+      const cur = el.value;
+      el.innerHTML = '<option value="">—</option>';
+      months.forEach((m, i) => {
+        const o = document.createElement('option');
+        o.value = i + 1; o.textContent = m;
+        el.appendChild(o);
+      });
+      el.value = cur;
+    });
+  }
+
+  function buildSeasonChips(lang) {
+    const container = document.getElementById('season-chips');
+    const seasons   = T[lang].seasons;
+    container.innerHTML = '';
+    seasons.forEach((label, idx) => {
+      const b = document.createElement('button');
+      b.className = 'chip' + (pickedSeasonKey === idx ? ' active' : '');
+      b.textContent = label;
+      b.dataset.idx = idx;
+      b.onclick = () => pickSeason(b);
+      container.appendChild(b);
+    });
+  }
+
+  /* ── Auth mode ─────────────────────────────────────────── */
+  function setMode(mode) {
+    authMode = mode;
+    const t   = T[currentLang];
+    const reg = mode === 'register';
+    document.getElementById('tab-reg').classList.toggle('active', reg);
+    document.getElementById('tab-login').classList.toggle('active', !reg);
+    document.getElementById('field-name').style.display = reg ? '' : 'none';
+    document.getElementById('s1-title').textContent = reg ? t.title_reg   : t.title_login;
+    document.getElementById('s1-sub').textContent   = reg ? t.sub_reg     : t.sub_login;
+    document.getElementById('s1-btn').textContent   = reg ? t.btn_cont    : t.btn_signin;
+    document.getElementById('s1-footer').innerHTML  = reg ? t.footer_reg  : t.footer_login;
+    document.getElementById('progress-bar').style.display = reg ? '' : 'none';
+    ['name','email','pwd'].forEach(clearErr);
+  }
+
+  /* ── Password eye ──────────────────────────────────────── */
+  function togglePwd() {
+    const inp  = document.getElementById('inp-pwd');
+    const show = inp.type === 'password';
+    inp.type = show ? 'text' : 'password';
+    document.getElementById('eye-icon').style.opacity = show ? '0.4' : '1';
+  }
+
+  /* ── Errors ────────────────────────────────────────────── */
+  function showErr(id, msg) {
+    const errEl = document.getElementById('err-'+id);
+    const inpEl = document.getElementById('inp-'+id);
+    if (errEl) errEl.textContent = msg;
+    if (inpEl) inpEl.classList.add('error');
+  }
+  function clearErr(id) {
+    const errEl = document.getElementById('err-'+id);
+    const inpEl = document.getElementById('inp-'+id);
+    if (errEl) errEl.textContent = '';
+    if (inpEl) inpEl.classList.remove('error');
+  }
+
+  /* ── Progress ──────────────────────────────────────────── */
+  function updateProgress(n) {
+    for (let i = 1; i <= 4; i++) {
+      document.getElementById('pd'+i).className = 'p-dot' + (i < n ? ' done' : i === n ? ' active' : '');
+      if (i < 4) document.getElementById('pl'+i).className = 'p-line' + (i < n ? ' done' : '');
+    }
+  }
+
+  /* ── Step transitions ──────────────────────────────────── */
+  function showStep(n, dir) {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active','back'));
+    document.getElementById('step-'+n).classList.add(dir === 'back' ? 'back' : 'active');
+    updateProgress(n);
+  }
+  function goBack(from) { showStep(from - 1, 'back'); }
+
+  /* ── Step 1 ────────────────────────────────────────────── */
+  function step1Next() {
+    const t     = T[currentLang];
+    const name  = document.getElementById('inp-name').value.trim();
+    const email = document.getElementById('inp-email').value.trim();
+    const pwd   = document.getElementById('inp-pwd').value;
+    let ok = true;
+
+    if (authMode === 'register' && !name) { showErr('name',  t.err_name);  ok = false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showErr('email', t.err_email); ok = false; }
+    if (!pwd || pwd.length < 8) { showErr('pwd', t.err_pwd); ok = false; }
+    if (!ok) return;
+
+    if (authMode === 'login') {
+      try { localStorage.setItem('user_profile', JSON.stringify({ name, email })); } catch(e) {}
+      window.location.href = 'index.html';
+      return;
+    }
+    document.getElementById('cp-you').textContent = name || 'Vous';
+    showStep(2);
+  }
+
+  /* ── Step 2 ────────────────────────────────────────────── */
+  function livePreview() {
+    const val = document.getElementById('inp-partner').value.trim();
+    const el  = document.getElementById('cp-partner');
+    el.textContent = val || '…';
+    el.classList.toggle('typed', val.length > 0);
+  }
+  function step2Next() {
+    const val = document.getElementById('inp-partner').value.trim();
+    if (!val) { showErr('partner', T[currentLang].err_partner); return; }
+    showStep(3);
+  }
+
+  /* ── Date ──────────────────────────────────────────────── */
+  function setDateMode(mode) {
+    dateMode = mode;
+    document.querySelectorAll('.mode-chip').forEach(c => c.classList.toggle('active', c.dataset.mode === mode));
+    document.querySelectorAll('.date-panel').forEach(p => p.classList.remove('visible'));
+    document.getElementById('dp-'+mode).classList.add('visible');
+  }
+
+  function pickYear(btn) {
+    pickedYear = btn.dataset.year;
+    document.querySelectorAll('#year-chips .chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function pickSeason(btn) {
+    pickedSeasonKey = parseInt(btn.dataset.idx, 10);
+    document.querySelectorAll('#season-chips .chip').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function getDateString() {
+    const t = T[currentLang];
+    if (dateMode === 'precise') {
+      const d = document.getElementById('d-day').value;
+      const mi = document.getElementById('d-month').value;
+      const y = document.getElementById('d-year-p').value;
+      const mLabel = mi ? t.months[parseInt(mi,10)-1] : '';
+      return [d, mLabel, y].filter(Boolean).join(' ') || '';
+    }
+    if (dateMode === 'month') {
+      const mi = document.getElementById('dm-month').value;
+      const y  = document.getElementById('dm-year').value;
+      const mLabel = mi ? t.months[parseInt(mi,10)-1] : '';
+      return [mLabel, y].filter(Boolean).join(' ') || '';
+    }
+    if (dateMode === 'season') {
+      const sLabel = pickedSeasonKey !== null ? t.seasons[pickedSeasonKey] : '';
+      return [sLabel, pickedYear].filter(Boolean).join(' ') || '';
+    }
+    if (dateMode === 'open') {
+      return document.getElementById('d-hint').value.trim() || '';
+    }
+    return '';
+  }
+
+  function step3Next() { showStep(4); }
+
+  /* ── Guests ────────────────────────────────────────────── */
+  function pickGuests(el) {
+    document.querySelectorAll('.g-opt').forEach(g => g.classList.remove('selected'));
+    el.classList.add('selected');
+    pickedGuests = el.dataset.range;
+  }
+
+  /* ── Finish ────────────────────────────────────────────── */
+  function finish() {
+    const name    = document.getElementById('inp-name').value.trim();
+    const email   = document.getElementById('inp-email').value.trim();
+    const partner = document.getElementById('inp-partner').value.trim();
+    const budget  = document.getElementById('inp-budget').value.trim();
+    const couple  = partner ? `${name} & ${partner}` : name;
+
+    try {
+      localStorage.setItem('user_profile',    JSON.stringify({ name, email }));
+      localStorage.setItem('wedding_project', JSON.stringify({
+        couple_name: couple,
+        event_date:  getDateString(),
+        guest_count: pickedGuests || '',
+        budget:      budget,
+        notes:       '',
+      }));
+      localStorage.setItem('dm_fresh_account', '1');
+      localStorage.setItem('activity_feed',    JSON.stringify([]));
+      localStorage.removeItem('venue_statuses');
+    } catch(e) {}
+
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>

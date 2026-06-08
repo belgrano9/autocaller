@@ -20,5 +20,7 @@ class Settings(BaseSettings):
     test_email: str = ""
     webhook_signing_key: str = ""
 
+    gemini_api_key: str = ""
+
 
 settings = Settings()
