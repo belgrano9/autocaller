@@ -22,5 +22,9 @@ class Settings(BaseSettings):
 
     gemini_api_key: str = ""
 
+    # Supervisor account — can always log in, auto-provisioned if missing
+    supervisor_email: str = ""
+    supervisor_password: str = ""
+
 
 settings = Settings()

@@ -680,7 +680,7 @@
     <div class="nav-links">
       <a href="#" data-i18n="nav_venues">Nos lieux</a>
       <a href="#" data-i18n="nav_how">Comment ça marche</a>
-      <div class="mode-toggle">
+      <div class="mode-toggle hidden" id="admin-mode-toggle">
         <span id="mode-dev" onclick="setMode('dev')">DEV</span>
         <span id="mode-int" onclick="setMode('int')">INT</span>
       </div>
@@ -1648,7 +1648,7 @@
         if (!res.ok) throw new Error(res.status);
         const data = await res.json();
 
-        userProfile     = { name: data.name, email: data.email };
+        userProfile     = { name: data.name, email: data.email, is_admin: !!data.is_admin };
         weddingProject  = data.wedding_project || null;
         venueStatuses   = data.venue_statuses || {};
         contactedVenues = data.contacted_venues || {};
@@ -1726,6 +1726,8 @@
     function loadProjectIntoUI() {
       const guestText = TRANSLATIONS[currentLang].nav_guest;
       const helloText = TRANSLATIONS[currentLang].nav_hello;
+      // DEV/INT mode toggle is supervisor-only
+      document.getElementById("admin-mode-toggle").classList.toggle("hidden", !(userProfile && userProfile.is_admin));
       if (userProfile) {
         document.getElementById("user-display").textContent = `${helloText}, ${userProfile.name.split(" ")[0]} ⚙️`;
       } else {

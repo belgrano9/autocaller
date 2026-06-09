@@ -3,11 +3,13 @@ Auth and Sync Router.
 Provides endpoints for login, registration, logout, and profile sync.
 """
 
+import hmac
 import json
 from typing import Dict, List, Optional
 from fastapi import APIRouter, Depends, Header, HTTPException
 from pydantic import BaseModel, EmailStr
 
+from app.config import settings
 from app.db import (
     create_session,
     create_user,
@@ -48,10 +50,17 @@ class UserResponse(BaseModel):
     email: str
     name: str
     token: Optional[str] = None
+    is_admin: bool = False
     wedding_project: Optional[dict] = None
     venue_statuses: Optional[dict] = None
     contacted_venues: Optional[dict] = None
     activity_feed: Optional[list] = None
+
+
+def is_supervisor(email: str) -> bool:
+    """True if the email matches the configured supervisor account."""
+    supervisor = settings.supervisor_email.strip().lower()
+    return bool(supervisor) and email.strip().lower() == supervisor
 
 # --- Auth Helper ---
 
@@ -101,6 +110,7 @@ def build_user_response(user: dict, token: str = None) -> UserResponse:
         email=user["email"],
         name=user["name"],
         token=token,
+        is_admin=is_supervisor(user["email"]),
         wedding_project=project,
         venue_statuses=statuses,
         contacted_venues=contacted,
@@ -113,7 +123,12 @@ def build_user_response(user: dict, token: str = None) -> UserResponse:
 async def register(req: RegisterRequest):
     """Registers a new user and generates a session token."""
     email = req.email.strip().lower()
-    
+
+    # The supervisor account is provisioned via login only — registering it
+    # would let anyone claim the admin flag
+    if is_supervisor(email):
+        raise HTTPException(status_code=400, detail="Cet email est déjà enregistré")
+
     # Check if user already exists
     existing = get_user_by_email(email)
     if existing:
@@ -130,13 +145,28 @@ async def register(req: RegisterRequest):
 
 @router.post("/auth/login", response_model=UserResponse)
 async def login(req: LoginRequest):
-    """Logs in an existing user and generates a session token."""
+    """Logs in an existing user and generates a session token.
+
+    The supervisor account (SUPERVISOR_EMAIL/SUPERVISOR_PASSWORD in .env) can
+    always log in: its password is checked against the configuration rather
+    than the database, and the user row is auto-provisioned if missing.
+    """
     email = req.email.strip().lower()
-    
+
+    if is_supervisor(email):
+        if not hmac.compare_digest(req.password, settings.supervisor_password):
+            raise HTTPException(status_code=400, detail="Identifiants incorrects")
+        user = get_user_by_email(email)
+        if not user:
+            create_user(email, "Supervisor", req.password)
+            user = get_user_by_email(email)
+        token = create_session(email)
+        return build_user_response(user, token)
+
     user = get_user_by_email(email)
     if not user or not verify_password(req.password, user["password_hash"]):
         raise HTTPException(status_code=400, detail="Identifiants incorrects")
-        
+
     token = create_session(email)
     return build_user_response(user, token)
 

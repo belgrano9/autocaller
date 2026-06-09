@@ -33,7 +33,7 @@ function clearAuthCache() {
 // cache so pages keep working offline; the server stays the source of truth.
 function cacheProfile(data) {
   try {
-    localStorage.setItem("user_profile", JSON.stringify({ name: data.name, email: data.email }));
+    localStorage.setItem("user_profile", JSON.stringify({ name: data.name, email: data.email, is_admin: !!data.is_admin }));
     if (data.wedding_project) localStorage.setItem("wedding_project", JSON.stringify(data.wedding_project));
     localStorage.setItem("venue_statuses", JSON.stringify(data.venue_statuses || {}));
     localStorage.setItem("contacted_venues", JSON.stringify(data.contacted_venues || {}));
