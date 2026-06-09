@@ -75,3 +75,24 @@ class VisualFormVerification(BaseModel):
     verification_notes: Optional[str] = Field(
         description="Explanation of corrections made, mismatches found, or reasons for verification failure."
     )
+
+class VenueCandidate(BaseModel):
+    """Represents a proposed new wedding venue sourced via grounded Gemini search."""
+    name: str = Field(
+        description="Official venue name, e.g. 'Château de Canisy'."
+    )
+    city: str = Field(
+        description="City or commune where the venue is located."
+    )
+    department: str = Field(
+        description="Two-digit French department code as a string, e.g. '14' or '04'."
+    )
+    region: str = Field(
+        description="Full official French region name, e.g. 'Normandie'."
+    )
+    type: str = Field(
+        description="Venue type, exactly one of: château, domaine, salle, ferme, manoir, atypique."
+    )
+    website: str = Field(
+        description="Official venue website URL (never a directory listing or social media page)."
+    )
