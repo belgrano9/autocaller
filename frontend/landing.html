@@ -634,7 +634,18 @@
   <span class="footer-meta" data-i18n="footer_meta">Île-de-France · 66 lieux · 2026</span>
 </footer>
 
+<script src="/auth.js"></script>
 <script>
+  // Redirect to dashboard when a valid session exists; stale tokens are cleared
+  (async () => {
+    if (!getToken()) return;
+    try {
+      const res = await authFetch("/api/user/profile", { on401: "ignore" });
+      if (res.ok) window.location.href = "/dashboard";
+      else if (res.status === 401) clearAuthCache();
+    } catch (e) { /* offline — stay on landing */ }
+  })();
+
   /* ── Translations ─────────────────────────────────────────── */
   const T = {
     fr: {

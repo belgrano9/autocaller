@@ -64,4 +64,8 @@ Thumbs.db
 screenshots/
 logs/
 
+# Runtime database & crash dumps
+db/users.db
+*.stackdump
+
 

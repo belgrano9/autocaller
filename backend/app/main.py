@@ -2,32 +2,37 @@ from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
-from app.routers import forms, mode, outreach, venues
+from app.db import init_db
+from app.routers import auth, forms, mode, outreach, venues
 
 app = FastAPI(title="Devis Mariages API", version="0.1.0")
+
+@app.on_event("startup")
+def startup():
+    init_db()
 
 app.include_router(venues.router, prefix="/api")
 app.include_router(outreach.router, prefix="/api")
 app.include_router(mode.router, prefix="/api")
 app.include_router(forms.router, prefix="/api")
-
-
-from fastapi.responses import FileResponse
+app.include_router(auth.router, prefix="/api")
 
 FRONTEND = Path(__file__).parent.parent.parent / "frontend"
-
 
 @app.get("/")
 @app.get("/fr")
 @app.get("/en")
-async def serve_index():
-    return FileResponse(FRONTEND / "index.html")
+async def serve_landing():
+    return FileResponse(FRONTEND / "landing.html")
 
+@app.get("/dashboard")
+async def serve_dashboard():
+    return FileResponse(FRONTEND / "index.html")
 
 @app.get("/api/health")
 async def health():
     return {"status": "ok"}
-
 
 app.mount("/", StaticFiles(directory=FRONTEND, html=True), name="frontend")

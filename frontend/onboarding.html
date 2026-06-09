@@ -149,6 +149,7 @@
     .btn-back:hover { border-color: var(--muted); color: var(--text); }
     .btn-next { display: flex; align-items: center; gap: 8px; padding: 11px 26px; background: var(--green-dark); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; transition: all 0.2s; }
     .btn-next:hover { background: var(--green); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: 0.6; cursor: wait; transform: none; }
     .btn-next.full { width: 100%; justify-content: center; }
     .step-footer { text-align: center; margin-top: 18px; font-size: 13px; color: var(--muted); }
     .step-footer a { color: var(--green); font-weight: 500; }
@@ -165,7 +166,7 @@
 
 <nav>
   <span class="nav-logo">Devis Mariages</span>
-  <a class="nav-back" href="Landing Page.html">
+  <a class="nav-back" href="/">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg>
     <span data-i18n="nav_back">Retour</span>
   </a>
@@ -404,6 +405,7 @@
 </div>
 </main>
 
+<script src="/auth.js"></script>
 <script>
   /* ── Translations ──────────────────────────────────────── */
   const T = {
@@ -465,6 +467,9 @@
       err_email:   "Adresse email invalide.",
       err_pwd:     "Minimum 8 caractères.",
       err_partner: "Veuillez entrer le prénom de votre partenaire.",
+      err_email_taken:  "Cet email est déjà enregistré.",
+      err_credentials:  "Identifiants incorrects.",
+      err_network:      "Erreur réseau — veuillez réessayer.",
     },
     en: {
       page_title:  "Devis Mariages — My account",
@@ -524,6 +529,9 @@
       err_email:   "Invalid email address.",
       err_pwd:     "Minimum 8 characters.",
       err_partner: "Please enter your partner's first name.",
+      err_email_taken:  "This email is already registered.",
+      err_credentials:  "Incorrect email or password.",
+      err_network:      "Network error — please try again.",
     }
   };
 
@@ -612,6 +620,9 @@
     } catch(e) {}
 
     loadLang();
+
+    // Expired sessions and "Se connecter" links land directly on the login tab
+    if (new URLSearchParams(window.location.search).get('mode') === 'login') setMode('login');
   })();
 
   function populateMonths(lang) {
@@ -698,7 +709,7 @@
   function goBack(from) { showStep(from - 1, 'back'); }
 
   /* ── Step 1 ────────────────────────────────────────────── */
-  function step1Next() {
+  async function step1Next() {
     const t     = T[currentLang];
     const name  = document.getElementById('inp-name').value.trim();
     const email = document.getElementById('inp-email').value.trim();
@@ -710,13 +721,44 @@
     if (!pwd || pwd.length < 8) { showErr('pwd', t.err_pwd); ok = false; }
     if (!ok) return;
 
-    if (authMode === 'login') {
-      try { localStorage.setItem('user_profile', JSON.stringify({ name, email })); } catch(e) {}
-      window.location.href = 'index.html';
-      return;
+    const btn = document.querySelector('#step-1 .btn-next');
+    btn.disabled = true;
+    try {
+      if (authMode === 'login') {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password: pwd }),
+        });
+        if (!res.ok) {
+          showErr('pwd', res.status === 400 ? t.err_credentials : t.err_network);
+          return;
+        }
+        const data = await res.json();
+        setToken(data.token);
+        cacheProfile(data);
+        window.location.href = '/dashboard';
+        return;
+      }
+
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password: pwd }),
+      });
+      if (!res.ok) {
+        showErr(res.status === 400 ? 'email' : 'pwd', res.status === 400 ? t.err_email_taken : t.err_network);
+        return;
+      }
+      const data = await res.json();
+      setToken(data.token);
+      document.getElementById('cp-you').textContent = name || 'Vous';
+      showStep(2);
+    } catch (e) {
+      showErr('pwd', t.err_network);
+    } finally {
+      btn.disabled = false;
     }
-    document.getElementById('cp-you').textContent = name || 'Vous';
-    showStep(2);
   }
 
   /* ── Step 2 ────────────────────────────────────────────── */
@@ -787,28 +829,48 @@
   }
 
   /* ── Finish ────────────────────────────────────────────── */
-  function finish() {
+  async function finish() {
     const name    = document.getElementById('inp-name').value.trim();
     const email   = document.getElementById('inp-email').value.trim();
     const partner = document.getElementById('inp-partner').value.trim();
     const budget  = document.getElementById('inp-budget').value.trim();
     const couple  = partner ? `${name} & ${partner}` : name;
 
+    const project = {
+      couple_name: couple,
+      event_date:  getDateString(),
+      guest_count: pickedGuests || '',
+      budget:      budget,
+      notes:       '',
+    };
+
+    const btn = document.querySelector('#step-4 .btn-next');
+    btn.disabled = true;
+    try {
+      await authFetch('/api/user/sync', {
+        method: 'POST',
+        body: JSON.stringify({
+          wedding_project:  project,
+          venue_statuses:   {},
+          contacted_venues: {},
+          activity_feed:    [],
+        }),
+      });
+    } catch (e) {
+      if (e.message === 'session_expired') return; // authFetch already redirected
+      // Offline: the localStorage cache below keeps the flow working; the
+      // dashboard re-syncs on the next successful request.
+    }
+
     try {
       localStorage.setItem('user_profile',    JSON.stringify({ name, email }));
-      localStorage.setItem('wedding_project', JSON.stringify({
-        couple_name: couple,
-        event_date:  getDateString(),
-        guest_count: pickedGuests || '',
-        budget:      budget,
-        notes:       '',
-      }));
+      localStorage.setItem('wedding_project', JSON.stringify(project));
       localStorage.setItem('dm_fresh_account', '1');
       localStorage.setItem('activity_feed',    JSON.stringify([]));
       localStorage.removeItem('venue_statuses');
     } catch(e) {}
 
-    window.location.href = 'index.html';
+    window.location.href = '/dashboard';
   }
 </script>
 </body>

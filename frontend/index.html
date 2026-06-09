@@ -339,6 +339,11 @@
     .venue-photo.type-salle    { background: repeating-linear-gradient(135deg, #f5ede4, #f5ede4 10px, #ecddd0 10px, #ecddd0 20px); }
     .venue-photo.type-ferme    { background: repeating-linear-gradient(135deg, #f0eadf, #f0eadf 10px, #e4d8c8 10px, #e4d8c8 20px); }
     .venue-photo.type-atypique { background: repeating-linear-gradient(135deg, #f0f0e8, #f0f0e8 10px, #e4e4d0 10px, #e4e4d0 20px); }
+    .venue-photo-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
 
     .photo-status-badge {
       position: absolute; top: 8px; right: 8px;
@@ -348,11 +353,15 @@
     .photo-status-badge.status-retained  { background: #b8975e; }
     .photo-status-badge.status-replied   { background: #d97706; }
     .photo-status-badge.status-contacted { background: rgba(44,94,67,0.82); }
-    .photo-form-badge {
+    .photo-contact-badge {
       position: absolute; bottom: 7px; left: 7px;
-      background: rgba(184,151,94,0.9); color: #fff;
+      color: #fff;
       font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 6px;
     }
+    .photo-contact-badge.badge-email-verified { background: rgba(44,94,67,0.9); }
+    .photo-contact-badge.badge-email          { background: rgba(122,112,104,0.9); }
+    .photo-contact-badge.badge-form           { background: rgba(184,151,94,0.9); }
+    .photo-contact-badge.badge-phone          { background: rgba(90,90,90,0.9); }
 
     .venue-card-body { padding: 9px 11px 11px; }
     .venue-card-name {
@@ -360,7 +369,9 @@
       line-height: 1.3; margin-bottom: 3px;
       overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
-    .venue-card-meta { font-size: 11px; color: #888; margin-bottom: 7px; }
+    .venue-card-meta { font-size: 11px; color: #888; margin-bottom: 4px; }
+    .venue-card-price { font-size: 10.5px; color: #a09488; margin-bottom: 7px; }
+    .venue-card-price span { font-style: italic; }
     .venue-card-meta a { color: #2d6a4f; text-decoration: none; }
     .venue-card-meta a:hover { text-decoration: underline; }
 
@@ -899,6 +910,7 @@
     </div>
   </div>
 
+  <script src="/auth.js"></script>
   <script>
     // ── Translation Dictionary ───────────────────────────────────────────────
     const TRANSLATIONS = {
@@ -918,7 +930,7 @@
         project_label_budget: "Budget",
         project_label_notes: "Informations complémentaires",
         project_footer_save: "Sauvegarde auto ✓",
-        project_footer_reset: "Réinitialiser le profil",
+        project_footer_reset: "Se déconnecter",
         project_placeholder_couple: "ex: Alice & Bob",
         project_placeholder_date: "ex: 15 Septembre 2026",
         project_placeholder_guests: "ex: 120",
@@ -955,6 +967,11 @@
         status_replied: "Répondu",
         status_retained: "Retenu",
         badge_form_only: "Formulaire web",
+        badge_email_verified: "Email ✓",
+        badge_email: "Email",
+        badge_phone_only: "Téléphone",
+        venue_price_label: "Prix estimé :",
+        venue_price_soon: "bientôt",
         map_title: "Carte · France",
         map_btn_clear: "← Tout",
         map_btn_zoom_in: "↓ Zoom IDF",
@@ -1012,7 +1029,7 @@
         modal_btn_cancel: "Annuler",
         modal_btn_confirm: "Confirmer l'envoi",
         modal_btn_sending: "Envoi en cours…",
-        alert_reset_confirm: "Voulez-vous réinitialiser votre profil et vos données de contact ?",
+        alert_reset_confirm: "Voulez-vous vous déconnecter ? Vos données restent sauvegardées sur votre compte.",
         alert_preview_err: "Erreur de chargement de l'aperçu",
         alert_send_err: "Erreur lors de l'envoi de l'email",
         alert_network_err: "Erreur réseau",
@@ -1033,7 +1050,7 @@
         project_label_budget: "Budget",
         project_label_notes: "Additional Info",
         project_footer_save: "Auto-saved ✓",
-        project_footer_reset: "Reset Profile",
+        project_footer_reset: "Log out",
         project_placeholder_couple: "e.g., Alice & Bob",
         project_placeholder_date: "e.g., September 15, 2026",
         project_placeholder_guests: "e.g., 120",
@@ -1070,6 +1087,11 @@
         status_replied: "Replied",
         status_retained: "Retained",
         badge_form_only: "Web form",
+        badge_email_verified: "Email ✓",
+        badge_email: "Email",
+        badge_phone_only: "Phone",
+        venue_price_label: "Estimated price:",
+        venue_price_soon: "soon",
         map_title: "Map · France",
         map_btn_clear: "← All",
         map_btn_zoom_in: "↓ Zoom Paris area",
@@ -1127,7 +1149,7 @@
         modal_btn_cancel: "Cancel",
         modal_btn_confirm: "Confirm Send",
         modal_btn_sending: "Sending…",
-        alert_reset_confirm: "Do you want to reset your profile and contact data?",
+        alert_reset_confirm: "Do you want to log out? Your data stays saved on your account.",
         alert_preview_err: "Error loading email preview",
         alert_send_err: "Error sending email",
         alert_network_err: "Network error",
@@ -1246,6 +1268,7 @@
       if (status === "none") delete venueStatuses[id];
       else venueStatuses[id] = status;
       localStorage.setItem("venue_statuses", JSON.stringify(venueStatuses));
+      syncToServer();
       updateContactStats();
       renderHexMap();
 
@@ -1339,7 +1362,8 @@
 
     // ── Render ────────────────────────────────────────────────────────────────
     function createVenueCard(venue) {
-      const { id, name, city, department, accepts_email, style_tags, website_url } = venue;
+      const { id, name, city, department, accepts_email, style_tags, website_url,
+              photo_url, email_verified, contact_method, estimated_price } = venue;
       const type = style_tags?.[0] ?? "";
       const typeKey = type ? `chip_${type}` : "";
       const typeLabel = TRANSLATIONS[currentLang][typeKey] ?? type;
@@ -1352,17 +1376,32 @@
 
       const actionLabel = status !== "none" ? t.venue_btn_resend : t.venue_btn_contact;
 
+      // Contact-method badge: ✓ only for verified emails (smtp_ok / mx_ok)
+      let contactBadge;
+      if (contact_method === "email") {
+        const verifiedOk = email_verified === "smtp_ok" || email_verified === "mx_ok";
+        contactBadge = verifiedOk
+          ? `<div class="photo-contact-badge badge-email-verified">${t.badge_email_verified}</div>`
+          : `<div class="photo-contact-badge badge-email">${t.badge_email}</div>`;
+      } else if (contact_method === "phone_only") {
+        contactBadge = `<div class="photo-contact-badge badge-phone">${t.badge_phone_only}</div>`;
+      } else {
+        contactBadge = `<div class="photo-contact-badge badge-form">${t.badge_form_only}</div>`;
+      }
+
       card.innerHTML = `
         <div class="venue-photo type-${type}">
+          ${photo_url ? `<img class="venue-photo-img" src="${photo_url}" alt="" loading="lazy" onerror="this.remove()">` : ""}
           <span class="venue-photo-label">${typeLabel}</span>
           ${status !== "none" ? `<div class="photo-status-badge status-${status}">${t[`status_${status}`]}</div>` : ""}
-          ${!accepts_email ? `<div class="photo-form-badge">${t.badge_form_only}</div>` : ""}
+          ${contactBadge}
         </div>
         <div class="venue-card-body">
           <div class="venue-card-name" title="${name}">${name}</div>
           <div class="venue-card-meta">
             ${city}${department ? ` · Dép. ${department}` : ""}${website_url ? ` · <a href="${website_url}" target="_blank" rel="noopener noreferrer">${t.venue_website}</a>` : ""}
           </div>
+          <div class="venue-card-price">${t.venue_price_label} <span>${estimated_price ?? t.venue_price_soon}</span></div>
           <div class="status-picker">
             ${STATUS_ORDER.map(s => `<button class="status-btn ${status === s ? "active" : ""}" data-status="${s}" title="${t[`status_${s}`]}">${STATUS_SHORT[currentLang][s]}</button>`).join("")}
           </div>
@@ -1595,15 +1634,41 @@
       setSelectedDept(null);
     }
 
-    // ── Onboarding Logic ──────────────────────────────────────────────────────
-    function checkOnboarding() {
-      const savedProfile = localStorage.getItem("user_profile");
-      const savedProject = localStorage.getItem("wedding_project");
-
-      if (!savedProfile || !savedProject) {
-        window.location.href = `onboarding.html?lang=${currentLang}`;
+    // ── Profile loading (server first, localStorage fallback) ────────────────
+    async function loadProfile() {
+      if (!getToken()) {
+        // No session: tolerate a pre-auth localStorage profile, else go to landing
+        if (loadLocalState()) return true;
+        window.location.href = "/";
         return false;
       }
+
+      try {
+        const res = await authFetch("/api/user/profile"); // 401 → authFetch redirects to login
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+
+        userProfile     = { name: data.name, email: data.email };
+        weddingProject  = data.wedding_project || null;
+        venueStatuses   = data.venue_statuses || {};
+        contactedVenues = data.contacted_venues || {};
+        activityFeed    = Array.isArray(data.activity_feed) ? data.activity_feed : [];
+        cacheProfile(data);
+
+        document.getElementById("project-card").classList.remove("hidden");
+        loadProjectIntoUI();
+        return true;
+      } catch (err) {
+        if (err.message === "session_expired") return false;
+        // Network failure → keep working from the cached localStorage state
+        return loadLocalState();
+      }
+    }
+
+    function loadLocalState() {
+      const savedProfile = localStorage.getItem("user_profile");
+      const savedProject = localStorage.getItem("wedding_project");
+      if (!savedProfile || !savedProject) return false;
 
       document.getElementById("project-card").classList.remove("hidden");
 
@@ -1623,16 +1688,38 @@
         for (const id of Object.keys(contactedVenues)) venueStatuses[id] = "contacted";
       }
       localStorage.setItem("venue_statuses", JSON.stringify(venueStatuses));
+      activityFeed = loadActivityFeed();
 
       loadProjectIntoUI();
       return true;
     }
 
-    function resetProfile() {
-      if (confirm(TRANSLATIONS[currentLang].alert_reset_confirm)) {
-        localStorage.clear();
-        window.location.reload();
-      }
+    // ── Server sync (debounced) ───────────────────────────────────────────────
+    let syncTimer = null;
+    function syncToServer() {
+      if (!getToken()) return;
+      if (syncTimer) clearTimeout(syncTimer);
+      syncTimer = setTimeout(async () => {
+        const payload = {
+          wedding_project: weddingProject || {
+            couple_name: userProfile ? userProfile.name : "Couple",
+            event_date: "", guest_count: "0", budget: "", notes: "",
+          },
+          venue_statuses:   venueStatuses,
+          contacted_venues: contactedVenues,
+          activity_feed:    activityFeed,
+        };
+        try {
+          await authFetch("/api/user/sync", { method: "POST", body: JSON.stringify(payload) });
+        } catch (e) { /* offline — localStorage cache holds state until the next sync */ }
+      }, 800);
+    }
+
+    async function resetProfile() {
+      if (!confirm(TRANSLATIONS[currentLang].alert_reset_confirm)) return;
+      try { await authFetch("/api/auth/logout", { method: "POST", on401: "ignore" }); } catch (e) {}
+      localStorage.clear();
+      window.location.href = "/";
     }
 
     // ── Wedding Project Panel ─────────────────────────────────────────────────
@@ -1724,8 +1811,9 @@
       };
       
       localStorage.setItem("wedding_project", JSON.stringify(weddingProject));
+      syncToServer();
       updateProjectSummaryText();
-      
+
       // Show auto-save indicator
       const indicator = document.getElementById("save-status");
       indicator.classList.add("visible");
@@ -1874,6 +1962,7 @@
     function recordOutreach(venue, kind) {
       contactedVenues[venue.id] = new Date().toISOString();
       localStorage.setItem("contacted_venues", JSON.stringify(contactedVenues));
+      syncToServer();
 
       if (venueStatus(venue.id) === "none") {
         setVenueStatus(venue.id, "contacted");
@@ -1907,6 +1996,7 @@
     function pushFeedItem(venueId, kind) {
       activityFeed = [{ venueId, kind, iso: new Date().toISOString() }, ...activityFeed].slice(0, MAX_FEED);
       localStorage.setItem("activity_feed", JSON.stringify(activityFeed));
+      syncToServer();
       renderActivityFeed(true);
     }
 
@@ -2280,8 +2370,8 @@
       // Initialize translation engine (URL / LS check)
       loadLanguage();
 
-      // Redirect to onboarding if no profile/project saved yet
-      if (!checkOnboarding()) return;
+      // Load profile from the server (falls back to localStorage, redirects if neither)
+      if (!(await loadProfile())) return;
 
       try {
         allVenues = await fetch("/api/venues").then(r => {
@@ -2290,7 +2380,6 @@
         });
         applyFilters();
         renderHexMap();
-        activityFeed = loadActivityFeed();
         renderActivityFeed();
       } catch (err) {
         document.getElementById("venue-list").innerHTML =
