@@ -93,9 +93,19 @@
       background: #e8f2ec; border-color: #c2d8cc; color: #2c5e43;
     }
     .map-zoom-btn.active { background: #fbf3e3; border-color: #e0c880; color: #8a6a20; }
+    .map-svg-wrap { position: relative; }
     .map-svg-wrap svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
     .map-svg-wrap .hex-tile { cursor: pointer; }
     .map-svg-wrap .hex-tile.no-venues { cursor: default; }
+    .hex-tooltip {
+      position: absolute; pointer-events: none; z-index: 5;
+      background: rgba(34, 30, 26, 0.92); color: #fff;
+      font-size: 10.5px; line-height: 1.35; padding: 5px 8px;
+      border-radius: 6px; white-space: nowrap;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+    }
+    .hex-tooltip strong { font-weight: 700; }
+    .hex-tooltip.hidden { display: none; }
     .map-legend { display: flex; gap: 12px; padding-top: 8px; flex-wrap: wrap; align-items: center; }
     .map-legend-item { display: flex; gap: 5px; align-items: center; font-size: 10.5px; color: #999; }
     .map-legend-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
@@ -792,7 +802,7 @@
           <span class="map-card-title" data-i18n="map_title">Carte · France</span>
           <div class="map-card-actions">
             <button id="map-clear-btn" class="map-clear-btn hidden" onclick="setSelectedDept(null)" data-i18n="map_btn_clear">← Tout</button>
-            <button id="map-zoom-btn" class="map-zoom-btn" onclick="toggleIdfMode()"></button>
+            <button id="map-zoom-btn" class="map-zoom-btn hidden" onclick="exitRegion()"></button>
           </div>
         </div>
         <div class="map-svg-wrap" id="hex-map"></div>
@@ -973,15 +983,17 @@
         venue_price_label: "Prix estimé :",
         venue_price_soon: "bientôt",
         map_title: "Carte · France",
+        map_title_prefix: "Carte",
         map_btn_clear: "← Tout",
-        map_btn_zoom_in: "↓ Zoom IDF",
-        map_btn_zoom_out: "↑ Toute la France",
+        map_btn_back: "← France",
         map_legend_contacted: "Contacté",
         map_legend_replied: "Répondu",
         map_legend_no_venues: "Sans lieu",
         map_legend_hint: "Cliquer pour filtrer",
+        map_legend_hint_zoom: "Cliquer pour zoomer",
         map_dept_venues_one: "lieu",
         map_dept_venues_many: "lieux",
+        map_tip_contacted: "contactés",
         feed_title: "Activité récente",
         feed_empty: "Aucune activité pour l'instant.",
         feed_action_contacted: "Contacté",
@@ -1093,15 +1105,17 @@
         venue_price_label: "Estimated price:",
         venue_price_soon: "soon",
         map_title: "Map · France",
+        map_title_prefix: "Map",
         map_btn_clear: "← All",
-        map_btn_zoom_in: "↓ Zoom Paris area",
-        map_btn_zoom_out: "↑ All of France",
+        map_btn_back: "← France",
         map_legend_contacted: "Contacted",
         map_legend_replied: "Replied",
         map_legend_no_venues: "No venues",
         map_legend_hint: "Click to filter",
+        map_legend_hint_zoom: "Click to zoom",
         map_dept_venues_one: "venue",
         map_dept_venues_many: "venues",
+        map_tip_contacted: "contacted",
         feed_title: "Recent activity",
         feed_empty: "No activity yet.",
         feed_action_contacted: "Contacted",
@@ -1161,7 +1175,7 @@
     const activeFilters = { type: "", contact: "" };
     let searchQuery = "";
     let selectedDept = null;
-    let idfMode = false;
+    let zoomRegion = null;  // region key when zoomed into a region, else null
 
     // User & Project state
     let userProfile = null;
@@ -1440,12 +1454,14 @@
 
     // ── Hex Map (France / IDF zoom) ───────────────────────────────────────────
     const HEX_FILLERS = [
+      { col: 8, row: 1 },
       { col: 4, row: 2 }, { col: 6, row: 2 },
       { col: 3, row: 3 }, { col: 5, row: 3 },
       { col: 3, row: 4 },
-      { col: 5, row: 5 },
+      { col: 5, row: 5 }, { col: 12, row: 5 },
       { col: 9, row: 6 }, { col: 10, row: 7 }, { col: 11, row: 7 },
       { col: 7, row: 8 }, { col: 10, row: 8 },
+      { col: 11, row: 9 },
       { col: 8, row: 10 },
     ];
 
@@ -1502,12 +1518,35 @@
       { id: "20", col: 13, row: 12, f: "#788070" },
     ];
 
-    const HEX_IDF_DEPTS = [
-      { id: "60", col: 1, row: 0, f: "#7da86a" }, { id: "95", col: 2, row: 0, f: "#c8a44e" },
-      { id: "78", col: 1, row: 1, f: "#c8a44e" }, { id: "93", col: 2, row: 1, f: "#c8a44e" },
-      { id: "92", col: 1, row: 2, f: "#c8a44e" }, { id: "75", col: 2, row: 2, f: "#c8a44e" }, { id: "77", col: 3, row: 2, f: "#c8a44e" },
-      { id: "91", col: 1, row: 3, f: "#c8a44e" }, { id: "94", col: 2, row: 3, f: "#c8a44e" },
-    ];
+    // Each HEX_DEPTS tile's fill color uniquely encodes its official region.
+    // Map color → region so the national/region views can be derived without
+    // hand-authoring a per-department region field.
+    const REGION_BY_COLOR = {
+      "#7da86a": { key: "hdf",  name: "Hauts-de-France" },
+      "#68a060": { key: "nor",  name: "Normandie" },
+      "#c4784a": { key: "ge",   name: "Grand Est" },
+      "#c8a44e": { key: "idf",  name: "Île-de-France" },
+      "#4e8a8a": { key: "bre",  name: "Bretagne" },
+      "#7ab858": { key: "pdl",  name: "Pays de la Loire" },
+      "#a89850": { key: "cvl",  name: "Centre-Val de Loire" },
+      "#8068b0": { key: "bfc",  name: "Bourgogne-Franche-Comté" },
+      "#a86848": { key: "na",   name: "Nouvelle-Aquitaine" },
+      "#4870a8": { key: "ara",  name: "Auvergne-Rhône-Alpes" },
+      "#b06080": { key: "occ",  name: "Occitanie" },
+      "#5080b0": { key: "paca", name: "Provence-Alpes-Côte d'Azur" },
+      "#788070": { key: "cor",  name: "Corse" },
+    };
+
+    // REGIONS[key] = { name, depts: [ids…] } ; DEPT_REGION[deptId] = key
+    const REGIONS = {};
+    const DEPT_REGION = {};
+    HEX_DEPTS.forEach(d => {
+      const r = REGION_BY_COLOR[d.f];
+      if (!r) return;
+      DEPT_REGION[d.id] = r.key;
+      if (!REGIONS[r.key]) REGIONS[r.key] = { name: r.name, depts: [] };
+      REGIONS[r.key].depts.push(d.id);
+    });
 
     function hexHelpers(R, ML, MT) {
       const HW = R * Math.sqrt(3);
@@ -1543,13 +1582,19 @@
       return `<polygon points="${helpers.pts(col, row)}" fill="#c8bfaf" fill-opacity="0.45" stroke="#b8a890" stroke-width="0.6" style="pointer-events:none" />`;
     }
 
-    function hexTileSvg(d, R, helpers, counts, contacted) {
+    function hexTileSvg(d, R, helpers, counts, contacted, maxCount, regionCounts) {
       const { cx, cy, pts } = helpers;
       const count = counts[d.id] || 0;
       const numContacted = contacted[d.id] || 0;
       const progress = count > 0 ? numContacted / count : 0;
       const isSel = selectedDept === d.id;
       const hasVenues = count > 0;
+      const regionKey = DEPT_REGION[d.id] || "";
+      const regionActive = (regionCounts[regionKey] || 0) > 0;
+      // Density: keep the region hue, modulate opacity by venue count (sqrt keeps
+      // small counts legible); empty departments render as a faint outline.
+      const density = maxCount > 0 ? Math.sqrt(count / maxCount) : 0;
+      const fillOpacity = hasVenues ? (0.45 + 0.55 * density).toFixed(2) : 0.14;
       const t = TRANSLATIONS[currentLang];
       const x0 = cx(d.col, d.row), y0 = cy(d.row);
       const r = R - 3.5;
@@ -1558,8 +1603,8 @@
         return `${(x0 + r * Math.cos(a)).toFixed(1)},${(y0 + r * Math.sin(a)).toFixed(1)}`;
       }).join(" ");
 
-      let svg = `<g class="hex-tile ${hasVenues ? "" : "no-venues"}" data-dept="${d.id}" data-has-venues="${hasVenues ? "1" : "0"}">`;
-      svg += `<polygon points="${pts(d.col, d.row)}" fill="${d.f}" fill-opacity="${hasVenues ? 1 : 0.68}" stroke="${isSel ? "#b8975e" : "#9a8a6a"}" stroke-width="${isSel ? 2.2 : 0.7}" />`;
+      let svg = `<g class="hex-tile ${hasVenues ? "" : "no-venues"}" data-dept="${d.id}" data-has-venues="${hasVenues ? "1" : "0"}" data-region="${regionKey}" data-region-active="${regionActive ? "1" : "0"}">`;
+      svg += `<polygon points="${pts(d.col, d.row)}" fill="${d.f}" fill-opacity="${fillOpacity}" stroke="${isSel ? "#b8975e" : "#9a8a6a"}" stroke-width="${isSel ? 2.2 : 0.7}" />`;
       if (progress > 0) {
         svg += `<polygon points="${pts(d.col, d.row)}" fill="#2c5e43" fill-opacity="${(progress * 0.35).toFixed(2)}" stroke="none" style="pointer-events:none" />`;
       }
@@ -1580,47 +1625,117 @@
       return svg;
     }
 
+    function regionVenueCounts(counts) {
+      const regionCounts = {};
+      HEX_DEPTS.forEach(d => {
+        const rk = DEPT_REGION[d.id];
+        if (rk) regionCounts[rk] = (regionCounts[rk] || 0) + (counts[d.id] || 0);
+      });
+      return regionCounts;
+    }
+
+    function hexTooltipText(deptId) {
+      const t = TRANSLATIONS[currentLang];
+      const count = deptVenueCounts()[deptId] || 0;
+      const numContacted = deptContactedCounts()[deptId] || 0;
+      const rk = DEPT_REGION[deptId];
+      const regionName = rk && REGIONS[rk] ? REGIONS[rk].name : "";
+      const venueLabel = count > 1 ? t.map_dept_venues_many : t.map_dept_venues_one;
+      return `<strong>${regionName}</strong><br>${deptId} · ${count} ${venueLabel} · ${numContacted} ${t.map_tip_contacted}`;
+    }
+
     function renderHexMap() {
       const wrap = document.getElementById("hex-map");
       if (!wrap) return;
       const counts = deptVenueCounts();
       const contacted = deptContactedCounts();
+      const regionCounts = regionVenueCounts(counts);
+      const t = TRANSLATIONS[currentLang];
       let svg;
 
-      if (idfMode) {
-        const IR = 34, IR_ML = 18, IR_MT = 14, W = 270, H = 228;
-        const helpers = hexHelpers(IR, IR_ML, IR_MT);
-        svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
-          + `<defs><pattern id="map-bg-idf" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#e8dece" /><path d="M0 5L5 0" stroke="#ddd2bf" stroke-width="0.3" /></pattern></defs>`
-          + `<rect width="${W}" height="${H}" rx="6" fill="url(#map-bg-idf)" />`
-          + `<rect width="${W}" height="${H}" rx="6" fill="none" stroke="#c4b49a" stroke-width="1" />`
-          + HEX_IDF_DEPTS.map(d => hexTileSvg(d, IR, helpers, counts, contacted)).join("")
+      if (zoomRegion && REGIONS[zoomRegion]) {
+        // Auto-framed region zoom: render the region's tiles at a larger radius and
+        // set the viewBox to their pixel bounding box (reuses hexHelpers geometry,
+        // preserves row-parity offsets, works for any region incl. single-tile Corse).
+        const subset = HEX_DEPTS.filter(d => DEPT_REGION[d.id] === zoomRegion);
+        const ZR = 30, pad = 12;
+        const helpers = hexHelpers(ZR, 0, 0);
+        let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+        subset.forEach(d => {
+          const x = helpers.cx(d.col, d.row), y = helpers.cy(d.row);
+          minX = Math.min(minX, x - ZR); maxX = Math.max(maxX, x + ZR);
+          minY = Math.min(minY, y - ZR); maxY = Math.max(maxY, y + ZR);
+        });
+        minX -= pad; minY -= pad; maxX += pad; maxY += pad;
+        const vbW = maxX - minX, vbH = maxY - minY;
+        const dispW = 286, dispH = Math.round(dispW * vbH / vbW);
+        const maxCount = Math.max(1, ...subset.map(d => counts[d.id] || 0));
+        svg = `<svg width="${dispW}" height="${dispH}" viewBox="${minX.toFixed(1)} ${minY.toFixed(1)} ${vbW.toFixed(1)} ${vbH.toFixed(1)}">`
+          + `<defs><pattern id="map-bg-rg" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#e8dece" /><path d="M0 5L5 0" stroke="#ddd2bf" stroke-width="0.3" /></pattern></defs>`
+          + `<rect x="${minX.toFixed(1)}" y="${minY.toFixed(1)}" width="${vbW.toFixed(1)}" height="${vbH.toFixed(1)}" fill="url(#map-bg-rg)" />`
+          + subset.map(d => hexTileSvg(d, ZR, helpers, counts, contacted, maxCount, regionCounts)).join("")
           + `</svg>`;
       } else {
         const FR = 12, FR_ML = 11, FR_MT = 9, W = 310, H = 258;
         const helpers = hexHelpers(FR, FR_ML, FR_MT);
+        const maxCount = Math.max(1, ...HEX_DEPTS.map(d => counts[d.id] || 0));
         svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`
           + `<defs><pattern id="map-bg-fr" x="0" y="0" width="5" height="5" patternUnits="userSpaceOnUse"><rect width="5" height="5" fill="#e8dece" /><path d="M0 5L5 0" stroke="#ddd2bf" stroke-width="0.3" /></pattern></defs>`
           + `<rect width="${W}" height="${H}" rx="6" fill="url(#map-bg-fr)" />`
           + `<rect width="${W}" height="${H}" rx="6" fill="none" stroke="#c4b49a" stroke-width="1" />`
           + HEX_FILLERS.map(f => hexFillerSvg(f.col, f.row, helpers)).join("")
-          + HEX_DEPTS.map(d => hexTileSvg(d, FR, helpers, counts, contacted)).join("")
+          + HEX_DEPTS.map(d => hexTileSvg(d, FR, helpers, counts, contacted, maxCount, regionCounts)).join("")
           + `</svg>`;
       }
 
       wrap.innerHTML = svg;
-      wrap.querySelectorAll(".hex-tile[data-has-venues='1']").forEach(tile => {
-        tile.addEventListener("click", () => {
-          const id = tile.dataset.dept;
-          setSelectedDept(selectedDept === id ? null : id);
+      const tip = document.createElement("div");
+      tip.id = "hex-tooltip";
+      tip.className = "hex-tooltip hidden";
+      wrap.appendChild(tip);
+
+      if (zoomRegion) {
+        // Region view: click a department to filter the venue list.
+        wrap.querySelectorAll(".hex-tile[data-has-venues='1']").forEach(tile => {
+          tile.addEventListener("click", () => {
+            const id = tile.dataset.dept;
+            setSelectedDept(selectedDept === id ? null : id);
+          });
         });
-      });
+      } else {
+        // National view: click any department to zoom into its region.
+        wrap.querySelectorAll(".hex-tile[data-region-active='1']").forEach(tile => {
+          tile.addEventListener("click", () => enterRegion(tile.dataset.region));
+        });
+      }
+
+      // Hover tooltip (idempotent handlers survive re-renders since wrap persists).
+      wrap.onmousemove = (e) => {
+        const tile = e.target.closest && e.target.closest(".hex-tile");
+        if (!tile) { tip.classList.add("hidden"); return; }
+        tip.innerHTML = hexTooltipText(tile.dataset.dept);
+        tip.classList.remove("hidden");
+        let x = e.clientX - wrap.getBoundingClientRect().left + 12;
+        let y = e.clientY - wrap.getBoundingClientRect().top + 12;
+        x = Math.min(x, wrap.clientWidth - tip.offsetWidth - 4);
+        y = Math.min(y, wrap.clientHeight - tip.offsetHeight - 4);
+        tip.style.left = Math.max(4, x) + "px";
+        tip.style.top = Math.max(4, y) + "px";
+      };
+      wrap.onmouseleave = () => tip.classList.add("hidden");
 
       document.getElementById("map-clear-btn").classList.toggle("hidden", !selectedDept);
-      const zoomBtn = document.getElementById("map-zoom-btn");
-      const t = TRANSLATIONS[currentLang];
-      zoomBtn.textContent = idfMode ? t.map_btn_zoom_out : t.map_btn_zoom_in;
-      zoomBtn.classList.toggle("active", idfMode);
+      const backBtn = document.getElementById("map-zoom-btn");
+      backBtn.textContent = t.map_btn_back;
+      backBtn.classList.toggle("hidden", !zoomRegion);
+      backBtn.classList.toggle("active", !!zoomRegion);
+
+      const title = document.querySelector(".map-card-title");
+      if (title) title.textContent = (zoomRegion && REGIONS[zoomRegion])
+        ? `${t.map_title_prefix} · ${REGIONS[zoomRegion].name}`
+        : t.map_title;
+      const hint = document.querySelector(".map-legend-hint");
+      if (hint) hint.textContent = zoomRegion ? t.map_legend_hint : t.map_legend_hint_zoom;
     }
 
     function setSelectedDept(deptId) {
@@ -1629,9 +1744,17 @@
       applyFilters();
     }
 
-    function toggleIdfMode() {
-      idfMode = !idfMode;
-      setSelectedDept(null);
+    function enterRegion(key) {
+      if (!key || !REGIONS[key]) return;
+      zoomRegion = key;
+      selectedDept = null;
+      renderHexMap();
+      applyFilters();
+    }
+
+    function exitRegion() {
+      zoomRegion = null;
+      setSelectedDept(null);  // clears filter, re-renders, re-applies filters
     }
 
     // ── Profile loading (server first, localStorage fallback) ────────────────
