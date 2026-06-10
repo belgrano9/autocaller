@@ -1,10 +1,13 @@
 import re
 from pathlib import Path
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from jinja2 import Environment, FileSystemLoader
 
+from app import db
 from app.config import settings
+from app.routers.auth import authenticate_session, is_supervisor
+from app.services import plans
 from app.services.email_provider import send_email
 
 router = APIRouter(prefix="/outreach", tags=["outreach"])
@@ -77,9 +80,34 @@ def preview_email(payload: OutreachPayload):
 
 
 @router.post("/send")
-async def send_outreach_email(payload: OutreachPayload):
+async def send_outreach_email(
+    payload: OutreachPayload,
+    user: dict = Depends(authenticate_session),
+):
     import app.services.email_provider as provider
     mode = provider.current_mode
+
+    # --- Tier send-cap enforcement (supervisor bypasses) ---
+    email = user["email"]
+    plan = plans.effective_plan(user)
+    quota = plans.quota_status(email, plan)
+    if not is_supervisor(email) and quota["remaining"] is not None and quota["remaining"] <= 0:
+        if payload.lang == "en":
+            cap_msg = (
+                "You've reached your free quota of 3 quote requests. Upgrade to send more."
+                if plan == "free"
+                else "You've reached your monthly quota of 15 quote requests. Upgrade for unlimited sends."
+            )
+        else:
+            cap_msg = (
+                "Vous avez atteint votre quota gratuit de 3 demandes de devis. Passez à un forfait supérieur pour en envoyer plus."
+                if plan == "free"
+                else "Vous avez atteint votre quota mensuel de 15 demandes de devis. Passez à la Conciergerie pour des envois illimités."
+            )
+        raise HTTPException(
+            status_code=402,
+            detail={"message": cap_msg, "reason": "quota_exceeded", "plan": plan},
+        )
 
     if not payload.venue_email and mode == "int":
         err_msg = (
@@ -125,4 +153,11 @@ async def send_outreach_email(payload: OutreachPayload):
     if not result.success:
         raise HTTPException(status_code=502, detail=result.error)
 
-    return {"success": True, "mode": result.mode, "sent_to": recipient}
+    db.record_quote_send(email, payload.venue_name)
+    quota_after = plans.quota_status(email, plan)
+    return {
+        "success": True,
+        "mode": result.mode,
+        "sent_to": recipient,
+        "quota": quota_after,
+    }

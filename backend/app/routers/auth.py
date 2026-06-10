@@ -19,6 +19,7 @@ from app.db import (
     sync_user_data,
     verify_password,
 )
+from app.services import plans
 
 router = APIRouter()
 
@@ -51,6 +52,12 @@ class UserResponse(BaseModel):
     name: str
     token: Optional[str] = None
     is_admin: bool = False
+    plan: str = "free"
+    plan_status: Optional[str] = None
+    plan_period_end: Optional[str] = None
+    sends_used: int = 0
+    sends_limit: Optional[int] = None      # None = unlimited
+    sends_remaining: Optional[int] = None  # None = unlimited
     wedding_project: Optional[dict] = None
     venue_statuses: Optional[dict] = None
     contacted_venues: Optional[dict] = None
@@ -106,11 +113,22 @@ def build_user_response(user: dict, token: str = None) -> UserResponse:
         except Exception:
             pass
 
+    # Supervisor is effectively unlimited; everyone else by their effective plan.
+    admin = is_supervisor(user["email"])
+    plan = "conciergerie" if admin else plans.effective_plan(user)
+    quota = plans.quota_status(user["email"], plan)
+
     return UserResponse(
         email=user["email"],
         name=user["name"],
         token=token,
-        is_admin=is_supervisor(user["email"]),
+        is_admin=admin,
+        plan=plan,
+        plan_status=user.get("plan_status"),
+        plan_period_end=user.get("plan_period_end"),
+        sends_used=quota["used"],
+        sends_limit=quota["limit"],
+        sends_remaining=quota["remaining"],
         wedding_project=project,
         venue_statuses=statuses,
         contacted_venues=contacted,

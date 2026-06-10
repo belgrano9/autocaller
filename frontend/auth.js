@@ -9,7 +9,12 @@ const DM_CACHE_KEYS = [
   "contacted_venues",
   "activity_feed",
   "dm_fresh_account",
+  "dm_plan",
 ];
+
+function getPlan() {
+  return localStorage.getItem("dm_plan") || "free";
+}
 
 function getToken() {
   return localStorage.getItem(DM_TOKEN_KEY);
@@ -34,6 +39,7 @@ function clearAuthCache() {
 function cacheProfile(data) {
   try {
     localStorage.setItem("user_profile", JSON.stringify({ name: data.name, email: data.email, is_admin: !!data.is_admin }));
+    localStorage.setItem("dm_plan", data.plan || "free");
     if (data.wedding_project) localStorage.setItem("wedding_project", JSON.stringify(data.wedding_project));
     localStorage.setItem("venue_statuses", JSON.stringify(data.venue_statuses || {}));
     localStorage.setItem("contacted_venues", JSON.stringify(data.contacted_venues || {}));

@@ -26,5 +26,12 @@ class Settings(BaseSettings):
     supervisor_email: str = ""
     supervisor_password: str = ""
 
+    # Stripe — subscription billing (test mode keys; never committed)
+    stripe_secret_key: str = ""
+    stripe_webhook_secret: str = ""
+    stripe_price_plus: str = ""          # recurring monthly Price ID — Plus tier
+    stripe_price_conciergerie: str = ""  # recurring monthly Price ID — Conciergerie tier
+    app_base_url: str = "http://localhost:8000"  # success/cancel/portal-return URLs
+
 
 settings = Settings()

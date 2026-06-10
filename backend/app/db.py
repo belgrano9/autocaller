@@ -7,7 +7,7 @@ import os
 import sqlite3
 import hashlib
 import uuid
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from loguru import logger
 
@@ -19,6 +19,12 @@ def get_db_connection() -> sqlite3.Connection:
     conn = sqlite3.connect(str(DB_PATH))
     conn.row_factory = sqlite3.Row
     return conn
+
+def _ensure_column(conn, table: str, column: str, decl: str):
+    """Additively adds a column if missing (existing DBs predate the column)."""
+    cols = {row["name"] for row in conn.execute(f"PRAGMA table_info({table})")}
+    if column not in cols:
+        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {decl}")
 
 def init_db():
     """Initializes the database schema if tables do not exist."""
@@ -47,6 +53,21 @@ def init_db():
                 email TEXT NOT NULL,
                 expires_at TIMESTAMP NOT NULL,
                 FOREIGN KEY(email) REFERENCES users(email) ON DELETE CASCADE
+            )
+        """)
+        # Billing columns — additive migration for pre-existing user rows
+        _ensure_column(conn, "users", "plan", "TEXT DEFAULT 'free'")
+        _ensure_column(conn, "users", "plan_status", "TEXT")
+        _ensure_column(conn, "users", "plan_period_end", "TEXT")
+        _ensure_column(conn, "users", "stripe_customer_id", "TEXT")
+        _ensure_column(conn, "users", "stripe_subscription_id", "TEXT")
+        # Quote-send log — source of truth for tier send caps
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS quote_sends (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT NOT NULL,
+                venue_name TEXT,
+                sent_at TEXT NOT NULL
             )
         """)
         conn.commit()
@@ -161,4 +182,68 @@ def sync_user_data(email: str, data: dict) -> bool:
         return True
     except Exception as e:
         logger.error(f"Error synchronizing user data for {email}: {e}")
+        return False
+
+# --- Billing / quote-send tracking ---
+
+def record_quote_send(email: str, venue_name: str | None):
+    """Logs a successful quote send — the source of truth for tier send caps."""
+    with get_db_connection() as conn:
+        conn.execute(
+            "INSERT INTO quote_sends (email, venue_name, sent_at) VALUES (?, ?, ?)",
+            # UTC-aware to match the month-window boundary in services/plans.py
+            (email.strip().lower(), venue_name, datetime.now(timezone.utc).isoformat()),
+        )
+        conn.commit()
+
+def count_quote_sends(email: str, since: str | None = None) -> int:
+    """Counts quote sends for a user — total, or since an ISO datetime string."""
+    with get_db_connection() as conn:
+        if since:
+            row = conn.execute(
+                "SELECT COUNT(*) AS n FROM quote_sends WHERE email = ? AND sent_at >= ?",
+                (email.strip().lower(), since),
+            ).fetchone()
+        else:
+            row = conn.execute(
+                "SELECT COUNT(*) AS n FROM quote_sends WHERE email = ?",
+                (email.strip().lower(),),
+            ).fetchone()
+        return row["n"] if row else 0
+
+def get_user_by_stripe_customer(customer_id: str) -> dict | None:
+    """Retrieves a user by their Stripe customer id (webhook lookups)."""
+    try:
+        with get_db_connection() as conn:
+            row = conn.execute(
+                "SELECT * FROM users WHERE stripe_customer_id = ?", (customer_id,)
+            ).fetchone()
+            if row:
+                return dict(row)
+    except Exception as e:
+        logger.error(f"Error fetching user by stripe customer {customer_id}: {e}")
+    return None
+
+def set_billing(email: str, **fields) -> bool:
+    """Partial-update of billing columns. Only provided keys are written.
+
+    Allowed: plan, plan_status, plan_period_end, stripe_customer_id,
+    stripe_subscription_id.
+    """
+    allowed = {
+        "plan", "plan_status", "plan_period_end",
+        "stripe_customer_id", "stripe_subscription_id",
+    }
+    updates = {k: v for k, v in fields.items() if k in allowed}
+    if not updates:
+        return False
+    set_clause = ", ".join(f"{k} = ?" for k in updates)
+    params = list(updates.values()) + [email.strip().lower()]
+    try:
+        with get_db_connection() as conn:
+            conn.execute(f"UPDATE users SET {set_clause} WHERE email = ?", params)
+            conn.commit()
+        return True
+    except Exception as e:
+        logger.error(f"Error updating billing for {email}: {e}")
         return False

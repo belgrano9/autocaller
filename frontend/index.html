@@ -681,6 +681,49 @@
       color: #2c5e43;
       box-shadow: 0 1px 3px rgba(0,0,0,0.12);
     }
+
+    /* Plan badge in nav */
+    .nav-plan {
+      border: 1px solid #d8b24a; color: #8a6d1e; background: #fbf4df;
+      border-radius: 999px; padding: 5px 12px; font-size: 12px; font-weight: 700;
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    .nav-plan:hover { background: #f6ebcb; }
+
+    /* Pricing modal */
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+      padding: 0 24px 24px;
+    }
+    @media (max-width: 760px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .tier-card {
+      border: 1px solid #e5e1da; border-radius: 14px; padding: 20px;
+      display: flex; flex-direction: column; background: #fff;
+    }
+    .tier-featured { border-color: #2c5e43; box-shadow: 0 4px 18px rgba(44,94,67,0.12); }
+    .tier-card.current { border-color: #d8b24a; background: #fffdf6; }
+    .tier-name { font-weight: 800; font-size: 16px; color: #2c5e43; }
+    .tier-price { font-size: 28px; font-weight: 800; margin: 8px 0 2px; }
+    .tier-price small { font-size: 13px; font-weight: 600; color: #888; }
+    .tier-tagline { font-size: 13px; color: #777; margin-bottom: 14px; }
+    .tier-feats { list-style: none; padding: 0; margin: 0 0 18px; flex: 1; }
+    .tier-feats li { font-size: 13px; color: #444; padding: 6px 0 6px 20px; position: relative; }
+    .tier-feats li::before { content: "✓"; color: #2c5e43; position: absolute; left: 0; font-weight: 700; }
+    .tier-soon {
+      display: inline-block; font-size: 10px; font-weight: 700; color: #8a6d1e;
+      background: #fbf4df; border-radius: 999px; padding: 1px 7px; margin-left: 4px;
+      vertical-align: middle;
+    }
+    .tier-cta {
+      padding: 11px 16px; border-radius: 9px; font-weight: 700; font-size: 13px;
+      cursor: pointer; border: 1px solid #2c5e43; background: #2c5e43; color: #fff;
+      transition: background 0.2s;
+    }
+    .tier-cta:hover { background: #224933; }
+    .tier-cta.is-current {
+      background: #f1efe9; color: #888; border-color: #ddd; cursor: default;
+    }
+    .tier-cta.is-manage { background: #fff; color: #2c5e43; }
   </style>
 </head>
 <body>
@@ -698,6 +741,7 @@
         <span id="lang-fr" onclick="setLanguage('fr')">FR</span>
         <span id="lang-en" onclick="setLanguage('en')">EN</span>
       </div>
+      <a href="#" class="nav-plan hidden" id="plan-badge" onclick="openPricingModal(); return false;"></a>
       <a href="#" class="btn-login" id="user-display" onclick="resetProfile()">Mode Invité</a>
     </div>
   </nav>
@@ -852,6 +896,56 @@
       <div class="modal-actions">
         <button class="btn-modal-cancel" onclick="closePreviewModal()" data-i18n="modal_btn_cancel">Annuler</button>
         <button class="btn-modal-send" id="btn-confirm-send" onclick="sendOutreachEmail()" data-i18n="modal_btn_confirm">Confirmer l'envoi</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing / tiers modal -->
+  <div id="pricing-modal" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width:920px">
+      <div class="modal-header">
+        <h3 data-i18n="pricing_title">Choisissez votre forfait</h3>
+        <button class="modal-close" onclick="closePricingModal()">&times;</button>
+      </div>
+      <p class="project-sub" id="pricing-subtitle" style="margin:0 0 18px" data-i18n="pricing_subtitle">Envoyez plus de demandes et centralisez vos réponses.</p>
+      <div class="modal-warning hidden" id="pricing-cap-warning" style="margin-bottom:16px">
+        ⚠️ <span id="pricing-cap-text"></span>
+      </div>
+      <div class="pricing-grid">
+        <!-- Découverte / Free -->
+        <div class="tier-card" data-plan="free">
+          <div class="tier-name" data-i18n="plan_free_name">Découverte</div>
+          <div class="tier-price"><span data-i18n="plan_free_price">0 €</span><small data-i18n="plan_price_suffix">/mois</small></div>
+          <div class="tier-tagline" data-i18n="plan_free_tagline">Pour commencer</div>
+          <ul class="tier-feats">
+            <li data-i18n="feat_browse">Accès à tous les lieux & à la carte</li>
+            <li data-i18n="feat_sends_free">3 demandes de devis (à vie)</li>
+          </ul>
+          <button class="tier-cta" data-plan-cta="free" onclick="choosePlan('free')"></button>
+        </div>
+        <!-- Plus -->
+        <div class="tier-card" data-plan="plus">
+          <div class="tier-name" data-i18n="plan_plus_name">Plus</div>
+          <div class="tier-price"><span data-i18n="plan_plus_price">9 €</span><small data-i18n="plan_price_suffix">/mois</small></div>
+          <div class="tier-tagline" data-i18n="plan_plus_tagline">Pour les recherches actives</div>
+          <ul class="tier-feats">
+            <li data-i18n="feat_sends_plus">15 demandes de devis / mois</li>
+            <li><span data-i18n="feat_compare">Comparaison & export des devis</span> <span class="tier-soon" data-i18n="badge_soon">Bientôt</span></li>
+          </ul>
+          <button class="tier-cta" data-plan-cta="plus" onclick="choosePlan('plus')"></button>
+        </div>
+        <!-- Conciergerie -->
+        <div class="tier-card tier-featured" data-plan="conciergerie">
+          <div class="tier-name" data-i18n="plan_conciergerie_name">Conciergerie</div>
+          <div class="tier-price"><span data-i18n="plan_conciergerie_price">19 €</span><small data-i18n="plan_price_suffix">/mois</small></div>
+          <div class="tier-tagline" data-i18n="plan_conciergerie_tagline">Tout, sans limite</div>
+          <ul class="tier-feats">
+            <li data-i18n="feat_sends_unlimited">Demandes de devis illimitées</li>
+            <li><span data-i18n="feat_compare">Comparaison & export des devis</span> <span class="tier-soon" data-i18n="badge_soon">Bientôt</span></li>
+            <li><span data-i18n="feat_inbox">Messagerie conciergerie intégrée</span> <span class="tier-soon" data-i18n="badge_soon">Bientôt</span></li>
+          </ul>
+          <button class="tier-cta" data-plan-cta="conciergerie" onclick="choosePlan('conciergerie')"></button>
+        </div>
       </div>
     </div>
   </div>
@@ -1045,6 +1139,35 @@
         alert_preview_err: "Erreur de chargement de l'aperçu",
         alert_send_err: "Erreur lors de l'envoi de l'email",
         alert_network_err: "Erreur réseau",
+        // Pricing / tiers
+        pricing_title: "Choisissez votre forfait",
+        pricing_subtitle: "Envoyez plus de demandes et centralisez vos réponses.",
+        plan_badge_label: "Forfait",
+        plan_free_name: "Découverte",
+        plan_plus_name: "Plus",
+        plan_conciergerie_name: "Conciergerie",
+        plan_free_price: "0 €",
+        plan_plus_price: "9 €",
+        plan_conciergerie_price: "19 €",
+        plan_price_suffix: "/mois",
+        plan_free_tagline: "Pour commencer",
+        plan_plus_tagline: "Pour les recherches actives",
+        plan_conciergerie_tagline: "Tout, sans limite",
+        feat_sends_free: "3 demandes de devis (à vie)",
+        feat_sends_plus: "15 demandes de devis / mois",
+        feat_sends_unlimited: "Demandes de devis illimitées",
+        feat_browse: "Accès à tous les lieux & à la carte",
+        feat_compare: "Comparaison & export des devis",
+        feat_inbox: "Messagerie conciergerie intégrée",
+        badge_soon: "Bientôt",
+        plan_cta_choose: "Choisir",
+        plan_cta_current: "Forfait actuel",
+        plan_cta_manage: "Gérer l'abonnement",
+        plan_upgrade_btn: "Améliorer mon forfait",
+        cap_title: "Quota d'envois atteint",
+        checkout_success: "Abonnement activé. Merci !",
+        checkout_canceled: "Paiement annulé.",
+        billing_err: "Erreur lors de l'ouverture de la facturation",
       },
       en: {
         page_title: "Wedding Quotes",
@@ -1167,6 +1290,35 @@
         alert_preview_err: "Error loading email preview",
         alert_send_err: "Error sending email",
         alert_network_err: "Network error",
+        // Pricing / tiers
+        pricing_title: "Choose your plan",
+        pricing_subtitle: "Send more requests and centralize your replies.",
+        plan_badge_label: "Plan",
+        plan_free_name: "Free",
+        plan_plus_name: "Plus",
+        plan_conciergerie_name: "Concierge",
+        plan_free_price: "€0",
+        plan_plus_price: "€9",
+        plan_conciergerie_price: "€19",
+        plan_price_suffix: "/mo",
+        plan_free_tagline: "To get started",
+        plan_plus_tagline: "For active searches",
+        plan_conciergerie_tagline: "Everything, no limits",
+        feat_sends_free: "3 quote requests (lifetime)",
+        feat_sends_plus: "15 quote requests / month",
+        feat_sends_unlimited: "Unlimited quote requests",
+        feat_browse: "All venues & map access",
+        feat_compare: "Quote comparison & export",
+        feat_inbox: "Built-in concierge inbox",
+        badge_soon: "Coming soon",
+        plan_cta_choose: "Choose",
+        plan_cta_current: "Current plan",
+        plan_cta_manage: "Manage subscription",
+        plan_upgrade_btn: "Upgrade plan",
+        cap_title: "Send quota reached",
+        checkout_success: "Subscription activated. Thank you!",
+        checkout_canceled: "Payment canceled.",
+        billing_err: "Error opening billing",
       }
     };
 
@@ -1243,6 +1395,9 @@
       applyFilters();
       renderHexMap();
       renderActivityFeed();
+      if (!document.getElementById("pricing-modal").classList.contains("hidden")) {
+        renderPricingModal();
+      }
     }
 
     function loadLanguage() {
@@ -1771,7 +1926,11 @@
         if (!res.ok) throw new Error(res.status);
         const data = await res.json();
 
-        userProfile     = { name: data.name, email: data.email, is_admin: !!data.is_admin };
+        userProfile     = {
+          name: data.name, email: data.email, is_admin: !!data.is_admin,
+          plan: data.plan || "free", plan_status: data.plan_status || null,
+          sends_remaining: data.sends_remaining, sends_limit: data.sends_limit,
+        };
         weddingProject  = data.wedding_project || null;
         venueStatuses   = data.venue_statuses || {};
         contactedVenues = data.contacted_venues || {};
@@ -1798,6 +1957,7 @@
       const savedContacted = localStorage.getItem("contacted_venues");
       const savedStatuses = localStorage.getItem("venue_statuses");
       userProfile = JSON.parse(savedProfile);
+      if (!userProfile.plan) userProfile.plan = getPlan();
       weddingProject = JSON.parse(savedProject);
       if (savedContacted) contactedVenues = JSON.parse(savedContacted);
 
@@ -1856,7 +2016,8 @@
       } else {
         document.getElementById("user-display").textContent = `${guestText} 👤`;
       }
-      
+      renderPlanUI();
+
       if (weddingProject) {
         document.getElementById("form-couple-name").value = weddingProject.couple_name || "";
         
@@ -2060,25 +2221,154 @@
       };
 
       try {
-        const res = await fetch("/api/outreach/send", {
+        const res = await authFetch("/api/outreach/send", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
         });
-        
+
         if (res.ok) {
+          const data = await res.json().catch(() => ({}));
+          if (data.quota && userProfile) {
+            userProfile.sends_remaining = data.quota.remaining;
+            userProfile.sends_limit = data.quota.limit;
+            renderPlanUI();
+          }
           recordOutreach(activeVenue, "email_sent");
           closePreviewModal();
+        } else if (res.status === 402) {
+          // Tier quota exhausted → steer the user to the pricing modal.
+          const err = await res.json().catch(() => ({}));
+          const msg = (err.detail && err.detail.message) || "";
+          closePreviewModal();
+          openPricingModal(msg);
         } else {
           const err = await res.json().catch(() => ({}));
-          alert(TRANSLATIONS[currentLang].alert_send_err + " : " + (err.detail ?? "Inconnue"));
+          const detail = (err.detail && err.detail.message) || err.detail || "Inconnue";
+          alert(TRANSLATIONS[currentLang].alert_send_err + " : " + detail);
           sendBtn.disabled = false;
           sendBtn.textContent = TRANSLATIONS[currentLang].modal_btn_confirm;
         }
       } catch (err) {
+        if (err.message === "session_expired") return;
         alert(TRANSLATIONS[currentLang].alert_network_err);
         sendBtn.disabled = false;
         sendBtn.textContent = TRANSLATIONS[currentLang].modal_btn_confirm;
+      }
+    }
+
+    // ── Pricing / subscription ────────────────────────────────────────────────
+    const PLAN_NAMES = () => ({
+      free: TRANSLATIONS[currentLang].plan_free_name,
+      plus: TRANSLATIONS[currentLang].plan_plus_name,
+      conciergerie: TRANSLATIONS[currentLang].plan_conciergerie_name,
+    });
+
+    // Nav plan badge — reflects the user's current tier.
+    function renderPlanUI() {
+      const badge = document.getElementById("plan-badge");
+      if (!badge) return;
+      const plan = (userProfile && userProfile.plan) || "free";
+      const t = TRANSLATIONS[currentLang];
+      badge.textContent = `${t.plan_badge_label} · ${PLAN_NAMES()[plan] || PLAN_NAMES().free}`;
+      badge.classList.toggle("hidden", !userProfile);
+    }
+
+    function openPricingModal(capMsg) {
+      const t = TRANSLATIONS[currentLang];
+      const warn = document.getElementById("pricing-cap-warning");
+      if (capMsg) {
+        document.getElementById("pricing-cap-text").textContent = capMsg;
+        warn.classList.remove("hidden");
+      } else {
+        warn.classList.add("hidden");
+      }
+      renderPricingModal();
+      document.getElementById("pricing-modal").classList.remove("hidden");
+    }
+
+    function closePricingModal() {
+      document.getElementById("pricing-modal").classList.add("hidden");
+    }
+
+    // Sets each tier card's CTA label/state from the user's current plan.
+    function renderPricingModal() {
+      const t = TRANSLATIONS[currentLang];
+      const plan = (userProfile && userProfile.plan) || "free";
+      document.querySelectorAll("#pricing-modal .tier-card").forEach(card => {
+        const cardPlan = card.dataset.plan;
+        const cta = card.querySelector(".tier-cta");
+        const isCurrent = cardPlan === plan;
+        const currentIsPaid = plan !== "free";
+        card.classList.toggle("current", isCurrent);
+        cta.classList.remove("is-current", "is-manage");
+        cta.disabled = false;
+        if (isCurrent) {
+          cta.textContent = t.plan_cta_current;
+          cta.classList.add("is-current");
+          cta.disabled = true;
+        } else if (cardPlan === "free" || currentIsPaid) {
+          // Already subscribed → cancel (→free) or swap tiers happens in the
+          // Stripe portal, which avoids creating a duplicate subscription.
+          cta.textContent = t.plan_cta_manage;
+          cta.classList.add("is-manage");
+        } else {
+          // Free user upgrading for the first time → hosted Checkout.
+          cta.textContent = t.plan_cta_choose;
+        }
+      });
+    }
+
+    async function choosePlan(plan) {
+      const current = (userProfile && userProfile.plan) || "free";
+      if (plan === current) return;
+      // Any change while already subscribed (paid→paid swap, or downgrade to
+      // free) is handled by the Stripe portal so we never stack a second
+      // subscription on the customer. Only a first upgrade from free uses Checkout.
+      if (current !== "free" || plan === "free") { openBillingPortal(); return; }
+      try {
+        const res = await authFetch("/api/billing/checkout", {
+          method: "POST", body: JSON.stringify({ plan })
+        });
+        if (res.ok) {
+          const d = await res.json();
+          window.location.href = d.url;  // Stripe-hosted Checkout
+        } else {
+          const e = await res.json().catch(() => ({}));
+          alert(TRANSLATIONS[currentLang].billing_err + (e.detail ? " : " + e.detail : ""));
+        }
+      } catch (e) {
+        if (e.message !== "session_expired") alert(TRANSLATIONS[currentLang].billing_err);
+      }
+    }
+
+    async function openBillingPortal() {
+      try {
+        const res = await authFetch("/api/billing/portal", { method: "POST" });
+        if (res.ok) {
+          const d = await res.json();
+          window.location.href = d.url;  // Stripe customer portal
+        } else {
+          const e = await res.json().catch(() => ({}));
+          alert(TRANSLATIONS[currentLang].billing_err + (e.detail ? " : " + e.detail : ""));
+        }
+      } catch (e) {
+        if (e.message !== "session_expired") alert(TRANSLATIONS[currentLang].billing_err);
+      }
+    }
+
+    // Handles the ?checkout=success|cancel redirect back from Stripe. The webhook
+    // may lag the redirect, so re-fetch the profile once after a short delay.
+    function handleCheckoutReturn() {
+      const params = new URLSearchParams(window.location.search);
+      const status = params.get("checkout");
+      if (!status) return;
+      history.replaceState(null, "", window.location.pathname);
+      const t = TRANSLATIONS[currentLang];
+      if (status === "success") {
+        alert(t.checkout_success);
+        setTimeout(() => loadProfile(), 2500);
+      } else if (status === "cancel") {
+        alert(t.checkout_canceled);
       }
     }
 
@@ -2497,6 +2787,9 @@
 
       // Load profile from the server (falls back to localStorage, redirects if neither)
       if (!(await loadProfile())) return;
+
+      // Surface the result of a Stripe Checkout redirect (?checkout=success|cancel)
+      handleCheckoutReturn();
 
       try {
         allVenues = await fetch("/api/venues").then(r => {
