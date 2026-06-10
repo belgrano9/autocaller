@@ -694,6 +694,71 @@
     }
     .nav-plan:hover { background: #f6ebcb; }
 
+    /* User account dropdown (mirrors .choice-popover) */
+    .nav-account { position: relative; }
+    .user-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      z-index: 200;
+      background: #fff;
+      border: 1px solid #e9e5e0;
+      border-radius: 12px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.14), 0 1px 6px rgba(0,0,0,0.07);
+      overflow: hidden;
+      min-width: 220px;
+      animation: slideUp 0.14s ease;
+    }
+    .user-menu-header {
+      padding: 12px 14px;
+      border-bottom: 1px solid #f0ece7;
+      background: var(--green-light);
+    }
+    .user-menu-name  { font-family: var(--font-display); font-size: 16px; font-weight: 600; color: var(--green-dark); }
+    .user-menu-email { font-size: 11.5px; color: var(--muted); margin-top: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .user-menu-plan {
+      display: inline-block; margin-top: 7px;
+      border: 1px solid #d8b24a; color: #8a6d1e; background: #fbf4df;
+      border-radius: 999px; padding: 2px 9px; font-size: 10.5px; font-weight: 700;
+    }
+    .user-menu-body { padding: 5px 6px; }
+    .user-menu-item {
+      width: 100%; display: flex; align-items: center; gap: 10px;
+      padding: 9px 10px; background: none; border: none; border-radius: 7px;
+      cursor: pointer; text-align: left; font-family: inherit; font-size: 13.5px;
+      color: var(--ink); transition: background 0.12s;
+    }
+    .user-menu-item:hover { background: #eef4f0; }
+    .user-menu-item.danger { color: var(--red); }
+    .user-menu-item.danger:hover { background: #fbeae8; }
+    .user-menu-ico { width: 18px; text-align: center; font-size: 14px; }
+
+    /* Settings modal rows */
+    .settings-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 12px 0; border-bottom: 1px solid #f0ece7;
+    }
+    .settings-row:last-of-type { border-bottom: none; }
+    .settings-label { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .settings-value { font-size: 14px; color: var(--ink); }
+    .settings-manage-btn {
+      border: 1px solid var(--green); color: var(--green); background: #fff;
+      border-radius: 7px; padding: 5px 12px; font-size: 12px; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: all 0.15s;
+    }
+    .settings-manage-btn:hover { background: var(--green); color: #fff; }
+    .settings-lang { display: flex; gap: 6px; }
+    .settings-lang span {
+      padding: 4px 12px; border-radius: 7px; cursor: pointer; font-size: 12px; font-weight: 600;
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .settings-lang span.active { background: var(--green); border-color: var(--green); color: #fff; }
+    .settings-reset {
+      display: block; margin-top: 16px; text-align: center;
+      font-size: 12px; color: var(--red); cursor: pointer; text-decoration: none;
+    }
+    .settings-reset:hover { text-decoration: underline; }
+
     /* Pricing modal */
     .pricing-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
@@ -741,12 +806,28 @@
         <span id="mode-dev" onclick="setMode('dev')">DEV</span>
         <span id="mode-int" onclick="setMode('int')">INT</span>
       </div>
-      <div class="mode-toggle" style="background: #e9e5e0">
+      <div class="mode-toggle" id="lang-toggle" style="background: #e9e5e0">
         <span id="lang-fr" onclick="setLanguage('fr')">FR</span>
         <span id="lang-en" onclick="setLanguage('en')">EN</span>
       </div>
-      <a href="#" class="nav-plan hidden" id="plan-badge" onclick="openPricingModal(); return false;"></a>
-      <a href="#" class="btn-login" id="user-display" onclick="resetProfile()">Mode Invité</a>
+      <div class="nav-account" id="nav-account">
+        <a href="#" class="btn-login" id="user-display" onclick="onUserDisplayClick(event)">Mode Invité</a>
+        <div id="user-menu" class="user-menu hidden">
+          <div class="user-menu-header">
+            <div class="user-menu-name"  id="menu-name"></div>
+            <div class="user-menu-email" id="menu-email"></div>
+            <span class="user-menu-plan" id="menu-plan"></span>
+          </div>
+          <div class="user-menu-body">
+            <button class="user-menu-item" onclick="openSettingsModal()">
+              <span class="user-menu-ico">⚙</span><span data-i18n="menu_settings">Paramètres</span>
+            </button>
+            <button class="user-menu-item danger" onclick="logout()">
+              <span class="user-menu-ico">⏻</span><span data-i18n="menu_logout">Déconnexion</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -905,6 +986,39 @@
   </div>
 
   <!-- Pricing / tiers modal -->
+  <!-- Account settings modal -->
+  <div id="settings-modal" class="modal-overlay hidden">
+    <div class="modal-card" style="max-width:440px">
+      <div class="modal-header">
+        <h3 data-i18n="settings_title">Paramètres du compte</h3>
+        <button class="modal-close" onclick="closeSettingsModal()">&times;</button>
+      </div>
+      <div class="settings-row">
+        <span class="settings-label" data-i18n="settings_name_label">Nom</span>
+        <span class="settings-value" id="settings-name"></span>
+      </div>
+      <div class="settings-row">
+        <span class="settings-label" data-i18n="settings_email_label">Email</span>
+        <span class="settings-value" id="settings-email"></span>
+      </div>
+      <div class="settings-row">
+        <span class="settings-label" data-i18n="settings_plan_label">Forfait</span>
+        <span style="display:flex;align-items:center;gap:10px">
+          <span class="settings-value" id="settings-plan"></span>
+          <button class="settings-manage-btn" onclick="closeSettingsModal(); openPricingModal();" data-i18n="settings_manage">Gérer</button>
+        </span>
+      </div>
+      <div class="settings-row">
+        <span class="settings-label" data-i18n="settings_language_label">Langue</span>
+        <span class="settings-lang">
+          <span id="settings-lang-fr" onclick="setLanguage('fr'); renderSettingsModal();">FR</span>
+          <span id="settings-lang-en" onclick="setLanguage('en'); renderSettingsModal();">EN</span>
+        </span>
+      </div>
+      <a class="settings-reset" onclick="closeSettingsModal(); resetProfile();" data-i18n="settings_reset">Réinitialiser le profil</a>
+    </div>
+  </div>
+
   <div id="pricing-modal" class="modal-overlay hidden">
     <div class="modal-card" style="max-width:920px">
       <div class="modal-header">
@@ -1028,6 +1142,15 @@
         nav_how: "Comment ça marche",
         nav_guest: "Mode Invité",
         nav_hello: "Bonjour",
+        menu_settings: "Paramètres",
+        menu_logout: "Déconnexion",
+        settings_title: "Paramètres du compte",
+        settings_name_label: "Nom",
+        settings_email_label: "Email",
+        settings_plan_label: "Forfait",
+        settings_manage: "Gérer",
+        settings_language_label: "Langue",
+        settings_reset: "Réinitialiser le profil",
         project_card_title: "Mon Projet de Mariage",
         project_card_no_config: "Aucun projet configuré",
         project_card_btn_edit: "Modifier le projet",
@@ -1179,6 +1302,15 @@
         nav_how: "How it works",
         nav_guest: "Guest Mode",
         nav_hello: "Hello",
+        menu_settings: "Settings",
+        menu_logout: "Log out",
+        settings_title: "Account settings",
+        settings_name_label: "Name",
+        settings_email_label: "Email",
+        settings_plan_label: "Plan",
+        settings_manage: "Manage",
+        settings_language_label: "Language",
+        settings_reset: "Reset profile",
         project_card_title: "My Wedding Project",
         project_card_no_config: "No project configured",
         project_card_btn_edit: "Edit Project",
@@ -2118,6 +2250,53 @@
       window.location.href = "/";
     }
 
+    // ── Account menu & settings ───────────────────────────────────────────────
+    function onUserDisplayClick(e) {
+      e.preventDefault();
+      if (isGuest) return promptSignup();           // guests: name acts as a sign-up CTA
+      document.getElementById("user-menu").classList.toggle("hidden");
+    }
+
+    function closeUserMenu() {
+      document.getElementById("user-menu").classList.add("hidden");
+    }
+
+    // Clean logout (distinct from the destructive resetProfile): drop the session
+    // and cached profile but keep harmless prefs like language.
+    async function logout() {
+      try { await authFetch("/api/auth/logout", { method: "POST", on401: "ignore" }); } catch (e) {}
+      clearAuthCache();
+      window.location.href = "/";
+    }
+
+    function openSettingsModal() {
+      closeUserMenu();
+      renderSettingsModal();
+      document.getElementById("settings-modal").classList.remove("hidden");
+    }
+
+    function closeSettingsModal() {
+      document.getElementById("settings-modal").classList.add("hidden");
+    }
+
+    function renderSettingsModal() {
+      if (!userProfile) return;
+      document.getElementById("settings-name").textContent = userProfile.name || "";
+      document.getElementById("settings-email").textContent = userProfile.email || "";
+      const plan = userProfile.plan || "free";
+      document.getElementById("settings-plan").textContent = PLAN_NAMES()[plan] || PLAN_NAMES().free;
+      document.getElementById("settings-lang-fr").classList.toggle("active", currentLang === "fr");
+      document.getElementById("settings-lang-en").classList.toggle("active", currentLang === "en");
+    }
+
+    // Close the account dropdown when clicking anywhere outside it.
+    document.addEventListener("click", e => {
+      const menu = document.getElementById("user-menu");
+      if (menu && !menu.classList.contains("hidden") && !e.target.closest("#nav-account")) {
+        closeUserMenu();
+      }
+    });
+
     // ── Wedding Project Panel ─────────────────────────────────────────────────
     function loadProjectIntoUI() {
       const guestText = TRANSLATIONS[currentLang].nav_guest;
@@ -2126,9 +2305,16 @@
       document.getElementById("admin-mode-toggle").classList.toggle("hidden", !(userProfile && userProfile.is_admin));
       if (userProfile) {
         document.getElementById("user-display").textContent = `${helloText}, ${userProfile.name.split(" ")[0]} ⚙️`;
+        document.getElementById("menu-name").textContent = userProfile.name || "";
+        document.getElementById("menu-email").textContent = userProfile.email || "";
+      } else if (isGuest) {
+        document.getElementById("user-display").textContent = currentLang === "en" ? "Sign up" : "S'inscrire";
       } else {
         document.getElementById("user-display").textContent = `${guestText} 👤`;
       }
+      // Language lives in the settings modal for logged-in users; guests keep the
+      // navbar toggle since they have no account menu to reach it.
+      document.getElementById("lang-toggle").classList.toggle("hidden", !!userProfile);
       renderPlanUI();
 
       if (weddingProject) {
@@ -2378,7 +2564,8 @@
 
     // Nav plan badge — reflects the user's current tier.
     function renderPlanUI() {
-      const badge = document.getElementById("plan-badge");
+      // Plan now surfaces in the account dropdown header instead of a nav badge.
+      const badge = document.getElementById("menu-plan");
       if (!badge) return;
       const plan = (userProfile && userProfile.plan) || "free";
       const t = TRANSLATIONS[currentLang];
