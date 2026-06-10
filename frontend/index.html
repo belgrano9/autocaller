@@ -4,14 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Devis Mariages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: system-ui, sans-serif; background: #f9f9f9; color: #111; }
+    body { font-family: var(--font-body); background: var(--cream); color: var(--ink); }
 
     /* ── Navbar ── */
     nav {
       background: #fff;
-      border-bottom: 1px solid #e8e8e8;
+      border-bottom: 1px solid var(--border);
       padding: 0 5%;
       height: 56px;
       display: flex;
@@ -21,18 +25,18 @@
       top: 0;
       z-index: 10;
     }
-    .nav-logo { font-size: 17px; font-weight: 700; color: #2d6a4f; text-decoration: none; }
+    .nav-logo { font-size: 17px; font-weight: 700; color: var(--green); text-decoration: none; }
     .nav-links { display: flex; gap: 24px; align-items: center; }
     .nav-links a { font-size: 14px; color: #555; text-decoration: none; }
-    .nav-links a:hover { color: #2d6a4f; }
+    .nav-links a:hover { color: var(--green); }
     .nav-links .btn-login {
       padding: 6px 16px;
-      border: 1px solid #2d6a4f;
+      border: 1px solid var(--green);
       border-radius: 6px;
-      color: #2d6a4f;
+      color: var(--green);
       font-weight: 600;
     }
-    .nav-links .btn-login:hover { background: #2d6a4f; color: #fff; }
+    .nav-links .btn-login:hover { background: var(--green); color: #fff; }
 
     .mode-toggle {
       display: flex;
@@ -52,7 +56,7 @@
       transition: all 0.15s;
     }
     .mode-toggle span.active-dev  { background: #fff; color: #e67e22; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
-    .mode-toggle span.active-int  { background: #fff; color: #2d6a4f; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+    .mode-toggle span.active-int  { background: #fff; color: var(--green); box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
 
     /* ── Container ── */
     .container { width: 75%; margin: 36px auto; }
@@ -269,8 +273,8 @@
       transition: all 0.15s;
       white-space: nowrap;
     }
-    .chip:hover { border-color: #2d6a4f; color: #2d6a4f; }
-    .chip.active { background: #2d6a4f; border-color: #2d6a4f; color: #fff; }
+    .chip:hover { border-color: var(--green); color: var(--green); }
+    .chip.active { background: var(--green); border-color: var(--green); color: #fff; }
 
     .divider { width: 1px; background: #e0e0e0; align-self: stretch; margin: 0 4px; }
 
@@ -302,7 +306,7 @@
       width: 160px;
       transition: border-color 0.15s;
     }
-    .search-input:focus { border-color: #2d6a4f; }
+    .search-input:focus { border-color: var(--green); }
     .search-clear {
       position: absolute; right: 8px;
       background: none; border: none;
@@ -318,8 +322,8 @@
       gap: 14px;
     }
     .venue-card {
-      background: #fff;
-      border: 1.5px solid #e0e0e0;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 1px 5px rgba(0,0,0,0.05);
@@ -382,7 +386,7 @@
     .venue-card-meta { font-size: 11px; color: #888; margin-bottom: 4px; }
     .venue-card-price { font-size: 10.5px; color: #a09488; margin-bottom: 7px; }
     .venue-card-price span { font-style: italic; }
-    .venue-card-meta a { color: #2d6a4f; text-decoration: none; }
+    .venue-card-meta a { color: var(--green); text-decoration: none; }
     .venue-card-meta a:hover { text-decoration: underline; }
 
     .status-picker { display: flex; gap: 3px; margin-bottom: 8px; }
@@ -409,7 +413,7 @@
 
     button.venue-card-action {
       font-size: 10.5px; padding: 4px 10px;
-      background: #2d6a4f; color: #fff;
+      background: var(--green); color: #fff;
       border: none; border-radius: 6px;
       cursor: pointer; font-weight: 600;
       transition: background 0.2s;
@@ -421,7 +425,7 @@
 
     /* ── Global Updates ── */
     body { font-family: system-ui, sans-serif; background: #fcfbfa; color: #2c2c2c; }
-    .nav-logo { color: #2c5e43; font-family: system-ui, sans-serif; font-size: 19px; }
+    .nav-logo { color: #2c5e43; font-family: var(--font-display); font-weight: 600; font-size: 21px; }
     .nav-links .btn-login { border-color: #2c5e43; color: #2c5e43; transition: all 0.2s; }
     .nav-links .btn-login:hover { background: #2c5e43; color: #fff; }
     .mode-toggle span.active-int { color: #2c5e43; }
@@ -1334,6 +1338,12 @@
     let weddingProject = null;
     let contactedVenues = {};
     let venueStatuses = {};
+    // Captured at script-parse time, before loadLanguage() rewrites the URL to /fr|/en.
+    const GUEST_REQUESTED = new URLSearchParams(location.search).get("guest") === "1";
+    let isGuest = false;          // true when browsing the dashboard without an account
+    let guestRank = null;         // Map<venueId, stable random rank> for guest previews
+    const GUEST_VISIBLE = 5;      // crisp, interactive venues for guests
+    const GUEST_TEASER = 15;      // additional blurred "unlock" cards shown as a teaser
     let activeVenue = null;  // Venue currently open in preview modal
     let currentLang = "fr";
 
@@ -1384,7 +1394,8 @@
       // Update URL path dynamically using history.pushState without page reloads
       const cleanPath = `/${lang}`;
       if (window.location.pathname !== cleanPath) {
-        window.history.pushState(null, "", cleanPath);
+        // Preserve guest mode across the URL rewrite so reloads stay in guest mode.
+        window.history.pushState(null, "", cleanPath + (GUEST_REQUESTED ? "?guest=1" : ""));
       }
 
       // Save user language preference
@@ -1433,6 +1444,7 @@
     }
 
     function setVenueStatus(id, status) {
+      if (isGuest) return promptSignup();
       const prevStatus = venueStatus(id);
       if (status === "none") delete venueStatuses[id];
       else venueStatuses[id] = status;
@@ -1530,7 +1542,7 @@
     }
 
     // ── Render ────────────────────────────────────────────────────────────────
-    function createVenueCard(venue) {
+    function createVenueCard(venue, locked = false) {
       const { id, name, city, department, accepts_email, style_tags, website_url,
               photo_url, email_verified, contact_method, estimated_price } = venue;
       const type = style_tags?.[0] ?? "";
@@ -1583,6 +1595,22 @@
         </div>
       `;
 
+      // Guest teaser cards: blur the content and overlay an unlock prompt instead
+      // of wiring the real interactions.
+      if (locked) {
+        card.classList.add("venue-card--locked");
+        const inner = document.createElement("div");
+        inner.className = "venue-card-inner";
+        while (card.firstChild) inner.appendChild(card.firstChild);
+        card.appendChild(inner);
+        const lock = document.createElement("div");
+        lock.className = "venue-card-lock";
+        lock.innerHTML = `<div class="lock-icon">🔒</div><div>${guestText("Débloquer", "Unlock")}</div>`;
+        lock.addEventListener("click", promptSignup);
+        card.appendChild(lock);
+        return card;
+      }
+
       card.querySelectorAll(".status-btn").forEach(btn => {
         btn.addEventListener("click", e => {
           e.stopPropagation();
@@ -1603,6 +1631,24 @@
       }
       const grid = document.createElement("div");
       grid.className = "venue-grid";
+
+      if (isGuest) {
+        // Stable random ranking computed once, so the un-blurred picks don't
+        // reshuffle on every filter/search keystroke.
+        if (!guestRank) {
+          guestRank = new Map();
+          shuffleArray(allVenues.map(v => v.id)).forEach((id, i) => guestRank.set(id, i));
+        }
+        const ranked = [...venues].sort(
+          (a, b) => (guestRank.get(a.id) ?? 1e9) - (guestRank.get(b.id) ?? 1e9)
+        );
+        ranked.slice(0, GUEST_VISIBLE).forEach(v => grid.appendChild(createVenueCard(v, false)));
+        ranked.slice(GUEST_VISIBLE, GUEST_VISIBLE + GUEST_TEASER)
+              .forEach(v => grid.appendChild(createVenueCard(v, true)));
+        list.appendChild(grid);
+        return;
+      }
+
       venues.forEach(v => grid.appendChild(createVenueCard(v)));
       list.appendChild(grid);
     }
@@ -1912,8 +1958,75 @@
       setSelectedDept(null);  // clears filter, re-renders, re-applies filters
     }
 
+    // ── Guest mode helpers ───────────────────────────────────────────────────
+    function guestText(fr, en) { return currentLang === "en" ? en : fr; }
+
+    // Fisher-Yates shuffle returning a new array.
+    function shuffleArray(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // Any guest action that would mutate data sends them to sign up instead.
+    function promptSignup() {
+      window.location.href = "onboarding.html?lang=" + currentLang;
+    }
+
+    // Show the wedding project card but lock it behind a blurred sign-up overlay.
+    function lockProjectCard() {
+      const card = document.getElementById("project-card");
+      if (!card) return;
+      card.classList.remove("hidden");
+      const inner = document.createElement("div");
+      inner.className = "guest-locked-inner";
+      while (card.firstChild) inner.appendChild(card.firstChild);
+      card.appendChild(inner);
+      card.classList.add("guest-locked");
+      const overlay = document.createElement("div");
+      overlay.className = "guest-lock-overlay";
+      overlay.innerHTML =
+        `<div class="lock-icon">🔒</div>
+         <div class="lock-text">${guestText(
+           "Créez un compte gratuit pour planifier votre mariage",
+           "Create a free account to plan your wedding"
+         )}</div>
+         <a class="guest-lock-cta" href="onboarding.html?lang=${currentLang}">${guestText(
+           "Créer un compte", "Create account"
+         )}</a>`;
+      card.appendChild(overlay);
+    }
+
+    // Configure the dashboard chrome for a logged-out guest.
+    function enterGuestMode() {
+      lockProjectCard();
+      const ud = document.getElementById("user-display");
+      if (ud) {
+        ud.textContent = guestText("S'inscrire", "Sign up");
+        ud.setAttribute("onclick", "promptSignup(); return false;");
+        ud.href = "onboarding.html?lang=" + currentLang;
+      }
+    }
+
     // ── Profile loading (server first, localStorage fallback) ────────────────
     async function loadProfile() {
+      // Guest mode: anyone arriving via /dashboard?guest=1 gets a read-only preview
+      // (no account, no server calls). The project card is locked and venues are gated.
+      if (!getToken() && GUEST_REQUESTED) {
+        isGuest = true;
+        userProfile = null;
+        weddingProject = null;
+        venueStatuses = {};
+        contactedVenues = {};
+        activityFeed = [];
+        document.body.classList.add("guest-mode");
+        enterGuestMode();
+        return true;            // skip the redirect to "/"
+      }
+
       if (!getToken()) {
         // No session: tolerate a pre-auth localStorage profile, else go to landing
         if (loadLocalState()) return true;
@@ -2475,6 +2588,7 @@
     // ── Outreach choice popover ───────────────────────────────────────────────
     function openOutreachChoice(e, venue) {
       e.stopPropagation();
+      if (isGuest) return promptSignup();
       choiceVenue = venue;
       const t = TRANSLATIONS[currentLang];
 

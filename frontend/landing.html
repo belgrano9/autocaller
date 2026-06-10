@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Devis Mariages — Trouvez votre lieu de mariage idéal en Île-de-France</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css">
   <style>
     :root {
       --green:       #2c5e43;
@@ -27,7 +29,7 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
-    h1, h2, h3 { font-family: 'Cormorant Garamond', Georgia, serif; }
+    h1, h2, h3 { font-family: var(--font-display); }
     a { text-decoration: none; }
 
     /* ─── NAV ─────────────────────────────────────────── */
@@ -479,7 +481,7 @@
   <p class="hero-sub" data-i18n="hero_sub">Parcourez châteaux, domaines, fermes et lieux atypiques. Envoyez des demandes de devis personnalisées à chaque lieu en un seul clic.</p>
   <div class="hero-ctas">
     <a class="btn-primary" data-ob-link href="onboarding.html?lang=fr" data-i18n="btn_start">Commencer maintenant</a>
-    <a class="btn-outline" href="#types" data-i18n="btn_browse">Voir les lieux →</a>
+    <a class="btn-outline" href="/dashboard?guest=1" data-i18n="btn_guest">Explorer en invité →</a>
   </div>
 </section>
 
@@ -657,6 +659,7 @@
       hero_h1:       "Trouvez votre lieu<br><em>de mariage idéal</em>",
       hero_sub:      "Parcourez châteaux, domaines, fermes et lieux atypiques. Envoyez des demandes de devis personnalisées à chaque lieu en un seul clic.",
       btn_start:     "Commencer maintenant",
+      btn_guest:     "Explorer en invité →",
       btn_browse:    "Voir les lieux →",
       stat1_desc:    "Lieux référencés",
       stat2_desc:    "Types de lieux",
@@ -706,6 +709,7 @@
       hero_h1:       "Find your ideal<br><em>wedding venue</em>",
       hero_sub:      "Browse châteaux, estates, barns and unique venues. Send personalized quote requests to each venue in a single click.",
       btn_start:     "Get started",
+      btn_guest:     "Explore as guest →",
       btn_browse:    "Browse venues →",
       stat1_desc:    "Listed venues",
       stat2_desc:    "Venue types",

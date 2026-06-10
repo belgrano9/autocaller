@@ -1,0 +1,139 @@
+/* ============================================================================
+   theme.css — shared design tokens + base typography for Devis Mariages
+   Linked by landing.html, index.html (dashboard) and onboarding.html.
+   Single source of truth: refined forest-green + gold palette, Fraunces
+   display headings over DM Sans body, plus shared guest-mode lock styles.
+   ============================================================================ */
+
+:root {
+  /* ── Palette (refined forest green + gold) ── */
+  --green:        #2c5e43;   /* primary green                */
+  --green-dark:   #1e4430;   /* darker green for CTAs/hover  */
+  --green-light:  #e8f0ec;   /* light green tint / surfaces  */
+  --gold:         #b8975e;   /* accent gold                  */
+  --gold-soft:    #d8c39a;   /* soft gold for fills/borders  */
+  --cream:        #faf9f6;   /* off-white page background    */
+  --surface:      #ffffff;   /* card surfaces                */
+  --border:       #e8e3de;   /* light borders                */
+  --muted:        #7a7068;   /* muted gray-brown text        */
+  --ink:          #1a1a1a;   /* primary text                 */
+  --red:          #c0392b;   /* error                        */
+  --amber:        #d97706;   /* "replied" status (kept)      */
+
+  /* ── Typography ── */
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body:    'DM Sans', system-ui, -apple-system, sans-serif;
+
+  /* ── Shape ── */
+  --radius:       14px;
+  --radius-sm:    8px;
+  --shadow:       0 1px 3px rgba(0,0,0,.06), 0 8px 24px rgba(30,68,48,.05);
+  --shadow-soft:  0 1px 2px rgba(0,0,0,.04);
+}
+
+/* ── Base typography ──
+   Headings adopt the Fraunces display face; body stays DM Sans. Pages keep
+   their own sizing/colors, this only sets family + a little refinement. */
+h1, h2, h3, .nav-logo {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ============================================================================
+   Guest mode — shared lock styles (used by the dashboard)
+   ============================================================================ */
+
+/* Wrapper that blurs its inner content and hosts a centered call-to-action. */
+.guest-locked {
+  position: relative;
+  overflow: hidden;
+}
+.guest-locked > .guest-locked-inner {
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.75;
+}
+.guest-lock-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(250,249,246,0.35), rgba(250,249,246,0.75));
+  z-index: 2;
+}
+.guest-lock-overlay .lock-icon { font-size: 26px; line-height: 1; }
+.guest-lock-overlay .lock-text {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--green-dark);
+  max-width: 320px;
+}
+.guest-lock-cta {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 9px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--green-dark);
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background .15s;
+}
+.guest-lock-cta:hover { background: var(--green); }
+
+/* Locked venue cards: translucent + blurred teaser with a small unlock badge. */
+.venue-card--locked {
+  position: relative;
+  overflow: hidden;
+}
+.venue-card--locked .venue-card-inner {
+  filter: blur(3px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.7;
+}
+.venue-card--locked .venue-card-lock {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: linear-gradient(180deg, rgba(250,249,246,0.25), rgba(250,249,246,0.65));
+  color: var(--green-dark);
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+}
+.venue-card--locked .venue-card-lock .lock-icon { font-size: 22px; }
+
+/* Guest nav pill (shown instead of the user name / logout). */
+.guest-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.guest-badge .guest-signup {
+  padding: 6px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--green-dark);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background .15s;
+}
+.guest-badge .guest-signup:hover { background: var(--green); }
