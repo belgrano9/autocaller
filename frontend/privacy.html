@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Politique de confidentialité — Devis Mariages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css?v=3">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .legal-nav {
+      background: #111;
+      padding: 14px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .legal-nav-logo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .legal-nav-back {
+      font-size: 13px;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+    .legal-nav-back:hover { color: #fff; }
+    main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+      width: 100%;
+    }
+    .legal-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 40px);
+      color: var(--green-dark);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .legal-date { font-size: 13px; color: var(--muted); margin-bottom: 40px; }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--green-dark);
+      font-weight: 500;
+      margin: 36px 0 10px;
+    }
+    p { font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 14px; }
+    ul { padding-left: 20px; margin-bottom: 14px; }
+    li { font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 6px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    .lang-row { display: flex; gap: 8px; margin-bottom: 36px; }
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 4px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .lang-btn.active, .lang-btn:hover { border-color: var(--green); color: var(--green); }
+    .highlight-box {
+      background: var(--green-light);
+      border-left: 3px solid var(--green);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+    .highlight-box p { margin-bottom: 0; color: var(--green-dark); }
+    @media (max-width: 600px) { main { padding: 36px 20px 60px; } }
+  </style>
+</head>
+<body>
+
+<nav class="legal-nav">
+  <a href="/" class="legal-nav-logo">Devis Mariages</a>
+  <a href="/" class="legal-nav-back" data-i18n="nav_back">← Retour à l'accueil</a>
+</nav>
+
+<main>
+  <div class="lang-row">
+    <button class="lang-btn" id="lang-fr" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+  </div>
+
+  <p class="legal-eyebrow" data-i18n="eyebrow">RGPD · Confidentialité</p>
+  <h1 data-i18n="title">Politique de confidentialité</h1>
+  <p class="legal-date" data-i18n="date_label">Dernière mise à jour : juin 2026</p>
+
+  <div class="highlight-box">
+    <p data-i18n="highlight">Devis Mariages est conçu pour respecter votre vie privée : la quasi-totalité des données de votre projet de mariage reste dans votre navigateur (localStorage) et n'est jamais envoyée à des serveurs tiers.</p>
+  </div>
+
+  <h2 data-i18n="s1_title">Données collectées</h2>
+  <p data-i18n="s1_intro">Nous collectons uniquement les données nécessaires au fonctionnement du service :</p>
+  <ul>
+    <li data-i18n="item_account">Compte : prénom, adresse email, mot de passe (haché PBKDF2-HMAC-SHA256).</li>
+    <li data-i18n="item_project">Projet de mariage : noms des mariés, date, nombre d'invités, budget — stockés localement et synchronisés sur votre compte.</li>
+    <li data-i18n="item_sends">Historique d'envois : lieux contactés, horodatage — nécessaire au calcul du quota.</li>
+    <li data-i18n="item_billing">Facturation : identifiant client Stripe (si abonné) — aucune donnée de carte bancaire n'est stockée chez nous.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s2_title">Stockage local (localStorage)</h2>
+  <p data-i18n="s2_desc">Votre profil, projet de mariage, préférences de langue et historique de navigation sont conservés dans le localStorage de votre navigateur. Ces données ne quittent jamais votre appareil, sauf lors d'une synchronisation explicite avec votre compte.</p>
+  <p data-i18n="s2_wipe">Pour supprimer toutes vos données locales : rendez-vous dans Paramètres → Réinitialiser le profil. Pour supprimer votre compte et toutes les données serveur, contactez-nous à <a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>.</p>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s3_title">Partage des données</h2>
+  <p data-i18n="s3_desc">Vos données ne sont jamais vendues ni partagées avec des tiers à des fins publicitaires. Elles peuvent être transmises à :</p>
+  <ul>
+    <li data-i18n="share_stripe">Stripe (traitement du paiement) — soumis à la politique de confidentialité de Stripe.</li>
+    <li data-i18n="share_smtp">Prestataire SMTP (Brevo) — uniquement pour l'acheminement des emails de demande de devis que vous déclenchez.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s4_title">Vos droits (RGPD)</h2>
+  <p data-i18n="s4_desc">Conformément au Règlement général sur la protection des données, vous disposez d'un droit d'accès, de rectification, d'effacement et de portabilité de vos données. Pour exercer ces droits, contactez-nous à <a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>.</p>
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Devis Mariages</p>
+      <p class="footer-brand-tagline" data-i18n="footer_tagline">Trouvez et contactez les meilleurs lieux de mariage partout en France.</p>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_nav_title">Explorer</p>
+      <ul class="footer-links">
+        <li><a href="/" data-i18n="footer_nav_home">Accueil</a></li>
+        <li><a href="/dashboard" data-i18n="footer_nav_dashboard">Tableau de bord</a></li>
+        <li><a href="/onboarding.html" data-i18n="footer_nav_start">Commencer</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_legal_title">Légal</p>
+      <ul class="footer-links">
+        <li><a href="/legal" data-i18n="footer_legal_mentions">Mentions légales</a></li>
+        <li><a href="/privacy" data-i18n="footer_legal_privacy">Confidentialité</a></li>
+        <li><a href="/terms" data-i18n="footer_legal_terms">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 Devis Mariages · France</span>
+    <div class="footer-lang">
+      <button onclick="setLang('fr')" id="fl-fr">FR</button>
+      <button onclick="setLang('en')" id="fl-en">EN</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const T = {
+    fr: {
+      page_title: "Politique de confidentialité — Devis Mariages",
+      nav_back: "← Retour à l'accueil",
+      eyebrow: "RGPD · Confidentialité",
+      title: "Politique de confidentialité",
+      date_label: "Dernière mise à jour : juin 2026",
+      highlight: "Devis Mariages est conçu pour respecter votre vie privée : la quasi-totalité des données de votre projet de mariage reste dans votre navigateur (localStorage) et n'est jamais envoyée à des serveurs tiers.",
+      s1_title: "Données collectées",
+      s1_intro: "Nous collectons uniquement les données nécessaires au fonctionnement du service :",
+      item_account: "Compte : prénom, adresse email, mot de passe (haché PBKDF2-HMAC-SHA256).",
+      item_project: "Projet de mariage : noms des mariés, date, nombre d'invités, budget — stockés localement et synchronisés sur votre compte.",
+      item_sends: "Historique d'envois : lieux contactés, horodatage — nécessaire au calcul du quota.",
+      item_billing: "Facturation : identifiant client Stripe (si abonné) — aucune donnée de carte bancaire n'est stockée chez nous.",
+      s2_title: "Stockage local (localStorage)",
+      s2_desc: "Votre profil, projet de mariage, préférences de langue et historique de navigation sont conservés dans le localStorage de votre navigateur. Ces données ne quittent jamais votre appareil, sauf lors d'une synchronisation explicite avec votre compte.",
+      s2_wipe: "Pour supprimer toutes vos données locales : rendez-vous dans Paramètres → Réinitialiser le profil. Pour supprimer votre compte et toutes les données serveur, contactez-nous.",
+      s3_title: "Partage des données",
+      s3_desc: "Vos données ne sont jamais vendues ni partagées avec des tiers à des fins publicitaires. Elles peuvent être transmises à :",
+      share_stripe: "Stripe (traitement du paiement) — soumis à la politique de confidentialité de Stripe.",
+      share_smtp: "Prestataire SMTP (Brevo) — uniquement pour l'acheminement des emails de demande de devis que vous déclenchez.",
+      s4_title: "Vos droits (RGPD)",
+      s4_desc: "Conformément au Règlement général sur la protection des données, vous disposez d'un droit d'accès, de rectification, d'effacement et de portabilité de vos données. Pour exercer ces droits, contactez-nous.",
+      footer_tagline: "Trouvez et contactez les meilleurs lieux de mariage partout en France.",
+      footer_nav_title: "Explorer",
+      footer_nav_home: "Accueil",
+      footer_nav_dashboard: "Tableau de bord",
+      footer_nav_start: "Commencer",
+      footer_legal_title: "Légal",
+      footer_legal_mentions: "Mentions légales",
+      footer_legal_privacy: "Confidentialité",
+      footer_legal_terms: "Conditions d'utilisation",
+      footer_copy: "© 2026 Devis Mariages · France",
+    },
+    en: {
+      page_title: "Privacy Policy — Devis Mariages",
+      nav_back: "← Back to home",
+      eyebrow: "GDPR · Privacy",
+      title: "Privacy Policy",
+      date_label: "Last updated: June 2026",
+      highlight: "Devis Mariages is built with privacy in mind: nearly all wedding project data stays in your browser (localStorage) and is never sent to third-party servers.",
+      s1_title: "Data Collected",
+      s1_intro: "We only collect data necessary for the service to function:",
+      item_account: "Account: first name, email address, password (PBKDF2-HMAC-SHA256 hashed).",
+      item_project: "Wedding project: couple's names, date, guest count, budget — stored locally and synced to your account.",
+      item_sends: "Send history: venues contacted, timestamps — required for quota calculation.",
+      item_billing: "Billing: Stripe customer ID (if subscribed) — no card data is stored by us.",
+      s2_title: "Local Storage (localStorage)",
+      s2_desc: "Your profile, wedding project, language preferences and browsing history are kept in your browser's localStorage. This data never leaves your device except during an explicit sync with your account.",
+      s2_wipe: "To delete all local data: go to Settings → Reset Profile. To delete your account and all server-side data, contact us.",
+      s3_title: "Data Sharing",
+      s3_desc: "Your data is never sold or shared with third parties for advertising purposes. It may be transmitted to:",
+      share_stripe: "Stripe (payment processing) — subject to Stripe's privacy policy.",
+      share_smtp: "SMTP provider (Brevo) — only for routing the quote-request emails you trigger.",
+      s4_title: "Your Rights (GDPR)",
+      s4_desc: "Under the General Data Protection Regulation, you have the right to access, rectify, erase and port your data. To exercise these rights, contact us.",
+      footer_tagline: "Find and contact the best wedding venues across France.",
+      footer_nav_title: "Explore",
+      footer_nav_home: "Home",
+      footer_nav_dashboard: "Dashboard",
+      footer_nav_start: "Get Started",
+      footer_legal_title: "Legal",
+      footer_legal_mentions: "Legal Notice",
+      footer_legal_privacy: "Privacy Policy",
+      footer_legal_terms: "Terms of Service",
+      footer_copy: "© 2026 Devis Mariages · France",
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    if (!T[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.title = T[lang].page_title;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+    });
+
+    // Restore links stripped by textContent assignment
+    const wipeEl = document.querySelector('[data-i18n="s2_wipe"]');
+    if (wipeEl) {
+      const link = lang === 'fr'
+        ? 'contactez-nous à <a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>.'
+        : 'contact us at <a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>.';
+      wipeEl.innerHTML = (lang === 'fr'
+        ? 'Pour supprimer toutes vos données locales : rendez-vous dans Paramètres → Réinitialiser le profil. Pour supprimer votre compte et toutes les données serveur, '
+        : 'To delete all local data: go to Settings → Reset Profile. To delete your account and all server-side data, ') + link;
+    }
+    const rgpdEl = document.querySelector('[data-i18n="s4_desc"]');
+    if (rgpdEl) {
+      const link = '<a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>';
+      rgpdEl.innerHTML = (lang === 'fr'
+        ? 'Conformément au Règlement général sur la protection des données, vous disposez d\'un droit d\'accès, de rectification, d\'effacement et de portabilité de vos données. Pour exercer ces droits, contactez-nous à '
+        : 'Under the General Data Protection Regulation, you have the right to access, rectify, erase and port your data. To exercise these rights, contact us at ')
+        + link + '.';
+    }
+
+    document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    const flFr = document.getElementById('fl-fr');
+    const flEn = document.getElementById('fl-en');
+    if (flFr) flFr.classList.toggle('active', lang === 'fr');
+    if (flEn) flEn.classList.toggle('active', lang === 'en');
+
+    localStorage.setItem('lp_lang', lang);
+  }
+
+  const saved = localStorage.getItem('lp_lang');
+  const browser = (navigator.language || 'fr').substring(0, 2);
+  setLang((saved && T[saved]) ? saved : (T[browser] ? browser : 'fr'));
+</script>
+</body>
+</html>

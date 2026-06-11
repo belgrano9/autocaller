@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Devis Mariages — Trouvez votre lieu de mariage idéal en Île-de-France</title>
+  <title>Devis Mariages — Trouvez votre lieu de mariage idéal en France</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/theme.css?v=3">
   <style>
     :root {
       --green:       #2c5e43;
@@ -414,21 +414,7 @@
     }
     .btn-white:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,0,0,.22); }
 
-    /* ─── FOOTER ──────────────────────────────────────── */
-    footer {
-      background: #111;
-      padding: 28px 6%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .footer-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 19px;
-      color: #fff;
-      font-weight: 500;
-    }
-    .footer-meta { font-size: 13px; color: rgba(255,255,255,.35); }
+    /* footer styles live in theme.css (.site-footer) */
 
     /* ─── REVEAL ANIMATIONS ───────────────────────────── */
     .reveal {
@@ -475,7 +461,7 @@
 <section class="hero">
   <div class="hero-eyebrow">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-    <span data-i18n="eyebrow_hero"><strong>66</strong> lieux référencés en Île-de-France</span>
+    <span data-i18n="eyebrow_hero"><strong>66</strong> lieux référencés en France</span>
   </div>
   <h1 id="hero-h1">Trouvez votre lieu<br><em>de mariage idéal</em></h1>
   <p class="hero-sub" data-i18n="hero_sub">Parcourez châteaux, domaines, fermes et lieux atypiques. Envoyez des demandes de devis personnalisées à chaque lieu en un seul clic.</p>
@@ -631,9 +617,36 @@
 </section>
 
 <!-- ─── FOOTER ─────────────────────────────────────────────── -->
-<footer>
-  <span class="footer-logo">Devis Mariages</span>
-  <span class="footer-meta" data-i18n="footer_meta">Île-de-France · 66 lieux · 2026</span>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Devis Mariages</p>
+      <p class="footer-brand-tagline" data-i18n="footer_tagline">Trouvez et contactez les meilleurs lieux de mariage partout en France.</p>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_nav_title">Explorer</p>
+      <ul class="footer-links">
+        <li><a href="/" data-i18n="footer_nav_home">Accueil</a></li>
+        <li><a href="/dashboard" data-i18n="footer_nav_dashboard">Tableau de bord</a></li>
+        <li><a href="/onboarding.html" data-i18n="footer_nav_start">Commencer</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_legal_title">Légal</p>
+      <ul class="footer-links">
+        <li><a href="/legal" data-i18n="footer_legal_mentions">Mentions légales</a></li>
+        <li><a href="/privacy" data-i18n="footer_legal_privacy">Confidentialité</a></li>
+        <li><a href="/terms" data-i18n="footer_legal_terms">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 Devis Mariages · France</span>
+    <div class="footer-lang">
+      <button onclick="setLang('fr')" id="fl-fr">FR</button>
+      <button onclick="setLang('en')" id="fl-en">EN</button>
+    </div>
+  </div>
 </footer>
 
 <script src="/auth.js"></script>
@@ -651,11 +664,11 @@
   /* ── Translations ─────────────────────────────────────────── */
   const T = {
     fr: {
-      page_title:    "Devis Mariages — Trouvez votre lieu de mariage idéal en Île-de-France",
+      page_title:    "Devis Mariages — Trouvez votre lieu de mariage idéal en France",
       nav_how:       "Comment ça marche",
       nav_types:     "Les lieux",
       nav_app:       "S'inscrire",
-      eyebrow_hero:  "66 lieux référencés en Île-de-France",
+      eyebrow_hero:  "66 lieux référencés en France",
       hero_h1:       "Trouvez votre lieu<br><em>de mariage idéal</em>",
       hero_sub:      "Parcourez châteaux, domaines, fermes et lieux atypiques. Envoyez des demandes de devis personnalisées à chaque lieu en un seul clic.",
       btn_start:     "Commencer maintenant",
@@ -697,15 +710,24 @@
       type4_name:    "Fermes, Manoirs & Atypiques",
       cta_title:     "<em>Votre lieu de rêve vous attend</em>",
       cta_sub:       "Commencez dès maintenant — gratuit, sans inscription, sans installation.",
-      btn_open:      "S'inscrire →",
-      footer_meta:   "Île-de-France · 66 lieux · 2026",
+      btn_open:           "S'inscrire →",
+      footer_tagline:     "Trouvez et contactez les meilleurs lieux de mariage partout en France.",
+      footer_nav_title:   "Explorer",
+      footer_nav_home:    "Accueil",
+      footer_nav_dashboard: "Tableau de bord",
+      footer_nav_start:   "Commencer",
+      footer_legal_title: "Légal",
+      footer_legal_mentions: "Mentions légales",
+      footer_legal_privacy: "Confidentialité",
+      footer_legal_terms: "Conditions d'utilisation",
+      footer_copy:        "© 2026 Devis Mariages · France",
     },
     en: {
-      page_title:    "Devis Mariages — Find your ideal wedding venue in Île-de-France",
+      page_title:    "Devis Mariages — Find your ideal wedding venue in France",
       nav_how:       "How it works",
       nav_types:     "Venues",
       nav_app:       "Sign up",
-      eyebrow_hero:  "66 venues listed in Île-de-France",
+      eyebrow_hero:  "66 venues listed in France",
       hero_h1:       "Find your ideal<br><em>wedding venue</em>",
       hero_sub:      "Browse châteaux, estates, barns and unique venues. Send personalized quote requests to each venue in a single click.",
       btn_start:     "Get started",
@@ -747,8 +769,17 @@
       type4_name:    "Farms, Manors & Unique Venues",
       cta_title:     "<em>Your dream venue is waiting</em>",
       cta_sub:       "Start right now — free, no sign-up, no install.",
-      btn_open:      "Sign up →",
-      footer_meta:   "Île-de-France · 66 venues · 2026",
+      btn_open:           "Sign up →",
+      footer_tagline:     "Find and contact the best wedding venues across France.",
+      footer_nav_title:   "Explore",
+      footer_nav_home:    "Home",
+      footer_nav_dashboard: "Dashboard",
+      footer_nav_start:   "Get Started",
+      footer_legal_title: "Legal",
+      footer_legal_mentions: "Legal Notice",
+      footer_legal_privacy: "Privacy Policy",
+      footer_legal_terms: "Terms of Service",
+      footer_copy:        "© 2026 Devis Mariages · France",
     }
   };
 
@@ -758,9 +789,13 @@
     if (!T[lang]) return;
     currentLang = lang;
 
-    // Toggle button state
+    // Toggle button state (nav + footer)
     document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
     document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    const flFr = document.getElementById('fl-fr');
+    const flEn = document.getElementById('fl-en');
+    if (flFr) flFr.classList.toggle('active', lang === 'fr');
+    if (flEn) flEn.classList.toggle('active', lang === 'en');
 
     // Page meta
     document.documentElement.lang = lang;

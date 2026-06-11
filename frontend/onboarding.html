@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/theme.css?v=3">
   <style>
     :root {
       --green:       #2c5e43;
@@ -407,6 +407,39 @@
 </div>
 </main>
 
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Devis Mariages</p>
+      <p class="footer-brand-tagline" data-i18n="footer_tagline">Trouvez et contactez les meilleurs lieux de mariage partout en France.</p>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_nav_title">Explorer</p>
+      <ul class="footer-links">
+        <li><a href="/" data-i18n="footer_nav_home">Accueil</a></li>
+        <li><a href="/dashboard" data-i18n="footer_nav_dashboard">Tableau de bord</a></li>
+        <li><a href="/onboarding.html" data-i18n="footer_nav_start">Commencer</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_legal_title">Légal</p>
+      <ul class="footer-links">
+        <li><a href="/legal" data-i18n="footer_legal_mentions">Mentions légales</a></li>
+        <li><a href="/privacy" data-i18n="footer_legal_privacy">Confidentialité</a></li>
+        <li><a href="/terms" data-i18n="footer_legal_terms">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 Devis Mariages · France</span>
+    <div class="footer-lang">
+      <button onclick="setLang('fr')" id="fl-fr">FR</button>
+      <button onclick="setLang('en')" id="fl-en">EN</button>
+    </div>
+  </div>
+</footer>
+
 <script src="/auth.js"></script>
 <script>
   /* ── Translations ──────────────────────────────────────── */
@@ -472,6 +505,16 @@
       err_email_taken:  "Cet email est déjà enregistré.",
       err_credentials:  "Identifiants incorrects.",
       err_network:      "Erreur réseau — veuillez réessayer.",
+      footer_tagline:     "Trouvez et contactez les meilleurs lieux de mariage partout en France.",
+      footer_nav_title:   "Explorer",
+      footer_nav_home:    "Accueil",
+      footer_nav_dashboard: "Tableau de bord",
+      footer_nav_start:   "Commencer",
+      footer_legal_title: "Légal",
+      footer_legal_mentions: "Mentions légales",
+      footer_legal_privacy: "Confidentialité",
+      footer_legal_terms: "Conditions d'utilisation",
+      footer_copy:        "© 2026 Devis Mariages · France",
     },
     en: {
       page_title:  "Devis Mariages — My account",
@@ -534,6 +577,16 @@
       err_email_taken:  "This email is already registered.",
       err_credentials:  "Incorrect email or password.",
       err_network:      "Network error — please try again.",
+      footer_tagline:     "Find and contact the best wedding venues across France.",
+      footer_nav_title:   "Explore",
+      footer_nav_home:    "Home",
+      footer_nav_dashboard: "Dashboard",
+      footer_nav_start:   "Get Started",
+      footer_legal_title: "Legal",
+      footer_legal_mentions: "Legal Notice",
+      footer_legal_privacy: "Privacy Policy",
+      footer_legal_terms: "Terms of Service",
+      footer_copy:        "© 2026 Devis Mariages · France",
     }
   };
 
@@ -569,6 +622,12 @@
     buildSeasonChips(lang);
     setMode(authMode); // re-applies mode-specific strings in new language
     localStorage.setItem('ob_lang', lang);
+
+    // Sync footer lang buttons
+    const flFr = document.getElementById('fl-fr');
+    const flEn = document.getElementById('fl-en');
+    if (flFr) flFr.classList.toggle('active', lang === 'fr');
+    if (flEn) flEn.classList.toggle('active', lang === 'en');
   }
 
   function loadLang() {

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Mentions légales — Devis Mariages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css?v=3">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ── Top nav ── */
+    .legal-nav {
+      background: #111;
+      padding: 14px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .legal-nav-logo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .legal-nav-back {
+      font-size: 13px;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+    .legal-nav-back:hover { color: #fff; }
+
+    /* ── Content ── */
+    main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+      width: 100%;
+    }
+    .legal-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 40px);
+      color: var(--green-dark);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .legal-date {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 40px;
+    }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--green-dark);
+      font-weight: 500;
+      margin: 36px 0 10px;
+    }
+    p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #333;
+      margin-bottom: 14px;
+    }
+    address { font-style: normal; }
+    address p { margin-bottom: 4px; }
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+
+    /* ── Lang toggle ── */
+    .lang-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 36px;
+    }
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 4px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .lang-btn.active,
+    .lang-btn:hover { border-color: var(--green); color: var(--green); }
+
+    @media (max-width: 600px) {
+      main { padding: 36px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="legal-nav">
+  <a href="/" class="legal-nav-logo">Devis Mariages</a>
+  <a href="/" class="legal-nav-back" data-i18n="nav_back">← Retour à l'accueil</a>
+</nav>
+
+<main>
+  <div class="lang-row">
+    <button class="lang-btn" id="lang-fr" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+  </div>
+
+  <p class="legal-eyebrow" data-i18n="eyebrow">Mentions légales</p>
+  <h1 data-i18n="title">Mentions légales</h1>
+  <p class="legal-date" data-i18n="date_label">Dernière mise à jour : juin 2026</p>
+
+  <h2 data-i18n="s1_title">Éditeur du site</h2>
+  <address>
+    <p data-i18n="editor_name"><strong>Devis Mariages</strong></p>
+    <p data-i18n="editor_form">Projet indépendant — France</p>
+    <p data-i18n="editor_email">Contact : <a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a></p>
+  </address>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s2_title">Hébergement</h2>
+  <p data-i18n="hosting_desc">Le site est hébergé localement et/ou sur des infrastructures cloud situées en Union européenne. Aucun transfert de données personnelles vers un pays tiers n'est effectué.</p>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s3_title">Propriété intellectuelle</h2>
+  <p data-i18n="ip_desc">L'ensemble du contenu de ce site — textes, graphismes, logotypes et éléments d'interface — est la propriété exclusive de Devis Mariages. Toute reproduction, même partielle, est interdite sans autorisation préalable écrite.</p>
+  <p data-i18n="ip_venues">Les noms, logos et informations relatifs aux lieux de mariage référencés sont la propriété de leurs détenteurs respectifs et sont utilisés à titre informatif.</p>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s4_title">Responsabilité</h2>
+  <p data-i18n="liability_desc">Devis Mariages s'efforce de maintenir les informations à jour. Toutefois, l'exactitude et l'exhaustivité des informations sur les lieux ne sauraient être garanties. L'utilisateur reste responsable de la vérification directe auprès des établissements.</p>
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Devis Mariages</p>
+      <p class="footer-brand-tagline" data-i18n="footer_tagline">Trouvez et contactez les meilleurs lieux de mariage partout en France.</p>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_nav_title">Explorer</p>
+      <ul class="footer-links">
+        <li><a href="/" data-i18n="footer_nav_home">Accueil</a></li>
+        <li><a href="/dashboard" data-i18n="footer_nav_dashboard">Tableau de bord</a></li>
+        <li><a href="/onboarding.html" data-i18n="footer_nav_start">Commencer</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_legal_title">Légal</p>
+      <ul class="footer-links">
+        <li><a href="/legal" data-i18n="footer_legal_mentions">Mentions légales</a></li>
+        <li><a href="/privacy" data-i18n="footer_legal_privacy">Confidentialité</a></li>
+        <li><a href="/terms" data-i18n="footer_legal_terms">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 Devis Mariages · France</span>
+    <div class="footer-lang">
+      <button onclick="setLang('fr')" id="fl-fr">FR</button>
+      <button onclick="setLang('en')" id="fl-en">EN</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const T = {
+    fr: {
+      page_title: "Mentions légales — Devis Mariages",
+      nav_back: "← Retour à l'accueil",
+      eyebrow: "Mentions légales",
+      title: "Mentions légales",
+      date_label: "Dernière mise à jour : juin 2026",
+      s1_title: "Éditeur du site",
+      editor_name: "Devis Mariages",
+      editor_form: "Projet indépendant — France",
+      editor_email: "Contact :",
+      s2_title: "Hébergement",
+      hosting_desc: "Le site est hébergé localement et/ou sur des infrastructures cloud situées en Union européenne. Aucun transfert de données personnelles vers un pays tiers n'est effectué.",
+      s3_title: "Propriété intellectuelle",
+      ip_desc: "L'ensemble du contenu de ce site — textes, graphismes, logotypes et éléments d'interface — est la propriété exclusive de Devis Mariages. Toute reproduction, même partielle, est interdite sans autorisation préalable écrite.",
+      ip_venues: "Les noms, logos et informations relatifs aux lieux de mariage référencés sont la propriété de leurs détenteurs respectifs et sont utilisés à titre informatif.",
+      s4_title: "Responsabilité",
+      liability_desc: "Devis Mariages s'efforce de maintenir les informations à jour. Toutefois, l'exactitude et l'exhaustivité des informations sur les lieux ne sauraient être garanties. L'utilisateur reste responsable de la vérification directe auprès des établissements.",
+      footer_tagline: "Trouvez et contactez les meilleurs lieux de mariage partout en France.",
+      footer_nav_title: "Explorer",
+      footer_nav_home: "Accueil",
+      footer_nav_dashboard: "Tableau de bord",
+      footer_nav_start: "Commencer",
+      footer_legal_title: "Légal",
+      footer_legal_mentions: "Mentions légales",
+      footer_legal_privacy: "Confidentialité",
+      footer_legal_terms: "Conditions d'utilisation",
+      footer_copy: "© 2026 Devis Mariages · France",
+    },
+    en: {
+      page_title: "Legal Notice — Devis Mariages",
+      nav_back: "← Back to home",
+      eyebrow: "Legal Notice",
+      title: "Legal Notice",
+      date_label: "Last updated: June 2026",
+      s1_title: "Site Publisher",
+      editor_name: "Devis Mariages",
+      editor_form: "Independent project — France",
+      editor_email: "Contact:",
+      s2_title: "Hosting",
+      hosting_desc: "The site is hosted locally and/or on cloud infrastructure located in the European Union. No personal data is transferred to any third country.",
+      s3_title: "Intellectual Property",
+      ip_desc: "All content on this site — text, graphics, logos and interface elements — is the exclusive property of Devis Mariages. Any reproduction, even partial, is prohibited without prior written authorization.",
+      ip_venues: "Names, logos and information relating to listed wedding venues are the property of their respective owners and are used for informational purposes.",
+      s4_title: "Liability",
+      liability_desc: "Devis Mariages strives to keep information up to date. However, the accuracy and completeness of venue information cannot be guaranteed. Users are responsible for directly verifying information with establishments.",
+      footer_tagline: "Find and contact the best wedding venues across France.",
+      footer_nav_title: "Explore",
+      footer_nav_home: "Home",
+      footer_nav_dashboard: "Dashboard",
+      footer_nav_start: "Get Started",
+      footer_legal_title: "Legal",
+      footer_legal_mentions: "Legal Notice",
+      footer_legal_privacy: "Privacy Policy",
+      footer_legal_terms: "Terms of Service",
+      footer_copy: "© 2026 Devis Mariages · France",
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    if (!T[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.title = T[lang].page_title;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+    });
+
+    // Restore email link in editor_email cell (textContent strips the anchor)
+    const emailEl = document.querySelector('[data-i18n="editor_email"]');
+    if (emailEl) {
+      emailEl.innerHTML = (lang === 'fr' ? 'Contact : ' : 'Contact: ')
+        + '<a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>';
+    }
+
+    document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    const flFr = document.getElementById('fl-fr');
+    const flEn = document.getElementById('fl-en');
+    if (flFr) flFr.classList.toggle('active', lang === 'fr');
+    if (flEn) flEn.classList.toggle('active', lang === 'en');
+
+    localStorage.setItem('lp_lang', lang);
+  }
+
+  // Init
+  const saved = localStorage.getItem('lp_lang');
+  const browser = (navigator.language || 'fr').substring(0, 2);
+  setLang((saved && T[saved]) ? saved : (T[browser] ? browser : 'fr'));
+</script>
+</body>
+</html>

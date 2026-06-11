@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Conditions d'utilisation — Devis Mariages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css?v=3">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .legal-nav {
+      background: #111;
+      padding: 14px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .legal-nav-logo {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .legal-nav-back {
+      font-size: 13px;
+      color: rgba(255,255,255,.55);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color .15s;
+    }
+    .legal-nav-back:hover { color: #fff; }
+    main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+      width: 100%;
+    }
+    .legal-eyebrow {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 40px);
+      color: var(--green-dark);
+      font-weight: 500;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .legal-date { font-size: 13px; color: var(--muted); margin-bottom: 40px; }
+    h2 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--green-dark);
+      font-weight: 500;
+      margin: 36px 0 10px;
+    }
+    p { font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 14px; }
+    ul { padding-left: 20px; margin-bottom: 14px; }
+    li { font-size: 15px; line-height: 1.7; color: #333; margin-bottom: 6px; }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+    .lang-row { display: flex; gap: 8px; margin-bottom: 36px; }
+    .lang-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 12px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 4px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .lang-btn.active, .lang-btn:hover { border-color: var(--green); color: var(--green); }
+    @media (max-width: 600px) { main { padding: 36px 20px 60px; } }
+  </style>
+</head>
+<body>
+
+<nav class="legal-nav">
+  <a href="/" class="legal-nav-logo">Devis Mariages</a>
+  <a href="/" class="legal-nav-back" data-i18n="nav_back">← Retour à l'accueil</a>
+</nav>
+
+<main>
+  <div class="lang-row">
+    <button class="lang-btn" id="lang-fr" onclick="setLang('fr')">FR</button>
+    <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+  </div>
+
+  <p class="legal-eyebrow" data-i18n="eyebrow">Conditions générales</p>
+  <h1 data-i18n="title">Conditions d'utilisation</h1>
+  <p class="legal-date" data-i18n="date_label">Dernière mise à jour : juin 2026</p>
+
+  <h2 data-i18n="s1_title">Objet</h2>
+  <p data-i18n="s1_desc">Devis Mariages est un service permettant aux futurs mariés de cataloguer des lieux de réception et d'envoyer des demandes de devis par email. Les présentes conditions régissent l'utilisation du service.</p>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s2_title">Envoi de demandes de devis</h2>
+  <p data-i18n="s2_desc">L'utilisateur est seul responsable du contenu des demandes de devis envoyées via la plateforme. Devis Mariages n'est qu'un intermédiaire technique entre l'utilisateur et les lieux de réception.</p>
+  <ul>
+    <li data-i18n="send_rule1">Les envois sont limités selon le forfait souscrit (3 à vie pour Découverte, 15/mois pour Plus, illimité pour Conciergerie).</li>
+    <li data-i18n="send_rule2">Le service ne garantit pas la délivrance des emails ni la réponse des lieux.</li>
+    <li data-i18n="send_rule3">Toute utilisation abusive (spam, démarchage non autorisé, usurpation d'identité) entraîne la résiliation immédiate du compte.</li>
+  </ul>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s3_title">Abonnements et facturation</h2>
+  <p data-i18n="s3_desc">Les abonnements payants (Plus, Conciergerie) sont facturés mensuellement via Stripe. L'abonnement peut être résilié à tout moment depuis le portail de facturation ; l'accès aux fonctionnalités payantes reste actif jusqu'à la fin de la période en cours.</p>
+  <p data-i18n="s3_refund">Aucun remboursement n'est accordé pour les périodes partielles, sauf en cas d'erreur de facturation.</p>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s4_title">Limitation de responsabilité</h2>
+  <p data-i18n="s4_desc">Devis Mariages ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation du service, de la non-délivrance d'emails, ou de l'indisponibilité temporaire de la plateforme.</p>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s5_title">Modification des conditions</h2>
+  <p data-i18n="s5_desc">Devis Mariages se réserve le droit de modifier les présentes conditions à tout moment. Les utilisateurs seront informés des changements significatifs par email. L'utilisation continue du service vaut acceptation des nouvelles conditions.</p>
+
+  <hr class="divider">
+
+  <h2 data-i18n="s6_title">Contact</h2>
+  <p data-i18n="s6_desc">Pour toute question relative aux présentes conditions, contactez-nous à <a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>.</p>
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Devis Mariages</p>
+      <p class="footer-brand-tagline" data-i18n="footer_tagline">Trouvez et contactez les meilleurs lieux de mariage partout en France.</p>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_nav_title">Explorer</p>
+      <ul class="footer-links">
+        <li><a href="/" data-i18n="footer_nav_home">Accueil</a></li>
+        <li><a href="/dashboard" data-i18n="footer_nav_dashboard">Tableau de bord</a></li>
+        <li><a href="/onboarding.html" data-i18n="footer_nav_start">Commencer</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_legal_title">Légal</p>
+      <ul class="footer-links">
+        <li><a href="/legal" data-i18n="footer_legal_mentions">Mentions légales</a></li>
+        <li><a href="/privacy" data-i18n="footer_legal_privacy">Confidentialité</a></li>
+        <li><a href="/terms" data-i18n="footer_legal_terms">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 Devis Mariages · France</span>
+    <div class="footer-lang">
+      <button onclick="setLang('fr')" id="fl-fr">FR</button>
+      <button onclick="setLang('en')" id="fl-en">EN</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const T = {
+    fr: {
+      page_title: "Conditions d'utilisation — Devis Mariages",
+      nav_back: "← Retour à l'accueil",
+      eyebrow: "Conditions générales",
+      title: "Conditions d'utilisation",
+      date_label: "Dernière mise à jour : juin 2026",
+      s1_title: "Objet",
+      s1_desc: "Devis Mariages est un service permettant aux futurs mariés de cataloguer des lieux de réception et d'envoyer des demandes de devis par email. Les présentes conditions régissent l'utilisation du service.",
+      s2_title: "Envoi de demandes de devis",
+      s2_desc: "L'utilisateur est seul responsable du contenu des demandes de devis envoyées via la plateforme. Devis Mariages n'est qu'un intermédiaire technique entre l'utilisateur et les lieux de réception.",
+      send_rule1: "Les envois sont limités selon le forfait souscrit (3 à vie pour Découverte, 15/mois pour Plus, illimité pour Conciergerie).",
+      send_rule2: "Le service ne garantit pas la délivrance des emails ni la réponse des lieux.",
+      send_rule3: "Toute utilisation abusive (spam, démarchage non autorisé, usurpation d'identité) entraîne la résiliation immédiate du compte.",
+      s3_title: "Abonnements et facturation",
+      s3_desc: "Les abonnements payants (Plus, Conciergerie) sont facturés mensuellement via Stripe. L'abonnement peut être résilié à tout moment depuis le portail de facturation ; l'accès aux fonctionnalités payantes reste actif jusqu'à la fin de la période en cours.",
+      s3_refund: "Aucun remboursement n'est accordé pour les périodes partielles, sauf en cas d'erreur de facturation.",
+      s4_title: "Limitation de responsabilité",
+      s4_desc: "Devis Mariages ne peut être tenu responsable des dommages directs ou indirects résultant de l'utilisation du service, de la non-délivrance d'emails, ou de l'indisponibilité temporaire de la plateforme.",
+      s5_title: "Modification des conditions",
+      s5_desc: "Devis Mariages se réserve le droit de modifier les présentes conditions à tout moment. Les utilisateurs seront informés des changements significatifs par email. L'utilisation continue du service vaut acceptation des nouvelles conditions.",
+      s6_title: "Contact",
+      s6_desc: "Pour toute question relative aux présentes conditions, contactez-nous.",
+      footer_tagline: "Trouvez et contactez les meilleurs lieux de mariage partout en France.",
+      footer_nav_title: "Explorer",
+      footer_nav_home: "Accueil",
+      footer_nav_dashboard: "Tableau de bord",
+      footer_nav_start: "Commencer",
+      footer_legal_title: "Légal",
+      footer_legal_mentions: "Mentions légales",
+      footer_legal_privacy: "Confidentialité",
+      footer_legal_terms: "Conditions d'utilisation",
+      footer_copy: "© 2026 Devis Mariages · France",
+    },
+    en: {
+      page_title: "Terms of Service — Devis Mariages",
+      nav_back: "← Back to home",
+      eyebrow: "Terms & Conditions",
+      title: "Terms of Service",
+      date_label: "Last updated: June 2026",
+      s1_title: "Purpose",
+      s1_desc: "Devis Mariages is a service that allows future couples to catalog reception venues and send quote requests by email. These terms govern use of the service.",
+      s2_title: "Sending Quote Requests",
+      s2_desc: "The user is solely responsible for the content of quote requests sent through the platform. Devis Mariages is only a technical intermediary between the user and reception venues.",
+      send_rule1: "Sends are limited by your plan (3 lifetime for Free, 15/month for Plus, unlimited for Concierge).",
+      send_rule2: "The service does not guarantee email delivery or venue responses.",
+      send_rule3: "Abusive use (spam, unauthorized solicitation, identity fraud) results in immediate account termination.",
+      s3_title: "Subscriptions and Billing",
+      s3_desc: "Paid subscriptions (Plus, Concierge) are billed monthly via Stripe. Subscriptions can be cancelled at any time from the billing portal; access to paid features remains active until the end of the current period.",
+      s3_refund: "No refunds are issued for partial periods, except in the case of a billing error.",
+      s4_title: "Limitation of Liability",
+      s4_desc: "Devis Mariages shall not be liable for direct or indirect damages resulting from use of the service, failure to deliver emails, or temporary unavailability of the platform.",
+      s5_title: "Changes to Terms",
+      s5_desc: "Devis Mariages reserves the right to modify these terms at any time. Users will be notified of significant changes by email. Continued use of the service constitutes acceptance of the updated terms.",
+      s6_title: "Contact",
+      s6_desc: "For any questions about these terms, contact us.",
+      footer_tagline: "Find and contact the best wedding venues across France.",
+      footer_nav_title: "Explore",
+      footer_nav_home: "Home",
+      footer_nav_dashboard: "Dashboard",
+      footer_nav_start: "Get Started",
+      footer_legal_title: "Legal",
+      footer_legal_mentions: "Legal Notice",
+      footer_legal_privacy: "Privacy Policy",
+      footer_legal_terms: "Terms of Service",
+      footer_copy: "© 2026 Devis Mariages · France",
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    if (!T[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.title = T[lang].page_title;
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+    });
+
+    // Restore email link in contact section
+    const contactEl = document.querySelector('[data-i18n="s6_desc"]');
+    if (contactEl) {
+      const link = '<a href="mailto:contact@devismariages.fr">contact@devismariages.fr</a>';
+      contactEl.innerHTML = (lang === 'fr'
+        ? 'Pour toute question relative aux présentes conditions, contactez-nous à '
+        : 'For any questions about these terms, contact us at ')
+        + link + '.';
+    }
+
+    document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    const flFr = document.getElementById('fl-fr');
+    const flEn = document.getElementById('fl-en');
+    if (flFr) flFr.classList.toggle('active', lang === 'fr');
+    if (flEn) flEn.classList.toggle('active', lang === 'en');
+
+    localStorage.setItem('lp_lang', lang);
+  }
+
+  const saved = localStorage.getItem('lp_lang');
+  const browser = (navigator.language || 'fr').substring(0, 2);
+  setLang((saved && T[saved]) ? saved : (T[browser] ? browser : 'fr'));
+</script>
+</body>
+</html>

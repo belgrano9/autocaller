@@ -32,6 +32,20 @@ async def serve_landing():
 async def serve_dashboard():
     return FileResponse(FRONTEND / "index.html")
 
+# Clean URLs for the static legal pages the footer links to (StaticFiles
+# does not append ".html", so /legal etc. would otherwise 404).
+@app.get("/legal")
+async def serve_legal():
+    return FileResponse(FRONTEND / "legal.html")
+
+@app.get("/privacy")
+async def serve_privacy():
+    return FileResponse(FRONTEND / "privacy.html")
+
+@app.get("/terms")
+async def serve_terms():
+    return FileResponse(FRONTEND / "terms.html")
+
 @app.get("/api/health")
 async def health():
     return {"status": "ok"}
