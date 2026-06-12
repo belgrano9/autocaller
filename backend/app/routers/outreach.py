@@ -1,4 +1,3 @@
-import re
 from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
@@ -8,7 +7,7 @@ from app import db
 from app.config import settings
 from app.routers.auth import authenticate_session, is_supervisor
 from app.services import plans
-from app.services.email_provider import send_email
+from app.services.email_provider import build_reply_to, new_reply_token, send_email
 
 router = APIRouter(prefix="/outreach", tags=["outreach"])
 
@@ -130,10 +129,10 @@ async def send_outreach_email(
         dev_prefix = f"[DEV-TEST pour : {dev_label}]"
         dev_err = "TEST_EMAIL non configuré en mode DEV."
 
-    # Generate a simple reply_to alias based on the couple name
-    # e.g., devis+alicebob@domain.com
-    couple_clean = re.sub(r"[^a-zA-Z0-9]", "", payload.couple_name.lower())[:15]
-    reply_to = f"devis+{couple_clean}@{settings.reply_to_domain}"
+    # Opaque routing token for the venue's reply (devis+{token}@domain). It anchors
+    # the conversation thread opened below, so the reply can be routed back here.
+    reply_token = new_reply_token()
+    reply_to = build_reply_to(reply_token)
 
     if mode == "dev":
         recipient = settings.test_email or settings.gmail_user
@@ -153,11 +152,29 @@ async def send_outreach_email(
     if not result.success:
         raise HTTPException(status_code=502, detail=result.error)
 
-    db.record_quote_send(email, payload.venue_name)
+    # Open the conciergerie thread (roadmap #4). venue_email is the real intended
+    # target used to route replies; to_addr is where it actually went — in dev mode
+    # that's TEST_EMAIL, preserving the "never contact venues in dev" guardrail.
+    conversation_id = db.create_conversation(
+        user_email=email,
+        venue_name=payload.venue_name,
+        venue_email=payload.venue_email,
+        reply_token=reply_token,
+    )
+    db.add_message(
+        conversation_id,
+        "out",
+        from_addr=settings.from_email,
+        to_addr=recipient,
+        subject=subject,
+        body_html=html_content,
+    )
+    db.record_quote_send(email, payload.venue_name, conversation_id=conversation_id)
     quota_after = plans.quota_status(email, plan)
     return {
         "success": True,
         "mode": result.mode,
         "sent_to": recipient,
+        "conversation_id": conversation_id,
         "quota": quota_after,
     }

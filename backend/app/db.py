@@ -70,6 +70,39 @@ def init_db():
                 sent_at TEXT NOT NULL
             )
         """)
+        # Conciergerie inbox (roadmap #4) — a conversation is the two-way thread
+        # between a user and a venue, anchored on an opaque reply_token that the
+        # devis Reply-To carries (devis+{reply_token}@domain). Inbound replies are
+        # routed back to the right thread by looking that token up here.
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS conversations (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_email TEXT NOT NULL,
+                venue_name TEXT,
+                venue_email TEXT,
+                reply_token TEXT NOT NULL UNIQUE,
+                status TEXT NOT NULL DEFAULT 'open',
+                created_at TEXT NOT NULL,
+                last_message_at TEXT NOT NULL
+            )
+        """)
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS messages (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                conversation_id INTEGER NOT NULL,
+                direction TEXT NOT NULL,           -- 'out' (we sent) | 'in' (venue replied)
+                from_addr TEXT,
+                to_addr TEXT,
+                subject TEXT,
+                body_text TEXT,
+                body_html TEXT,
+                received_at TEXT NOT NULL,
+                raw_ref TEXT,
+                FOREIGN KEY(conversation_id) REFERENCES conversations(id) ON DELETE CASCADE
+            )
+        """)
+        # Link a quota-ledger row to the thread it opened (additive for old rows).
+        _ensure_column(conn, "quote_sends", "conversation_id", "INTEGER")
         conn.commit()
 
 def hash_password(password: str) -> str:
@@ -186,15 +219,103 @@ def sync_user_data(email: str, data: dict) -> bool:
 
 # --- Billing / quote-send tracking ---
 
-def record_quote_send(email: str, venue_name: str | None):
+def record_quote_send(email: str, venue_name: str | None, conversation_id: int | None = None):
     """Logs a successful quote send — the source of truth for tier send caps."""
     with get_db_connection() as conn:
         conn.execute(
-            "INSERT INTO quote_sends (email, venue_name, sent_at) VALUES (?, ?, ?)",
+            "INSERT INTO quote_sends (email, venue_name, sent_at, conversation_id) VALUES (?, ?, ?, ?)",
             # UTC-aware to match the month-window boundary in services/plans.py
-            (email.strip().lower(), venue_name, datetime.now(timezone.utc).isoformat()),
+            (email.strip().lower(), venue_name, datetime.now(timezone.utc).isoformat(), conversation_id),
         )
         conn.commit()
+
+
+# --- Conciergerie inbox: conversations & messages ---
+
+def create_conversation(
+    user_email: str, venue_name: str | None, venue_email: str | None, reply_token: str
+) -> int:
+    """Opens a conversation thread and returns its id. The reply_token is the
+    opaque routing key carried by the devis Reply-To; it must be unique."""
+    now = datetime.now(timezone.utc).isoformat()
+    with get_db_connection() as conn:
+        cur = conn.execute(
+            """INSERT INTO conversations
+                   (user_email, venue_name, venue_email, reply_token, created_at, last_message_at)
+               VALUES (?, ?, ?, ?, ?, ?)""",
+            (user_email.strip().lower(), venue_name, venue_email, reply_token, now, now),
+        )
+        conn.commit()
+        return cur.lastrowid
+
+
+def get_conversation_by_token(reply_token: str) -> dict | None:
+    """Routes an inbound reply: maps a reply_token back to its conversation."""
+    with get_db_connection() as conn:
+        row = conn.execute(
+            "SELECT * FROM conversations WHERE reply_token = ?", (reply_token,)
+        ).fetchone()
+        return dict(row) if row else None
+
+
+def get_conversation(conversation_id: int, user_email: str) -> dict | None:
+    """Fetches a conversation, ownership-checked to the requesting user."""
+    with get_db_connection() as conn:
+        row = conn.execute(
+            "SELECT * FROM conversations WHERE id = ? AND user_email = ?",
+            (conversation_id, user_email.strip().lower()),
+        ).fetchone()
+        return dict(row) if row else None
+
+
+def list_conversations(user_email: str) -> list[dict]:
+    """All of a user's conversation threads, most-recently-active first."""
+    with get_db_connection() as conn:
+        rows = conn.execute(
+            "SELECT * FROM conversations WHERE user_email = ? ORDER BY last_message_at DESC",
+            (user_email.strip().lower(),),
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+
+def add_message(
+    conversation_id: int,
+    direction: str,
+    *,
+    from_addr: str | None = None,
+    to_addr: str | None = None,
+    subject: str | None = None,
+    body_text: str | None = None,
+    body_html: str | None = None,
+    raw_ref: str | None = None,
+) -> int:
+    """Appends a message to a thread and bumps the conversation's activity time."""
+    now = datetime.now(timezone.utc).isoformat()
+    with get_db_connection() as conn:
+        cur = conn.execute(
+            """INSERT INTO messages
+                   (conversation_id, direction, from_addr, to_addr, subject,
+                    body_text, body_html, received_at, raw_ref)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (conversation_id, direction, from_addr, to_addr, subject,
+             body_text, body_html, now, raw_ref),
+        )
+        conn.execute(
+            "UPDATE conversations SET last_message_at = ? WHERE id = ?",
+            (now, conversation_id),
+        )
+        conn.commit()
+        return cur.lastrowid
+
+
+def get_messages(conversation_id: int) -> list[dict]:
+    """All messages in a thread, oldest first."""
+    with get_db_connection() as conn:
+        rows = conn.execute(
+            "SELECT * FROM messages WHERE conversation_id = ? ORDER BY received_at ASC, id ASC",
+            (conversation_id,),
+        ).fetchall()
+        return [dict(r) for r in rows]
 
 def count_quote_sends(email: str, since: str | None = None) -> int:
     """Counts quote sends for a user — total, or since an ISO datetime string."""

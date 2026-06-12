@@ -7,6 +7,7 @@ Dual-mode email provider.
 import asyncio
 import hashlib
 import hmac
+import secrets
 import smtplib
 import time
 from dataclasses import dataclass
@@ -59,6 +60,13 @@ async def send_email(to: str, subject: str, html_body: str, reply_to: str) -> Se
     except Exception as exc:
         logger.error("Send failed ({} → {}): {}", current_mode, to, exc)
         return SendResult(success=False, mode=current_mode, error=str(exc))
+
+
+def new_reply_token() -> str:
+    """Mints an opaque, unguessable routing token for a conversation's Reply-To.
+    Replaces the old couple-name-derived alias (collided across couples, leaked
+    which couple, and was trivially spoofable on inbound)."""
+    return secrets.token_urlsafe(9)
 
 
 def build_reply_to(token: str) -> str:
