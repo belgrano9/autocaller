@@ -5,7 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 
 from app.db import init_db
-from app.routers import auth, billing, forms, mode, outreach, venues
+from app.routers import auth, billing, forms, inbox, mode, outreach, venues
 
 app = FastAPI(title="Devis Mariages API", version="0.1.0")
 
@@ -19,6 +19,7 @@ app.include_router(mode.router, prefix="/api")
 app.include_router(forms.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")
 app.include_router(billing.router, prefix="/api")
+app.include_router(inbox.router, prefix="/api")
 
 FRONTEND = Path(__file__).parent.parent.parent / "frontend"
 

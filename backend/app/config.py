@@ -20,6 +20,11 @@ class Settings(BaseSettings):
     test_email: str = ""
     webhook_signing_key: str = ""
 
+    # Conciergerie inbound (Brevo inbound parsing). Brevo does not HMAC-sign its
+    # inbound webhook, so we authenticate it with an unguessable secret embedded
+    # in the configured webhook URL (?secret=...) plus the routing-token lookup.
+    inbound_webhook_secret: str = ""
+
     gemini_api_key: str = ""
 
     # Supervisor account — can always log in, auto-provisioned if missing
