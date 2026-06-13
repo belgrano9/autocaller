@@ -238,8 +238,11 @@
       window.location.href = '/dashboard';
       return;
     }
-    // Swap the loading placeholder for the populated template.
+    // Swap the loading placeholder for the populated template. Drop the
+    // data-i18n="loading" marker first, otherwise the setLang() call below would
+    // reset this container's textContent back to "Loading…", wiping the card.
     const content = document.getElementById('st-content');
+    content.removeAttribute('data-i18n');
     content.className = '';
     content.innerHTML = '';
     content.appendChild(document.getElementById('st-template').content.cloneNode(true));
