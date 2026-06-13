@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Tarifs — Devis Mariages</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=DM+Sans:opsz,wght@9..40,300..600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/theme.css?v=3">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      display: flex; flex-direction: column; min-height: 100vh;
+    }
+
+    /* ── Top nav (mirrors legal pages) ── */
+    .legal-nav {
+      background: #111; padding: 14px 6%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .legal-nav-logo {
+      font-family: var(--font-display); font-size: 18px; color: #fff;
+      text-decoration: none; font-weight: 500;
+    }
+    .legal-nav-back {
+      font-size: 13px; color: rgba(255,255,255,.55); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color .15s;
+    }
+    .legal-nav-back:hover { color: #fff; }
+    .legal-nav-right { display: flex; align-items: center; gap: 18px; }
+    .nav-lang { display: flex; gap: 2px; background: rgba(255,255,255,.1); border-radius: 6px; padding: 3px; }
+    .nav-lang span {
+      font-size: 11px; font-weight: 600; letter-spacing: .03em; color: rgba(255,255,255,.5);
+      padding: 3px 9px; border-radius: 4px; cursor: pointer; transition: background .15s, color .15s;
+    }
+    .nav-lang span.active { background: #fff; color: #111; }
+
+    main { flex: 1; width: 100%; max-width: 1040px; margin: 0 auto; padding: 56px 24px 80px; }
+
+    /* ── Hero ── */
+    .pr-hero { text-align: center; max-width: 640px; margin: 0 auto 48px; }
+    .pr-eyebrow {
+      font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--gold); font-weight: 600; margin-bottom: 12px;
+    }
+    h1 {
+      font-family: var(--font-display); font-size: clamp(30px, 5vw, 44px);
+      color: var(--green-dark); font-weight: 500; line-height: 1.15; margin-bottom: 14px;
+    }
+    .pr-sub { font-size: 16px; line-height: 1.6; color: #555; }
+
+    /* ── Plan cards ── */
+    .pr-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+      align-items: stretch; margin-bottom: 16px;
+    }
+    @media (max-width: 880px) { .pr-grid { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; } }
+    .pr-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px 26px; display: flex; flex-direction: column;
+    }
+    .pr-card.featured {
+      border-color: var(--green); box-shadow: 0 8px 30px rgba(44,94,67,0.13);
+      position: relative;
+    }
+    .pr-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #fff; font-size: 11px; font-weight: 700;
+      letter-spacing: .04em; padding: 4px 14px; border-radius: 999px; white-space: nowrap;
+    }
+    .pr-name { font-family: var(--font-display); font-size: 22px; color: var(--green-dark); font-weight: 600; }
+    .pr-tagline { font-size: 13px; color: #888; margin: 4px 0 18px; }
+    .pr-price { font-size: 38px; font-weight: 700; color: var(--ink); line-height: 1; }
+    .pr-price small { font-size: 15px; font-weight: 600; color: #999; }
+    .pr-price-note { font-size: 12px; color: #aaa; margin: 6px 0 22px; }
+    .pr-feats { list-style: none; padding: 0; margin: 0 0 26px; flex: 1; }
+    .pr-feats li {
+      font-size: 14px; color: #3a3a3a; line-height: 1.45;
+      padding: 9px 0 9px 26px; position: relative; border-top: 1px solid #f1eee8;
+    }
+    .pr-feats li:first-child { border-top: none; }
+    .pr-feats li::before {
+      content: "✓"; color: var(--green); font-weight: 700; position: absolute; left: 2px; top: 9px;
+    }
+    .pr-feats li.muted { color: #a8a8a8; }
+    .pr-feats li.muted::before { content: "○"; color: #c8c8c8; }
+    .pr-soon {
+      display: inline-block; font-size: 10px; font-weight: 700; color: #8a6d1e;
+      background: #fbf4df; border-radius: 999px; padding: 1px 7px; margin-left: 4px; vertical-align: middle;
+    }
+    .pr-cta {
+      display: block; text-align: center; padding: 12px 18px; border-radius: 10px;
+      font-weight: 700; font-size: 14px; text-decoration: none; cursor: pointer;
+      border: 1px solid var(--green); transition: background .18s, color .18s;
+    }
+    .pr-cta.solid { background: var(--green); color: #fff; }
+    .pr-cta.solid:hover { background: var(--green-dark); }
+    .pr-cta.ghost { background: #fff; color: var(--green); }
+    .pr-cta.ghost:hover { background: #f3f7f4; }
+
+    .pr-allnote { text-align: center; font-size: 13px; color: #999; margin-bottom: 64px; }
+
+    /* ── Detailed explanations ── */
+    .pr-detail { max-width: 760px; margin: 0 auto 56px; }
+    .pr-detail h2 {
+      font-family: var(--font-display); font-size: clamp(22px, 3vw, 28px);
+      color: var(--green-dark); font-weight: 500; text-align: center; margin-bottom: 28px;
+    }
+    .pr-block { border-top: 1px solid var(--border); padding: 26px 0; }
+    .pr-block:last-child { border-bottom: 1px solid var(--border); }
+    .pr-block h3 { font-size: 17px; color: var(--green-dark); font-weight: 600; margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+    .pr-block h3 .pr-chip { font-size: 12px; font-weight: 700; color: var(--green); background: #eef4f0; border-radius: 6px; padding: 2px 9px; }
+    .pr-block p { font-size: 15px; line-height: 1.7; color: #444; }
+
+    /* ── FAQ ── */
+    .pr-faq { max-width: 720px; margin: 0 auto 24px; }
+    .pr-faq h2 {
+      font-family: var(--font-display); font-size: clamp(22px, 3vw, 28px);
+      color: var(--green-dark); font-weight: 500; text-align: center; margin-bottom: 28px;
+    }
+    .pr-q { border-top: 1px solid var(--border); padding: 20px 0; }
+    .pr-q:last-child { border-bottom: 1px solid var(--border); }
+    .pr-q h4 { font-size: 15px; color: var(--ink); font-weight: 600; margin-bottom: 7px; }
+    .pr-q p { font-size: 14px; line-height: 1.65; color: #555; }
+
+    @media (max-width: 600px) { main { padding: 36px 20px 60px; } }
+  </style>
+</head>
+<body>
+
+<nav class="legal-nav">
+  <a href="/" class="legal-nav-logo">Devis Mariages</a>
+  <div class="legal-nav-right">
+    <div class="nav-lang">
+      <span id="lang-fr" onclick="setLang('fr')">FR</span>
+      <span id="lang-en" onclick="setLang('en')">EN</span>
+    </div>
+    <a href="/dashboard" class="legal-nav-back" data-i18n="nav_back">← Tableau de bord</a>
+  </div>
+</nav>
+
+<main>
+  <section class="pr-hero">
+    <p class="pr-eyebrow" data-i18n="eyebrow">Tarifs</p>
+    <h1 data-i18n="title">Des forfaits clairs, sans engagement</h1>
+    <p class="pr-sub" data-i18n="subtitle">Commencez gratuitement. Passez à un forfait supérieur quand vous voulez contacter plus de lieux et centraliser leurs réponses.</p>
+  </section>
+
+  <section class="pr-grid">
+    <!-- Découverte -->
+    <div class="pr-card">
+      <div class="pr-name" data-i18n="p_free_name">Découverte</div>
+      <div class="pr-tagline" data-i18n="p_free_tag">Pour explorer</div>
+      <div class="pr-price"><span data-i18n="p_free_price">0 €</span></div>
+      <div class="pr-price-note" data-i18n="p_free_note">Gratuit, pour toujours</div>
+      <ul class="pr-feats">
+        <li data-i18n="f_browse">Accès à tous les lieux et à la carte interactive</li>
+        <li data-i18n="f_free_sends">3 demandes de devis au total (à vie)</li>
+        <li data-i18n="f_tracking">Suivi des lieux contactés</li>
+      </ul>
+      <a class="pr-cta ghost" href="/onboarding.html" data-i18n="cta_free">Créer un compte</a>
+    </div>
+
+    <!-- Plus -->
+    <div class="pr-card">
+      <div class="pr-name" data-i18n="p_plus_name">Plus</div>
+      <div class="pr-tagline" data-i18n="p_plus_tag">Pour une recherche active</div>
+      <div class="pr-price"><span data-i18n="p_plus_price">9 €</span><small data-i18n="per_month">/mois</small></div>
+      <div class="pr-price-note" data-i18n="p_plus_note">Sans engagement, annulable à tout moment</div>
+      <ul class="pr-feats">
+        <li data-i18n="f_all_free">Tout le forfait Découverte</li>
+        <li data-i18n="f_plus_sends">15 demandes de devis par mois</li>
+        <li class="muted"><span data-i18n="f_compare">Comparaison et export des devis</span> <span class="pr-soon" data-i18n="soon">Bientôt</span></li>
+      </ul>
+      <a class="pr-cta ghost" href="/dashboard?upgrade=plus" data-i18n="cta_plus">Choisir Plus</a>
+    </div>
+
+    <!-- Conciergerie -->
+    <div class="pr-card featured">
+      <span class="pr-badge" data-i18n="badge_popular">Le plus complet</span>
+      <div class="pr-name" data-i18n="p_conc_name">Conciergerie</div>
+      <div class="pr-tagline" data-i18n="p_conc_tag">Tout, sans limite</div>
+      <div class="pr-price"><span data-i18n="p_conc_price">19 €</span><small data-i18n="per_month">/mois</small></div>
+      <div class="pr-price-note" data-i18n="p_conc_note">Sans engagement, annulable à tout moment</div>
+      <ul class="pr-feats">
+        <li data-i18n="f_all_plus">Tout le forfait Plus</li>
+        <li data-i18n="f_unlimited">Demandes de devis illimitées</li>
+        <li data-i18n="f_inbox">Messagerie conciergerie : toutes les réponses des lieux réunies dans une seule boîte</li>
+        <li class="muted"><span data-i18n="f_compare">Comparaison et export des devis</span> <span class="pr-soon" data-i18n="soon">Bientôt</span></li>
+      </ul>
+      <a class="pr-cta solid" href="/dashboard?upgrade=conciergerie" data-i18n="cta_conc">Choisir Conciergerie</a>
+    </div>
+  </section>
+
+  <p class="pr-allnote" data-i18n="all_note">Tous les forfaits incluent l'accès complet au catalogue de lieux et à la carte de France. Paiement sécurisé par Stripe.</p>
+
+  <!-- Detailed explanation -->
+  <section class="pr-detail">
+    <h2 data-i18n="detail_title">Ce que comprend chaque forfait</h2>
+
+    <div class="pr-block">
+      <h3><span data-i18n="p_free_name">Découverte</span> <span class="pr-chip" data-i18n="p_free_price">0 €</span></h3>
+      <p data-i18n="detail_free">Idéal pour commencer votre recherche. Parcourez l'intégralité du catalogue, explorez la carte interactive des lieux région par région, et envoyez jusqu'à trois demandes de devis pour tester la démarche. Aucune carte bancaire requise — le forfait Découverte reste gratuit aussi longtemps que vous le souhaitez.</p>
+    </div>
+
+    <div class="pr-block">
+      <h3><span data-i18n="p_plus_name">Plus</span> <span class="pr-chip"><span data-i18n="p_plus_price">9 €</span><span data-i18n="per_month">/mois</span></span></h3>
+      <p data-i18n="detail_plus">Pensé pour les couples qui comparent sérieusement plusieurs lieux. Vous passez de trois demandes à vie à quinze demandes de devis chaque mois — de quoi contacter largement les lieux de votre liste. Le quota se renouvelle automatiquement au début de chaque mois, et vous pouvez résilier à tout moment sans frais.</p>
+    </div>
+
+    <div class="pr-block">
+      <h3><span data-i18n="p_conc_name">Conciergerie</span> <span class="pr-chip"><span data-i18n="p_conc_price">19 €</span><span data-i18n="per_month">/mois</span></span></h3>
+      <p data-i18n="detail_conc">Notre offre la plus complète. Les demandes de devis sont illimitées, et surtout, toutes les réponses des lieux arrivent dans une messagerie intégrée : plus besoin de fouiller votre boîte mail personnelle, chaque échange est regroupé par lieu dans un fil de conversation. Vous répondez directement depuis Devis Mariages, et gardez une vue d'ensemble nette de toutes vos discussions.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="pr-faq">
+    <h2 data-i18n="faq_title">Questions fréquentes</h2>
+
+    <div class="pr-q">
+      <h4 data-i18n="faq_q1">Qu'est-ce qu'une « demande de devis » ?</h4>
+      <p data-i18n="faq_a1">C'est un message que vous envoyez à un lieu pour demander ses disponibilités et ses tarifs. Chaque lieu contacté compte pour une demande. Votre quota ne décompte que les premiers envois — répondre à un lieu dans un fil existant ne consomme rien.</p>
+    </div>
+
+    <div class="pr-q">
+      <h4 data-i18n="faq_q2">Puis-je changer ou résilier mon forfait ?</h4>
+      <p data-i18n="faq_a2">Oui, à tout moment. Les forfaits payants sont sans engagement : vous pouvez passer à un niveau supérieur, redescendre ou résilier quand vous le souhaitez. Après résiliation, vous conservez l'accès jusqu'à la fin de la période déjà réglée.</p>
+    </div>
+
+    <div class="pr-q">
+      <h4 data-i18n="faq_q3">Le quota Plus est-il reporté d'un mois à l'autre ?</h4>
+      <p data-i18n="faq_a3">Non. Les quinze demandes du forfait Plus se renouvellent chaque mois et ne sont pas cumulables. Si vous prévoyez d'envoyer beaucoup de demandes d'un coup, le forfait Conciergerie illimité est plus adapté.</p>
+    </div>
+
+    <div class="pr-q">
+      <h4 data-i18n="faq_q4">Le paiement est-il sécurisé ?</h4>
+      <p data-i18n="faq_a4">Oui. Les paiements sont traités par Stripe, leader mondial du paiement en ligne. Nous ne stockons jamais vos informations bancaires.</p>
+    </div>
+  </section>
+</main>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <p class="footer-brand-name">Devis Mariages</p>
+      <p class="footer-brand-tagline" data-i18n="footer_tagline">Trouvez et contactez les meilleurs lieux de mariage partout en France.</p>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_nav_title">Explorer</p>
+      <ul class="footer-links">
+        <li><a href="/" data-i18n="footer_nav_home">Accueil</a></li>
+        <li><a href="/dashboard" data-i18n="footer_nav_dashboard">Tableau de bord</a></li>
+        <li><a href="/pricing" data-i18n="footer_nav_pricing">Tarifs</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title" data-i18n="footer_legal_title">Légal</p>
+      <ul class="footer-links">
+        <li><a href="/legal" data-i18n="footer_legal_mentions">Mentions légales</a></li>
+        <li><a href="/privacy" data-i18n="footer_legal_privacy">Confidentialité</a></li>
+        <li><a href="/terms" data-i18n="footer_legal_terms">Conditions d'utilisation</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy" data-i18n="footer_copy">© 2026 Devis Mariages · France</span>
+  </div>
+</footer>
+
+<script>
+  const T = {
+    fr: {
+      page_title: "Tarifs — Devis Mariages",
+      nav_back: "← Tableau de bord",
+      eyebrow: "Tarifs",
+      title: "Des forfaits clairs, sans engagement",
+      subtitle: "Commencez gratuitement. Passez à un forfait supérieur quand vous voulez contacter plus de lieux et centraliser leurs réponses.",
+      p_free_name: "Découverte", p_free_tag: "Pour explorer", p_free_price: "0 €", p_free_note: "Gratuit, pour toujours",
+      p_plus_name: "Plus", p_plus_tag: "Pour une recherche active", p_plus_price: "9 €", p_plus_note: "Sans engagement, annulable à tout moment",
+      p_conc_name: "Conciergerie", p_conc_tag: "Tout, sans limite", p_conc_price: "19 €", p_conc_note: "Sans engagement, annulable à tout moment",
+      per_month: "/mois",
+      badge_popular: "Le plus complet",
+      f_browse: "Accès à tous les lieux et à la carte interactive",
+      f_free_sends: "3 demandes de devis au total (à vie)",
+      f_tracking: "Suivi des lieux contactés",
+      f_all_free: "Tout le forfait Découverte",
+      f_plus_sends: "15 demandes de devis par mois",
+      f_all_plus: "Tout le forfait Plus",
+      f_unlimited: "Demandes de devis illimitées",
+      f_inbox: "Messagerie conciergerie : toutes les réponses des lieux réunies dans une seule boîte",
+      f_compare: "Comparaison et export des devis",
+      soon: "Bientôt",
+      cta_free: "Créer un compte", cta_plus: "Choisir Plus", cta_conc: "Choisir Conciergerie",
+      all_note: "Tous les forfaits incluent l'accès complet au catalogue de lieux et à la carte de France. Paiement sécurisé par Stripe.",
+      detail_title: "Ce que comprend chaque forfait",
+      detail_free: "Idéal pour commencer votre recherche. Parcourez l'intégralité du catalogue, explorez la carte interactive des lieux région par région, et envoyez jusqu'à trois demandes de devis pour tester la démarche. Aucune carte bancaire requise — le forfait Découverte reste gratuit aussi longtemps que vous le souhaitez.",
+      detail_plus: "Pensé pour les couples qui comparent sérieusement plusieurs lieux. Vous passez de trois demandes à vie à quinze demandes de devis chaque mois — de quoi contacter largement les lieux de votre liste. Le quota se renouvelle automatiquement au début de chaque mois, et vous pouvez résilier à tout moment sans frais.",
+      detail_conc: "Notre offre la plus complète. Les demandes de devis sont illimitées, et surtout, toutes les réponses des lieux arrivent dans une messagerie intégrée : plus besoin de fouiller votre boîte mail personnelle, chaque échange est regroupé par lieu dans un fil de conversation. Vous répondez directement depuis Devis Mariages, et gardez une vue d'ensemble nette de toutes vos discussions.",
+      faq_title: "Questions fréquentes",
+      faq_q1: "Qu'est-ce qu'une « demande de devis » ?",
+      faq_a1: "C'est un message que vous envoyez à un lieu pour demander ses disponibilités et ses tarifs. Chaque lieu contacté compte pour une demande. Votre quota ne décompte que les premiers envois — répondre à un lieu dans un fil existant ne consomme rien.",
+      faq_q2: "Puis-je changer ou résilier mon forfait ?",
+      faq_a2: "Oui, à tout moment. Les forfaits payants sont sans engagement : vous pouvez passer à un niveau supérieur, redescendre ou résilier quand vous le souhaitez. Après résiliation, vous conservez l'accès jusqu'à la fin de la période déjà réglée.",
+      faq_q3: "Le quota Plus est-il reporté d'un mois à l'autre ?",
+      faq_a3: "Non. Les quinze demandes du forfait Plus se renouvellent chaque mois et ne sont pas cumulables. Si vous prévoyez d'envoyer beaucoup de demandes d'un coup, le forfait Conciergerie illimité est plus adapté.",
+      faq_q4: "Le paiement est-il sécurisé ?",
+      faq_a4: "Oui. Les paiements sont traités par Stripe, leader mondial du paiement en ligne. Nous ne stockons jamais vos informations bancaires.",
+      footer_tagline: "Trouvez et contactez les meilleurs lieux de mariage partout en France.",
+      footer_nav_title: "Explorer", footer_nav_home: "Accueil", footer_nav_dashboard: "Tableau de bord", footer_nav_pricing: "Tarifs",
+      footer_legal_title: "Légal", footer_legal_mentions: "Mentions légales", footer_legal_privacy: "Confidentialité", footer_legal_terms: "Conditions d'utilisation",
+      footer_copy: "© 2026 Devis Mariages · France",
+    },
+    en: {
+      page_title: "Pricing — Devis Mariages",
+      nav_back: "← Dashboard",
+      eyebrow: "Pricing",
+      title: "Simple plans, no commitment",
+      subtitle: "Start for free. Upgrade whenever you want to contact more venues and centralise their replies.",
+      p_free_name: "Discovery", p_free_tag: "To explore", p_free_price: "€0", p_free_note: "Free, forever",
+      p_plus_name: "Plus", p_plus_tag: "For an active search", p_plus_price: "€9", p_plus_note: "No commitment, cancel anytime",
+      p_conc_name: "Concierge", p_conc_tag: "Everything, unlimited", p_conc_price: "€19", p_conc_note: "No commitment, cancel anytime",
+      per_month: "/month",
+      badge_popular: "Most complete",
+      f_browse: "Access to all venues and the interactive map",
+      f_free_sends: "3 quote requests total (lifetime)",
+      f_tracking: "Tracking of contacted venues",
+      f_all_free: "Everything in Discovery",
+      f_plus_sends: "15 quote requests per month",
+      f_all_plus: "Everything in Plus",
+      f_unlimited: "Unlimited quote requests",
+      f_inbox: "Concierge inbox: every venue reply gathered in a single mailbox",
+      f_compare: "Quote comparison and export",
+      soon: "Soon",
+      cta_free: "Create an account", cta_plus: "Choose Plus", cta_conc: "Choose Concierge",
+      all_note: "All plans include full access to the venue catalogue and the map of France. Secure payment by Stripe.",
+      detail_title: "What each plan includes",
+      detail_free: "Perfect to start your search. Browse the full catalogue, explore the interactive venue map region by region, and send up to three quote requests to try the workflow. No card required — the Discovery plan stays free for as long as you like.",
+      detail_plus: "Built for couples seriously comparing several venues. You go from three lifetime requests to fifteen quote requests every month — plenty to reach the venues on your shortlist. The quota renews automatically at the start of each month, and you can cancel anytime at no cost.",
+      detail_conc: "Our most complete offer. Quote requests are unlimited and, above all, every venue reply lands in a built-in inbox: no more digging through your personal email — each exchange is grouped by venue into a conversation thread. You reply directly from Devis Mariages and keep a clear overview of all your discussions.",
+      faq_title: "Frequently asked questions",
+      faq_q1: "What is a \"quote request\"?",
+      faq_a1: "It's a message you send to a venue asking for its availability and pricing. Each venue contacted counts as one request. Your quota only counts first contacts — replying to a venue in an existing thread costs nothing.",
+      faq_q2: "Can I change or cancel my plan?",
+      faq_a2: "Yes, anytime. Paid plans have no commitment: you can upgrade, downgrade or cancel whenever you want. After cancelling, you keep access until the end of the period already paid for.",
+      faq_q3: "Does the Plus quota roll over month to month?",
+      faq_a3: "No. The fifteen Plus requests renew each month and don't accumulate. If you plan to send many requests at once, the unlimited Concierge plan is a better fit.",
+      faq_q4: "Is payment secure?",
+      faq_a4: "Yes. Payments are handled by Stripe, a global leader in online payments. We never store your card details.",
+      footer_tagline: "Find and contact the best wedding venues across France.",
+      footer_nav_title: "Explore", footer_nav_home: "Home", footer_nav_dashboard: "Dashboard", footer_nav_pricing: "Pricing",
+      footer_legal_title: "Legal", footer_legal_mentions: "Legal Notice", footer_legal_privacy: "Privacy Policy", footer_legal_terms: "Terms of Service",
+      footer_copy: "© 2026 Devis Mariages · France",
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang) {
+    if (!T[lang]) return;
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.title = T[lang].page_title;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+    });
+    document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    // Same key the dashboard uses, so the choice carries across the site.
+    localStorage.setItem('preferred_language', lang);
+  }
+
+  // Honour the language already chosen on the dashboard (preferred_language);
+  // fall back to the legacy legal-page key, then the browser locale.
+  const saved = localStorage.getItem('preferred_language') || localStorage.getItem('lp_lang');
+  const browser = (navigator.language || 'fr').substring(0, 2);
+  setLang((saved && T[saved]) ? saved : (T[browser] ? browser : 'fr'));
+</script>
+</body>
+</html>

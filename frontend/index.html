@@ -794,6 +794,69 @@
     }
     .tier-cta.is-manage { background: #fff; color: #2c5e43; }
 
+    /* ── Conciergerie inbox modal ── */
+    .inbox-card { max-width: 860px; width: 92%; height: 78vh; display: flex; flex-direction: column; }
+    .inbox-body { display: flex; flex: 1; min-height: 0; border-top: 1px solid #eee; }
+    .inbox-list {
+      width: 38%; min-width: 220px; border-right: 1px solid #eee; overflow-y: auto;
+      background: #faf9f6;
+    }
+    .inbox-thread { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+    .inbox-empty {
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      height: 100%; color: #999; font-size: 13px; padding: 24px;
+    }
+    .inbox-li {
+      padding: 12px 16px; border-bottom: 1px solid #efece6; cursor: pointer;
+      transition: background 0.15s;
+    }
+    .inbox-li:hover { background: #f2efe9; }
+    .inbox-li.active { background: #fff; border-left: 3px solid #2c5e43; padding-left: 13px; }
+    .inbox-li-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .inbox-li-venue { font-weight: 700; font-size: 13px; color: #2c3a30; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .inbox-li-time { font-size: 10.5px; color: #aaa; flex-shrink: 0; }
+    .inbox-li-snippet { font-size: 12px; color: #888; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .inbox-li-unread { width: 7px; height: 7px; border-radius: 50%; background: #2c5e43; display: inline-block; margin-left: 6px; }
+    .inbox-thread-header {
+      padding: 12px 18px; border-bottom: 1px solid #eee; display: flex;
+      justify-content: space-between; align-items: center; gap: 10px;
+    }
+    .inbox-thread-venue { font-weight: 700; font-size: 14px; color: #2c3a30; }
+    .inbox-thread-venue small { display: block; font-weight: 500; font-size: 11.5px; color: #999; margin-top: 2px; }
+    .inbox-msgs { flex: 1; overflow-y: auto; padding: 16px 18px; background: #f7f5f1; }
+    .inbox-msg { max-width: 78%; margin-bottom: 12px; }
+    .inbox-msg.out { margin-left: auto; }
+    .inbox-bubble {
+      padding: 9px 13px; border-radius: 12px; font-size: 13px; line-height: 1.45;
+      white-space: pre-wrap; word-wrap: break-word;
+    }
+    .inbox-msg.out .inbox-bubble { background: #2c5e43; color: #fff; border-bottom-right-radius: 4px; }
+    .inbox-msg.in .inbox-bubble { background: #fff; color: #333; border: 1px solid #e6e2da; border-bottom-left-radius: 4px; }
+    .inbox-msg-meta { font-size: 10.5px; color: #aaa; margin-top: 3px; padding: 0 4px; }
+    .inbox-msg.out .inbox-msg-meta { text-align: right; }
+    .inbox-composer { border-top: 1px solid #eee; padding: 12px 16px; display: flex; gap: 10px; align-items: flex-end; }
+    .inbox-composer textarea {
+      flex: 1; resize: none; border: 1px solid #ddd; border-radius: 10px; padding: 10px 12px;
+      font-family: inherit; font-size: 13px; max-height: 120px; min-height: 42px;
+    }
+    .inbox-composer textarea:focus { outline: none; border-color: #2c5e43; }
+    .inbox-send-btn {
+      background: #2c5e43; color: #fff; border: none; border-radius: 10px; padding: 0 18px;
+      height: 42px; font-weight: 700; font-size: 13px; cursor: pointer; flex-shrink: 0;
+    }
+    .inbox-send-btn:hover { background: #224933; }
+    .inbox-send-btn:disabled { opacity: 0.5; cursor: default; }
+    .inbox-dev-bar { padding: 8px 16px; background: #fff7e6; border-top: 1px dashed #e0c97a; font-size: 11.5px; }
+    .inbox-dev-bar button {
+      margin-left: 8px; background: #d8b24a; color: #3a2e08; border: none; border-radius: 6px;
+      padding: 4px 10px; font-weight: 700; font-size: 11px; cursor: pointer;
+    }
+    .inbox-thread-placeholder { display: flex; align-items: center; justify-content: center; height: 100%; color: #bbb; font-size: 13px; }
+    @media (max-width: 640px) {
+      .inbox-card { height: 88vh; }
+      .inbox-list { width: 42%; min-width: 140px; }
+    }
+
     /* ── Responsive layout ── */
 
     /* Tighten container on medium-large screens */
@@ -839,8 +902,7 @@
   <nav>
     <a class="nav-logo" href="/">Devis Mariages</a>
     <div class="nav-links">
-      <a href="#" data-i18n="nav_venues">Nos lieux</a>
-      <a href="#" data-i18n="nav_how">Comment ça marche</a>
+      <a href="/pricing" data-i18n="nav_pricing">Tarifs</a>
       <div class="mode-toggle hidden" id="admin-mode-toggle">
         <span id="mode-dev" onclick="setMode('dev')">DEV</span>
         <span id="mode-int" onclick="setMode('int')">INT</span>
@@ -858,7 +920,11 @@
             <span class="user-menu-plan" id="menu-plan"></span>
           </div>
           <div class="user-menu-body">
-            <button class="user-menu-item" onclick="openSettingsModal()">
+            <button class="user-menu-item" onclick="openInboxModal()">
+              <span class="user-menu-ico">✉</span><span data-i18n="menu_inbox">Messagerie</span>
+              <span id="menu-inbox-badge" class="user-menu-plan hidden" style="margin-left:auto;background:#2c5e43;color:#fff"></span>
+            </button>
+            <button class="user-menu-item" onclick="window.location.href='/settings'">
               <span class="user-menu-ico">⚙</span><span data-i18n="menu_settings">Paramètres</span>
             </button>
             <button class="user-menu-item danger" onclick="logout()">
@@ -1024,37 +1090,27 @@
     </div>
   </div>
 
-  <!-- Pricing / tiers modal -->
-  <!-- Account settings modal -->
-  <div id="settings-modal" class="modal-overlay hidden">
-    <div class="modal-card" style="max-width:440px">
+  <!-- Account settings now live on the dedicated /settings page. -->
+
+  <!-- Conciergerie inbox modal -->
+  <div id="inbox-modal" class="modal-overlay hidden">
+    <div class="modal-card inbox-card">
       <div class="modal-header">
-        <h3 data-i18n="settings_title">Paramètres du compte</h3>
-        <button class="modal-close" onclick="closeSettingsModal()">&times;</button>
+        <h3 data-i18n="inbox_title">Messagerie conciergerie</h3>
+        <button class="modal-close" onclick="closeInboxModal()">&times;</button>
       </div>
-      <div class="settings-row">
-        <span class="settings-label" data-i18n="settings_name_label">Nom</span>
-        <span class="settings-value" id="settings-name"></span>
+      <div class="inbox-dev-bar hidden" id="inbox-dev-bar">
+        <span data-i18n="inbox_dev_hint">Mode DEV — simuler une réponse du lieu :</span>
+        <button onclick="simulateInboundReply()" data-i18n="inbox_dev_btn">Simuler une réponse</button>
       </div>
-      <div class="settings-row">
-        <span class="settings-label" data-i18n="settings_email_label">Email</span>
-        <span class="settings-value" id="settings-email"></span>
+      <div class="inbox-body">
+        <div class="inbox-list" id="inbox-list"></div>
+        <div class="inbox-thread" id="inbox-thread">
+          <div class="inbox-thread-placeholder" id="inbox-thread-placeholder" data-i18n="inbox_select_hint">
+            Sélectionnez une conversation
+          </div>
+        </div>
       </div>
-      <div class="settings-row">
-        <span class="settings-label" data-i18n="settings_plan_label">Forfait</span>
-        <span style="display:flex;align-items:center;gap:10px">
-          <span class="settings-value" id="settings-plan"></span>
-          <button class="settings-manage-btn" onclick="closeSettingsModal(); openPricingModal();" data-i18n="settings_manage">Gérer</button>
-        </span>
-      </div>
-      <div class="settings-row">
-        <span class="settings-label" data-i18n="settings_language_label">Langue</span>
-        <span class="settings-lang">
-          <span id="settings-lang-fr" onclick="setLanguage('fr'); renderSettingsModal();">FR</span>
-          <span id="settings-lang-en" onclick="setLanguage('en'); renderSettingsModal();">EN</span>
-        </span>
-      </div>
-      <a class="settings-reset" onclick="closeSettingsModal(); resetProfile();" data-i18n="settings_reset">Réinitialiser le profil</a>
     </div>
   </div>
 
@@ -1179,10 +1235,26 @@
         page_title: "Devis Mariages",
         nav_venues: "Nos lieux",
         nav_how: "Comment ça marche",
+        nav_pricing: "Tarifs",
         nav_guest: "Mode Invité",
         nav_hello: "Bonjour",
         menu_settings: "Paramètres",
         menu_logout: "Déconnexion",
+        menu_inbox: "Messagerie",
+        inbox_title: "Messagerie conciergerie",
+        inbox_select_hint: "Sélectionnez une conversation",
+        inbox_empty: "Aucune conversation pour l'instant. Vos échanges avec les lieux apparaîtront ici.",
+        inbox_load_error: "Impossible de charger la messagerie.",
+        inbox_composer_placeholder: "Écrivez votre réponse…",
+        inbox_send: "Envoyer",
+        inbox_sending: "Envoi…",
+        inbox_reply_error: "L'envoi de la réponse a échoué.",
+        inbox_msg_you: "Vous",
+        inbox_msg_venue: "Le lieu",
+        inbox_venue_unknown: "Lieu",
+        inbox_dev_hint: "Mode DEV — simuler une réponse du lieu :",
+        inbox_dev_btn: "Simuler une réponse",
+        inbox_dev_no_thread: "Ouvrez d'abord une conversation à simuler.",
         settings_title: "Paramètres du compte",
         settings_name_label: "Nom",
         settings_email_label: "Email",
@@ -1349,10 +1421,26 @@
         page_title: "Wedding Quotes",
         nav_venues: "Venues",
         nav_how: "How it works",
+        nav_pricing: "Pricing",
         nav_guest: "Guest Mode",
         nav_hello: "Hello",
         menu_settings: "Settings",
         menu_logout: "Log out",
+        menu_inbox: "Inbox",
+        inbox_title: "Concierge inbox",
+        inbox_select_hint: "Select a conversation",
+        inbox_empty: "No conversations yet. Your exchanges with venues will show up here.",
+        inbox_load_error: "Could not load the inbox.",
+        inbox_composer_placeholder: "Write your reply…",
+        inbox_send: "Send",
+        inbox_sending: "Sending…",
+        inbox_reply_error: "Failed to send the reply.",
+        inbox_msg_you: "You",
+        inbox_msg_venue: "Venue",
+        inbox_venue_unknown: "Venue",
+        inbox_dev_hint: "DEV mode — simulate a venue reply:",
+        inbox_dev_btn: "Simulate a reply",
+        inbox_dev_no_thread: "Open a conversation to simulate first.",
         settings_title: "Account settings",
         settings_name_label: "Name",
         settings_email_label: "Email",
@@ -2332,25 +2420,195 @@
       window.location.href = "/";
     }
 
-    function openSettingsModal() {
+    // ── Conciergerie inbox ────────────────────────────────────────────────────
+    let inboxThreadId = null;        // currently open conversation id
+    let inboxThread = null;          // {conversation, messages} of the open thread
+
+    function escapeHtml(s) {
+      return String(s == null ? "" : s)
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+    }
+
+    // Compact relative time, bilingual ("il y a 3 h" / "3h ago").
+    function inboxRelTime(iso) {
+      if (!iso) return "";
+      const then = new Date(iso).getTime();
+      if (isNaN(then)) return "";
+      const s = Math.max(0, (Date.now() - then) / 1000);
+      const en = currentLang === "en";
+      if (s < 60) return en ? "now" : "à l'instant";
+      const m = Math.floor(s / 60);
+      if (m < 60) return en ? `${m}m ago` : `il y a ${m} min`;
+      const h = Math.floor(m / 60);
+      if (h < 24) return en ? `${h}h ago` : `il y a ${h} h`;
+      const d = Math.floor(h / 24);
+      if (d < 30) return en ? `${d}d ago` : `il y a ${d} j`;
+      return new Date(iso).toLocaleDateString(en ? "en-GB" : "fr-FR");
+    }
+
+    function openInboxModal() {
       closeUserMenu();
-      renderSettingsModal();
-      document.getElementById("settings-modal").classList.remove("hidden");
+      // Dev simulate bar is supervisor-only (mirrors the DEV/INT mode toggle).
+      document.getElementById("inbox-dev-bar").classList.toggle(
+        "hidden", !(userProfile && userProfile.is_admin)
+      );
+      document.getElementById("inbox-modal").classList.remove("hidden");
+      loadInbox();
     }
 
-    function closeSettingsModal() {
-      document.getElementById("settings-modal").classList.add("hidden");
+    function closeInboxModal() {
+      document.getElementById("inbox-modal").classList.add("hidden");
     }
 
-    function renderSettingsModal() {
-      if (!userProfile) return;
-      document.getElementById("settings-name").textContent = userProfile.name || "";
-      document.getElementById("settings-email").textContent = userProfile.email || "";
-      const plan = userProfile.plan || "free";
-      document.getElementById("settings-plan").textContent = PLAN_NAMES()[plan] || PLAN_NAMES().free;
-      document.getElementById("settings-lang-fr").classList.toggle("active", currentLang === "fr");
-      document.getElementById("settings-lang-en").classList.toggle("active", currentLang === "en");
+    async function loadInbox() {
+      const t = TRANSLATIONS[currentLang];
+      const listEl = document.getElementById("inbox-list");
+      listEl.innerHTML = "";
+      try {
+        const res = await authFetch("/api/inbox");
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        renderInboxList(data.conversations || []);
+      } catch (err) {
+        if (err.message === "session_expired") return;
+        listEl.innerHTML = `<div class="inbox-empty">${t.inbox_load_error}</div>`;
+      }
     }
+
+    function renderInboxList(convos) {
+      const t = TRANSLATIONS[currentLang];
+      const listEl = document.getElementById("inbox-list");
+      updateInboxBadge(convos.length);
+      if (!convos.length) {
+        listEl.innerHTML = `<div class="inbox-empty">${t.inbox_empty}</div>`;
+        return;
+      }
+      listEl.innerHTML = convos.map(c => `
+        <div class="inbox-li ${c.id === inboxThreadId ? "active" : ""}" data-id="${c.id}">
+          <div class="inbox-li-top">
+            <span class="inbox-li-venue">${escapeHtml(c.venue_name || t.inbox_venue_unknown)}</span>
+            <span class="inbox-li-time">${inboxRelTime(c.last_message_at)}</span>
+          </div>
+          <div class="inbox-li-snippet">${escapeHtml(c.venue_email || "")}</div>
+        </div>`).join("");
+      listEl.querySelectorAll(".inbox-li").forEach(li => {
+        li.addEventListener("click", () => openInboxThread(Number(li.dataset.id)));
+      });
+    }
+
+    function updateInboxBadge(n) {
+      const badge = document.getElementById("menu-inbox-badge");
+      if (!badge) return;
+      badge.textContent = n > 0 ? String(n) : "";
+      badge.classList.toggle("hidden", !n);
+    }
+
+    async function openInboxThread(id) {
+      const t = TRANSLATIONS[currentLang];
+      inboxThreadId = id;
+      // reflect selection in the list
+      document.querySelectorAll(".inbox-li").forEach(li =>
+        li.classList.toggle("active", Number(li.dataset.id) === id));
+      const pane = document.getElementById("inbox-thread");
+      try {
+        const res = await authFetch(`/api/inbox/${id}`);
+        if (!res.ok) throw new Error(res.status);
+        inboxThread = await res.json();
+        renderInboxThread();
+      } catch (err) {
+        if (err.message === "session_expired") return;
+        pane.innerHTML = `<div class="inbox-thread-placeholder">${t.inbox_load_error}</div>`;
+      }
+    }
+
+    function renderInboxThread() {
+      const t = TRANSLATIONS[currentLang];
+      const pane = document.getElementById("inbox-thread");
+      if (!inboxThread) return;
+      const c = inboxThread.conversation;
+      const msgs = inboxThread.messages || [];
+      const bubbles = msgs.map(m => {
+        const out = m.direction === "out";
+        const who = out ? t.inbox_msg_you : t.inbox_msg_venue;
+        const text = m.body_text || stripHtmlToText(m.body_html) || "";
+        return `<div class="inbox-msg ${out ? "out" : "in"}">
+            <div class="inbox-bubble">${escapeHtml(text)}</div>
+            <div class="inbox-msg-meta">${who} · ${inboxRelTime(m.received_at)}</div>
+          </div>`;
+      }).join("");
+      pane.innerHTML = `
+        <div class="inbox-thread-header">
+          <div class="inbox-thread-venue">${escapeHtml(c.venue_name || t.inbox_venue_unknown)}
+            <small>${escapeHtml(c.venue_email || "")}</small>
+          </div>
+        </div>
+        <div class="inbox-msgs" id="inbox-msgs">${bubbles}</div>
+        <div class="inbox-composer">
+          <textarea id="inbox-reply-text" rows="1" placeholder="${t.inbox_composer_placeholder}"
+            oninput="autoGrowReply(this)"></textarea>
+          <button class="inbox-send-btn" id="inbox-send-btn" onclick="sendInboxReply()">${t.inbox_send}</button>
+        </div>`;
+      const msgsEl = document.getElementById("inbox-msgs");
+      msgsEl.scrollTop = msgsEl.scrollHeight;
+    }
+
+    // Plain-text fallback when an inbound message only carried HTML.
+    function stripHtmlToText(html) {
+      if (!html) return "";
+      const tmp = document.createElement("div");
+      tmp.innerHTML = html;
+      return (tmp.textContent || tmp.innerText || "").trim();
+    }
+
+    function autoGrowReply(el) {
+      el.style.height = "auto";
+      el.style.height = Math.min(120, el.scrollHeight) + "px";
+    }
+
+    async function sendInboxReply() {
+      const t = TRANSLATIONS[currentLang];
+      const ta = document.getElementById("inbox-reply-text");
+      const btn = document.getElementById("inbox-send-btn");
+      const text = (ta.value || "").trim();
+      if (!text || !inboxThreadId) return;
+      // Plain text → minimal HTML body (escaped, newlines preserved).
+      const html = escapeHtml(text).replace(/\n/g, "<br>");
+      btn.disabled = true; btn.textContent = t.inbox_sending;
+      try {
+        const res = await authFetch(`/api/inbox/${inboxThreadId}/reply`, {
+          method: "POST",
+          body: JSON.stringify({ body_html: html, body_text: text }),
+        });
+        if (!res.ok) throw new Error(res.status);
+        ta.value = "";
+        await openInboxThread(inboxThreadId);   // refresh thread with the new message
+        loadInbox();                            // bump its position/time in the list
+      } catch (err) {
+        if (err.message === "session_expired") return;
+        alert(t.inbox_reply_error);
+      } finally {
+        btn.disabled = false; btn.textContent = t.inbox_send;
+      }
+    }
+
+    // Dev-only: inject a fake venue reply into the open thread (backend gates to DEV).
+    async function simulateInboundReply() {
+      const t = TRANSLATIONS[currentLang];
+      if (!inboxThread || !inboxThread.conversation) { alert(t.inbox_dev_no_thread); return; }
+      try {
+        const res = await authFetch("/api/inbox/_simulate", {
+          method: "POST",
+          body: JSON.stringify({ reply_token: inboxThread.conversation.reply_token }),
+        });
+        if (!res.ok) { alert((await res.json().catch(() => ({}))).detail || res.status); return; }
+        await openInboxThread(inboxThreadId);
+        loadInbox();
+      } catch (err) {
+        if (err.message !== "session_expired") alert(t.inbox_reply_error);
+      }
+    }
+
 
     // Close the account dropdown when clicking anywhere outside it.
     document.addEventListener("click", e => {
@@ -2375,8 +2633,8 @@
       } else {
         document.getElementById("user-display").textContent = `${guestText} 👤`;
       }
-      // Language lives in the settings modal for logged-in users; guests keep the
-      // navbar toggle since they have no account menu to reach it.
+      // Logged-in users change language on the /settings page (and the account
+      // menu); guests keep the navbar toggle since they have no account menu.
       document.getElementById("lang-toggle").classList.toggle("hidden", !!userProfile);
       renderPlanUI();
 
@@ -2733,6 +2991,16 @@
       } else if (status === "cancel") {
         alert(t.checkout_canceled);
       }
+    }
+
+    // Opens the pricing modal when redirected from the pricing page with
+    // ?upgrade=plus|conciergerie. Guests are sent to sign up instead.
+    function handleUpgradeParam() {
+      const want = new URLSearchParams(window.location.search).get("upgrade");
+      if (!want) return;
+      history.replaceState(null, "", window.location.pathname);
+      if (isGuest || !userProfile) { promptSignup(); return; }
+      openPricingModal();
     }
 
     // Records a successful outreach action: stamps contact time, advances status
@@ -3154,6 +3422,10 @@
 
       // Surface the result of a Stripe Checkout redirect (?checkout=success|cancel)
       handleCheckoutReturn();
+
+      // Arriving from the pricing page (?upgrade=plus|conciergerie): open the
+      // pricing modal so the visitor can complete the upgrade.
+      handleUpgradeParam();
 
       try {
         allVenues = await fetch("/api/venues").then(r => {

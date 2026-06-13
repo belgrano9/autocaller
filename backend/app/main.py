@@ -35,6 +35,14 @@ async def serve_dashboard():
 
 # Clean URLs for the static legal pages the footer links to (StaticFiles
 # does not append ".html", so /legal etc. would otherwise 404).
+@app.get("/pricing")
+async def serve_pricing():
+    return FileResponse(FRONTEND / "pricing.html")
+
+@app.get("/settings")
+async def serve_settings():
+    return FileResponse(FRONTEND / "settings.html")
+
 @app.get("/legal")
 async def serve_legal():
     return FileResponse(FRONTEND / "legal.html")
