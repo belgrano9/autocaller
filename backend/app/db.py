@@ -61,6 +61,21 @@ def init_db():
         _ensure_column(conn, "users", "plan_period_end", "TEXT")
         _ensure_column(conn, "users", "stripe_customer_id", "TEXT")
         _ensure_column(conn, "users", "stripe_subscription_id", "TEXT")
+        # Signup timestamp — anchor for realized-lifetime (L) measurement. Null
+        # for rows predating this column (true signup date unknown).
+        _ensure_column(conn, "users", "created_at", "TEXT")
+        # Plan-change event log — every plan/status transition, append-only. Feeds
+        # the term-vs-monthly pricing decision (how long couples actually stay).
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS plan_events (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT NOT NULL,
+                plan TEXT,
+                plan_status TEXT,
+                source TEXT,
+                changed_at TEXT NOT NULL
+            )
+        """)
         # Quote-send log — source of truth for tier send caps
         conn.execute("""
             CREATE TABLE IF NOT EXISTS quote_sends (
@@ -126,10 +141,16 @@ def create_user(email: str, name: str, password: str) -> bool:
     """Creates a new user in the database."""
     try:
         pw_hash = hash_password(password)
+        now = datetime.now(timezone.utc).isoformat()
+        clean_email = email.strip().lower()
         with get_db_connection() as conn:
             conn.execute(
-                "INSERT INTO users (email, name, password_hash) VALUES (?, ?, ?)",
-                (email.strip().lower(), name.strip(), pw_hash)
+                "INSERT INTO users (email, name, password_hash, created_at) VALUES (?, ?, ?, ?)",
+                (clean_email, name.strip(), pw_hash, now)
+            )
+            conn.execute(
+                "INSERT INTO plan_events (email, plan, plan_status, source, changed_at) VALUES (?, ?, ?, ?, ?)",
+                (clean_email, "free", None, "signup", now),
             )
             conn.commit()
         return True
@@ -345,11 +366,12 @@ def get_user_by_stripe_customer(customer_id: str) -> dict | None:
         logger.error(f"Error fetching user by stripe customer {customer_id}: {e}")
     return None
 
-def set_billing(email: str, **fields) -> bool:
+def set_billing(email: str, source: str | None = None, **fields) -> bool:
     """Partial-update of billing columns. Only provided keys are written.
 
     Allowed: plan, plan_status, plan_period_end, stripe_customer_id,
-    stripe_subscription_id.
+    stripe_subscription_id. When plan or plan_status moves, a plan_events row is
+    appended (source = why, e.g. "webhook", "checkout") for L measurement.
     """
     allowed = {
         "plan", "plan_status", "plan_period_end",
@@ -358,13 +380,43 @@ def set_billing(email: str, **fields) -> bool:
     updates = {k: v for k, v in fields.items() if k in allowed}
     if not updates:
         return False
+    clean_email = email.strip().lower()
+    logs_event = "plan" in updates or "plan_status" in updates
     set_clause = ", ".join(f"{k} = ?" for k in updates)
-    params = list(updates.values()) + [email.strip().lower()]
+    params = list(updates.values()) + [clean_email]
     try:
         with get_db_connection() as conn:
             conn.execute(f"UPDATE users SET {set_clause} WHERE email = ?", params)
+            if logs_event:
+                # Record the resulting plan/status, reading back any field this
+                # call didn't set, so each event is a full snapshot.
+                row = conn.execute(
+                    "SELECT plan, plan_status FROM users WHERE email = ?", (clean_email,)
+                ).fetchone()
+                if row:
+                    conn.execute(
+                        "INSERT INTO plan_events (email, plan, plan_status, source, changed_at) "
+                        "VALUES (?, ?, ?, ?, ?)",
+                        (clean_email, row["plan"], row["plan_status"], source,
+                         datetime.now(timezone.utc).isoformat()),
+                    )
             conn.commit()
         return True
     except Exception as e:
         logger.error(f"Error updating billing for {email}: {e}")
         return False
+
+
+def get_plan_events(email: str | None = None) -> list[dict]:
+    """Plan-change events, oldest first — for one user or all (L analysis)."""
+    with get_db_connection() as conn:
+        if email:
+            rows = conn.execute(
+                "SELECT * FROM plan_events WHERE email = ? ORDER BY changed_at ASC, id ASC",
+                (email.strip().lower(),),
+            ).fetchall()
+        else:
+            rows = conn.execute(
+                "SELECT * FROM plan_events ORDER BY changed_at ASC, id ASC"
+            ).fetchall()
+        return [dict(r) for r in rows]

@@ -116,6 +116,7 @@ def _apply_subscription(sub: dict):
 
     db.set_billing(
         user["email"],
+        source="subscription",
         plan=plan if status in ("active", "trialing") else user.get("plan") or "free",
         plan_status=status,
         plan_period_end=period_end_iso,
@@ -150,7 +151,8 @@ async def stripe_webhook(request: Request):
         user = db.get_user_by_stripe_customer(obj.get("customer"))
         if user:
             db.set_billing(
-                user["email"], plan="free", plan_status="canceled",
+                user["email"], source="subscription_deleted",
+                plan="free", plan_status="canceled",
                 stripe_subscription_id=None,
             )
             logger.info("Webhook: {} subscription canceled → free", user["email"])
